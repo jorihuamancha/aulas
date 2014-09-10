@@ -1,0 +1,7 @@
+parameters:
+#    cresta_aulas.example.class: Cresta\AulasBundle\Example
+
+services:
+#    cresta_aulas.example:
+#        class: %cresta_aulas.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,3 @@
+cresta_aulas_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: CrestaAulasBundle:Default:index }
