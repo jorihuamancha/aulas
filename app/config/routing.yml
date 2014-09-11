@@ -1,4 +1,0 @@
-cresta_aulas:
-    resource: "@CrestaAulasBundle/Resources/config/routing.yml"
-    prefix:   /
-
