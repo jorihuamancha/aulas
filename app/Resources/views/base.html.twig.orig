@@ -1,5 +1,9 @@
 <!doctype html>
+<<<<<<< HEAD
+<!-- Lo hizo Ale Cabane-->
+=======
 <!-- Designed by Alejandro Cabane -->
+>>>>>>> 90b440b912938f0f29fae8307a30142b4ac98e40
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
@@ -52,7 +56,10 @@
       				Reservas <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
+<<<<<<< HEAD
+=======
     							<li><a href="#">Listado de reservas</a></li>
+>>>>>>> 90b440b912938f0f29fae8307a30142b4ac98e40
                                 <li><a href="#">Nueva reserva</a></li>
                                 <li><a href="#">Modificar reserva</a></li>
                                 <li><a href="#">Eliminar reserva</a></li>
@@ -148,8 +155,12 @@
     			<ul  class= "dropdown-menu"  role= "menu" >
                                 <li><a href="#">Descargas</a></li>
                                 <li><a href="#">Movimientos</a></li>
+<<<<<<< HEAD
+                                
+=======
                                 <li><a href="{{ path('_ayuda') }}">Ayuda</a></li>
                                 <li><a href="{{ path('_acercade') }}">Acerca de..</a></li>
+>>>>>>> 90b440b912938f0f29fae8307a30142b4ac98e40
     			</ul> 
   			</li>
 		</ul>
@@ -170,4 +181,8 @@
 	</footer>
 </div>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 90b440b912938f0f29fae8307a30142b4ac98e40
