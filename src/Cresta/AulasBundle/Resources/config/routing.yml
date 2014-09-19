@@ -1,3 +1,7 @@
 cresta_aulas_homepage:
     path:     /hello/{name}
     defaults: { _controller: CrestaAulasBundle:Default:index }
+
+_acercade:
+    path:     /acercade
+    defaults: { _controller: CrestaAulasBundle:Default:acercade }
