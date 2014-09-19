@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Designed by Alejandro Cabane -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
@@ -27,7 +28,7 @@
     <img src="{{ asset('img/logo.jpg') }}" alt="Logo CRESTA" />
 	</div>
 	<div class="col-md-9 col-sm-9 col-xs-12">
-	<div id="userLogueado" class="hidden-xs"> <span>Usuario:</span> Alejandro Cabane </div>
+	<div id="userLogueado"> <span>Usuario:</span> Alejandro Cabane </div>
 	</div>
 </header>
 <nav class="navbar  navbar-default" role="navigation">
@@ -51,6 +52,7 @@
       				Reservas <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
+    							<li><a href="#">Listado de reservas</a></li>
                                 <li><a href="#">Nueva reserva</a></li>
                                 <li><a href="#">Modificar reserva</a></li>
                                 <li><a href="#">Eliminar reserva</a></li>
@@ -146,6 +148,7 @@
     			<ul  class= "dropdown-menu"  role= "menu" >
                                 <li><a href="#">Descargas</a></li>
                                 <li><a href="#">Movimientos</a></li>
+                                <li><a href="{{ path('_ayuda') }}">Ayuda</a></li>
                                 <li><a href="{{ path('_acercade') }}">Acerca de..</a></li>
     			</ul> 
   			</li>

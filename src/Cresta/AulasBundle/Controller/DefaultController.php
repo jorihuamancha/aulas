@@ -15,4 +15,9 @@ class DefaultController extends Controller
     {
         return $this->render('CrestaAulasBundle:Default:acercade.html.twig', array());
     }
+
+    public function ayudaAction()
+    {
+        return $this->render('CrestaAulasBundle:Default:ayuda.html.twig', array());
+    }
 }

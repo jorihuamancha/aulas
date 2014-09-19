@@ -5,3 +5,7 @@ cresta_aulas_homepage:
 _acercade:
     path:     /acercade
     defaults: { _controller: CrestaAulasBundle:Default:acercade }
+
+_ayuda:
+    path:     /ayuda
+    defaults: { _controller: CrestaAulasBundle:Default:ayuda }
