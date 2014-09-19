@@ -14,7 +14,7 @@ class Curso
 {
     /**
      * @var integer
-     *
+     * 
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -32,6 +32,7 @@ class Curso
      * @var integer
      *
      * @ORM\Column(name="idCarrera", type="integer")
+	 * @ORM\ManyToOne targetEntity="Carrera", mappedBy="id"
      */
     private $idCarrera;
 

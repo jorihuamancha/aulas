@@ -1,0 +1,101 @@
+#userLogueado{
+	text-align:right;
+}
+#logo{
+	text-align:left;
+	margin-left:-40px;
+}
+.container{
+	background-color:#FFF;
+}
+
+body{
+	background-color:#CCC;
+	font-family:Arial,Helvetica,sans-serif;
+}
+
+header{
+	border-bottom:3px solid #E3680B;
+}
+
+nav{
+	border-bottom:3px solid #E3680B;
+}
+
+footer{
+	text-align:center;
+	border-top:3px solid #E3680B;
+}
+
+nav ul li a:link,nav ul li a:visited{
+	text-decoration:none;
+	font-size:12px;
+	font-weight:bold;
+	color:#E3680B;
+	padding:10px;
+}	
+
+nav ul li a:hover{
+	text-decoration:none;
+	font-weight:bold;
+	font-size:12px;
+	color:#000;
+}
+
+.dropdown-menu a:link, .dropdown-menu a:visited, .dropdown-menu a:hover {
+	text-decoration:none;
+	color:gray;	
+	font-size:10px;
+}
+
+.btnnormal{
+	margin: 0px;
+}
+
+#userLogueado span {
+	font-weight: bold;
+}
+.dropdown-toggle{
+	min-width:90px;
+	text-align:center;
+}
+.dropdown-menu{
+	margin-left:15px;
+}
+
+.dropdown-header {
+	color:black;
+	font-weight: bold;
+	margin-left:-10px;
+	font-size:12px;
+}
+.navbar-collapse, .container-fluid {
+	padding-left:0px;
+	padding-right:0px;
+}
+#ayuda h3{
+	margin-left:15px;
+	text-decoration: underline;
+	font-weight: bold;
+}
+#ayuda h4{
+	margin-left: 30px;
+	text-decoration: underline;
+	font-weight: bold;
+}
+#ayuda h5{
+	font-weight: bold;
+	margin-left: 15px;
+}
+#ayuda h6{
+	margin-left: 30px;
+}
+#cuadroAyuda{
+	background-color: #EEE;
+	border:1px solid #CCC;
+	margin-left:50px;
+	margin-right:50px;
+	margin-top:10px;
+	border-radius:5px;
+
+}

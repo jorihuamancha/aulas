@@ -2,3 +2,21 @@ cresta_aulas:
     resource: "@CrestaAulasBundle/Resources/config/routing.yml"
     prefix:   /
 
+#enrutamiento para la página de ayuda de la aplicación
+#la primera parte es el nombre del bundle donde esta el controlador (CrestaAulasBundle)
+#la segunda parte es el nombre de la clase del controlador (Default)
+#la tercera parte es la accion y el metodo que se ejecuta dentro del controlador (ayuda)
+
+#pagina_ayuda:
+#    pattern: /ayuda
+#    defaults: { _controller: CrestaAulasBundle:Default:ayuda }
+
+#pagina_acercade:
+#    pattern: /acercade
+#    defaults: { _controller: CrestaAulasBundle:Default:acercade }
+
+#Antes de entrar a /ayuda hay que hacer el SitioController.php
+pagina_estatica:
+    pattern: /{pagina}
+    defaults: { _controller: CrestaAulasBundle:Sitio:estatica }
+

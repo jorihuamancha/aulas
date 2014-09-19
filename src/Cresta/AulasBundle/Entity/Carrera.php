@@ -18,6 +18,7 @@ class Carrera
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+	 * @ORM\OneToMany(targetEntity="Curso", mappedBy="idCarrera")
      */
     private $id;
 
