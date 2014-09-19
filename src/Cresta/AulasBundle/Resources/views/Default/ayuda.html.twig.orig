@@ -1,11 +1,14 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}Acerca De{% endblock %}
+{% block title %}Ayuda{% endblock %}
 
 {% block body %}
-<<<<<<< HEAD
 	<div id="ayuda" class="col-md-12 col-sm-12 col-xs-12">
+<<<<<<< HEAD
 		<h3>Página de ayuda del sistema Asignación de Aulas.</h3>
+=======
+		<h3>Ayuda</h3>
+>>>>>>> 31808690c0c92197c007a264fb9d618ff16b4c4f
 			<h4>Reservas</h4>
 				<div id="cuadroAyuda"><h5>Nueva reserva</h5>
 					<h6>Texto de prueba</h6></div>
@@ -82,29 +85,3 @@
 	</div>
     
 {% endblock %}
-=======
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-    Página de Ayuda </br>
-{% endblock %}
->>>>>>> 90b440b912938f0f29fae8307a30142b4ac98e40

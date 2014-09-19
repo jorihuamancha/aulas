@@ -73,6 +73,7 @@ nav ul li a:hover{
 	padding-left:0px;
 	padding-right:0px;
 }
+<<<<<<< HEAD
 #ayuda h3{
 	margin-left:15px;
 	text-decoration: underline;
@@ -98,4 +99,11 @@ nav ul li a:hover{
 	margin-top:10px;
 	border-radius:5px;
 }
+=======
 
+#ayuda h3{ margin-left:15px; }
+#ayuda h4{ margin-left: 30px; text-decoration: underline; font-weight: bold; }
+#ayuda h5{ font-weight: bold; margin-left: 15px; }
+#ayuda h6{ margin-left: 30px; }
+#cuadroAyuda{ background-color: #EEE; border:1px solid #CCC; margin-left:50px; margin-right:50px; margin-top:5px; margin-bottom:5px; border-radius:5px; }
+>>>>>>> 31808690c0c92197c007a264fb9d618ff16b4c4f
