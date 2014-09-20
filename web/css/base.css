@@ -79,3 +79,23 @@ nav ul li a:hover{
 #ayuda h5{ font-weight: bold; margin-left: 5%; }
 #ayuda h6{ margin-left: 10%; }
 .cuadroAyuda{ background-color: #EEE; border:1px solid #CCC; margin-left:5%; margin-right:5%; margin-top:5px; margin-bottom:5px; border-radius:5px; }
+#indiceSeccion { 
+	background-color: #FFF;
+	border:1px solid #CCC;
+	border-radius: 5px;
+	margin-top:10px;
+	}
+#ayuda a:link,a:visited{
+	text-decoration: none;
+	color:#000;
+}
+#ayuda a:hover{
+	text-decoration: none;
+	color:#E3680B;	
+}
+#ayuda a{
+	text-decoration:none;
+	color:#000;
+}
+
+};
