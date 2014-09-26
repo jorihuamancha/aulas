@@ -24,16 +24,9 @@ class Curso
     /**
      * @var string
      *
-     * @ORM\Column(name="ano", type="string", length=45)
+     * @ORM\Column(name="anio", type="string", length=45)
      */
-    private $ano;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="idCarrera", type="integer")
-     */
-    private $idCarrera;
+    private $anio;
 
 
     /**
@@ -47,48 +40,25 @@ class Curso
     }
 
     /**
-     * Set ano
+     * Set anio
      *
-     * @param string $ano
+     * @param string $anio
      * @return Curso
      */
-    public function setAno($ano)
+    public function setAnio($anio)
     {
-        $this->ano = $ano;
+        $this->anio = $anio;
 
         return $this;
     }
 
     /**
-     * Get ano
+     * Get anio
      *
      * @return string 
      */
-    public function getAno()
+    public function getAnio()
     {
-        return $this->ano;
-    }
-
-    /**
-     * Set idCarrera
-     *
-     * @param integer $idCarrera
-     * @return Curso
-     */
-    public function setIdCarrera($idCarrera)
-    {
-        $this->idCarrera = $idCarrera;
-
-        return $this;
-    }
-
-    /**
-     * Get idCarrera
-     *
-     * @return integer 
-     */
-    public function getIdCarrera()
-    {
-        return $this->idCarrera;
+        return $this->anio;
     }
 }

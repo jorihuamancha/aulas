@@ -35,13 +35,6 @@ class Usuario
      */
     private $activo;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="idPersona", type="integer")
-     */
-    private $idPersona;
-
 
     /**
      * Get id
@@ -97,28 +90,5 @@ class Usuario
     public function getActivo()
     {
         return $this->activo;
-    }
-
-    /**
-     * Set idPersona
-     *
-     * @param integer $idPersona
-     * @return Usuario
-     */
-    public function setIdPersona($idPersona)
-    {
-        $this->idPersona = $idPersona;
-
-        return $this;
-    }
-
-    /**
-     * Get idPersona
-     *
-     * @return integer 
-     */
-    public function getIdPersona()
-    {
-        return $this->idPersona;
     }
 }
