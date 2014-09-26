@@ -69,27 +69,38 @@ class Reserva
      * @ORM\Column(name="fechaReserva", type="string", length=45)
      */
     private $fechaReserva;
+    /* ---------------------------------------------- Reserva-Tarea---------------------------------------------------------*/
+    /**
+     * @ORM\OneToMany(targetEntity="Tarea", mappedBy="Reserva")
+     */
+
+    private $tareas;
+
+    /* ---------------------------------------------- Reserva-Aula----------------------------------------------------------*/
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="idTarea", type="integer")
+     * @ORM\OneToMany(targetEntity="Aula", mappedBy="Reserva")
      */
-    private $idTarea;
+     private $aula
+
+    /* ---------------------------------------------- Reserva-Recursos-------------------------------------------------------*/
+    /**
+     * @ORM\OneToMany(targetEntity="Recurso", mappedBy="Reserva")
+     */
+
+    private $reservas;
+
+    /* ---------------------------------------------- Reserva-Movimientos-------------------------------------------------------*/
+
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="idPersona", type="integer")
+     * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Reserva")
      */
-    private $idPersona;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="idAula", type="integer")
-     */
-    private $idAula;
+    private $movimientos
+
+    
+
 
 
     /**
@@ -261,74 +272,5 @@ class Reserva
     public function getFechaReserva()
     {
         return $this->fechaReserva;
-    }
-
-    /**
-     * Set idTarea
-     *
-     * @param integer $idTarea
-     * @return Reserva
-     */
-    public function setIdTarea($idTarea)
-    {
-        $this->idTarea = $idTarea;
-
-        return $this;
-    }
-
-    /**
-     * Get idTarea
-     *
-     * @return integer 
-     */
-    public function getIdTarea()
-    {
-        return $this->idTarea;
-    }
-
-    /**
-     * Set idPersona
-     *
-     * @param integer $idPersona
-     * @return Reserva
-     */
-    public function setIdPersona($idPersona)
-    {
-        $this->idPersona = $idPersona;
-
-        return $this;
-    }
-
-    /**
-     * Get idPersona
-     *
-     * @return integer 
-     */
-    public function getIdPersona()
-    {
-        return $this->idPersona;
-    }
-
-    /**
-     * Set idAula
-     *
-     * @param integer $idAula
-     * @return Reserva
-     */
-    public function setIdAula($idAula)
-    {
-        $this->idAula = $idAula;
-
-        return $this;
-    }
-
-    /**
-     * Get idAula
-     *
-     * @return integer 
-     */
-    public function getIdAula()
-    {
-        return $this->idAula;
     }
 }

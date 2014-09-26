@@ -28,6 +28,24 @@ class Persona
      */
     private $nombre;
 
+     /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
+
+     /**
+     * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Persona")
+     */
+
+     private $movimientos
+
+     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
+
+      /**
+     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="Persona")
+     */
+
+      private $reservapersonas;
+
+    /* ---------------------------------------------- Fin relaciones-------------------------------------------------------*/
+
 
     /**
      * Get id

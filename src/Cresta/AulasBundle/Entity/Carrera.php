@@ -34,13 +34,27 @@ class Carrera
      * @ORM\Column(name="observaciones", type="string", length=255)
      */
     private $observaciones;
+    /* ------------------------------------------------- Relacion carrera-curso ------------------------------------------------ */
+     /**
+     * @ORM\OneToMany(targetEntity="Curso", mappedBy="Carrera")
+     */
+    private $cursos;  
 
-
+    /* ------------------------------------------------- Relacion carrera-curso ------------------------------------------------ */
     /**
      * Get id
      *
      * @return integer 
      */
+
+    
+    public function __construct()
+    {
+        $this->cursos = new ArrayCollection();
+    
+    }
+
+
     public function getId()
     {
         return $this->id;

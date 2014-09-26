@@ -35,13 +35,14 @@ class Usuario
      */
     private $activo;
 
+    /* ---------------------------------------------- Usuario-Persona------------------------------------------------------*/
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="idPersona", type="integer")
+     * @ORM\OneToMany(targetEntity="Persona", mappedBy="Usuario")
      */
-    private $idPersona;
 
+    private $personas;
+
+     /* ---------------------------------------------- Fin de relaciones ------------------------------------------------------*/
 
     /**
      * Get id
@@ -97,28 +98,5 @@ class Usuario
     public function getActivo()
     {
         return $this->activo;
-    }
-
-    /**
-     * Set idPersona
-     *
-     * @param integer $idPersona
-     * @return Usuario
-     */
-    public function setIdPersona($idPersona)
-    {
-        $this->idPersona = $idPersona;
-
-        return $this;
-    }
-
-    /**
-     * Get idPersona
-     *
-     * @return integer 
-     */
-    public function getIdPersona()
-    {
-        return $this->idPersona;
     }
 }
