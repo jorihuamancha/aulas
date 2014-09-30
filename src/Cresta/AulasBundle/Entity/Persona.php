@@ -28,7 +28,24 @@ class Persona
      */
     private $nombre;
 
-     
+     /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
+
+     /**
+     * @ORM\OneToMany(targetEntity="Persona", inversedBy="Movimiento")
+     */
+
+     private $movimientos;
+        /*---By Neg---*/
+     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
+
+      /**
+     * @ORM\OneToMany(targetEntity="Persona", inversedBy="Reserva")
+     */
+
+      private $reservapersonas;
+        /*---By Neg---*/
+
+
     /* ---------------------------------------------- Fin relaciones-------------------------------------------------------*/
 
 
@@ -55,7 +72,7 @@ class Persona
     
     /* ---------------------------------------------- Set reservapersonas --------------------------------------------------------------*/
 
-    public function addReservaPersonas (\src\Cresta\AulasBundle\Entity\Reserva $reservapersonas){
+    public function addReservaPersonas (Cresta\AulasBundle\Entity\Reserva $reservapersonas){
         
         $this->reservapersonas[] = $reservapersonas;
     }
@@ -63,7 +80,7 @@ class Persona
     /* ---------------------------------------------- fin Get reservapersonas ----------------------------------------------------------*/
 
     /* ---------------------------------------------- Set movimientos ------------------------------------------------------------------*/
-    public function addMovimientos (\src\Cresta\AulasBundle\Entity\Movimiento $movimientos){
+    public function addMovimientos (Cresta\AulasBundle\Entity\Movimiento $movimientos){
         $this->movimientos[] = $movimientos;
     }
         /*---By Neg---*/

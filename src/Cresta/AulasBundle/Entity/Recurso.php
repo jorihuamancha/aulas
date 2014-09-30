@@ -35,6 +35,15 @@ class Recurso
      */
     private $activo;
 
+    /* ---------------------------------------------- Recurso-reserva------------------------------------------------------------*/
+    /**
+     * @ORM\OneToMany(targetEntity="Recursos", mappedBy="Reserva")
+     */
+
+    private $reservas;
+        /*-------By neg---------*/
+
+    /* ----------------------------------------------Fin recurso-Recurso----------------------------------------------------------*/
 
     /**
      * Get id
