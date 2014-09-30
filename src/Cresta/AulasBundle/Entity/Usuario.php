@@ -37,6 +37,35 @@ class Usuario
 
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=45)
+     */
+    private $email;
+
+
+    /* ---------------------------------------------- Usuario-Persona------------------------------------------------------*/
+    /**
+     * @ORM\OneToOne(targetEntity="Persona", mappedBy="Usuario")
+     */
+
+    private $personas;
+        /*-------By neg---------*/
+     /* ---------------------------------------------- Fin de relaciones ------------------------------------------------------*/
+
+
+
+    /* ---------------------------------------------- Get Persona ------------------------------------------------------*/
+    
+    public function getPesona (){
+        
+        return $this->personas;
+    }
+    
+    
+        /*-------By neg---------*/
+    /* ---------------------------------------------- Fin Get ------------------------------------------------------*/ 
+    /**
      * Get id
      *
      * @return integer 
@@ -68,6 +97,32 @@ class Usuario
     {
         return $this->clave;
     }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Usuario
+     */
+
+     
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
 
     /**
      * Set activo
