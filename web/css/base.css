@@ -16,6 +16,7 @@ body{
 
 header{
 	border-bottom:3px solid #E3680B;
+	z-index:1;
 }
 
 nav{
