@@ -30,7 +30,7 @@ class Curso extends Tarea
 
     /* -----------------------------------------------  Relacion curso-carrera ------------------------------------------------ */
      /**
-     * @ORM\OneToMany(targetEntity="Curso", mappedBy="Carrera")
+     * @ORM\OneToOne(targetEntity="Curso", mappedBy="Carrera")
      */
     private $carrera;  
         /*---By Neg---*/

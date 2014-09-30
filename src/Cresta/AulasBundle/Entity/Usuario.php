@@ -2,9 +2,8 @@
 
 namespace Cresta\AulasBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
+
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * Usuario
@@ -12,7 +11,7 @@ use FOS\UserBundle\Entity\User as BaseUser;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Usuario extends BaseUser
+class Usuario 
 {
     /**
      * @var integer

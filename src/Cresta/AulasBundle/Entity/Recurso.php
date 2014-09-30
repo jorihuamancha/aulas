@@ -37,7 +37,7 @@ class Recurso
 
     /* ---------------------------------------------- Recurso-reserva------------------------------------------------------------*/
     /**
-     * @ORM\OneToMany(targetEntity="Recursos", mappedBy="Reserva")
+     * @ORM\OneToOne(targetEntity="Recurso", mappedBy="Reserva")
      */
 
     private $reservas;

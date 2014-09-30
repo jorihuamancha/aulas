@@ -32,7 +32,7 @@ class Movimiento
     /* ---------------------------------------------- Reserva-Movimientos-------------------------------------------------------*/
 
     /**
-     * @ORM\OneToMany(targetEntity="Movimiento", inversedBy="Reserva")
+     * @ORM\OneToOne(targetEntity="Movimiento", mappedBy="Reserva")
      */
 
     private $reservas;
@@ -41,9 +41,9 @@ class Movimiento
     /* ---------------------------------------------- Fin Relaciones-------------------------------------------------------------*/
 
     /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
-
+            
      /**
-     * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Persona")
+     * @ORM\OneToOne(targetEntity="Movimiento", mappedBy="Persona")
      */
 
      private $personas;
