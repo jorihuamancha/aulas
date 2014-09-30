@@ -72,4 +72,4 @@ fos_user:
     # el nombre de tu firewall
     firewall_name: main
     # el namespace de tu clase 'User' específica
-    user_class:    Cresta/AulasBundle/Entity/Usuario
+    user_class:    Cresta\AulasBundle\Entity\Usuario
