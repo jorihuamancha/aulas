@@ -34,7 +34,7 @@ class Persona
      * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Persona")
      */
 
-     private $movimientos
+     private $movimientos;
         /*---By Neg---*/
      /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
 
@@ -44,12 +44,17 @@ class Persona
 
       private $reservapersonas;
         /*---By Neg---*/
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 342ddbf473038c0fb0611f04f0341fa1b2244e9f
     /* ---------------------------------------------- Fin relaciones-------------------------------------------------------*/
 
 
     /* ---------------------------------------------- Constructor -----------------------------------------------------------*/
 
-    public fuction __construct(){
+    public function _construct(){
         
         $this->reservapersonas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->movimientos = new \Doctrine\Common\Collections\ArrayCollection();   
@@ -70,7 +75,11 @@ class Persona
     
     /* ---------------------------------------------- Set reservapersonas --------------------------------------------------------------*/
 
+<<<<<<< HEAD
     public function addReservaPersonas (\src\Cresta\AulasBundle\Entity\Reserva $reservapersonas){
+=======
+    public function addReservaPersonas (Cresta\AulasBundle\Entity\Reserva $reservapersonas){
+>>>>>>> 342ddbf473038c0fb0611f04f0341fa1b2244e9f
         
         $this->reservapersonas[] = $reservapersonas;
     }
@@ -78,7 +87,11 @@ class Persona
     /* ---------------------------------------------- fin Get reservapersonas ----------------------------------------------------------*/
 
     /* ---------------------------------------------- Set movimientos ------------------------------------------------------------------*/
+<<<<<<< HEAD
     public function addMovimientos (\src\Cresta\AulasBundle\Entity\Movimiento $movimientos){
+=======
+    public function addMovimientos (Cresta\AulasBundle\Entity\Movimiento $movimientos){
+>>>>>>> 342ddbf473038c0fb0611f04f0341fa1b2244e9f
         $this->movimientos[] = $movimientos;
     }
         /*---By Neg---*/
