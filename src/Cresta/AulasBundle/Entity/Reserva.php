@@ -71,7 +71,7 @@ class Reserva
     private $fechaReserva;
     /* ---------------------------------------------- Reserva-Tarea-----------------------------------------------------------*/
     /**
-     * @ORM\OneToOne(targetEntity="Tarea", mappedBy="Reserva")
+     * @ORM\OneToOne(targetEntity="Tarea")
      */
 
     private $tareas;
@@ -79,14 +79,14 @@ class Reserva
     /* ---------------------------------------------- Reserva-Aula-------------------------------------------------------------*/
 
     /**
-     * @ORM\OneToOne(targetEntity="Aula", mappedBy="Reserva")
+     * @ORM\OneToOne(targetEntity="Aula")
      */
      private $aula;
         /*-------By neg---------*/
 
     /* ---------------------------------------------- Reserva-Recursos----------------------------------------------------------*/
     /**
-     * @ORM\OneToMany(targetEntity="Recurso", mappedBy="Reserva")
+     * @ORM\OneToMany(targetEntity="Recurso")
      */
 
     private $recursos;
@@ -95,7 +95,7 @@ class Reserva
     /* ---------------------------------------------- Reserva-Movimientos-------------------------------------------------------*/
 
     /**
-     * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Reserva")
+     * @ORM\OneToMany(targetEntity="Movimiento")
      */
 
     private $movimientos;

@@ -31,7 +31,7 @@ class Persona
      /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
 
      /**
-     * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Persona")
+     * @ORM\OneToMany(targetEntity="Movimiento")
      */
 
      private $movimientos;
@@ -39,7 +39,7 @@ class Persona
      /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
 
       /**
-     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="Persona")
+     * @ORM\OneToMany(targetEntity="Reserva")
      */
 
       private $reservapersonas;
