@@ -81,7 +81,7 @@ class Reserva
     /**
      * @ORM\OneToOne(targetEntity="Aula", mappedBy="Reserva")
      */
-     private $aula
+     private $aula;
         /*-------By neg---------*/
 
     /* ---------------------------------------------- Reserva-Recursos----------------------------------------------------------*/
@@ -98,7 +98,7 @@ class Reserva
      * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Reserva")
      */
 
-    private $movimientos
+    private $movimientos;
         /*-------By neg---------*/
 
     /* ---------------------------------------------- Fin Relaciones-------------------------------------------------------------*/
