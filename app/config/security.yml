@@ -3,7 +3,7 @@ security:
        Cresta\AulasBundle\Entity\User: sha512
     providers:
         fos_userbundle:
-            id: fos_user.user_provider.username
+            id: fos_user.user_provider.username_email
 
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
