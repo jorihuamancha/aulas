@@ -34,12 +34,12 @@ class Persona
      * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Persona")
      */
 
-     private $movimientos
+     private $movimientos;
         /*---By Neg---*/
      /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
 
       /**
-     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="Persona")
+     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="Personas")
      */
 
       private $reservapersonas;
@@ -49,7 +49,7 @@ class Persona
 
     /* ---------------------------------------------- Constructor -----------------------------------------------------------*/
 
-    public fuction __construct(){
+    public function _construct(){
         
         $this->reservapersonas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->movimientos = new \Doctrine\Common\Collections\ArrayCollection();   

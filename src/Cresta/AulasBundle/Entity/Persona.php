@@ -28,22 +28,7 @@ class Persona
      */
     private $nombre;
 
-     /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
-
-     /**
-     * @ORM\OneToMany(targetEntity="Movimiento")
-     */
-
-     private $movimientos;
-        /*---By Neg---*/
-     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
-
-      /**
-     * @ORM\OneToMany(targetEntity="Reserva")
-     */
-
-      private $reservapersonas;
-        /*---By Neg---*/
+     
     /* ---------------------------------------------- Fin relaciones-------------------------------------------------------*/
 
 
