@@ -29,26 +29,17 @@ class Movimiento
     private $fecha;
 
 
-    /* ---------------------------------------------- Reserva-Movimientos-------------------------------------------------------*/
+    /* ---------------------------------------------- Movimientos-Reserva -------------------------------------------------------*/
 
     /**
-     * @ORM\OneToOne(targetEntity="Movimiento", mappedBy="Reserva")
-     */
+     * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Reserva")
+     */ 
 
     private $reservas;
         /*-------By neg---------*/
 
     /* ---------------------------------------------- Fin Relaciones-------------------------------------------------------------*/
 
-    /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
-            
-     /**
-     * @ORM\OneToOne(targetEntity="Movimiento", mappedBy="Persona")
-     */
-
-     private $personas;
-        /*---By Neg---*/
-     /* ---------------------------------------------- Fin relacion      -------------------------------------------------------*/
 
     /**
      * Get id
