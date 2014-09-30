@@ -36,12 +36,54 @@ class Carrera
      */
     private $observaciones;
 
+        /*---By Neg---*/
+    /* -----------------------------------------------  Relacion carrera-curso ------------------------------------------------ */
+     /**
+     * @ORM\OneToMany(targetEntity="Curso", mappedBy="Carrera")
+     */
+    private $cursos;  
+        /*---By Neg---*/
+    /* ------------------------------------------------ Fin Relacion  ------------------------------------------------ */
+   
+   
+
+
+   /* ------------------------------------------------- Constructor Cursos ------------------------------------------------ */
+
+   public function __construct(){
+       
+       $this->cursos = new \Doctrine\Common\Collections\ArrayCollection();
+   }
+    /*---By Neg---*/
+
+   /* ------------------------------------------------- Fin Constructor Cursos ------------------------------------------------ */
+
+   /* ------------------------------------------------- set Cursos ------------------------------------------------ */
+
+   public function setCursos (\src\Cresta\AulasBundle\Entity\Carrera $cursos){
+       
+       $this->cursos [] = $cursos;
+   }
+        /*---By Neg---*/
+   /* -------------------------------------------------  Fin set Cursos ------------------------------------------------ */
+
+   /* ------------------------------------------------- Get Cursos ------------------------------------------------ */
+
+   public function getCursos (){
+
+        return $this->cursos;   
+
+   }
+
+   /* ------------------------------------------------- Fin Get Cursos ------------------------------------------------ */
+
 
     /**
      * Get id
      *
      * @return integer 
      */
+
     public function getId()
     {
         return $this->id;

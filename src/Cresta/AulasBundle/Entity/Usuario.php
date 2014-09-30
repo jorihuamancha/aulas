@@ -21,6 +21,15 @@ class Usuario
      */
     private $id;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=45)
+     */
+    private $username;
+
+
     /**
      * @var string
      *
@@ -35,12 +44,43 @@ class Usuario
      */
     private $activo;
 
+
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="idPersona", type="integer")
+     * @ORM\Column(name="email", type="string", length=45)
      */
-    private $idPersona;
+    private $email;
+
+
+    /* ---------------------------------------------- Usuario-Persona------------------------------------------------------*/
+    /**
+     * @ORM\OneToOne(targetEntity="Persona", mappedBy="Usuario")
+     */
+
+    private $personas;
+        /*-------By neg---------*/
+     /* ---------------------------------------------- Fin de relaciones ------------------------------------------------------*/
+
+
+
+    /* ---------------------------------------------- Get Persona ------------------------------------------------------*/
+    
+    public function getPesona (){
+        
+        return $this->personas;
+    }
+        /*-------By neg---------*/
+    /* ---------------------------------------------- Fin Get ----------------------------------------------------------*/ 
+
+    /* ---------------------------------------------- set Persona ------------------------------------------------------*/
+    public function setPersona(\src\Cresta\AulasBundle\Entity\Persona $persona){
+        
+        $this->persona = $persona;
+    }
+
+        /*-------By neg---------*/
+    /* ----------------------------------------------Fin set Persona ---------------------------------------------------*/
 
 
     /**
@@ -67,6 +107,30 @@ class Usuario
     }
 
     /**
+     * Set username
+     *
+     * @param string $username
+     * @return Usuario
+     */
+    public function setUserName($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+     /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUserName()
+    {
+        return $this->username;
+    }
+
+
+    /**
      * Get clave
      *
      * @return string 
@@ -75,6 +139,32 @@ class Usuario
     {
         return $this->clave;
     }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Usuario
+     */
+
+     
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
 
     /**
      * Set activo
@@ -97,28 +187,5 @@ class Usuario
     public function getActivo()
     {
         return $this->activo;
-    }
-
-    /**
-     * Set idPersona
-     *
-     * @param integer $idPersona
-     * @return Usuario
-     */
-    public function setIdPersona($idPersona)
-    {
-        $this->idPersona = $idPersona;
-
-        return $this;
-    }
-
-    /**
-     * Get idPersona
-     *
-     * @return integer 
-     */
-    public function getIdPersona()
-    {
-        return $this->idPersona;
     }
 }

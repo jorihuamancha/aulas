@@ -69,28 +69,98 @@ class Reserva
      * @ORM\Column(name="fechaReserva", type="string", length=45)
      */
     private $fechaReserva;
+    /* ---------------------------------------------- Reserva-Tarea-----------------------------------------------------------*/
+    /**
+     * @ORM\OneToOne(targetEntity="Tarea", mappedBy="Reserva")
+     */
+
+    private $tareas;
+        /*-------By neg---------*/
+    /* ---------------------------------------------- Reserva-Aula-------------------------------------------------------------*/
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="idTarea", type="integer")
+     * @ORM\OneToOne(targetEntity="Aula", mappedBy="Reserva")
      */
-    private $idTarea;
+     private $aula;
+        /*-------By neg---------*/
+
+    /* ---------------------------------------------- Reserva-Recursos----------------------------------------------------------*/
+    /**
+     * @ORM\OneToMany(targetEntity="Recurso", mappedBy="Reserva")
+     */
+
+    private $recursos;
+        /*-------By neg---------*/
+
+    /* ---------------------------------------------- Reserva-Movimientos-------------------------------------------------------*/
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="idPersona", type="integer")
+     * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Reserva")
      */
-    private $idPersona;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="idAula", type="integer")
-     */
-    private $idAula;
+    private $movimientos;
+        /*-------By neg---------*/
 
+    /* ---------------------------------------------- Fin Relaciones-------------------------------------------------------------*/
+
+    /* ---------------------------------------------- Get Movimientos -------------------------------------------------------------------*/
+    public function getMovimientos(){
+        return $this->movimientos;
+    }
+          /*-------By neg---------*/
+    /* ---------------------------------------------- Fin Get Movientos -----------------------------------------------------------------*/
+    
+    /* ---------------------------------------------- Set Movimientos -------------------------------------------------------------------*/
+    public function addMovimientos(\src\Cresta\AulasBundle\Entity\Movimiento $movimientos){
+        $this->movimientos [] =$movimientos;
+    }
+          /*-------By neg---------*/
+
+    /* ---------------------------------------------- Fin Set Movimientos----------------------------------------------------------------*/
+
+    /* ---------------------------------------------- Get Recursos ---------------------------------------------------------------------*/
+    public function getRecursos(){
+        return $this->recursos;
+    }
+          /*-------By neg---------*/
+    /* ---------------------------------------------- Fin Get Recursos -----------------------------------------------------------------*/
+    
+    /* ---------------------------------------------- Set Recursos   -------------------------------------------------------------------*/
+    public function addRecursos(\src\Cresta\AulasBundle\Entity\Recurso $recursos){
+        $this->recursos [] =$recursos;
+    }
+          /*-------By neg---------*/
+
+    /* ---------------------------------------------- Fin Set recursos------------------------------------------------------------------*/
+
+    /* ---------------------------------------------- Get tarea -----------------------------------------------------------------*/
+    public function getTareas() {
+        return $this->tareas;
+    }
+        /*-------By neg---------*/
+    /* ---------------------------------------------- fin Get tarea -------------------------------------------------------------*/
+     /* ---------------------------------------------- set tarea ----------------------------------------------------------------*/
+     public function setTareas (\src\Cresta\AulasBundle\Entity\Tarea $tareas){
+         
+         $this->tareas =$tareas;
+     }
+        /*-------By neg---------*/
+    /* ---------------------------------------------- fin set tarea -------------------------------------------------------------*/
+
+
+    /* ---------------------------------------------- Get aula ------------------------------------------------------------------*/
+    public function getAula() {
+        return $this->aula;
+    }
+        /*-------By neg---------*/
+    /* ---------------------------------------------- fin Get aula --------------------------------------------------------------*/
+     /* ---------------------------------------------- set aula  ----------------------------------------------------------------*/
+     public function setAula (\src\Cresta\AulasBundle\Entity\Aula $aula){
+         
+         $this->aula =$aula;
+     }
+        /*-------By neg---------*/
+    /* ---------------------------------------------- fin set aula -------------------------------------------------------------*/
 
     /**
      * Get id
@@ -261,74 +331,5 @@ class Reserva
     public function getFechaReserva()
     {
         return $this->fechaReserva;
-    }
-
-    /**
-     * Set idTarea
-     *
-     * @param integer $idTarea
-     * @return Reserva
-     */
-    public function setIdTarea($idTarea)
-    {
-        $this->idTarea = $idTarea;
-
-        return $this;
-    }
-
-    /**
-     * Get idTarea
-     *
-     * @return integer 
-     */
-    public function getIdTarea()
-    {
-        return $this->idTarea;
-    }
-
-    /**
-     * Set idPersona
-     *
-     * @param integer $idPersona
-     * @return Reserva
-     */
-    public function setIdPersona($idPersona)
-    {
-        $this->idPersona = $idPersona;
-
-        return $this;
-    }
-
-    /**
-     * Get idPersona
-     *
-     * @return integer 
-     */
-    public function getIdPersona()
-    {
-        return $this->idPersona;
-    }
-
-    /**
-     * Set idAula
-     *
-     * @param integer $idAula
-     * @return Reserva
-     */
-    public function setIdAula($idAula)
-    {
-        $this->idAula = $idAula;
-
-        return $this;
-    }
-
-    /**
-     * Get idAula
-     *
-     * @return integer 
-     */
-    public function getIdAula()
-    {
-        return $this->idAula;
     }
 }

@@ -28,20 +28,6 @@ class Movimiento
      */
     private $fecha;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="idReserva", type="integer")
-     */
-    private $idReserva;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="idPersona", type="integer")
-     */
-    private $idPersona;
-
 
     /**
      * Get id
@@ -74,51 +60,5 @@ class Movimiento
     public function getFecha()
     {
         return $this->fecha;
-    }
-
-    /**
-     * Set idReserva
-     *
-     * @param integer $idReserva
-     * @return Movimiento
-     */
-    public function setIdReserva($idReserva)
-    {
-        $this->idReserva = $idReserva;
-
-        return $this;
-    }
-
-    /**
-     * Get idReserva
-     *
-     * @return integer 
-     */
-    public function getIdReserva()
-    {
-        return $this->idReserva;
-    }
-
-    /**
-     * Set idPersona
-     *
-     * @param integer $idPersona
-     * @return Movimiento
-     */
-    public function setIdPersona($idPersona)
-    {
-        $this->idPersona = $idPersona;
-
-        return $this;
-    }
-
-    /**
-     * Get idPersona
-     *
-     * @return integer 
-     */
-    public function getIdPersona()
-    {
-        return $this->idPersona;
     }
 }
