@@ -28,9 +28,17 @@
     <img src="{{ asset('img/logo.jpg') }}" alt="Logo CRESTA" />
 	</div>
 	<div class="col-md-9 col-sm-9 col-xs-12">
-	<div id="userLogueado"> <span>Usuario:</span> Alejandro Cabane </div>
+	  <div id="userLogueado"> 
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <span>Usuario:</span> {{ app.user.username}} |
+                <a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+      {% endif %}
+    </div>
 	</div>
 </header>
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} <!--Comienzo #La navbar se ve solo si estas logueado-->
 <nav class="navbar  navbar-default" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -135,26 +143,30 @@
 
     		<li  class= "col-md-1 col-sm-2 col-xs-12" >
     			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
-      				Usuarios <span  class= "caret" ></span> 
-    			</a> 
-    			<ul  class= "dropdown-menu"  role= "menu" >
-                                <li><a href="#">Nuevo usuario</a></li>
-                                <li><a href="#">Modificar usuario</a></li>
-                                <li><a href="#">Eliminar usuario</a></li>
-    			</ul> 
-  			</li>
-
-    		<li  class= "col-md-1 col-sm-2 col-xs-12" >
-    			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
       				M&aacute;s <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
-                                <li><a href="#">Descargas</a></li>
+                                <li><a href="#">Resguardar base de datos</a></li>
                                 <li><a href="#">Movimientos</a></li>
                                 <li><a href="{{ path('_ayuda') }}">Ayuda</a></li>
                                 <li><a href="{{ path('_acercade') }}">Acerca de..</a></li>
     			</ul> 
   			</li>
+
+        {% if is_granted('ROLE_ADMIN') %} <!--Si sos admin, te habilita ABM Usuarios-->
+
+        <li  class= "col-md-1 col-sm-2 col-xs-12" >
+          <a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+              Usuarios <span  class= "caret" ></span> 
+          </a> 
+          <ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Nuevo usuario</a></li>
+                                <li><a href="#">Modificar usuario</a></li>
+                                <li><a href="#">Eliminar usuario</a></li>
+          </ul> 
+        </li>
+        {% endif %} <!--Fin ABM Usuarios-->
+
 		</ul>
 
 	</nav>
@@ -163,6 +175,7 @@
   </div><!-- /.container-fluid -->
 </nav>
 	<!--fin Menú -->
+  {% endif %} <!--Fin #La navbar se ve solo si estas logueado-->
 	<!--Contenido-->
 	<div id="Contenido" class="col-md-12 col-sm-12 col-xs-12" >
  		{% block body %}{% endblock %} 
