@@ -58,15 +58,19 @@
 			<!--<li  class= "col-md-1 col-sm-2 col-xs-12" >
 				<li><a href="#">Inicio</a></li>
 			</li>-->
-			<li  class= "col-md-1 col-sm-2 col-xs-12" >
+
+      <li  class= "col-md-1 col-sm-2 col-xs-12" >
+          <a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+              Inicio
+          </a> 
+        </li>
+			   <li  class= "col-md-1 col-sm-2 col-xs-12" >
     			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
       				Reservas <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
-    							<li><a href="#">Listado de reservas</a></li>
+    							              <li><a href="#">Listado de reservas</a></li>
                                 <li><a href="#">Nueva reserva</a></li>
-                                <li><a href="#">Modificar reserva</a></li>
-                                <li><a href="#">Eliminar reserva</a></li>
     			</ul> 
   			</li>
 
@@ -76,13 +80,11 @@
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
     				<li role= "presentation" class= "dropdown-header" >Cursos </li>
-      	                            <li><a href="#">Nuevo curso</a></li>
-        	                        <li><a href="#">Modificar curso</a></li>
-            	                    <li><a href="#">Eliminar curso</a></li>
+                                  <li><a href="#">Listado de cursos</a></li>
+      	                          <li><a href="#">Nuevo curso</a></li>
                     <li role= "presentation" class= "dropdown-header" >Actividad </li>
+                                  <li><a href="#">Listado de actividades</a></li>
                                 	<li><a href="#">Nueva actividad</a></li>
-                                	<li><a href="#">Modificar actividad</a></li>
-                                	<li><a href="#">Eliminar actividad</a></li>
     			</ul> 
   			</li>
 
@@ -91,9 +93,8 @@
       				Recursos <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Listado de recursos</a></li>
                                 <li><a href="#">Nuevo recurso</a></li>
-                                <li><a href="#">Modificar recurso</a></li>
-                                <li><a href="#">Eliminar recurso</a></li>
     			</ul> 
   			</li>
 
@@ -102,9 +103,8 @@
       				Aulas <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Listado de aulas</a></li>
                                 <li><a href="#">Nueva aula</a></li>
-                                <li><a href="#">Modificar aula</a></li>
-                                <li><a href="#">Eliminar aula</a></li>
     			</ul> 
   			</li>
 
@@ -113,9 +113,8 @@
       				Alertas <span  class= "caret" ></span> 
     			</a> 
 		    	<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Listado de alertas</a></li>
                                 <li><a href="#">Nueva alerta</a></li>
-                                <li><a href="#">Modificar alerta</a></li>
-                                <li><a href="#">Eliminar alerta</a></li>
     			</ul> 
   			</li>
 
@@ -124,9 +123,8 @@
       				Carreras <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Listado de carreras</a></li>
                                 <li><a href="#">Nueva carrera</a></li>
-                                <li><a href="#">Modificar carrera</a></li>
-                                <li><a href="#">Eliminar carrera</a></li>
     			</ul> 
   			</li>
 
@@ -135,9 +133,8 @@
       				Docentes <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Listado de docentes</a></li>
                                 <li><a href="#">Nuevo docente</a></li>
-                                <li><a href="#">Modificar docente</a></li>
-                                <li><a href="#">Eliminar docente</a></li>
     			</ul> 
   			</li>
 
@@ -157,12 +154,15 @@
 
         <li  class= "col-md-1 col-sm-2 col-xs-12" >
           <a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
-              Usuarios <span  class= "caret" ></span> 
+              Usuario <span  class= "caret" ></span> 
           </a> 
           <ul  class= "dropdown-menu"  role= "menu" >
-                                <li><a href="#">Nuevo usuario</a></li>
-                                <li><a href="#">Modificar usuario</a></li>
-                                <li><a href="#">Eliminar usuario</a></li>
+          <li role= "presentation" class= "dropdown-header" >Mis datos </li>
+                                <li><a href="{{ path('fos_user_change_password') }}">Modificar mis datos de usuario</a></li>
+          <li role= "presentation" class= "dropdown-header" >Admin. Usuarios </li>
+                                <li><a href="#">Listado de usuarios</a></li>
+                                <li><a href="register">Nuevo usuario</a></li>
+
           </ul> 
         </li>
         {% endif %} <!--Fin ABM Usuarios-->
@@ -178,7 +178,11 @@
   {% endif %} <!--Fin #La navbar se ve solo si estas logueado-->
 	<!--Contenido-->
 	<div id="Contenido" class="col-md-12 col-sm-12 col-xs-12" >
- 		{% block body %}{% endblock %} 
+ 		{% block body %}
+      {% block fos_user_content %} 
+          <!--bloque en el que carga los datos FOSUser-->
+      {% endblock fos_user_content %}
+    {% endblock %} 
 	</div>
 	<!--fin Contenido-->
 	<footer class="col-md-12 col-sm-12 col-xs-12">
