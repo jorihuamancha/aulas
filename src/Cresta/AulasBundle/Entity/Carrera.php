@@ -38,6 +38,7 @@ class Carrera
         /*---By Neg---*/
     /* -----------------------------------------------  Relacion carrera-curso ------------------------------------------------ */
      /**
+     * @ORM\ManyToOne(targetEntity="Carrera", inversedBy="Curso")
      * @ORM\OneToMany(targetEntity="Curso", mappedBy="Carrera")
      */
     private $cursos;  

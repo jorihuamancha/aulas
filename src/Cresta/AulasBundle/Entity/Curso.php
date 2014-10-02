@@ -28,6 +28,13 @@ class Curso extends Tarea
      */
     private $anio;
 
+    /* -----------------------------------------------  Relacion curso-carrera ------------------------------------------------ */
+     /**
+     * @ORM\OneToOne(targetEntity="Curso", mappedBy="Carrera")
+     */
+    private $carrera;  
+        /*---By Neg---*/
+    /* ------------------------------------------------ Fin Relacion  ---------------------------------------------------------- */
 
     /**
      * Get id
