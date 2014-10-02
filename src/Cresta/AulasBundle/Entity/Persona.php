@@ -32,6 +32,7 @@ class Persona
 
      /**
      * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Movimiento")
+     * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Persona")
      */
 
      private $movimientos;
@@ -40,6 +41,7 @@ class Persona
 
       /**
      * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Reserva")
+     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="Persona")
      */
 
       private $reservapersonas;
