@@ -1,6 +1,6 @@
-#cresta_aulas_homepage:
-#    path:     /hello/{name}
-#    defaults: { _controller: CrestaAulasBundle:Default:index }
+_homepage:
+    path:     /
+    defaults: { _controller: CrestaAulasBundle:Default:index }
 
 _acercade:
     path:     /acercade
@@ -9,3 +9,5 @@ _acercade:
 _ayuda:
     path:     /ayuda
     defaults: { _controller: CrestaAulasBundle:Default:ayuda }
+
+  
