@@ -10,7 +10,7 @@ class DefaultController extends Controller
     {
         return $this->render('CrestaAulasBundle:Default:index.html.twig', array());
     }
-    #linea para hacer el push, borrar en el prox
+    
     public function acercadeAction()
     {
         return $this->render('CrestaAulasBundle:Default:acercade.html.twig', array());
