@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -11,3 +12,195 @@
         {% block javascripts %}{% endblock %}
     </body>
 </html>
+=======
+<head>
+<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<link href="bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="css/base.css">
+<script src="bootstrap/js/jquery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/twitter-bootstrap-hover-dropdown.min.js"></script>-->
+
+
+<link href="{{ asset('css/base.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
+<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('bootstrap/js/twitter-bootstrap-hover-dropdown.min.js') }}"></script>
+
+       <title>{% block title %}Titulo{% endblock %} | Gesti&oacute;n de Aulas - CRESTA</title>
+
+</head>
+<body>
+<div class="container">
+<header class="col-md-12 col-sm-12 col-xs-12">
+	<div id="logo" class="col-md-3 col-sm-3 col-xs-12">
+<!--		<img src="img/logo.jpg">-->
+    <img src="{{ asset('img/logo.jpg') }}" alt="Logo CRESTA" />
+	</div>
+	<div class="col-md-9 col-sm-9 col-xs-12">
+	  <div id="userLogueado"> 
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <span>Usuario:</span> {{ app.user.username}} |
+                <a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+      {% endif %}
+    </div>
+	</div>
+</header>
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} <!--Comienzo #La navbar se ve solo si estas logueado-->
+<nav class="navbar  navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Bot&oacute;n Men&uacute;</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand visible-xs" href="#">Menú</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      	<!--Menú-->
+	<nav>
+		<ul  class = "nav nav-pills" >
+			<!--<li  class= "col-md-1 col-sm-2 col-xs-12" >
+				<li><a href="#">Inicio</a></li>
+			</li>-->
+
+      <li  class= "col-md-1 col-sm-2 col-xs-12" >
+          <a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+              Inicio
+          </a> 
+        </li>
+			   <li  class= "col-md-1 col-sm-2 col-xs-12" >
+    			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+      				Reservas <span  class= "caret" ></span> 
+    			</a> 
+    			<ul  class= "dropdown-menu"  role= "menu" >
+    							              <li><a href="{{ path('_homepage') }}">Listado de reservas</a></li>
+                                <li><a href="#">Nueva reserva</a></li>
+    			</ul> 
+  			</li>
+
+    		<li  class= "col-md-1 col-sm-2 col-xs-12" >
+    			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+      				Tareas <span  class= "caret" ></span> 
+    			</a> 
+    			<ul  class= "dropdown-menu"  role= "menu" >
+    				<li role= "presentation" class= "dropdown-header" >Cursos </li>
+                                  <li><a href="#">Listado de cursos</a></li>
+      	                          <li><a href="#">Nuevo curso</a></li>
+                    <li role= "presentation" class= "dropdown-header" >Actividad </li>
+                                  <li><a href="#">Listado de actividades</a></li>
+                                	<li><a href="#">Nueva actividad</a></li>
+    			</ul> 
+  			</li>
+
+    		<li  class= "col-md-1 col-sm-2 col-xs-12" >
+    			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+      				Recursos <span  class= "caret" ></span> 
+    			</a> 
+    			<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Listado de recursos</a></li>
+                                <li><a href="#">Nuevo recurso</a></li>
+    			</ul> 
+  			</li>
+
+    		<li  class= "col-md-1 col-sm-2 col-xs-12" >
+    			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+      				Aulas <span  class= "caret" ></span> 
+    			</a> 
+    			<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Listado de aulas</a></li>
+                                <li><a href="#">Nueva aula</a></li>
+    			</ul> 
+  			</li>
+
+    		<li  class= "col-md-1 col-sm-2 col-xs-12" >
+    			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+      				Alertas <span  class= "caret" ></span> 
+    			</a> 
+		    	<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Listado de alertas</a></li>
+                                <li><a href="#">Nueva alerta</a></li>
+    			</ul> 
+  			</li>
+
+    		<li  class= "col-md-1 col-sm-2 col-xs-12" >
+    			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+      				Carreras <span  class= "caret" ></span> 
+    			</a> 
+    			<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Listado de carreras</a></li>
+                                <li><a href="#">Nueva carrera</a></li>
+    			</ul> 
+  			</li>
+
+    		<li  class= "col-md-1 col-sm-2 col-xs-12" >
+    			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+      				Docentes <span  class= "caret" ></span> 
+    			</a> 
+    			<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Listado de docentes</a></li>
+                                <li><a href="#">Nuevo docente</a></li>
+    			</ul> 
+  			</li>
+
+    		<li  class= "col-md-1 col-sm-2 col-xs-12" >
+    			<a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+      				M&aacute;s <span  class= "caret" ></span> 
+    			</a> 
+    			<ul  class= "dropdown-menu"  role= "menu" >
+                                <li><a href="#">Resguardar base de datos</a></li>
+                                <li><a href="#">Movimientos</a></li>
+                                <li><a href="{{ path('_ayuda') }}">Ayuda</a></li>
+                                <li><a href="{{ path('_acercade') }}">Acerca de..</a></li>
+    			</ul> 
+  			</li>
+
+
+        <li  class= "col-md-1 col-sm-2 col-xs-12" >
+          <a  class= "dropdown-toggle"  data-toggle= "dropdown"  href= "#" > 
+              Usuario <span  class= "caret" ></span> 
+          </a> 
+          <ul  class= "dropdown-menu"  role= "menu" >
+          <li role= "presentation" class= "dropdown-header" >Mis datos </li>
+                                <li><a href="{{ path('fos_user_change_password') }}">Modificar mis datos de usuario</a></li>
+          {% if is_granted('ROLE_ADMIN') %} <!--Si sos admin, te habilita ABM Usuarios-->
+          <li role= "presentation" class= "dropdown-header" >Admin. Usuarios </li>
+                                <li><a href="#">Listado de usuarios</a></li>
+                                <li><a href="register">Nuevo usuario</a></li>
+
+          </ul> 
+        </li>
+        {% endif %} <!--Fin ABM Usuarios-->
+
+		</ul>
+
+	</nav>
+	<!--fin Menú -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+	<!--fin Menú -->
+  {% endif %} <!--Fin #La navbar se ve solo si estas logueado-->
+	<!--Contenido-->
+	<div id="Contenido" class="col-md-12 col-sm-12 col-xs-12" >
+ 		{% block body %}
+      {% block fos_user_content %} 
+          <!--bloque en el que carga los datos FOSUser-->
+      {% endblock fos_user_content %}
+    {% endblock %} 
+	</div>
+	<!--fin Contenido-->
+	<footer class="col-md-12 col-sm-12 col-xs-12">
+		Sistema de Reserva de Aulas - CRESTA
+	</footer>
+</div>
+</body>
+</html>
+>>>>>>> f3f1a743820e8737b0964dd373eac72abde2c17f

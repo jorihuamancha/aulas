@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Curso
+class Curso extends Tarea
 {
     /**
      * @var integer
@@ -28,6 +28,13 @@ class Curso
      */
     private $anio;
 
+    /* -----------------------------------------------  Relacion curso-carrera ------------------------------------------------ */
+     /**
+     * @ORM\OneToOne(targetEntity="Curso", mappedBy="Carrera")
+     */
+    private $carrera;  
+        /*---By Neg---*/
+    /* ------------------------------------------------ Fin Relacion  ---------------------------------------------------------- */
 
     /**
      * Get id

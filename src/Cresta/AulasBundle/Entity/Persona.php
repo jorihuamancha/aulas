@@ -28,7 +28,75 @@ class Persona
      */
     private $nombre;
 
+     /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
 
+     /**
+     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Movimiento")
+     * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Persona")
+     */
+
+     private $movimientos;
+        /*---By Neg---*/
+     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
+
+      /**
+     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Reserva")
+     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="Persona")
+     */
+
+      private $reservapersonas;
+        /*---By Neg---*/
+
+
+    /* ---------------------------------------------- Fin relaciones-------------------------------------------------------*/
+
+
+    /* ---------------------------------------------- Constructor -----------------------------------------------------------*/
+
+    public function _construct(){
+        
+        $this->reservapersonas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->movimientos = new \Doctrine\Common\Collections\ArrayCollection();   
+    } 
+        /*---By Neg---*/
+    /* ---------------------------------------------- Fin Constructor -------------------------------------------------------*/
+    
+    
+    /* ---------------------------------------------- Get reservapersonas ----------------------------------------------------------*/
+
+    public function getResevaPersonas(){
+        
+        return $this->reservapersonas;
+    }
+            /*---By Neg---*/
+    
+    /* ---------------------------------------------- Fin Get reservapersonas-------------------------------------------------------*/  
+    
+    /* ---------------------------------------------- Set reservapersonas --------------------------------------------------------------*/
+
+    public function addReservaPersonas (Cresta\AulasBundle\Entity\Reserva $reservapersonas){
+        
+        $this->reservapersonas[] = $reservapersonas;
+    }
+        /*---By Neg---*/
+    /* ---------------------------------------------- fin Get reservapersonas ----------------------------------------------------------*/
+
+    /* ---------------------------------------------- Set movimientos ------------------------------------------------------------------*/
+    public function addMovimientos (Cresta\AulasBundle\Entity\Movimiento $movimientos){
+        $this->movimientos[] = $movimientos;
+    }
+        /*---By Neg---*/
+    /* ---------------------------------------------- fin set movimientos --------------------------------------------------------------*/
+
+    /* ---------------------------------------------- get movimientos ------------------------------------------------------------------*/
+
+    public function getMovimientos(){
+        return $this->movimientos;
+    }
+        /*---By Neg---*/
+    /* ---------------------------------------------- fin set movimientos --------------------------------------------------------------*/
+
+      
     /**
      * Get id
      *

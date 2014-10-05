@@ -16,6 +16,7 @@ body{
 
 header{
 	border-bottom:3px solid #E3680B;
+	z-index:1;
 }
 
 nav{
@@ -97,5 +98,76 @@ nav ul li a:hover{
 	text-decoration:none;
 	color:#000;
 }
+
+/* -------------------------------- FOSUser -------------------------------*/
+#Login{
+	width:200px;
+	padding-bottom:10px;
+}
+
+#username {
+	margin:3px;
+	margin-left:10px;
+}
+#password {
+	margin:3px;
+	margin-left:10px;
+}
+
+#Login h6{
+	text-align:right;
+	margin-right:15px;
+}
+
+#Login #_submit{
+	display:block;
+	float:right;
+	margin-right:15px;
+	margin-bottom:15px;
+}
+
+#register {
+	margin-top:-20px;
+	margin-bottom:20px;
+	width: 345px
+}
+#register label {
+	font-weight: normal;
+}
+
+#register input{
+	margin-left:10px;
+}
+
+#register #botonRegistrar{
+	display:block;
+	float:right;
+	margin:15px;
+}
+
+#cambiarMisdatos{
+	width:300px;
+}
+
+#cambiarMisdatos label{
+	font-weight: normal;
+	margin-left:10px;
+}
+
+#cambiarMisdatos input{
+	margin-left:2px;
+}
+
+#cambiarMisdatos #botonCambiardatos {
+	display:block;
+	float:right;
+	margin:15px;
+}
+
+#resetting{
+	margin:20px;
+}
+
+/* ------------------------------ Fin FOSUser ------------------------------------ */
 
 };
