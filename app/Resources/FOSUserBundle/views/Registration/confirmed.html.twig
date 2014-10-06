@@ -1,5 +1,5 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Confirmación de nuevo usuario{% endblock %}
 {% block fos_user_content %}
     <p>{{ 'registration.confirmed'|trans({'%username%': user.username}, 'FOSUserBundle') }}</p>
     {% if app.session is not empty %}
