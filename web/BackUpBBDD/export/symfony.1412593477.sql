@@ -1,5 +1,5 @@
 # MySQL dump of database 'symfony' on host 'localhost'
-# backup date and time: 05.10.2014 03:41 Uhr
+# backup date and time: 06.10.2014 13:04 Uhr
 # built by phpMyBackupPro v.2.3
 # http://www.phpMyBackupPro.net
 
@@ -75,7 +75,10 @@ CREATE TABLE `carrera` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `observaciones` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `cursos_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_A3F4AC6AFE7B9A` (`cursos_id`),
+  CONSTRAINT `FK_A3F4AC6AFE7B9A` FOREIGN KEY (`cursos_id`) REFERENCES `carrera` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
 
@@ -138,7 +141,13 @@ DROP TABLE IF EXISTS `persona`;
 CREATE TABLE `persona` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `movimientos_id` int(11) DEFAULT NULL,
+  `reservapersonas_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_9E588F07DFF19834` (`movimientos_id`),
+  KEY `IDX_9E588F0737A27C3D` (`reservapersonas_id`),
+  CONSTRAINT `FK_9E588F0737A27C3D` FOREIGN KEY (`reservapersonas_id`) REFERENCES `persona` (`id`),
+  CONSTRAINT `FK_9E588F07DFF19834` FOREIGN KEY (`movimientos_id`) REFERENCES `persona` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
 
@@ -177,11 +186,17 @@ CREATE TABLE `reserva` (
   `horaDesde` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `horaHasta` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `fechaReserva` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `recursos_id` int(11) DEFAULT NULL,
+  `movimientos_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_D73017A730113414` (`tareas_id`),
   UNIQUE KEY `UNIQ_D73017A7AD1A1255` (`aula_id`),
+  KEY `IDX_D73017A776F0FADE` (`recursos_id`),
+  KEY `IDX_D73017A7DFF19834` (`movimientos_id`),
   CONSTRAINT `FK_D73017A730113414` FOREIGN KEY (`tareas_id`) REFERENCES `tarea` (`id`),
-  CONSTRAINT `FK_D73017A7AD1A1255` FOREIGN KEY (`aula_id`) REFERENCES `aula` (`id`)
+  CONSTRAINT `FK_D73017A776F0FADE` FOREIGN KEY (`recursos_id`) REFERENCES `reserva` (`id`),
+  CONSTRAINT `FK_D73017A7AD1A1255` FOREIGN KEY (`aula_id`) REFERENCES `aula` (`id`),
+  CONSTRAINT `FK_D73017A7DFF19834` FOREIGN KEY (`movimientos_id`) REFERENCES `recurso` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
 
@@ -237,7 +252,7 @@ CREATE TABLE `usuario` (
 
 ### data of table `usuario` ###
 
-insert into `usuario` values ('1', null, 'root', 'root', 'test@example.com', 'test@example.com', '1', 'cf83s3edxtwgckkg0gowk4wscgo00sk', 'zMj6WdfQIBvgKfbsIbxSA+TKkEqS9nBB5zoUAetWWN5Umg3SO+FRO6kFTkUIwFwUTskGSIyWBngdk4NvPwTKmg==', '2014-10-05 03:09:25', '0', '0', null, null, null, 'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}', '0', null);
+insert into `usuario` values ('1', null, 'root', 'root', 'test@example.com', 'test@example.com', '1', 'cf83s3edxtwgckkg0gowk4wscgo00sk', 'zMj6WdfQIBvgKfbsIbxSA+TKkEqS9nBB5zoUAetWWN5Umg3SO+FRO6kFTkUIwFwUTskGSIyWBngdk4NvPwTKmg==', '2014-10-06 12:50:42', '0', '0', null, null, null, 'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}', '0', null);
 
 
 # ring constraints workaround

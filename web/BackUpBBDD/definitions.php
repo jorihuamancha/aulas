@@ -26,7 +26,7 @@
 // ---- adjust these two lines to your file system. The pathes must be relative to this file! ----- //
 
 $_PMBP_GLOBAL_CONF="global_conf.php";       // example: $_PMBP_GLOBAL_CONF="../../files/global_conf.php";
-$_PMBP_EXPORT_DIR="export";                // example: $_PMBP_EXPORT_DIR="../../files/export/";
+$_PMBP_EXPORT_DIR="export/";                // example: $_PMBP_EXPORT_DIR="../../files/export/";
 
 // ---- adjust this line only if you are going to backup from several database servers or if you have to use different accounts ---- //
 

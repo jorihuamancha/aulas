@@ -32,8 +32,8 @@ $CONF['confirm']=htmlspecialchars_decode("1");
 $CONF['stylesheet']=htmlspecialchars_decode("standard");
 
 $PMBP_SYS_VAR['last_scheduled']=htmlspecialchars_decode("");
-$PMBP_SYS_VAR['this_login']=htmlspecialchars_decode("05.10.2014 04:04 Uhr (IP: 127.0.0.1)");
-$PMBP_SYS_VAR['last_login']=htmlspecialchars_decode("05.10.2014 03:41 Uhr (IP: 127.0.0.1)");
+$PMBP_SYS_VAR['this_login']=htmlspecialchars_decode("06.10.2014 13:02 Uhr (IP: 127.0.0.1)");
+$PMBP_SYS_VAR['last_login']=htmlspecialchars_decode("05.10.2014 04:04 Uhr (IP: 127.0.0.1)");
 $PMBP_SYS_VAR['dir_lists']=htmlspecialchars_decode("1");
 $PMBP_SYS_VAR['memory_limit']=htmlspecialchars_decode("4000000");
 $PMBP_SYS_VAR['except_tables']=htmlspecialchars_decode("");
