@@ -72,7 +72,6 @@ class Reserva
     /* ---------------------------------------------- Reserva-Tarea-----------------------------------------------------------*/
     /**
      * @ORM\OneToOne(targetEntity="Tarea")
-     * @ORM\OneToOne(targetEntity="Tarea", mappedBy="Reserva")
      */
 
     private $tareas;
@@ -81,7 +80,6 @@ class Reserva
 
     /**
      * @ORM\OneToOne(targetEntity="Aula")
-     * @ORM\OneToOne(targetEntity="Aula", mappedBy="Reserva")
      */
      private $aula;
         /*-------By neg---------*/
@@ -89,7 +87,6 @@ class Reserva
     /* ---------------------------------------------- Reserva-Recursos----------------------------------------------------------*/
     /**
      * @ORM\ManyToOne(targetEntity="Reserva", inversedBy="Recurso")
-     * @ORM\OneToMany(targetEntity="Recurso", mappedBy="Reserva")
      */
 
     private $recursos;
@@ -99,7 +96,6 @@ class Reserva
 
     /**
      * @ORM\ManyToOne(targetEntity="Recurso", inversedBy="Movimiento")
-     * @ORM\OneToMany(targetEntity="Movimiento", mappedBy="Reserva")
      */
 
     private $movimientos;
@@ -116,19 +112,8 @@ class Reserva
         /*---By Neg---*/
 
 
-    /* ---------------------------------------------- Fin relacion-----------------------------------------------------------*/
-
     /* ---------------------------------------------- Fin Relaciones-------------------------------------------------------------*/
 
-    /* ---------------------------------------------- Set Movimientos -------------------------------------------------------------------*/
-    public function addMovimientos(\src\Cresta\AulasBundle\Entity\Movimiento $movimientos){
-        $this->movimientos [] =$movimientos;
-    }
-          /*-------By neg---------*/
-
-    /* ---------------------------------------------- Fin Set Movimientos----------------------------------------------------------------*/
-
-    /* ---------------------------------------------- Fin Relaciones-------------------------------------------------------------*/
 
     /* ---------------------------------------------- Get Movimientos -------------------------------------------------------------------*/
     public function getMovimientos(){
@@ -137,6 +122,12 @@ class Reserva
           /*-------By neg---------*/
     /* ---------------------------------------------- Fin Get Movientos -----------------------------------------------------------------*/
     
+    /* ---------------------------------------------- Set Movimientos -------------------------------------------------------------------*/
+    public function addMovimientos(\src\Cresta\AulasBundle\Entity\Movimiento $movimientos){
+        $this->movimientos [] =$movimientos;
+    }
+          /*-------By neg---------*/
+
     /* ---------------------------------------------- Fin Set Movimientos----------------------------------------------------------------*/
 
     /* ---------------------------------------------- Get Recursos ---------------------------------------------------------------------*/

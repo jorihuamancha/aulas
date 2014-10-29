@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+{% block title %}Registrar nuevo usuario{% endblock %}
+{% block fos_user_content %}
+<div id="register">
+	{% if is_granted('ROLE_ADMIN') %}
+		<h3>Nuevo usuario </h3>
+		{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+	{% else %}
+			Usted no tiene permisos para crear usuarios
+	{% endif %}
+</div>
+{% endblock fos_user_content %}
