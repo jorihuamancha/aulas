@@ -5,7 +5,6 @@ imports:
 framework:
     #esi:             ~
     #translator:      { fallback: "%locale%" }
-    translator: ~
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -16,17 +15,9 @@ framework:
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
-<<<<<<< HEAD
     default_locale:  "%locale%"
-    trusted_hosts:   ~
-=======
-    #default_locale:  "%locale%"
-    default_locale: "es"
->>>>>>> f3f1a743820e8737b0964dd373eac72abde2c17f
     trusted_proxies: ~
-    session:
-        # handler_id set to null will use default session handler from php.ini
-        handler_id:  ~
+    session:         ~
     fragments:       ~
     http_method_override: true
 
@@ -73,11 +64,3 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
-fos_user:
-    # tipo de ORM/ODB que utilizas (también puede ser 'mongodb', 'couchdb' y 'propel')
-    db_driver:     orm
-    # el nombre de tu firewall
-    firewall_name: main
-    # el namespace de tu clase 'User' específica
-    user_class:    Cresta\AulasBundle\Entity\Usuario

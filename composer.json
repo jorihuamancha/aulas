@@ -4,22 +4,12 @@
     "type": "project",
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-0": { "": "src/", "SymfonyStandard": "app/" }
+        "psr-0": { "": "src/" }
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.5.*",
+        "symfony/symfony": "2.3.*",
         "doctrine/orm": "~2.2,>=2.2.3",
-<<<<<<< HEAD
-        "doctrine/doctrine-bundle": "~1.2",
-        "twig/extensions": "~1.0",
-        "symfony/assetic-bundle": "~2.3",
-        "symfony/swiftmailer-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~3.0",
-        "sensio/framework-extra-bundle": "~3.0",
-        "incenteev/composer-parameter-handler": "~2.0"
-=======
         "doctrine/doctrine-bundle": "1.2.*",
         "twig/extensions": "1.0.*",
         "symfony/assetic-bundle": "2.3.*",
@@ -28,41 +18,28 @@
         "sensio/distribution-bundle": "2.3.*",
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
-        "incenteev/composer-parameter-handler": "~2.0",
-<<<<<<< HEAD
-        "friendsofsymfony/user-bundle": "*"
->>>>>>> f3f1a743820e8737b0964dd373eac72abde2c17f
-    },
-    "require-dev": {
-        "sensio/generator-bundle": "~2.3"
-=======
-        "friendsofsymfony/user-bundle": "~1.3"
->>>>>>> eef575bbb96001a1a3e3bb0e46771366efc223c7
+        "incenteev/composer-parameter-handler": "~2.0"
     },
     "scripts": {
-        "post-root-package-install": [
-            "SymfonyStandard\\Composer::hookRootPackageInstall"
-        ],
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ]
     },
     "config": {
         "bin-dir": "bin"
     },
+    "minimum-stability": "stable",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
@@ -70,7 +47,7 @@
             "file": "app/config/parameters.yml"
         },
         "branch-alias": {
-            "dev-master": "2.5-dev"
+            "dev-master": "2.3-dev"
         }
     }
 }

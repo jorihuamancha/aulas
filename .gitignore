@@ -9,5 +9,3 @@
 /vendor/
 /bin/
 /composer.phar
-!/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/translations
-!/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views
