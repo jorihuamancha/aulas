@@ -5,10 +5,14 @@
         "This file is @generated automatically"
     ],
 <<<<<<< HEAD
+<<<<<<< HEAD
     "hash": "0f5bf28fac35560dbdb2e597d32df056",
 =======
     "hash": "67c52282967d12bf6f07894a3166957c",
 >>>>>>> f3f1a743820e8737b0964dd373eac72abde2c17f
+=======
+    "hash": "e6cc1d1f0c0f67ad4eabbd62c3f85996",
+>>>>>>> d37c65a205c7c3b771af39082492adbc18527abf
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1352,7 +1356,6 @@
                 "doctrine/common": "~2.2",
                 "php": ">=5.3.3",
                 "psr/log": "~1.0",
-                "symfony/icu": "~1.0",
                 "twig/twig": "~1.12"
             },
             "replace": {
