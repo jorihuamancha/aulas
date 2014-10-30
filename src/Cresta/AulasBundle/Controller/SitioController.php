@@ -16,4 +16,6 @@ class SitioController extends Controller
 			//no me lo toma para entrar por ejemplo a /ayuda
 			return $this->render('CrestaAulasBundle:Default:'.$pagina.'.html.twig'); //new Response ('Ayuda');
 		}
+
+	
 }
