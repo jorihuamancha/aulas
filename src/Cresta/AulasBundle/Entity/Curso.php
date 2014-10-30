@@ -35,7 +35,13 @@ class Curso extends Tarea
      */
     private $nombre;
 
-        /*---By Neg---*/
+     /**
+     * @ORM\OneToOne(targetEntity="Tarea", inversedBy="Curso")
+     */
+
+    private $unaTarea;
+
+       
 
     /**
      * Get id

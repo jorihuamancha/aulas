@@ -38,7 +38,7 @@ class Carrera
         /*---By Neg---*/
     /* -----------------------------------------------  Relacion carrera-curso ------------------------------------------------ */
      /**
-     * @ORM\ManyToOne(targetEntity="Carrera", inversedBy="Curso")
+     * @ORM\ManyToOne(targetEntity="Curso", inversedBy="Carrera")
      */
     private $cursos;  
         /*---By Neg---*/

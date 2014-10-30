@@ -28,6 +28,12 @@ class Actividad extends Tarea
      */
     private $tipo;
 
+     /**
+     * @ORM\OneToOne(targetEntity="Tarea", inversedBy="Actividad")
+     */
+
+    private $unaTarea;
+
 
     /**
      * Get id

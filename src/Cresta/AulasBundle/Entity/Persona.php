@@ -28,26 +28,7 @@ class Persona
      */
     private $nombre;
 
-     /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
-
-     /**
-     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Movimiento")
-     */
-
-     private $movimientos;
-        /*---By Neg---*/
-     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
-
-      /**
-     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Reserva")
-     */
-
-      private $reservapersonas;
-        /*---By Neg---*/
-
-
-    /* ---------------------------------------------- Fin relaciones-------------------------------------------------------*/
-
+   
 
     /* ---------------------------------------------- Constructor -----------------------------------------------------------*/
 

@@ -68,44 +68,29 @@ class Reserva
      */
 
     private $tareas;
-        /*-------By neg---------*/
-    /* ---------------------------------------------- Reserva-Aula-------------------------------------------------------------*/
-
-    /**
-     * @ORM\OneToOne(targetEntity="Aula")
-     */
-     private $aula;
-        /*-------By neg---------*/
-
+      
     /* ---------------------------------------------- Reserva-Recursos----------------------------------------------------------*/
     /**
-     * @ORM\ManyToOne(targetEntity="Reserva", inversedBy="Recurso")
+     * @ORM\ManyToOne(targetEntity="Recurso", inversedBy="Reserva")
      */
 
     private $recursos;
-        /*-------By neg---------*/
-
-    /* ---------------------------------------------- Reserva-Movimientos-------------------------------------------------------*/
 
     /**
-     * @ORM\ManyToOne(targetEntity="Recurso", inversedBy="Movimiento")
-     */
+     * @ORM\OneToOne(targetEntity="Persona", inversedBy="Reserva")
+    */
 
-    private $movimientos;
-        /*-------By neg---------*/
-
+    private $reservaPersona;
 
     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
-
-      /**
-     * @ORM\OneToOne(targetEntity="Reserva", mappedBy="Persna")
+     /**
+     * @ORM\OneToOne(targetEntity="Aula", inversedBy="Reserva")
      */
 
-      private $personasreserva;
-        /*---By Neg---*/
+    private $reservaAula;
+      
 
 
-    /* ---------------------------------------------- Fin Relaciones-------------------------------------------------------------*/
 
 
     /* ---------------------------------------------- Get Movimientos -------------------------------------------------------------------*/
