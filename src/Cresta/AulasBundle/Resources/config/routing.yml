@@ -10,4 +10,10 @@ _ayuda:
     path:     /ayuda
     defaults: { _controller: CrestaAulasBundle:Default:ayuda }
 
+_imprimir:
+    path:     /imprimir
+    defaults: { _controller: CrestaAulasBundle:Default:imprimir }
+#    param:    { module: listado, action: imprimir}
+
+
   
