@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 
-/** @MappedSuperclass */
 class Tarea
 {
     /**
@@ -31,12 +30,7 @@ class Tarea
     private $nombre;
 
 
-    /* ------------------------------------------------ Tarea-Curso Relacion  ---------------------------------------------------------- */
-    /**
-    * @OneToOne(targetEntity="Curso")
-    * @JoinColumn(name="id", referencedColumnName="id")
-    */
-    protected $mapeoCursos;
+    
     /* ------------------------------------------------ Fin Relacion  ---------------------------------------------------------- */
 
     /**

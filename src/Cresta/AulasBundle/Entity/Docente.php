@@ -22,6 +22,12 @@ class Docente extends Persona
     private $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="Persona", inversedBy="Docente")
+    */
+
+    private $personaDocente;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="apellido", type="string", length=45)
