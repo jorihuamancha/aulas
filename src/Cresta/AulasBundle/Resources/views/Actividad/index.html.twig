@@ -8,6 +8,7 @@
             <tr>
                 <th>Id</th>
                 <th>Tipo</th>
+                <th>Nombre</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -15,7 +16,7 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('aulas_actividad_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.tipo }}</td>
+                <td>{{ entity.tipo }}</td><td>{{ entity.nombre }}</td>
                 <td>
                 <ul>
                     <li>

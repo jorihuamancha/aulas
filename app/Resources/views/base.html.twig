@@ -66,8 +66,8 @@
       				Reservas <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
-    							              <li><a href="{{ path('_homepage') }}">Listado de reservas</a></li>
-                                <li><a href="#">Nueva reserva</a></li>
+    							              <li><a href="{{ path('aulas_reserva') }}">Listado de reservas</a></li>
+                                <li><a href="{{ path('aulas_reserva_new') }}">Nueva reserva</a></li>
     			</ul> 
   			</li>
 
@@ -78,7 +78,7 @@
     			<ul  class= "dropdown-menu"  role= "menu" >
     				<li role= "presentation" class= "dropdown-header" >Cursos </li>
                                   <li><a href="{{ path('aulas_curso') }}">Listado de cursos</a></li>
-      	                          <li><a href="{{ path('aulas_aula_new') }}">Nuevo curso</a></li>
+      	                          <li><a href="{{ path('aulas_curso_new') }}">Nuevo curso</a></li>
                     <li role= "presentation" class= "dropdown-header" >Actividad </li>
                                   <li><a href="{{ path('aulas_actividad') }}">Listado de actividades</a></li>
                                 	<li><a href="{{ path('aulas_actividad_new') }}">Nueva actividad</a></li>
@@ -90,8 +90,8 @@
       				Recursos <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
-                                <li><a href="#">Listado de recursos</a></li>
-                                <li><a href="#">Nuevo recurso</a></li>
+                                <li><a href="{{ path('aulas_recurso') }}">Listado de recursos</a></li>
+                                <li><a href="{{ path('aulas_recurso_new') }}">Nuevo recurso</a></li>
     			</ul> 
   			</li>
 
@@ -121,8 +121,8 @@
       				Carreras <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
-                                <li><a href="#">Listado de carreras</a></li>
-                                <li><a href="#">Nueva carrera</a></li>
+                                <li><a href="{{ path('aulas_carrera') }}">Listado de carreras</a></li>
+                                <li><a href="{{ path('aulas_carrera_new') }}">Nueva carrera</a></li>
     			</ul> 
   			</li>
 
@@ -142,7 +142,7 @@
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
                                 <li><a href="#">Resguardar base de datos</a></li>
-                                <li><a href="#">Movimientos</a></li>
+                                <li><a href="{{ path('aulas_movimiento') }}">Movimientos</a></li>
                                 <li><a href="{{ path('_ayuda') }}">Ayuda</a></li>
                                 <li><a href="{{ path('_acercade') }}">Acerca de..</a></li>
     			</ul> 
@@ -158,7 +158,7 @@
                                 <li><a href="{{ path('fos_user_change_password') }}">Modificar mis datos de usuario</a></li>
           {% if is_granted('ROLE_ADMIN') %} <!--Si sos admin, te habilita ABM Usuarios-->
           <li role= "presentation" class= "dropdown-header" >Admin. Usuarios </li>
-                                <li><a href="#">Listado de usuarios</a></li>
+                                <li><a href="{{ path('aulas_usuario') }}">Listado de usuarios</a></li>
                                 <li><a href="register">Nuevo usuario</a></li>
 
           </ul> 
