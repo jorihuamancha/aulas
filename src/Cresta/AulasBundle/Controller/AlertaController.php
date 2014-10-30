@@ -4,16 +4,13 @@ namespace Cresta\AulasBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 use Cresta\AulasBundle\Entity\Alerta;
 use Cresta\AulasBundle\Form\AlertaType;
 
 /**
  * Alerta controller.
  *
- * @Route("/aulas_alerta")
  */
 class AlertaController extends Controller
 {
@@ -21,9 +18,6 @@ class AlertaController extends Controller
     /**
      * Lists all Alerta entities.
      *
-     * @Route("/", name="aulas_alerta")
-     * @Method("GET")
-     * @Template()
      */
     public function indexAction()
     {
@@ -31,16 +25,13 @@ class AlertaController extends Controller
 
         $entities = $em->getRepository('CrestaAulasBundle:Alerta')->findAll();
 
-        return array(
+        return $this->render('CrestaAulasBundle:Alerta:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new Alerta entity.
      *
-     * @Route("/", name="aulas_alerta_create")
-     * @Method("POST")
-     * @Template("CrestaAulasBundle:Alerta:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -56,10 +47,10 @@ class AlertaController extends Controller
             return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('CrestaAulasBundle:Alerta:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -84,27 +75,21 @@ class AlertaController extends Controller
     /**
      * Displays a form to create a new Alerta entity.
      *
-     * @Route("/new", name="aulas_alerta_new")
-     * @Method("GET")
-     * @Template()
      */
     public function newAction()
     {
         $entity = new Alerta();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('CrestaAulasBundle:Alerta:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Alerta entity.
      *
-     * @Route("/{id}", name="aulas_alerta_show")
-     * @Method("GET")
-     * @Template()
      */
     public function showAction($id)
     {
@@ -118,18 +103,15 @@ class AlertaController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('CrestaAulasBundle:Alerta:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Alerta entity.
      *
-     * @Route("/{id}/edit", name="aulas_alerta_edit")
-     * @Method("GET")
-     * @Template()
      */
     public function editAction($id)
     {
@@ -144,11 +126,11 @@ class AlertaController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('CrestaAulasBundle:Alerta:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -172,9 +154,6 @@ class AlertaController extends Controller
     /**
      * Edits an existing Alerta entity.
      *
-     * @Route("/{id}", name="aulas_alerta_update")
-     * @Method("PUT")
-     * @Template("CrestaAulasBundle:Alerta:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -196,17 +175,15 @@ class AlertaController extends Controller
             return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('CrestaAulasBundle:Alerta:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Alerta entity.
      *
-     * @Route("/{id}", name="aulas_alerta_delete")
-     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {

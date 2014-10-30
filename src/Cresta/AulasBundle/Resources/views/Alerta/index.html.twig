@@ -17,7 +17,7 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('aulas_alerta_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.fecha }}</td>
+                <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ entity.descripcion }}</td>
                 <td>{{ entity.observaciones }}</td>
                 <td>
