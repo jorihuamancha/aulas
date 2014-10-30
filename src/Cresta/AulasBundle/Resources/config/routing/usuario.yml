@@ -1,0 +1,10 @@
+aulas_usuario:
+    path:     /
+    defaults: { _controller: "CrestaAulasBundle:Usuario:index" }
+
+aulas_usuario_show:
+    path:     /{id}/show
+    defaults: { _controller: "CrestaAulasBundle:Usuario:show" }
+
+
+

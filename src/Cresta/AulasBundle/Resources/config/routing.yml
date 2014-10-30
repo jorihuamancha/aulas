@@ -10,6 +10,10 @@ _ayuda:
     path:     /ayuda
     defaults: { _controller: CrestaAulasBundle:Default:ayuda }
 
+CrestaAulasBundle_actividad:
+    resource: "@CrestaAulasBundle/Resources/config/routing/actividad.yml"
+    prefix:   /actividad
+
 CrestaAulasBundle_alerta:
     resource: "@CrestaAulasBundle/Resources/config/routing/alerta.yml"
     prefix:   /alerta
@@ -18,14 +22,30 @@ CrestaAulasBundle_aula:
     resource: "@CrestaAulasBundle/Resources/config/routing/aula.yml"
     prefix:   /aula
 
-CrestaAulasBundle_actividad:
-    resource: "@CrestaAulasBundle/Resources/config/routing/actividad.yml"
-    prefix:   /actividad
+CrestaAulasBundle_carrera:
+    resource: "@CrestaAulasBundle/Resources/config/routing/carrera.yml"
+    prefix:   /carrera
 
 CrestaAulasBundle_curso:
     resource: "@CrestaAulasBundle/Resources/config/routing/curso.yml"
     prefix:   /curso
 
-CrestaAulasBundle_tarea:
-    resource: "@CrestaAulasBundle/Resources/config/routing/tarea.yml"
-    prefix:   /tarea
+CrestaAulasBundle_movimiento:
+    resource: "@CrestaAulasBundle/Resources/config/routing/movimiento.yml"
+    prefix:   /movimiento
+
+CrestaAulasBundle_recurso:
+    resource: "@CrestaAulasBundle/Resources/config/routing/recurso.yml"
+    prefix:   /recurso
+
+CrestaAulasBundle_reserva:
+    resource: "@CrestaAulasBundle/Resources/config/routing/reserva.yml"
+    prefix:   /reserva
+
+CrestaAulasBundle_usuario:
+    resource: "@CrestaAulasBundle/Resources/config/routing/usuario.yml"
+    prefix:   /usuario
+
+CrestaAulasBundle_persona:
+    resource: "@CrestaAulasBundle/Resources/config/routing/persona.yml"
+    prefix:   /persona
