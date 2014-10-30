@@ -40,6 +40,9 @@
             <a href="{{ path('aulas_alerta_new') }}">
                 Create a new entry
             </a>
+            <form name="pruebaPDF" action="{{ path('pdf_file', { name: 'valor' }) }}" method="GET">
+                <input type="button" action="submit" value="name" name="submit">
+            </form> 
         </li>
     </ul>
     {% endblock %}
