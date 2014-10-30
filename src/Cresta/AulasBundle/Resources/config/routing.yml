@@ -10,4 +10,28 @@ _ayuda:
     path:     /ayuda
     defaults: { _controller: CrestaAulasBundle:Default:ayuda }
 
-  
+aulas_alerta:
+    path:     /alerta
+    defaults: { _controller: CrestaAulasBundle:Alerta:index }
+
+aulas_alerta_new:
+    path:     /alerta/new
+    defaults: { _controller: CrestaAulasBundle:Alerta:new }
+
+aulas_alerta_show:
+    path:     /alerta/{id}
+    defaults: { _controller: CrestaAulasBundle:Alerta:show }
+
+aulas_alerta_edit:
+    path:     /alerta/{id}/edit
+    defaults: { _controller: CrestaAulasBundle:Alerta:edit }
+
+aulas_alerta_update:
+    path:     /alerta/{id}
+    defaults: { _controller: CrestaAulasBundle:Alerta:alerta_update }
+
+aulas_alerta_delete:
+    path:     /alerta/{id}
+    defaults: { _controller: CrestaAulasBundle:Alerta:alerta_delete }
+
+    aulas_alerta_create
