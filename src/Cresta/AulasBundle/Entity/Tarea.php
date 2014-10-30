@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
+
+/** @MappedSuperclass */
 class Tarea
 {
     /**
@@ -28,15 +30,14 @@ class Tarea
      */
     private $nombre;
 
-     /* ---------------------------------------------- Tarea-Reserva------------------------------------------------------------*/
+
+    /* ------------------------------------------------ Tarea-Curso Relacion  ---------------------------------------------------------- */
     /**
-     * @ORM\OneToOne(targetEntity="Tarea", mappedBy="Reserva")
-     */
-
-    private $tareas;
-        /*-------By neg---------*/
-
-    /* ----------------------------------------------Fin recurso-Recurso----------------------------------------------------------*/
+    * @OneToOne(targetEntity="Curso")
+    * @JoinColumn(name="id", referencedColumnName="id")
+    */
+    protected $mapeoCursos;
+    /* ------------------------------------------------ Fin Relacion  ---------------------------------------------------------- */
 
     /**
      * Get id

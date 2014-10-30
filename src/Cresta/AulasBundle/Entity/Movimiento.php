@@ -24,7 +24,7 @@ class Movimiento
     /**
      * @var string
      *
-     * @ORM\Column(name="fecha", type="string", length=45)
+     * @ORM\Column(name="fecha", type="date")
      */
     private $fecha;
 

@@ -38,35 +38,28 @@ class Reserva
     /**
      * @var string
      *
-     * @ORM\Column(name="horaRegistro", type="string", length=45)
-     */
-    private $horaRegistro;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="fechaRegistro", type="string", length=45)
+     * @ORM\Column(name="fechaRegistro", type="datetime")
      */
     private $fechaRegistro;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="horaDesde", type="string", length=45)
+     * @ORM\Column(name="horaDesde", type="time")
      */
     private $horaDesde;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="horaHasta", type="string", length=45)
+     * @ORM\Column(name="horaHasta", type="time")
      */
     private $horaHasta;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fechaReserva", type="string", length=45)
+     * @ORM\Column(name="fechaReserva", type="date")
      */
     private $fechaReserva;
     /* ---------------------------------------------- Reserva-Tarea-----------------------------------------------------------*/
@@ -228,29 +221,6 @@ class Reserva
     public function getObservaciones()
     {
         return $this->observaciones;
-    }
-
-    /**
-     * Set horaRegistro
-     *
-     * @param string $horaRegistro
-     * @return Reserva
-     */
-    public function setHoraRegistro($horaRegistro)
-    {
-        $this->horaRegistro = $horaRegistro;
-
-        return $this;
-    }
-
-    /**
-     * Get horaRegistro
-     *
-     * @return string 
-     */
-    public function getHoraRegistro()
-    {
-        return $this->horaRegistro;
     }
 
     /**

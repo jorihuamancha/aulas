@@ -77,11 +77,11 @@
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
     				<li role= "presentation" class= "dropdown-header" >Cursos </li>
-                                  <li><a href="#">Listado de cursos</a></li>
-      	                          <li><a href="#">Nuevo curso</a></li>
+                                  <li><a href="{{ path('aulas_curso') }}">Listado de cursos</a></li>
+      	                          <li><a href="{{ path('aulas_aula_new') }}">Nuevo curso</a></li>
                     <li role= "presentation" class= "dropdown-header" >Actividad </li>
-                                  <li><a href="#">Listado de actividades</a></li>
-                                	<li><a href="#">Nueva actividad</a></li>
+                                  <li><a href="{{ path('aulas_actividad') }}">Listado de actividades</a></li>
+                                	<li><a href="{{ path('aulas_actividad_new') }}">Nueva actividad</a></li>
     			</ul> 
   			</li>
 
@@ -100,9 +100,9 @@
       				Aulas <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
-                                <li><a href="#">Listado de aulas</a></li>
+                                <li><a href="{{ path('aulas_aula') }}">Listado de aulas</a></li>
                                 <li><a href="#">Disponibilidad de aulas</a></li>
-                                <li><a href="#">Nueva aula</a></li>
+                                <li><a href="{{ path('aulas_aula_new') }}">Nueva aula</a></li>
     			</ul> 
   			</li>
 

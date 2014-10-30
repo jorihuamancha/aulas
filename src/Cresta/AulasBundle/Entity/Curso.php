@@ -28,13 +28,14 @@ class Curso extends Tarea
      */
     private $anio;
 
-    /* -----------------------------------------------  Relacion curso-carrera ------------------------------------------------ */
-     /**
-     * @ORM\OneToOne(targetEntity="Curso", mappedBy="Carrera")
+        /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=45)
      */
-    private $carrera;  
+    private $nombre;
+
         /*---By Neg---*/
-    /* ------------------------------------------------ Fin Relacion  ---------------------------------------------------------- */
 
     /**
      * Get id
@@ -67,5 +68,28 @@ class Curso extends Tarea
     public function getAnio()
     {
         return $this->anio;
+    }
+
+        /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Curso
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
     }
 }
