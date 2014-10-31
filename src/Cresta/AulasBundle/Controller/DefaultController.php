@@ -5,10 +5,6 @@ namespace Cresta\AulasBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ps\PdfBundle\Annotation\Pdf;
 
-/**
-* @Pdf()
-*/
-
 class DefaultController extends Controller
 {
     public function indexAction()
@@ -24,11 +20,17 @@ class DefaultController extends Controller
     public function ayudaAction()
     {
         return $this->render('CrestaAulasBundle:Default:ayuda.html.twig', array());
+
     }
 
-    public function imprimirAction(){
+    /**
+    * @Pdf()
+    */
+
+    public function imprimirAction($listado){// http://localhost/aulas/web/app_dev.php/imprimir/listado.pdf
         $formato=$this->get('request')->get('_format');
-        return $this->render(sprintf('CrestaAulasBundle:Default:lista.pdf.twig', $formato ),  array() );
+        return $this->render(sprintf('CrestaAulasBundle:Default:listado.pdf.twig', $formato ),  
+        array( 'listado'=>$listado) );   //'nombre'=>$nombre) );
     }
 
 	/*public function imprimirAction($listado){

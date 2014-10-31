@@ -24,31 +24,22 @@ class Movimiento
     /**
      * @var string
      *
-     * @ORM\Column(name="fecha", type="string", length=45)
+     * @ORM\Column(name="fecha", type="date")
      */
     private $fecha;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Persona", inversedBy="Movimiento")
+    */
 
-    /* ---------------------------------------------- Reserva-Movimientos-------------------------------------------------------*/
+    private $movimientoPersona;
+
 
     /**
-     * @ORM\OneToOne(targetEntity="Movimiento", mappedBy="Reserva")
-     */
+     * @ORM\OneToOne(targetEntity="Reserva", inversedBy="Movimiento")
+    */
 
-    private $reservas;
-        /*-------By neg---------*/
-
-    /* ---------------------------------------------- Fin Relaciones-------------------------------------------------------------*/
-
-    /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
-            
-     /**
-     * @ORM\OneToOne(targetEntity="Movimiento", mappedBy="Persona")
-     */
-
-     private $personas;
-        /*---By Neg---*/
-     /* ---------------------------------------------- Fin relacion      -------------------------------------------------------*/
+    private $reservaMovimiento;
 
     /**
      * Get id

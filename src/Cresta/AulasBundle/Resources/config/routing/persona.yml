@@ -1,0 +1,30 @@
+aulas_persona:
+    path:     /
+    defaults: { _controller: "CrestaAulasBundle:Persona:index" }
+
+aulas_persona_show:
+    path:     /{id}/show
+    defaults: { _controller: "CrestaAulasBundle:Persona:show" }
+
+aulas_persona_new:
+    path:     /new
+    defaults: { _controller: "CrestaAulasBundle:Persona:new" }
+
+aulas_persona_create:
+    path:     /create
+    defaults: { _controller: "CrestaAulasBundle:Persona:create" }
+    requirements: { _method: post }
+
+aulas_persona_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "CrestaAulasBundle:Persona:edit" }
+
+aulas_persona_update:
+    path:     /{id}/update
+    defaults: { _controller: "CrestaAulasBundle:Persona:update" }
+    requirements: { _method: post|put }
+
+aulas_persona_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "CrestaAulasBundle:Persona:delete" }
+    requirements: { _method: post|delete }

@@ -38,7 +38,7 @@ class Aula
     /**
      * @var string
      *
-     * @ORM\Column(name="capacidad", type="string", length=45)
+     * @ORM\Column(name="capacidad", type="integer", length=11)
      */
     private $capacidad;
 
@@ -48,7 +48,6 @@ class Aula
      * @ORM\Column(name="activo", type="boolean")
      */
     private $activo;
-
 
     /**
      * Get id
@@ -122,7 +121,7 @@ class Aula
     /**
      * Get capacidad
      *
-     * @return string 
+     * @return integer
      */
     public function getCapacidad()
     {
