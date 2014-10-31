@@ -1,32 +1,34 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Ver Curso {% endblock %}
 {% block body -%}
+<div class="col-md-12 col-sm-12 col-xs-12">
     <h1>Curso</h1>
 
-    <table class="record_properties">
+    <table class="record_properties tabla verItem">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
+                <th>Nombre</th>
+                <td><b>{{ entity.nombre }}</b></td>
             </tr>
             <tr>
-                <th>Anio</th>
+                <th>Carrera</th>
+                <td>{{ entity.Carrera.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Año</th>
                 <td>{{ entity.anio }}</td>
             </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('aulas_curso') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('aulas_curso_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        <ul class="record_actions tablaAcciones">
+                    <a class="btn btn-default botonTabla" href="{{ path('aulas_curso_edit', { 'id': entity.id }) }}">
+                        Editar
+                    </a>
+                    {{ form(delete_form) }}
+                    <a class="btn btn-default botonTabla" href="{{ path('aulas_curso') }}">
+                        Volver a la lista
+                    </a>
+        </ul>
+</div>
 {% endblock %}
