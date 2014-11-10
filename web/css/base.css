@@ -166,6 +166,46 @@ nav ul li a:hover{
 	margin-bottom:0px;
 }
 
+
+/* ==formAutogenerado== 
+	La clase se la pongo a los divs generales de los cruds 
+	que contienen inputs como el EDIT y el NEW */
+.formAutogenerado form input{
+	float:right;
+	margin-right:89px;
+}
+
+.formAutogenerado form select{
+	float:right;
+	margin-right:20px;
+}
+
+.formAutogenerado{
+	margin-top:30px;
+	width:330px;
+}
+
+.formAutogenerado div{
+	margin-top:10px;
+}
+
+/* .formAutogenerado #NuevoCurso por ejemplo, me refiero al div 
+	con ID NuevoCurso que está adentro del formAutogenerado,
+	voy a poner un ID a cada uno (Los EDITS y NEWS de cada CRUD) */
+
+.formAutogenerado #NuevoCurso div:nth-child(4),div:nth-child(5){ 
+/* DIVs del botón CREAR y Volver a la lista */
+	width:100px;
+	display:inline-block;
+	margin-bottom:10px;
+}
+
+.formAutogenerado #EditarCurso div:nth-child(4),div:nth-child(5){ 
+/* DIVs del botón Actualizar, Volver a la lista*/
+	width:100px;
+	display:inline-block;
+}
+
 /* -------------------------------- FOSUser -------------------------------*/
 #Login{
 	width:200px;

@@ -1,7 +1,6 @@
 {% extends '::base.html.twig' %}
 {% block title %}Ver Curso {% endblock %}
 {% block body -%}
-<div class="col-md-12 col-sm-12 col-xs-12">
     <h1>Curso</h1>
 
     <table class="record_properties tabla verItem">
@@ -26,9 +25,9 @@
                         Editar
                     </a>
                     {{ form(delete_form) }}
+                    
                     <a class="btn btn-default botonTabla" href="{{ path('aulas_curso') }}">
                         Volver a la lista
                     </a>
         </ul>
-</div>
 {% endblock %}

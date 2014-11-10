@@ -1,15 +1,20 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Curso creation</h1>
+    <h1>Nuevo Curso</h1>
+    <div class="formAutogenerado">
+	    <div id="NuevoCurso">
+	    	{{ form(form) }}	
+	    </div>
 
-    {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('aulas_curso') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+			{# 
+				Agregué el boton en el formulario creado en CursoController!
+
+				        <a class="btn btn-default botonTabla" href="{{ path('aulas_curso') }}">
+			            Volver a la lista
+			        	</a>
+			#}  
+			
+    </div>
 {% endblock %}

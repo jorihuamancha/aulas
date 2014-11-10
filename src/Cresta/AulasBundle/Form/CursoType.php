@@ -15,9 +15,9 @@ class CursoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('anio')
-            ->add('nombre')
-            ->add('Carrera','entity',array('class'=>'CrestaAulasBundle:Carrera','property'=>'nombre'))
+            ->add('anio','text',array('label'=>'Año:'))
+            ->add('nombre','text',array('label'=>'Nombre:'))
+            ->add('Carrera','entity',array('class'=>'CrestaAulasBundle:Carrera','property'=>'nombre','label'=>'Carrera:'))
         ;
     }
     
