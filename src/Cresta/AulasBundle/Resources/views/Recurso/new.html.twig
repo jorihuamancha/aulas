@@ -1,15 +1,10 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Recurso creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('aulas_recurso') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <h1>Nuevo recurso</h1>
+    <div class="formAutogenerado">
+	 	<div id="NuevoRecurso">
+	    	{{ form(form) }}
+	    </div>
+	</div>
 {% endblock %}
