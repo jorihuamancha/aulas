@@ -212,8 +212,8 @@ nav ul li a:hover{
 	display:inline-block;
 }
 
-.formAutogenerado #NuevoRecurso select{
-	margin-right:66%;
+#cresta_aulasbundle_recurso_activo, #cresta_aulasbundle_aula_activo{
+	margin-right:76%;
 }
 
 /* -------------------------------- FOSUser -------------------------------*/

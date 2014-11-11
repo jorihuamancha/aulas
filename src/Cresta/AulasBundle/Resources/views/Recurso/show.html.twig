@@ -12,27 +12,25 @@
             <tr>
                 <th>Activo</th>
                 <td>
-                {% if entity.activo==1 %}
-                    SI
-                {% else %}
-                    NO
-                {% endif %}
+                    {% if entity.activo==1 %}
+                        SI
+                    {% else %}
+                        NO
+                    {% endif %}
                 </td>
             </tr>
         </tbody>
     </table>
 
         <ul class="record_actions">
-    <li>
-        <a href="{{ path('aulas_recurso') }}">
-            Back to the list
+
+
+        <a class="btn btn-default botonTabla" href="{{ path('aulas_recurso_edit', { 'id': entity.id }) }}">
+            Editar
         </a>
-    </li>
-    <li>
-        <a href="{{ path('aulas_recurso_edit', { 'id': entity.id }) }}">
-            Edit
+
+        <a class="btn btn-default botonTabla" href="{{ path('aulas_recurso') }}">
+            Volver a la lista
         </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}
