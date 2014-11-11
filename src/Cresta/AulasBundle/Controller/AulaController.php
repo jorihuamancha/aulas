@@ -225,8 +225,14 @@ class AulaController extends Controller
     }
 
      public function disponibilidadAction()
-        {   
+        {  
          if (empty($_GET["mes"])) {
+            $mesSelect = array();
+            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect));
+        }
+        else{
+
+            $buscameEsto= $_GET["mes"];
             $AnioActual = date('Y');
                 $dias = 1;
                 $MesesDe30 =  array();
@@ -236,6 +242,7 @@ class AulaController extends Controller
                     $MeseDe31[$dias] = $dias;
                     $dias = $dias + 1;
                 }
+                $dias = 1;
                 while ($dias < 31){
                     $MesesDe30[$dias] = $dias;
                     $dias = $dias + 1;
@@ -255,10 +262,10 @@ class AulaController extends Controller
                         $dias = $dias + 1;
                      }
                 }
-            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $MesesDe30,'Mayo' => $MeseDe31,'Junio' => $MesesDe30,'Julio' => $MeseDe31,'Agosto' => $MeseDe31,'Septiembre' => $MesesDe30,'Octubre' => $MeseDe31,'Noviembre' => $MesesDe30,'Diciembre' => $MeseDe31));
-        }
-        else{
-            die('Gol de Boca, toma river puto');
+            $unArray = array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $MesesDe30,'Mayo' => $MeseDe31,'Junio' => $MesesDe30,'Julio' => $MeseDe31,'Agosto' => $MeseDe31,'Septiembre' => $MesesDe30,'Octubre' => $MeseDe31,'Noviembre' => $MesesDe30,'Diciembre' => $MeseDe31);
+            //$mesSelect=1;
+            $mesSelect = $unArray[$buscameEsto];
+            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect));
         }
      }
 }

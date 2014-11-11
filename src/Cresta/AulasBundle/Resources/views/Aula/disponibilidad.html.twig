@@ -18,6 +18,12 @@
         <option value="?mes=Noviembre">Noviembre</option>
         <option value="?mes=Diciembre">Diciembre</option>
     </select>
+
+    <select>
+        {% for dia in mesSelect %}
+            <option value="{{dia}}">{{dia}}</option>
+        {% endfor %}
+    </select>
     
 
     
