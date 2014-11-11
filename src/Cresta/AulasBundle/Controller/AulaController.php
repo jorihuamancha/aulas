@@ -66,8 +66,8 @@ class AulaController extends Controller
             'action' => $this->generateUrl('aulas_aula_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -147,7 +147,9 @@ class AulaController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Editar','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+
 
         return $form;
     }
@@ -190,7 +192,7 @@ class AulaController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrestaAulasBundle:Aula')->find($id);
 
@@ -200,7 +202,7 @@ class AulaController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+        //}
 
         return $this->redirect($this->generateUrl('aulas_aula'));
     }
@@ -221,4 +223,50 @@ class AulaController extends Controller
             ->getForm()
         ;
     }
+
+     public function disponibilidadAction()
+        {  
+         if (empty($_GET["mes"])) {
+            $mesSelect = array();
+            $buscameEsto='Mes';
+            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,'seleccionado'=>$buscameEsto));
+        }
+        else{
+
+            $buscameEsto= $_GET["mes"];
+            $AnioActual = date('Y');
+                $dias = 1;
+                $MesesDe30 =  array();
+                $MeseDe31 =  array();
+                $Febrero = array();
+                while ($dias < 32){
+                    $MeseDe31[$dias] = $dias;
+                    $dias = $dias + 1;
+                }
+                $dias = 1;
+                while ($dias < 31){
+                    $MesesDe30[$dias] = $dias;
+                    $dias = $dias + 1;
+                }
+                $dias = 1;
+                if (($AnioActual % 4 == 0) && ($AnioActual % 100 != 0) || ($AnioActual % 400 == 0)){
+                    //es bisiesto   
+                    while ($dias < 30){
+                        $Febrero[$dias] = $dias;
+                        $dias = $dias + 1;
+                    }
+                }
+                else{
+                    //NOPE
+                     while ($dias < 29){
+                        $Febrero[$dias] = $dias;
+                        $dias = $dias + 1;
+                     }
+                }
+            $unArray = array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $MesesDe30,'Mayo' => $MeseDe31,'Junio' => $MesesDe30,'Julio' => $MeseDe31,'Agosto' => $MeseDe31,'Septiembre' => $MesesDe30,'Octubre' => $MeseDe31,'Noviembre' => $MesesDe30,'Diciembre' => $MeseDe31);
+            //$mesSelect=1;
+            $mesSelect = $unArray[$buscameEsto];
+            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,'seleccionado'=>$buscameEsto));
+        }
+     }
 }
