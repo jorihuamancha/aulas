@@ -6,5 +6,25 @@ aulas_usuario_show:
     path:     /{id}/show
     defaults: { _controller: "CrestaAulasBundle:Usuario:show" }
 
+aulas_usuario_new:
+    path:     /new
+    defaults: { _controller: "CrestaAulasBundle:Usuario:new" }
 
+aulas_usuario_create:
+    path:     /create
+    defaults: { _controller: "CrestaAulasBundle:Usuario:create" }
+    requirements: { _method: post }
 
+aulas_usuario_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "CrestaAulasBundle:Usuario:edit" }
+
+aulas_usuario_update:
+    path:     /{id}/update
+    defaults: { _controller: "CrestaAulasBundle:Usuario:update" }
+    requirements: { _method: post|put }
+
+aulas_usuario_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "CrestaAulasBundle:Usuario:delete" }
+    requirements: { _method: post|delete }

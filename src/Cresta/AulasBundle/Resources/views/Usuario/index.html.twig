@@ -1,15 +1,14 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Usuarios {% endblock %}
 {% block body -%}
-    <h1>Usuario list</h1>
-
-    <table class="records_list">
+    <h1>Lista de Usuarios</h1>
+    <table class="records_list tabla">
         <thead>
             <tr>
                 <th>Nombre de Usuario</th>
                 <th>Email</th>
                 <th>Activo</th>
-                <th>Actions</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -17,17 +16,26 @@
             <tr>
                 <td>{{ entity.username }}</td>
                 <td>{{ entity.email }}</td>
-                <td>{{ entity.enabled }}</td>
+                <td>
+                    {% if entity.enabled==1 %}
+                        SI
+                    {% else %}
+                        NO
+                    {% endif %}
+                </td>
                 <td>
                 <ul>
-                    <li>
-                        <a href="{{ path('aulas_usuario_show', { 'id': entity.id }) }}">show</a>
-                    </li>
+
+                        <a href="{{ path('aulas_usuario_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
+
+
+                        <a href="{{ path('aulas_usuario_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
+
+                        <a href="{{ path('aulas_usuario_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
                 </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
     {% endblock %}

@@ -39,7 +39,7 @@ class Usuario extends BaseUser
 
     /* ---------------------------------------------- Get Persona ------------------------------------------------------*/
     
-    public function getPesona (){
+    public function getPersona(){
         
         return $this->personas;
     }
@@ -65,4 +65,5 @@ class Usuario extends BaseUser
     {
         return $this->id;
     }
+
 }
