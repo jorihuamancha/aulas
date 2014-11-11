@@ -32,4 +32,4 @@ aulas_curso_update:
 aulas_curso_delete:
     path:     /{id}/delete
     defaults: { _controller: "CrestaAulasBundle:Curso:delete" }
-    requirements: { _method: get|delete }
+    #requirements: { _method: get|delete }

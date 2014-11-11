@@ -15,8 +15,11 @@ class RecursoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
-            ->add('activo')
+            ->add('nombre','text',array('label'=>'Nombre:'))
+            //->add('activo','text',array('label'=>'Activo:'))
+            ->add('activo','choice',array('label'=>'Activo:',
+                                        'multiple'=>false,
+                                        'choices'=>array(0=>'NO', 1=>'SI')))
         ;
     }
     

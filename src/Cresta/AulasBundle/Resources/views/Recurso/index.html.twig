@@ -1,43 +1,47 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Recursos {% endblock %}
 {% block body -%}
-    <h1>Recurso list</h1>
+    <h1>Lista de Recursos</h1>
 
-    <table class="records_list">
+    <ul>
+            <a href="{{ path('aulas_recurso_new') }}" class="btn btn-default botonTabla">
+                Nuevo recurso
+            </a>
+    </ul>
+
+    <table class="records_list tabla">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nombre</th>
                 <th>Activo</th>
-                <th>Actions</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('aulas_recurso_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.nombre }}</td>
-                <td>{{ entity.activo }}</td>
+                <td>
+                {% if entity.activo==1 %}
+                    SI
+                {% else %}
+                    NO                
+                {% endif %}
+
+                </td>
                 <td>
                 <ul>
-                    <li>
-                        <a href="{{ path('aulas_recurso_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('aulas_recurso_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
+                    
+                        <a href="{{ path('aulas_recurso_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
+                    
+                        <a href="{{ path('aulas_recurso_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
+                    
+                        <a href="{{ path('aulas_recurso_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
+
                 </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('aulas_recurso_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
     {% endblock %}
