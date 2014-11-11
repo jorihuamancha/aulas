@@ -99,6 +99,113 @@ nav ul li a:hover{
 	color:#000;
 }
 
+.icono {
+	height:16px;
+	width:16px;
+	display:inline-block;
+	margin: 0 auto;
+}
+
+.tabla ul{
+	padding-left:0px;
+	margin-bottom:5px;
+}
+
+.tabla {
+	border: 1px solid #E3680B;
+	border-collapse: collapse;
+	margin-left: 50px;
+	clear:both;
+	overflow-y:auto;
+	margin-bottom:30px;
+}
+
+.tabla th {
+	background-color: #E3680B;
+	color: white;
+}
+
+.tabla td, .tabla th {
+	border: 1px solid black;
+	border-style: solid;
+	border-collapse: collapse;
+	padding:2px;
+	font-size: 13px;
+	text-align:center;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.tabla tr:nth-child(odd) {
+   background-color: #E8E8E8;
+   color:black;
+}
+
+.tabla tr:nth-child(even) {
+   background-color: #FFF;
+   color:black;
+}
+
+.tablaAcciones form{
+	/* lo hice solamente para el botón DELETE de los CRUDS,
+		ya que la vista crea un form y un boton
+	*/
+	display:inline-block;
+}
+
+.botonTabla { 
+	margin:10px;
+	display:inline-block;
+}
+
+.verItem tr:nth-child(even), .verItem tr:nth-child(odd) {
+	background-color:white;
+}
+
+.verItem{
+	margin-bottom:0px;
+}
+
+
+/* ==formAutogenerado== 
+	La clase se la pongo a los divs generales de los cruds 
+	que contienen inputs como el EDIT y el NEW */
+.formAutogenerado form input{
+	float:right;
+	margin-right:89px;
+}
+
+.formAutogenerado form select{
+	float:right;
+	margin-right:20px;
+}
+
+.formAutogenerado{
+	margin-top:30px;
+	width:330px;
+}
+
+.formAutogenerado div{
+	margin-top:10px;
+}
+
+/* .formAutogenerado #NuevoCurso por ejemplo, me refiero al div 
+	con ID NuevoCurso que está adentro del formAutogenerado,
+	voy a poner un ID a cada uno (Los EDITS y NEWS de cada CRUD) */
+
+.formAutogenerado #NuevoCurso div:nth-child(4),div:nth-child(5){ 
+/* DIVs del botón CREAR y Volver a la lista */
+	width:100px;
+	display:inline-block;
+	margin-bottom:10px;
+}
+
+.formAutogenerado #EditarCurso div:nth-child(4),div:nth-child(5){ 
+/* DIVs del botón Actualizar, Volver a la lista*/
+	width:100px;
+	display:inline-block;
+}
+
 /* -------------------------------- FOSUser -------------------------------*/
 #Login{
 	width:200px;
