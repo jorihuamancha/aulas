@@ -3,18 +3,14 @@
 {% block body -%}
     <h1>Alerta</h1>
 
-    <table class="record_properties">
+    <table class="record_properties tabla">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
                 <th>Fecha</th>
-                <td>{{ entity.fecha|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.fecha|date('d-m-Y') }}</td>
             </tr>
             <tr>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <td>{{ entity.descripcion }}</td>
             </tr>
             <tr>
@@ -24,17 +20,11 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('aulas_alerta') }}">
-            Back to the list
+        <a  class="btn btn-default botonTabla" href="{{ path('aulas_alerta_edit', { 'id': entity.id }) }}">
+            Editar
         </a>
-    </li>
-    <li>
-        <a href="{{ path('aulas_alerta_edit', { 'id': entity.id }) }}">
-            Edit
+        <a  class="btn btn-default botonTabla" href="{{ path('aulas_alerta') }}">
+            Volver a la lista
         </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        </p>
 {% endblock %}

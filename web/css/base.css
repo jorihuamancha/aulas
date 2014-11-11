@@ -171,17 +171,15 @@ nav ul li a:hover{
 	La clase se la pongo a los divs generales de los cruds 
 	que contienen inputs como el EDIT y el NEW */
 .formAutogenerado form input{
-	float:right;
-	margin-right:89px;
+	margin-left:10px;
 }
 
 .formAutogenerado form select{
-	float:right;
-	margin-right:20px;
+	margin-left:10px;
 }
 
 .formAutogenerado{
-	margin-top:30px;
+	margin-top:10px;
 	width:330px;
 }
 
@@ -196,7 +194,9 @@ nav ul li a:hover{
 .formAutogenerado #NuevoCurso div:nth-child(4),.formAutogenerado #NuevoCurso div:nth-child(5),
 .formAutogenerado #NuevaCarrera div:nth-child(3),.formAutogenerado #NuevaCarrera div:nth-child(4),
 .formAutogenerado #NuevaActividad div:nth-child(3), .formAutogenerado #NuevaActividad div:nth-child(4),
-.formAutogenerado #NuevoRecurso div:nth-child(3),.formAutogenerado #NuevoRecurso div:nth-child(4){
+.formAutogenerado #NuevoRecurso div:nth-child(3),.formAutogenerado #NuevoRecurso div:nth-child(4),
+.formAutogenerado #NuevaAula div:nth-child(6),.formAutogenerado #NuevaAula div:nth-child(7),
+.formAutogenerado #NuevaAlerta div:nth-child(4),.formAutogenerado #NuevaAlerta div:nth-child(5){
 /* DIVs del botón CREAR y Volver a la lista */
 	width:100px;
 	display:inline-block;
@@ -206,15 +206,31 @@ nav ul li a:hover{
 .formAutogenerado #EditarCurso div:nth-child(4),.formAutogenerado #EditarCurso div:nth-child(5),
 .formAutogenerado #EditarCarrera div:nth-child(3),.formAutogenerado #EditarCarrera div:nth-child(4),
 .formAutogenerado #EditarActividad div:nth-child(3),.formAutogenerado #EditarActividad div:nth-child(4),
-.formAutogenerado #EditarRecurso div:nth-child(3),.formAutogenerado #EditarRecurso div:nth-child(4){ 
+.formAutogenerado #EditarRecurso div:nth-child(3),.formAutogenerado #EditarRecurso div:nth-child(4),
+.formAutogenerado #EditarAula div:nth-child(6),.formAutogenerado #EditarAula div:nth-child(7),
+.formAutogenerado #EditarAlerta div:nth-child(4),.formAutogenerado #EditarAlerta div:nth-child(5){ 
 /* DIVs del botón Actualizar, Volver a la lista*/
 	width:100px;
 	display:inline-block;
 }
 
-#cresta_aulasbundle_recurso_activo, #cresta_aulasbundle_aula_activo{
+#cresta_aulasbundle_recurso_activo, #cresta_aulasbundle_aula_activo{ /* los 'ACTIVO' */
 	margin-right:76%;
 }
+
+.formAutogenerado #NuevaAlerta div:nth-child(2),.formAutogenerado #EditarAlerta div:nth-child(2){ /* div de la fecha */
+	display:inline-block;
+}
+
+.formAutogenerado #NuevaAlerta select{ /* Dia, mes, año */
+	margin:0;
+	margin-right:5px;
+}
+
+#cresta_aulasbundle_alerta_fecha{
+	margin-left:15px;
+}
+
 
 /* -------------------------------- FOSUser -------------------------------*/
 #Login{
