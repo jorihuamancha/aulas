@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Aulas disponibles</h1>
+    <form> 
+     <select>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+            <option value:="{{Enero}}">{{Enero}}</option>
+    </select>
+
+    <select>
+        {% for mes in MeseDe31 %}
+            <option value:="{{mes}}">{{mes}}</option>
+        {% endfor %}
+    </select>
+    </form>
+    <table class="records_list tabla">
+        <thead>
+            <tr>
+                <th>Aula/Horario</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

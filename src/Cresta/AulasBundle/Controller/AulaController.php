@@ -223,4 +223,46 @@ class AulaController extends Controller
             ->getForm()
         ;
     }
+
+     public function disponibilidadAction()
+        {   
+         
+            $AnioActual = date('Y');
+         //   while ($AnioActual != ($AnioActual + 10)) {
+                $dias = 1;
+                $MesesDe30 =  array();
+                $MeseDe31 =  array();
+                $Febrero = array();
+                while ($dias < 32){
+                    $MeseDe31[$dias] = $dias;
+                    $dias = $dias + 1;
+                }
+                while ($dias < 31){
+                    $MesesDe30[$dias] = $dias;
+                    $dias = $dias + 1;
+                }
+                $dias = 1;
+                if (($AnioActual % 4 == 0) && ($AnioActual % 100 != 0) || ($AnioActual % 400 == 0)){
+                    //es bisiesto   
+                    while ($dias < 30){
+                        $Febrero[$dias] = $dias;
+                        $dias = $dias + 1;
+                    }
+                }
+                else{
+                    //NOPE
+                     while ($dias < 29){
+                        $Febrero[$dias] = $dias;
+                        $dias = $dias + 1;
+                     }
+                }
+                 //array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $Abril,'Mayo' => $MeseDe31,'Junio' => $Junio,'Julio' => $Julio,'Agosto' => $Agosto,'Septiembre' => $Septiembre,'Octubre' => $Octubre,'Noviembre' => $Noviembre,'Diciembre' => $Diciembre);
+            //    $AnioActual = $AnioActual + 1;
+            // }
+            // $miArrayDeFechasRokero = $miArrayDeFechasRokero  + 10;
+            //var_dump($miArrayDeFechasRokero);
+            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $MesesDe30,'Mayo' => $MeseDe31,'Junio' => $MesesDe30,'Julio' => $MeseDe31,'Agosto' => $MeseDe31,'Septiembre' => $MesesDe30,'Octubre' => $MeseDe31,'Noviembre' => $MesesDe30,'Diciembre' => $MeseDe31);
+);
+            //die(' Aguante ARSAT-I para vos Nico Menna');
+        }
 }
