@@ -3,26 +3,25 @@
 {% block body -%}
     <h1>Aulas disponibles</h1>
     <form> 
-     <select>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
-            <option value:="{{Enero}}">{{Enero}}</option>
+   <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#"> Mes</option>
+        <option value="?mes=Enero">Enero</option>
+        <option value="?mes=Febrero">Febrero</option>
+        <option value="?mes=Marzo">Marzo</option>
+        <option value="?mes=Abril">Abril</option>
+        <option value="?mes=Mayo">Mayo</option>
+        <option value="?mes=Junio">Junio</option>
+        <option value="?mes=Julio">Julio</option>
+        <option value="?mes=Agosto">Agosto</option>
+        <option value="?mes=Septiembre">Septiembre</option>
+        <option value="?mes=Octubre">Octubre</option>
+        <option value="?mes=Noviembre">Noviembre</option>
+        <option value="?mes=Diciembre">Diciembre</option>
     </select>
+    
 
-    <select>
-        {% for mes in MeseDe31 %}
-            <option value:="{{mes}}">{{mes}}</option>
-        {% endfor %}
-    </select>
+    
+    
     </form>
     <table class="records_list tabla">
         <thead>

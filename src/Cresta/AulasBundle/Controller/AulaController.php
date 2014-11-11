@@ -226,9 +226,8 @@ class AulaController extends Controller
 
      public function disponibilidadAction()
         {   
-         
+         if (empty($_GET["mes"])) {
             $AnioActual = date('Y');
-         //   while ($AnioActual != ($AnioActual + 10)) {
                 $dias = 1;
                 $MesesDe30 =  array();
                 $MeseDe31 =  array();
@@ -256,13 +255,10 @@ class AulaController extends Controller
                         $dias = $dias + 1;
                      }
                 }
-                 //array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $Abril,'Mayo' => $MeseDe31,'Junio' => $Junio,'Julio' => $Julio,'Agosto' => $Agosto,'Septiembre' => $Septiembre,'Octubre' => $Octubre,'Noviembre' => $Noviembre,'Diciembre' => $Diciembre);
-            //    $AnioActual = $AnioActual + 1;
-            // }
-            // $miArrayDeFechasRokero = $miArrayDeFechasRokero  + 10;
-            //var_dump($miArrayDeFechasRokero);
-            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $MesesDe30,'Mayo' => $MeseDe31,'Junio' => $MesesDe30,'Julio' => $MeseDe31,'Agosto' => $MeseDe31,'Septiembre' => $MesesDe30,'Octubre' => $MeseDe31,'Noviembre' => $MesesDe30,'Diciembre' => $MeseDe31);
-);
-            //die(' Aguante ARSAT-I para vos Nico Menna');
+            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $MesesDe30,'Mayo' => $MeseDe31,'Junio' => $MesesDe30,'Julio' => $MeseDe31,'Agosto' => $MeseDe31,'Septiembre' => $MesesDe30,'Octubre' => $MeseDe31,'Noviembre' => $MesesDe30,'Diciembre' => $MeseDe31));
         }
+        else{
+            die('Gol de Boca, toma river puto');
+        }
+     }
 }
