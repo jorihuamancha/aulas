@@ -15,10 +15,10 @@ class AulaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
-            ->add('piso')
-            ->add('capacidad')
-            ->add('activo')
+            ->add('nombre','text',array('label'=>'Nombre:'))
+            ->add('piso','text',array('label'=>'Piso:'))
+            ->add('capacidad','text',array('label'=>'Capac.:'))
+            ->add('activo','checkbox', array('data'=>true,'label'=>'Activo:','required'=>false))
         ;
     }
     
