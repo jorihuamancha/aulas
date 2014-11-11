@@ -1,0 +1,30 @@
+aulas_movimiento:
+    path:     /
+    defaults: { _controller: "CrestaAulasBundle:Movimiento:index" }
+
+aulas_movimiento_show:
+    path:     /{id}/show
+    defaults: { _controller: "CrestaAulasBundle:Movimiento:show" }
+
+aulas_movimiento_new:
+    path:     /new
+    defaults: { _controller: "CrestaAulasBundle:Movimiento:new" }
+
+aulas_movimiento_create:
+    path:     /create
+    defaults: { _controller: "CrestaAulasBundle:Movimiento:create" }
+    requirements: { _method: post }
+
+aulas_movimiento_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "CrestaAulasBundle:Movimiento:edit" }
+
+aulas_movimiento_update:
+    path:     /{id}/update
+    defaults: { _controller: "CrestaAulasBundle:Movimiento:update" }
+    requirements: { _method: post|put }
+
+aulas_movimiento_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "CrestaAulasBundle:Movimiento:delete" }
+    requirements: { _method: post|delete }

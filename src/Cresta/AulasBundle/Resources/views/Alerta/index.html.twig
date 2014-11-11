@@ -1,39 +1,44 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Alertas {% endblock %}
 {% block body -%}
-    <h1>Alerta list</h1>
-
-    <table class="records_list">
+    <h1>Lista de Alertas</h1>
+    <ul>
+            <a href="{{ path('aulas_alerta_new') }}" class="btn btn-default botonTabla">
+                Nuevo alerta
+            </a>
+    </ul>
+    <table class="records_list tabla">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Fecha</th>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <th>Observaciones</th>
-                <th>Actions</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('aulas_alerta_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.fecha %}{{ entity.fecha|date('d/m/Y') }}{% endif %}</td>
                 <td>{{ entity.descripcion }}</td>
                 <td>{{ entity.observaciones }}</td>
                 <td>
                 <ul>
-                    <li>
-                        <a href="{{ path('aulas_alerta_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('aulas_alerta_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
+                    
+                        <a href="{{ path('aulas_alerta_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
+                    
+                    
+                        <a href="{{ path('aulas_alerta_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
+
+                        <a href="{{ path('aulas_alerta_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
+                    
                 </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+<<<<<<< HEAD
 
         <ul>
         <li>
@@ -45,4 +50,6 @@
             </form> 
         </li>
     </ul>
+=======
+>>>>>>> d6a303619925c21acf15c39f228ad2d5a11c46ad
     {% endblock %}

@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Recurso</h1>
+
+    <table class="record_properties tabla">
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Activo</th>
+                <td>
+                    {% if entity.activo==1 %}
+                        SI
+                    {% else %}
+                        NO
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+
+
+        <a class="btn btn-default botonTabla" href="{{ path('aulas_recurso_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
+
+        <a class="btn btn-default botonTabla" href="{{ path('aulas_recurso') }}">
+            Volver a la lista
+        </a>
+</ul>
+{% endblock %}

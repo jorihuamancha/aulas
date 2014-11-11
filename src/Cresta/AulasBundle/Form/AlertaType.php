@@ -15,9 +15,9 @@ class AlertaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fecha')
-            ->add('descripcion')
-            ->add('observaciones')
+            ->add('fecha','date',array('format'=>'dd MM yyyy','label'=>'Fecha: '))
+            ->add('descripcion','text',array('label'=>'Descripción: '))
+            ->add('observaciones','text',array('label'=>'Observaciones: '))
         ;
     }
     

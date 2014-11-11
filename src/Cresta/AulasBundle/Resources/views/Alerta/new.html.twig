@@ -1,15 +1,11 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Nueva Alerta {% endblock %}
 {% block body -%}
-    <h1>Alerta creation</h1>
+    <h1>Nueva Alerta</h1>
+    <div class='formAutogenerado'>
+    	<div id='NuevaAlerta'>
+    		{{ form(form) }}
+    	</div>
+    </div>
 
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('aulas_alerta') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
 {% endblock %}
