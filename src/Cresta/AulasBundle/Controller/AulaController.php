@@ -228,7 +228,8 @@ class AulaController extends Controller
         {  
          if (empty($_GET["mes"])) {
             $mesSelect = array();
-            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect));
+            $buscameEsto='Mes';
+            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,'seleccionado'=>$buscameEsto));
         }
         else{
 
@@ -265,7 +266,7 @@ class AulaController extends Controller
             $unArray = array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $MesesDe30,'Mayo' => $MeseDe31,'Junio' => $MesesDe30,'Julio' => $MeseDe31,'Agosto' => $MeseDe31,'Septiembre' => $MesesDe30,'Octubre' => $MeseDe31,'Noviembre' => $MesesDe30,'Diciembre' => $MeseDe31);
             //$mesSelect=1;
             $mesSelect = $unArray[$buscameEsto];
-            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect));
+            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,'seleccionado'=>$buscameEsto));
         }
      }
 }
