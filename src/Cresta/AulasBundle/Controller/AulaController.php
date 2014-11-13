@@ -260,6 +260,12 @@ class AulaController extends Controller
         else{
             $em = $this->getDoctrine()->getManager();
             $aulasMostrar = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
+
+            $reservasMostrar = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
+
+            $q = $reservasMostrar[0]->getHoraDesde();
+            echo $q->format('H:i');
+
             if (empty($_GET["aula"])){
                 $aulaSeleccionada = 0;
             }
