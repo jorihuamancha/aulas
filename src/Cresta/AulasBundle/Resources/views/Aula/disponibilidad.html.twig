@@ -3,49 +3,55 @@
 {% block body -%}
     <h1>Aulas disponibles</h1>
     <form> 
-   <select onchange="location.href=this.options[this.selectedIndex].value">
-        <option value="#"> {{seleccionado}}</option>
-        <option value="?mes=Enero">Enero</option>
-        <option value="?mes=Febrero">Febrero</option>
-        <option value="?mes=Marzo">Marzo</option>
-        <option value="?mes=Abril">Abril</option>
-        <option value="?mes=Mayo">Mayo</option>
-        <option value="?mes=Junio">Junio</option>
-        <option value="?mes=Julio">Julio</option>
-        <option value="?mes=Agosto">Agosto</option>
-        <option value="?mes=Septiembre">Septiembre</option>
-        <option value="?mes=Octubre">Octubre</option>
-        <option value="?mes=Noviembre">Noviembre</option>
-        <option value="?mes=Diciembre">Diciembre</option>
+   <select onchange="location.href=this.options[this.selectedIndex].value" placeholder="pizza">
+        <option value="#">{{seleccionado}}</option>
+        {% for m in meses %}
+         {% if loop.index >= mesActual %}
+            {% if seleccionado != m %}
+                <option value="?mes={{m}}" > {{m}}</option>
+             {% endif %}
+         {% endif %}   
+       {% endfor %}
     </select>
 
     <select>
+
         {% for dia in mesSelect %}
-            <option value="{{dia}}">{{dia}}</option>
+            {% if ( asd == mesActual) %}
+                {% if (loop.index >= diaActual) %}
+                    <option value="{{dia}}">{{dia}}</option>
+                {% endif %}
+            {% else %}
+                <option value="{{dia}}">{{dia}}</option>
+            {% endif %}
         {% endfor %}
+
     </select>
     
-
-    
-    
     </form>
+
     <table class="records_list tabla">
         <thead>
             <tr>
                 <th>Aula/Horario</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
+                {% for a in aulasMostrar %}
+                    {% if a.activo != false %}
+                        <th>{{a.nombre}}</th>
+                    {% endif %}    
+                {% endfor %}
+             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
+            {% for h in horarios %}
+                    <tr>
+                        <td>{{h}}</td>
+                        {% for a in aulasMostrar %}
+                            {% if a.activo != false %}
+                                <td>Gol De Boca</td>
+                            {% endif %}  
+                        {% endfor %}
+                   </tr>
+            {% endfor %}
         </tbody>
     </table>
 {% endblock %}
