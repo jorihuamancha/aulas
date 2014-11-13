@@ -16,10 +16,7 @@ class RecursoType extends AbstractType
     {
         $builder
             ->add('nombre','text',array('label'=>'Nombre:'))
-            //->add('activo','text',array('label'=>'Activo:'))
-            ->add('activo','choice',array('label'=>'Activo:',
-                                        'multiple'=>false,
-                                        'choices'=>array(0=>'NO', 1=>'SI')))
+            ->add('activo','checkbox',array('label'=>'Activo:','required'=>false,'data'=>true))
         ;
     }
     

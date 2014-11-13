@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AlertaType extends AbstractType
+class UsuarioType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -15,9 +15,10 @@ class AlertaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fecha','date',array('format'=>'dd MM yyyy','label'=>'Fecha: '))
-            ->add('descripcion','text',array('label'=>'Descripción: '))
-            ->add('observaciones','text',array('label'=>'Observaciones: '))
+            //->add('persona')
+            ->add('username','text',array('label'=>'Usuario: '))
+            ->add('email','text',array('label'=>'Email: '))
+            ->add('enabled','checkbox',array('label'=>'Activo:','required'=>false,'data'=>true))
         ;
     }
     
@@ -27,7 +28,7 @@ class AlertaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Cresta\AulasBundle\Entity\Alerta'
+            'data_class' => 'Cresta\AulasBundle\Entity\Usuario'
         ));
     }
 
@@ -36,6 +37,6 @@ class AlertaType extends AbstractType
      */
     public function getName()
     {
-        return 'cresta_aulasbundle_alerta';
+        return 'cresta_aulasbundle_usuario';
     }
 }
