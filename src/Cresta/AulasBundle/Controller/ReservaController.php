@@ -199,6 +199,8 @@ class ReservaController extends Controller
             $asd = $entity[0];
             var_dump($entity);
 
+            //esto de abajo esta comentado para para ver si en vardump me da los valores de $entity
+
             /*if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Reserva entity.');
             }else{
@@ -206,6 +208,7 @@ class ReservaController extends Controller
                 $nuevoObjetoMovimiento = new MovimientoController();
                 //Llamo al metodo del objeto moviemiento para crear un movimiento
                 
+                //El problema esta aca, en la invocacion del metodo
                 $nuevoObjetoMovimiento->newAction($id);                
                 
             }
