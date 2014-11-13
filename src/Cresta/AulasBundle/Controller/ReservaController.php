@@ -194,23 +194,27 @@ class ReservaController extends Controller
         //if ($form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
-            $idReserva = $entity->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
+            $entity = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
+            //$idReserva = $entity->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
+            $asd = $entity[0];
+            var_dump($entity);
 
-            if (!$entity) {
+            /*if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Reserva entity.');
             }else{
                 //Si esta todo bien, cuando elimino una reserva, creo un objeto movimiento
                 $nuevoObjetoMovimiento = new MovimientoController();
                 //Llamo al metodo del objeto moviemiento para crear un movimiento
-                $nuevoObjetoMovimiento->newAction($idReserva);
+                
+                $nuevoObjetoMovimiento->newAction($id);                
+                
             }
 
             $em->remove($entity);
             $em->flush();
         //}
 
-        return $this->redirect($this->generateUrl('aulas_reserva'));
+        return $this->redirect($this->generateUrl('aulas_reserva')); */
     }
 
     /**

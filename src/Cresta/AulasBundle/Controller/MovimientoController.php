@@ -84,20 +84,19 @@ class MovimientoController extends Controller
     public function newAction($idReserva)
     {
         //Llamo al manejador de entidades
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         //Creo un repositorio para, que es un objeto, para manejar los datos.
-        $movimiento = $em->getRepository('CrestaAulasBundle:Movimiento')->findOneBy($idReserva); //Busco pasando como parametro el id de reserva
-
-
+        $reservaEliminada = $em->getRepository('CrestaAulasBundle:Movimiento')->findOneBy($idReserva); //Busco pasando como parametro el id de reserva
 
 
         $entity = new Movimiento();
         $form   = $this->createCreateForm($entity);
-        $fechaDeHoy = date('now');
+        $fechaDeHoy = date('now'); //Asigno la fecha del dia de la baja para pasarlo a la vista y mostrarlo
+        $entity->this->setFecha($fechaDeHoy);
 
         return $this->render('CrestaAulasBundle:Movimiento:new.html.twig', array(
             'fecha' => $fechaDeHoy,
-            'movimieto' => $movimiento,
+            'reservaEliminada' => $reservaEliminada,
             'entity' => $entity,
             'form'   => $form->createView(),
         ));

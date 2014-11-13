@@ -7,14 +7,22 @@
         <thead>
             <tr>
                 <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Aula</th>
+                <th>Fecha desde</th>
+                <th>Fecha hasta</th>
+
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{{ fechaDeHoy }}</td>
-                <td>
-                <ul>
+                <td>{{ entity.fecha }}</td>
+                <td>{{ reservaEliminada.usuario }}</td>
+                <td>{{ reservaEliminada.aula }}</td>
+                <td>{{ reservaEliminada.fechaDesde |date('H:i:s') }}</td>
+                <td>{{ reservaEliminada.fechaHasta |date('H:i:s') }}</td>                
+
                         <a href="{{ path('aulas_movimiento_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>                        
                         
                         
