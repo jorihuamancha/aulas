@@ -27,4 +27,4 @@ aulas_alerta_update:
 aulas_alerta_delete:
     path:     /{id}/delete
     defaults: { _controller: "CrestaAulasBundle:Alerta:delete" }
-    requirements: { _method: post|delete }
+#    requirements: { _method: post|delete }
