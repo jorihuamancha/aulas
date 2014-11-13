@@ -263,9 +263,22 @@ class AulaController extends Controller
 
             $reservasMostrar = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
 
-            $q = $reservasMostrar[0]->getHoraDesde();
-            echo $q->format('H:i');
+            /*foreach ($reservasMostrar as $aux) {
+                echo ($reservasMostrar[0]->getObservaciones());
+            }*/
+            $q = $reservasMostrar[1]->getHoraDesde();
+            echo $pepe = $q->format('i');
+            if ($pepe == 30){
+                echo('Gol de Carlos, good game ');
+            }else{
+                echo('NOPE');
+            }
 
+
+            //Pintar la matriz
+
+
+            
             if (empty($_GET["aula"])){
                 $aulaSeleccionada = 0;
             }
