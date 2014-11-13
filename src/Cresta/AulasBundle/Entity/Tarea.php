@@ -10,16 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
+/** @ORM\MappedSuperclass */
+
 class Tarea
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
     /**
      * @var string
@@ -28,25 +22,17 @@ class Tarea
      */
     private $nombre;
 
-     /* ---------------------------------------------- Tarea-Reserva------------------------------------------------------------*/
     /**
-     * @ORM\OneToOne(targetEntity="Tarea", mappedBy="Reserva")
+     * @OneToOne(targetEntity="Curso")
+     * @JoinColumn(name="id", referencedColumnName="id")
      */
 
-    private $tareas;
-        /*-------By neg---------*/
-
-    /* ----------------------------------------------Fin recurso-Recurso----------------------------------------------------------*/
-
     /**
-     * Get id
-     *
-     * @return integer 
+     * @OneToOne(targetEntity="Actividad")
+     * @JoinColumn(name="id", referencedColumnName="id")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    
+    /* ------------------------------------------------ Fin Relacion  ---------------------------------------------------------- */
 
     /**
      * Set nombre

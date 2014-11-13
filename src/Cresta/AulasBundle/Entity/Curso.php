@@ -10,41 +10,35 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
+
 class Curso extends Tarea
 {
     /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
+     * @ORM\id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
+    
+    
+    
+    /* ---------------------------------------------- Reserva-Curso-----------------------------------------------------------*/
+    /**
+     * @ORM\ManyToOne(targetEntity="Carrera")
+     */
+
+    private $Carrera;
+
+        /* ---------------------------------------------- Reserva-Actividad-----------------------------------------------------------*/
     /**
      * @var string
      *
      * @ORM\Column(name="anio", type="string", length=45)
      */
     private $anio;
-
-    /* -----------------------------------------------  Relacion curso-carrera ------------------------------------------------ */
-     /**
-     * @ORM\OneToOne(targetEntity="Curso", mappedBy="Carrera")
-     */
-    private $carrera;  
-        /*---By Neg---*/
-    /* ------------------------------------------------ Fin Relacion  ---------------------------------------------------------- */
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set anio
@@ -60,6 +54,19 @@ class Curso extends Tarea
     }
 
     /**
+     * Set Carrera
+     *
+     * @param string $anio
+     * @return Curso
+     */
+    public function setCarrera($Carrera)
+    {
+        $this->Carrera = $Carrera;
+
+        return $this;
+    }
+
+    /**
      * Get anio
      *
      * @return string 
@@ -68,4 +75,25 @@ class Curso extends Tarea
     {
         return $this->anio;
     }
+
+    /**
+     * Get Carrera
+     *
+     * @return string 
+     */
+    public function getCarrera()
+    {
+        return $this->Carrera;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
 }

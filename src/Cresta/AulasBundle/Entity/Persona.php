@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
+
+/** @ORM\MappedSuperclass */
+
 class Persona
 {
     /**
@@ -28,26 +31,7 @@ class Persona
      */
     private $nombre;
 
-     /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
-
-     /**
-     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Movimiento")
-     */
-
-     private $movimientos;
-        /*---By Neg---*/
-     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
-
-      /**
-     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Reserva")
-     */
-
-      private $reservapersonas;
-        /*---By Neg---*/
-
-
-    /* ---------------------------------------------- Fin relaciones-------------------------------------------------------*/
-
+   
 
     /* ---------------------------------------------- Constructor -----------------------------------------------------------*/
 
@@ -60,41 +44,6 @@ class Persona
     /* ---------------------------------------------- Fin Constructor -------------------------------------------------------*/
     
     
-    /* ---------------------------------------------- Get reservapersonas ----------------------------------------------------------*/
-
-    public function getResevaPersonas(){
-        
-        return $this->reservapersonas;
-    }
-            /*---By Neg---*/
-    
-    /* ---------------------------------------------- Fin Get reservapersonas-------------------------------------------------------*/  
-    
-    /* ---------------------------------------------- Set reservapersonas --------------------------------------------------------------*/
-
-    public function addReservaPersonas (Cresta\AulasBundle\Entity\Reserva $reservapersonas){
-        
-        $this->reservapersonas[] = $reservapersonas;
-    }
-        /*---By Neg---*/
-    /* ---------------------------------------------- fin Get reservapersonas ----------------------------------------------------------*/
-
-    /* ---------------------------------------------- Set movimientos ------------------------------------------------------------------*/
-    public function addMovimientos (Cresta\AulasBundle\Entity\Movimiento $movimientos){
-        $this->movimientos[] = $movimientos;
-    }
-        /*---By Neg---*/
-    /* ---------------------------------------------- fin set movimientos --------------------------------------------------------------*/
-
-    /* ---------------------------------------------- get movimientos ------------------------------------------------------------------*/
-
-    public function getMovimientos(){
-        return $this->movimientos;
-    }
-        /*---By Neg---*/
-    /* ---------------------------------------------- fin set movimientos --------------------------------------------------------------*/
-
-      
     /**
      * Get id
      *

@@ -12,14 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Docente extends Persona
 {
+
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+     * @ORM\OneToOne(targetEntity="Persona", inversedBy="Docente")
+    */
+
+    private $personaDocente;
 
     /**
      * @var string
@@ -35,16 +33,6 @@ class Docente extends Persona
      */
     private $activo;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set apellido
