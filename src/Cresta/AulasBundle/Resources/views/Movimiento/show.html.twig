@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+{% block title %}Ver Movimiento {% endblock %}
+{% block body -%}
+    <h1>Movimiento</h1>
+
+    <table class="record_properties tabla verItem">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ entity.fecha|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Persona</th>
+                <td>{{ entity.persona) }}</td>
+            </tr>
+        </tbody>
+    </table>
+        <ul class="record_actions tablaAcciones">                    
+                    
+                    <a class="btn btn-default botonTabla" href="{{ path('aulas_movimiento') }}">
+                        Volver a la lista
+                    </a>
+        </ul>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+{% block title %}Reservas {% endblock %}
+{% block body -%}
+    <h1>Lista de Reservas</h1>
+
+    <ul>
+
+            <a href="{{ path('aulas_reserva_new') }}" class="btn btn-default botonTabla">
+                Nueva Reserva
+            </a>
+
+    </ul>
+    <table class="records_list tabla">
+        <thead>
+            <tr>                
+                <th>Estado</th>
+                <th>Observaciones</th>
+                <th>Fecharegistro</th>
+                <th>Horadesde</th>
+                <th>Horahasta</th>
+                <th>Fechareserva</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                
+                <td>{{ entity.estado }}</td>
+                <td>{{ entity.observaciones }}</td>
+                <td>{% if entity.fechaRegistro %}{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.horaDesde |date('H:i:s') }}</td>
+                <td>{{ entity.horaHasta |date('H:i:s') }}</td>
+                <td>{% if entity.fechaReserva %}{{ entity.fechaReserva|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                <ul>
+                        <a href="{{ path('aulas_reserva_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
+                    
+                        <a href="{{ path('aulas_reserva_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
+
+                        <a href="{{ path('aulas_reserva_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endblock %}

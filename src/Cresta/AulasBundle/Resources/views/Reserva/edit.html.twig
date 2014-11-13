@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+{% block title %}Editar reserva {% endblock %}
+{% block body -%}
+	<div class='formAutogenerado'>
+		<div id='EditarReserva'>
+		    <h1>Editar Reserva</h1>
+
+		    {{ form(edit_form) }}
+
+			{#  No lo puedo alinear, que lo borre desde la lista
+				{{ form(delete_form) }} 
+			#}
+
+		</div>
+	</div>
+
+{% endblock %}

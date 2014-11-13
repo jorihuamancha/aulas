@@ -1,0 +1,30 @@
+aulas_recurso:
+    path:     /
+    defaults: { _controller: "CrestaAulasBundle:Recurso:index" }
+
+aulas_recurso_show:
+    path:     /{id}/show
+    defaults: { _controller: "CrestaAulasBundle:Recurso:show" }
+
+aulas_recurso_new:
+    path:     /new
+    defaults: { _controller: "CrestaAulasBundle:Recurso:new" }
+
+aulas_recurso_create:
+    path:     /create
+    defaults: { _controller: "CrestaAulasBundle:Recurso:create" }
+    requirements: { _method: post }
+
+aulas_recurso_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "CrestaAulasBundle:Recurso:edit" }
+
+aulas_recurso_update:
+    path:     /{id}/update
+    defaults: { _controller: "CrestaAulasBundle:Recurso:update" }
+    requirements: { _method: post|put }
+
+aulas_recurso_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "CrestaAulasBundle:Recurso:delete" }
+   # requirements: { _method: post|delete }

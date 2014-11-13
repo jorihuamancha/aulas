@@ -1,0 +1,30 @@
+aulas_carrera:
+    path:     /
+    defaults: { _controller: "CrestaAulasBundle:Carrera:index" }
+
+aulas_carrera_show:
+    path:     /{id}/show
+    defaults: { _controller: "CrestaAulasBundle:Carrera:show" }
+
+aulas_carrera_new:
+    path:     /new
+    defaults: { _controller: "CrestaAulasBundle:Carrera:new" }
+
+aulas_carrera_create:
+    path:     /create
+    defaults: { _controller: "CrestaAulasBundle:Carrera:create" }
+    requirements: { _method: post }
+
+aulas_carrera_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "CrestaAulasBundle:Carrera:edit" }
+
+aulas_carrera_update:
+    path:     /{id}/update
+    defaults: { _controller: "CrestaAulasBundle:Carrera:update" }
+    requirements: { _method: post|put }
+
+aulas_carrera_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "CrestaAulasBundle:Carrera:delete" }
+   # requirements: { _method: post|delete }

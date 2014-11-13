@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Actividad</h1>
+
+    <table class="record_properties tabla verItem">
+        <tbody>
+            <tr>
+                <th>Tipo</th>
+                <td>{{ entity.tipo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions tablaAcciones">
+        <a class="btn btn-default botonTabla" href="{{ path('aulas_actividad') }}">
+            Volver a la lista
+        </a>
+
+        <a class="btn btn-default botonTabla" href="{{ path('aulas_actividad_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
+</ul>
+{% endblock %}

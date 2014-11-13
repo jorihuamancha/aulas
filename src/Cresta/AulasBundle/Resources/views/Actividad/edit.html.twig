@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+
+<div class='formAutogenerado'>
+		<div id='EditarActividad'>
+		    <h1>Editar Actividad</h1>
+
+		    {{ form(edit_form) }}
+
+			{#  No lo puedo alinear, que lo borre desde la lista
+				{{ form(delete_form) }} 
+			#}
+
+		</div>
+	</div>
+{% endblock %}

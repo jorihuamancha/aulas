@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+{% block title %}Ver Alerta {% endblock %}
+{% block body -%}
+    <h1>Alerta</h1>
+
+    <table class="record_properties tabla">
+        <tbody>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ entity.fecha|date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ entity.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <td>{{ entity.observaciones }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <a  class="btn btn-default botonTabla" href="{{ path('aulas_alerta_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
+        <a  class="btn btn-default botonTabla" href="{{ path('aulas_alerta') }}">
+            Volver a la lista
+        </a>
+</p>
+{% endblock %}

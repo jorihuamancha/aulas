@@ -1,0 +1,30 @@
+aulas_actividad:
+    path:     /
+    defaults: { _controller: "CrestaAulasBundle:Actividad:index" }
+
+aulas_actividad_show:
+    path:     /{id}/show
+    defaults: { _controller: "CrestaAulasBundle:Actividad:show" }
+
+aulas_actividad_new:
+    path:     /new
+    defaults: { _controller: "CrestaAulasBundle:Actividad:new" }
+
+aulas_actividad_create:
+    path:     /create
+    defaults: { _controller: "CrestaAulasBundle:Actividad:create" }
+    requirements: { _method: post }
+
+aulas_actividad_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "CrestaAulasBundle:Actividad:edit" }
+
+aulas_actividad_update:
+    path:     /{id}/update
+    defaults: { _controller: "CrestaAulasBundle:Actividad:update" }
+    requirements: { _method: post|put }
+
+aulas_actividad_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "CrestaAulasBundle:Actividad:delete" }
+    #requirements: { _method: post|delete }

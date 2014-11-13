@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+{% block title %}Ver Carrera {% endblock %}
+{% block body -%}
+    <h1>Carrera</h1>
+
+    <table class="record_properties tabla verItem">
+        <tbody>            
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <td>{{ entity.observaciones }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions tablaAcciones">
+                    <a class="btn btn-default botonTabla" href="{{ path('aulas_carrera_edit', { 'id': entity.id }) }}">
+                        Editar
+                    </a>
+                    
+                    <a class="btn btn-default botonTabla" href="{{ path('aulas_carrera') }}">
+                        Volver a la lista
+                    </a>
+        </ul>
+{% endblock %}

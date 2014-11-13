@@ -1,0 +1,30 @@
+aulas_tarea:
+    path:     /
+    defaults: { _controller: "CrestaAulasBundle:Tarea:index" }
+
+aulas_tarea_show:
+    path:     /{id}/show
+    defaults: { _controller: "CrestaAulasBundle:Tarea:show" }
+
+aulas_tarea_new:
+    path:     /new
+    defaults: { _controller: "CrestaAulasBundle:Tarea:new" }
+
+aulas_tarea_create:
+    path:     /create
+    defaults: { _controller: "CrestaAulasBundle:Tarea:create" }
+    requirements: { _method: post }
+
+aulas_tarea_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "CrestaAulasBundle:Tarea:edit" }
+
+aulas_tarea_update:
+    path:     /{id}/update
+    defaults: { _controller: "CrestaAulasBundle:Tarea:update" }
+    requirements: { _method: post|put }
+
+aulas_tarea_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "CrestaAulasBundle:Tarea:delete" }
+    requirements: { _method: post|delete }
