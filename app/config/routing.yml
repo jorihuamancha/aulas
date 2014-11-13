@@ -23,3 +23,16 @@ fos_user_change_password:
 
 #Fin Agregado FOSUser
 
+<<<<<<< HEAD
+#Agregado del PdfBundle
+
+pdf_file:
+    #resource: "@PsPdfBundle/Resources/config/pdf.xml"
+    #prefix:   /pdf
+
+    pattern: /alerta/{name}
+    defaults: { _controller: Cresta:AulasBundle:PdfController:helloAction }
+
+#Fin Agregado PDFbundle
+=======
+>>>>>>> 8d2007a0909c16cd8250e63fc8b94fb9d06b42f0
