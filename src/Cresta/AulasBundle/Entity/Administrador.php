@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Docente extends Persona
+class Administrador extends Persona
 {
 
     /**
@@ -30,7 +30,7 @@ class Docente extends Persona
      */
     private $activo;
 
-    private $personaDocente;
+    private $personaAdministrador;
 
     /**
      * Set activo
@@ -66,8 +66,8 @@ class Docente extends Persona
     }
 
 
-    public function getPersonaDocente(){
-        return $this->personaDocente;
+    public function getPersonaAdministrador(){
+        return $this->personaAdministrador;
     }
 
 }

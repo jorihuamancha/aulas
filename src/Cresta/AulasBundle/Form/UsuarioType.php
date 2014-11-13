@@ -19,6 +19,8 @@ class UsuarioType extends AbstractType
             ->add('username','text',array('label'=>'Usuario: '))
             ->add('email','text',array('label'=>'Email: '))
             ->add('enabled','checkbox',array('label'=>'Activo:','required'=>false,'data'=>true))
+            ->add('docente','entity',array('class'=>'CrestaAulasBundle:Docente','property'=>'nombre'))
+            ->add('administrador','entity',array('class'=>'CrestaAulasBundle:Administrador','property'=>'nombre'))
         ;
     }
     

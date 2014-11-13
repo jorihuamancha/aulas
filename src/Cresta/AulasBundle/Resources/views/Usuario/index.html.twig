@@ -6,7 +6,10 @@
         <thead>
             <tr>
                 <th>Nombre de Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Email</th>
+                <th>Tipo</th>
                 <th>Activo</th>
                 <th>Acción</th>
             </tr>
@@ -14,8 +17,24 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{{ entity.username }}</td>
+                <td><b>{{ entity.username }}</b></td>
+
+                {% if entity.administrador is null %}
+                    <td>{{entity.docente.nombre}}</td>
+                    <td>{{entity.docente.apellido}}</td>
+                {% else %}
+                    <td>{{entity.administrador.nombre}}</td>
+                    <td>{{entity.administrador.apellido}}</td>
+                {% endif %}
+
                 <td>{{ entity.email }}</td>
+                <td>
+                    {% if entity.docente is null %}
+                        Administrador
+                    {% else %}
+                        Docente
+                    {% endif %}
+                </td>
                 <td>
                     {% if entity.enabled==1 %}
                         SI

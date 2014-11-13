@@ -83,12 +83,6 @@ class Reserva
 
     private $recursos;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Reserva")
-    */
-
-    private $reservaPersona;
-
     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
      /**
      * @ORM\ManyToOne(targetEntity="Aula", inversedBy="Reserva")
@@ -101,7 +95,7 @@ class Reserva
      * @ORM\OneToOne(targetEntity="Usuario", inversedBy="Reserva")
      */              
 
-/*     private $reservaUsuario;*/
+     /*private $reservaUsuario;*/
 
     /* ---------------------------------------------- Get Cursos ---------------------------------------------------------------------*/
     public function getCursos(){
