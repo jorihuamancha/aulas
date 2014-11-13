@@ -230,12 +230,18 @@ class AulaController extends Controller
             $em = $this->getDoctrine()->getManager();
             $aulasMostrar = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
             $mesSelect = array();
+            if (empty($_GET["aula"])){
+                $aulaSeleccionada = 0;
+            }
+            else{
+                $aulaSeleccionada = $_GET["aula"];
+            }
             $diaActual =date('d');
             $buscameEsto='Mes';
             $mesActual = date('m');
             $elmesEnNumero= array('Enero'=>1,'Febrero'=>2,'Marzo'=>3,'Abril'=>4,'Mayo'=>5,'Junio'=>6,'Julio'=>7,
             'Agosto'=>8,'Septiembre'=>9,'Octubre'=>10,'Noviembre'=>11,'Diciembre'=>12);
-            $asd= $elmesEnNumero[$buscameEsto];
+            //$asd= $elmesEnNumero[$buscameEsto];
             $horarios = array(1=>'08:00 a 08:30',2=>'08:30 a 09:00',3=>'09:00 a 09:30',4=>'09:30 a 10:00',5=>'10:00 a 10:30',
             6=>'10:30 a 11:00',7=>'11:00 a 11:30 ',8=>'11:30 a 12:00',9=>'12:00 a 12:30',10=>'12:30 a 13:30',11=>'13:30 a 14:00',
             12=>'14:00 a 14:30',13=>'14:30 a 15:00',14=>'15:00 a 15:30',15=>'15:30 a 16:00',16=>'16:00 a 16:30',17=>'16:30 a 17:00',
@@ -243,15 +249,24 @@ class AulaController extends Controller
             24=>'21:30 a 22:00');
             $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',
             8=>'Agosto',9=>'Septiembre',10=>'Octubre',11=>'Noviembre',12=>'Diciembre');
+
+            
+            $buscameEstoAhora = $meses[$mesActual];
             return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
             'seleccionado'=>$buscameEsto,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,'mesActual'=>$mesActual
-            ,'diaActual'=>$diaActual,'asd'=>$asd));
+            ,'diaActual'=>$diaActual,'aulaSeleccionada'=>$aulaSeleccionada,'seleccionadoAhora'=>$buscameEstoAhora));
 
         }
         else{
             $em = $this->getDoctrine()->getManager();
             $aulasMostrar = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
-           
+            if (empty($_GET["aula"])){
+                $aulaSeleccionada = 0;
+            }
+            else{
+                $aulaSeleccionada = $_GET["aula"];
+              
+            }
             $buscameEsto= $_GET["mes"];
             $AnioActual = date('Y');
                 $dias = 1;
@@ -283,7 +298,7 @@ class AulaController extends Controller
                      }
                 }
             $mesActual = date('m');
-            $diaActual =date('d');
+            $diaActual =date('d'); 
             $horarios = array(1=>'08:00 a 08:30',2=>'08:30 a 09:00',3=>'09:00 a 09:30',4=>'09:30 a 10:00',5=>'10:00 a 10:30',
             6=>'10:30 a 11:00',7=>'11:00 a 11:30 ',8=>'11:30 a 12:00',9=>'12:00 a 12:30',10=>'12:30 a 13:30',11=>'13:30 a 14:00',
             12=>'14:00 a 14:30',13=>'14:30 a 15:00',14=>'15:00 a 15:30',15=>'15:30 a 16:00',16=>'16:00 a 16:30',17=>'16:30 a 17:00',
@@ -302,9 +317,13 @@ class AulaController extends Controller
             'Agosto'=>8,'Septiembre'=>9,'Octubre'=>10,'Noviembre'=>11,'Diciembre'=>12);
             $asd= $elmesEnNumero[$buscameEsto];
 
+            $buscameEstoAhora = $buscameEsto; 
             return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
             'seleccionado'=>$buscameEsto,'mesActual'=>$mesActual,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,
-            'diaActual'=>$diaActual,'asd'=>$asd));
+            'diaActual'=>$diaActual,'asd'=>$asd,'aulaSeleccionada'=>$aulaSeleccionada,'seleccionadoAhora'=>$buscameEstoAhora));
+
+
+            //Por el neg de la gente
         }
      }
 }

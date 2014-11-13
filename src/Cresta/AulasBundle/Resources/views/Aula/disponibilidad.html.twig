@@ -3,7 +3,7 @@
 {% block body -%}
     <h1>Aulas disponibles</h1>
     <form> 
-   <select onchange="location.href=this.options[this.selectedIndex].value" placeholder="pizza">
+   <select onchange="location.href=this.options[this.selectedIndex].value">
         <option value="#">{{seleccionado}}</option>
         {% for m in meses %}
          {% if loop.index >= mesActual %}
@@ -15,7 +15,6 @@
     </select>
 
     <select>
-
         {% for dia in mesSelect %}
             {% if ( asd == mesActual) %}
                 {% if (loop.index >= diaActual) %}
@@ -25,33 +24,57 @@
                 <option value="{{dia}}">{{dia}}</option>
             {% endif %}
         {% endfor %}
-
     </select>
-    
+    <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#">Aula</option>
+        {% for a in aulasMostrar %}
+            <option value="?aula={{a.id}}&mes={{seleccionadoAhora}}">{{a.nombre}}</option>
+        {% endfor %}
+    </select>  
     </form>
-
-    <table class="records_list tabla">
-        <thead>
-            <tr>
-                <th>Aula/Horario</th>
-                {% for a in aulasMostrar %}
-                    {% if a.activo != false %}
-                        <th>{{a.nombre}}</th>
-                    {% endif %}    
-                {% endfor %}
-             </tr>
-        </thead>
-        <tbody>
-            {% for h in horarios %}
+    {% if ( aulaSeleccionada != 0 ) %}
+       <table class="records_list tabla">
+            <thead>
+                <tr>
+                    <th>Aula/Horario</th>
+                    <th>{{aulaSeleccionada}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in horarios %}
                     <tr>
-                        <td>{{h}}</td>
-                        {% for a in aulasMostrar %}
-                            {% if a.activo != false %}
-                                <td>Gol De Boca</td>
-                            {% endif %}  
-                        {% endfor %}
-                   </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                        <td>{{h}}</td>    
+                        <td>Gol De Boca</td>      
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+     <table class="records_list tabla">
+            <thead>
+                <tr>
+                    <th>Aula/Horario</th>
+                    {% for a in aulasMostrar %}
+                        {% if a.activo != false %}
+                            <th>{{a.nombre}}</th>
+                        {% endif %}    
+                    {% endfor %}
+                 </tr>
+            </thead>
+            <tbody>
+                {% for h in horarios %}
+                        <tr>
+                            <td>{{h}}</td>
+                            {% for a in aulasMostrar %}
+                                {% if a.activo != false %}
+                                    <td>Gol De Boca</td>
+                                {% endif %}  
+                            {% endfor %}
+                       </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        chua
+    {% endif %} 
 {% endblock %}
