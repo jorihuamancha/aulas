@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Cresta\AulasBundle\Entity\Reserva;
 use Cresta\AulasBundle\Form\ReservaType;
 
+require_once 'ReservaController.php';
 /**
  * Reserva controller.
  *
@@ -190,17 +191,24 @@ class ReservaController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
+            $idReserva = $entity->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Reserva entity.');
+            }else{
+                //Si esta todo bien, cuando elimino una reserva, creo un objeto movimiento
+                $nuevoObjetoMovimiento = new MovimientoController();
+                //Llamo al metodo del objeto moviemiento para crear un movimiento
+                $nuevoObjetoMovimiento->newAction($idReserva);
             }
 
             $em->remove($entity);
             $em->flush();
-        }
+        //}
 
         return $this->redirect($this->generateUrl('aulas_reserva'));
     }

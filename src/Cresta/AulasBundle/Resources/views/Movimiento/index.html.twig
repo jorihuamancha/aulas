@@ -1,29 +1,23 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Movimientos {% endblock %}
 {% block body -%}
-    <h1>Movimiento list</h1>
+    <h1>Lista de Movimientos</h1>
 
-    <table class="records_list">
+    <table class="records_list tabla">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Fecha</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('aulas_movimiento_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ fechaDeHoy }}</td>
                 <td>
                 <ul>
-                    <li>
-                        <a href="{{ path('aulas_movimiento_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('aulas_movimiento_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
+                        <a href="{{ path('aulas_movimiento_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>                        
+                        
+                        
                 </ul>
                 </td>
             </tr>
@@ -31,11 +25,10 @@
         </tbody>
     </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('aulas_movimiento_new') }}">
-                Create a new entry
+{#    <ul>
+            <a href="#top" class="btn btn-default botonTabla">
+                Volver arriba
             </a>
-        </li>
     </ul>
+#}
     {% endblock %}

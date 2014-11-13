@@ -15,6 +15,11 @@ use Cresta\AulasBundle\Form\MovimientoType;
 class MovimientoController extends Controller
 {
 
+
+    public function __construct () {
+        return $this;
+    }
+
     /**
      * Lists all Movimiento entities.
      *
@@ -76,12 +81,23 @@ class MovimientoController extends Controller
      * Displays a form to create a new Movimiento entity.
      *
      */
-    public function newAction()
+    public function newAction($idReserva)
     {
+        //Llamo al manejador de entidades
+        $em = $this->getDoctrine()->getEntityManager();
+        //Creo un repositorio para, que es un objeto, para manejar los datos.
+        $movimiento = $em->getRepository('CrestaAulasBundle:Movimiento')->findOneBy($idReserva); //Busco pasando como parametro el id de reserva
+
+
+
+
         $entity = new Movimiento();
         $form   = $this->createCreateForm($entity);
+        $fechaDeHoy = date('now');
 
         return $this->render('CrestaAulasBundle:Movimiento:new.html.twig', array(
+            'fecha' => $fechaDeHoy,
+            'movimieto' => $movimiento,
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
