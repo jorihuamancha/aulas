@@ -31,6 +31,14 @@
             <option value="?aula={{a.id}}&mes={{seleccionadoAhora}}">{{a.nombre}}</option>
         {% endfor %}
     </select>  
+
+    <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#">Horario</option>
+        {% for h in horarios %}
+            <option value="">{{h}}</option>
+        {% endfor %}
+    </select> 
+
     </form>
     {% if ( aulaSeleccionada != 0 ) %}
        <table class="records_list tabla">
