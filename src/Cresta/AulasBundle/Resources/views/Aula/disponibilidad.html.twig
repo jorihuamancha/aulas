@@ -71,14 +71,29 @@
             </thead>
             <tbody>
                 {% for h in horarios %}
+                    {% set unaVar=loop.index %}
                         <tr>
                             <td>{{h}}</td>
                             {% for a in aulasMostrar %}
-                                {% if a.activo != false %}
-                                    <td>Gol De Boca</td>
-                                {% endif %}  
+                             {% if a.activo != false %}
+                                {% for v in ArrayDeVista %}
+                                    {% if  (unaVar == v.1 and a.nombre == v.3) %}
+                                        
+    
+                                                <td>Gol de Boca</td>
+                                             
+                                       
+                                    {% else %}
+                                     
+                                            
+                                                <td>Sin Pintar</td>
+                                            
+                                        
+                                    {% endif %}
                             {% endfor %}
-                       </tr>
+                              {% endif %} 
+                            {% endfor %}
+                        </tr> 
                 {% endfor %}
             </tbody>
         </table>

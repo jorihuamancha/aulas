@@ -287,7 +287,9 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':00';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':30';
-                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh);
+                    //Busco el aula de la reserva (nombre)
+                    $aulaNombre = $aulaVar->getNombre();
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
                 }
                 elseif (($minutoComparableDesde == 30) and ($minutoComparableHasta == 30)){
                     //a la hora le sumo uno para llegar al valor.
@@ -303,7 +305,8 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':00';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':00';
-                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh);
+                    $aulaNombre = $aulaVar->getNombre();
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
                 }
                 elseif (($minutoComparableDesde == 00) and ($minutoComparableHasta == 30)) {
                      //a la hora le sumo uno para llegar al valor.
@@ -318,9 +321,8 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':30';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':00';
-                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh); 
-                     
-                    
+                    $aulaNombre = $aulaVar->getNombre();
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);     
                 }
                 elseif (($minutoComparableDesde == 00) and ($minutoComparableHasta == 00)){
                     //a la hora le sumo uno para llegar al valor.
@@ -334,12 +336,25 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':30';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':30';
-                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh); 
-                    echo ($arrayCargadoConHorariosConcat[1] . 'un Punto' . $arrayCargadoConHorariosConcat[2]); 
+                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find(2);
+                    $aulaNombre = $aulaVar->getNombre();
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
+                     
                 }
                 else{
                     throw $this->createNotFoundException('te metiste donde no debias y florecio un error, que grande!');
                 }
+                //Cargo array cn indices iguales a los conseguidos anteriormente para recuperar un 
+                //valor numerico que represente la ubicacion del otro array!
+                $arrayDeTranformacion = $horarios = array('08:00 a 08:30'=>1,'08:30 a 09:00'=>2,'09:00 a 09:30'=>3,'09:30 a 10:00'=>4
+                ,'10:00 a 10:30'=>5,'10:30 a 11:00'=>6,'11:00 a 11:30'=>7,'11:30 a 12:00'=>8,'12:00 a 12:30'=>9,'12:30 a 13:30'=>10,
+                '13:30 a 14:00'=>11,'14:00 a 14:30'=>12,'14:30 a 15:00'=>13,'15:00 a 15:30'=>14,'15:30 a 16:00'=>15,'16:00 a 16:30'=>16,
+                '16:30 a 17:00'=>17,'17:30 a 18:00'=>18,'18:30 a 19:00'=>19,'19:00 a 19:30'=>20,'20:00 a 20:30'=>21,'20:00 a 21:00'=>22,
+                '21:00 a 21:30'=>23,'21:30 a 22:00'=>24);
+                //guardo en un array para pasarle a la vista, el valor qe tengo en la reserva transformado por el array de transformacion.
+                //neg del futuro no cambies esas variables por q se rompe la vista!!
+                $ArrayDeVista[$contador] = array(1=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[1]],
+                2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3]);
                 $contador = $contador + 1;
             }
           
@@ -403,7 +418,8 @@ class AulaController extends Controller
             $buscameEstoAhora = $buscameEsto; 
             return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
             'seleccionado'=>$buscameEsto,'mesActual'=>$mesActual,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,
-            'diaActual'=>$diaActual,'asd'=>$asd,'aulaSeleccionada'=>$aulaSeleccionada,'seleccionadoAhora'=>$buscameEstoAhora));
+            'diaActual'=>$diaActual,'asd'=>$asd,'aulaSeleccionada'=>$aulaSeleccionada,'seleccionadoAhora'=>$buscameEstoAhora,
+            'ArrayDeVista'=>$ArrayDeVista));
 
 
             //Por el neg de la gente
