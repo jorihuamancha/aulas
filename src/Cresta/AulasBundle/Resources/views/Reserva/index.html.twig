@@ -12,7 +12,13 @@
     </ul>
     <table class="records_list tabla">
         <thead>
+<<<<<<< HEAD
             <tr>                
+=======
+            <tr>
+                <th>Id</th>
+                <th>Usuario</th>
+>>>>>>> 48946b35c4eec6dad48277ec10b1c9f61b28eb28
                 <th>Estado</th>
                 <th>Observaciones</th>
                 <th>Fecharegistro</th>
@@ -29,8 +35,8 @@
                 <td>{{ entity.estado }}</td>
                 <td>{{ entity.observaciones }}</td>
                 <td>{% if entity.fechaRegistro %}{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.horaDesde |date('H:i:s') }}</td>
-                <td>{{ entity.horaHasta |date('H:i:s') }}</td>
+                <td>{{ entity.horaDesde |date('HH:mm') }}</td>
+                <td>{{ entity.horaHasta |date('HH:mm') }}</td>
                 <td>{% if entity.fechaReserva %}{{ entity.fechaReserva|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
