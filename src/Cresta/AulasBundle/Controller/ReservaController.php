@@ -191,14 +191,16 @@ class ReservaController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+        //Esto no va nunca
         //if ($form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
-            //$idReserva = $entity->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
-            $asd = $entity[0];
-            var_dump($entity);
-
+            //$entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
+            $idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id)->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
+            
+            
+            //echo($idReserva);
+            
             //esto de abajo esta comentado para para ver si en vardump me da los valores de $entity
 
             /*if (!$entity) {
@@ -211,13 +213,24 @@ class ReservaController extends Controller
                 //El problema esta aca, en la invocacion del metodo
                 $nuevoObjetoMovimiento->newAction($id);                
                 
+            } */
+
+            if (!$idReserva) {
+                throw $this->createNotFoundException('Unable to find Reserva entity.');
             }
+            
+            //Si esta todo bien, cuando elimino una reserva, creo un objeto movimiento
+            $nuevoObjetoMovimiento = new MovimientoController();
+            //Llamo al metodo del objeto moviemiento para crear un movimiento             
+            $nuevoObjetoMovimiento->newAction($idReserva);                
+                
+            
 
             $em->remove($entity);
             $em->flush();
-        //}
+        // } Esto no va nunca
 
-        return $this->redirect($this->generateUrl('aulas_reserva')); */
+        return $this->redirect($this->generateUrl('aulas_reserva'));
     }
 
     /**
