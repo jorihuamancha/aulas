@@ -266,38 +266,83 @@ class AulaController extends Controller
             foreach ($reservasMostrar as $aux) {
                 $reservasMostrar[$contador]->getHoraDesde();
                 //Busco los minutos para saber si es 30 o 00
-                $minutoComparable = $reservasMostrar[$contador]->getHoraDesde()->format('i');
-                $horaComparable = $reservasMostrar[$contador]->getHoraDesde()->format('H');
+                $minutoComparableDesde = $reservasMostrar[$contador]->getHoraDesde()->format('i');
+                $horaComparableDesde = $reservasMostrar[$contador]->getHoraDesde()->format('H');
+                $minutoComparableHasta = $reservasMostrar[$contador]->getHoraHasta()->format('i');
+                $horaComparableHasta = $reservasMostrar[$contador]->getHoraHasta()->format('H');
                 //Traigo la hora desde de las reservas.
                 $hh = $reservasMostrar[$contador]->getHoraHasta()->format('H:i');
                 $hd = $reservasMostrar[$contador]->getHoraDesde()->format('H:i');
                 //si el min es 30 deberia concatenar con la hora siguente.
-                if($minutoComparable == 30){
+                if ( ($minutoComparableDesde == 30) and ($minutoComparableHasta == 00) ){
                     //a la hora le sumo uno para llegar al valor.
-                    $horaComparable = $horaComparable + 1;
+                    $horaComparableDesde = $horaComparableDesde + 1;
+                    //Esto pro si la hora es 08 por ejemplo increible, pero real
+                    if (strlen($horaComparableDesde) == 1){
+                        $horaComparableDesde ='0' . $horaComparableDesde ; 
+                    } 
+                    if (strlen($horaComparableHasta) == 1){
+                        $horaComparableHasta ='0' . $horaComparableHasta ; 
+                    } 
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
-                    $hd = $hd . ' a ' . $horaComparable . ':00';
-                    $arrayCargadoConHorariosConcat = array (1=>$hd);
-                    echo ($arrayCargadoConHorariosConcat[1]);
+                    $hd = $hd . ' a ' . $horaComparableDesde . ':00';
+                    $hh = $hh . ' a ' . $horaComparableHasta . ':30';
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh);
+                }
+                elseif (($minutoComparableDesde == 30) and ($minutoComparableHasta == 30)){
+                    //a la hora le sumo uno para llegar al valor.
+                    $horaComparableDesde = $horaComparableDesde + 1;
+                    $horaComparableHasta = $horaComparableHasta + 1;
+                    //Esto pro si la hora es 08 por ejemplo increible, pero real
+                    if (strlen($horaComparableDesde) == 1){
+                        $horaComparableDesde ='0' . $horaComparableDesde ; 
+                    } 
+                    if (strlen($horaComparableHasta) == 1){
+                        $horaComparableHasta ='0' . $horaComparableHasta ; 
+                    } 
+                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
+                    $hd = $hd . ' a ' . $horaComparableDesde . ':00';
+                    $hh = $hh . ' a ' . $horaComparableHasta . ':00';
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh);
+                }
+                elseif (($minutoComparableDesde == 00) and ($minutoComparableHasta == 30)) {
+                     //a la hora le sumo uno para llegar al valor.
+                    $horaComparableHasta = $horaComparableHasta + 1;
+                    //Esto pro si la hora es 08 por ejemplo increible, pero real
+                    if (strlen($horaComparableDesde) == 1){
+                        $horaComparableDesde ='0' . $horaComparableDesde ; 
+                    } 
+                    if (strlen($horaComparableHasta) == 1){
+                        $horaComparableHasta ='0' . $horaComparableHasta ; 
+                    } 
+                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
+                    $hd = $hd . ' a ' . $horaComparableDesde . ':30';
+                    $hh = $hh . ' a ' . $horaComparableHasta . ':00';
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh); 
+                     
+                    
+                }
+                elseif (($minutoComparableDesde == 00) and ($minutoComparableHasta == 00)){
+                    //a la hora le sumo uno para llegar al valor.
+                    //Esto pro si la hora es 08 por ejemplo increible, pero real
+                    if (strlen($horaComparableDesde) == 1){
+                        $horaComparableDesde ='0' . $horaComparableDesde ; 
+                    } 
+                    if (strlen($horaComparableHasta) == 1){
+                        $horaComparableHasta ='0' . $horaComparableHasta ; 
+                    } 
+                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
+                    $hd = $hd . ' a ' . $horaComparableDesde . ':30';
+                    $hh = $hh . ' a ' . $horaComparableHasta . ':30';
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh); 
+                    echo ($arrayCargadoConHorariosConcat[1] . 'un Punto' . $arrayCargadoConHorariosConcat[2]); 
                 }
                 else{
-                    echo('NOPE');
+                    throw $this->createNotFoundException('te metiste donde no debias y florecio un error, que grande!');
                 }
                 $contador = $contador + 1;
             }
-            //$q = $reservasMostrar[1]->getHoraDesde();
-            //echo $pepe = $q->format('i');
-            //if ($pepe == 30){
-                
-           // }else{
-                
-           // }
-
-
-            //Pintar la matriz
-
-
-            
+          
             if (empty($_GET["aula"])){
                 $aulaSeleccionada = 0;
             }
