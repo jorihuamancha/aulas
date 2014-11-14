@@ -4,48 +4,92 @@
     <h1>Aulas disponibles</h1>
     <form> 
    <select onchange="location.href=this.options[this.selectedIndex].value">
-        <option value="#"> {{seleccionado}}</option>
-        <option value="?mes=Enero">Enero</option>
-        <option value="?mes=Febrero">Febrero</option>
-        <option value="?mes=Marzo">Marzo</option>
-        <option value="?mes=Abril">Abril</option>
-        <option value="?mes=Mayo">Mayo</option>
-        <option value="?mes=Junio">Junio</option>
-        <option value="?mes=Julio">Julio</option>
-        <option value="?mes=Agosto">Agosto</option>
-        <option value="?mes=Septiembre">Septiembre</option>
-        <option value="?mes=Octubre">Octubre</option>
-        <option value="?mes=Noviembre">Noviembre</option>
-        <option value="?mes=Diciembre">Diciembre</option>
+        <option value="#">{{seleccionado}}</option>
+        {% for m in meses %}
+         {% if loop.index >= mesActual %}
+            {% if seleccionado != m %}
+                <option value="?mes={{m}}" > {{m}}</option>
+             {% endif %}
+         {% endif %}   
+       {% endfor %}
     </select>
 
     <select>
         {% for dia in mesSelect %}
-            <option value="{{dia}}">{{dia}}</option>
+            {% if ( asd == mesActual) %}
+                {% if (loop.index >= diaActual) %}
+                    <option value="{{dia}}">{{dia}}</option>
+                {% endif %}
+            {% else %}
+                <option value="{{dia}}">{{dia}}</option>
+            {% endif %}
         {% endfor %}
     </select>
-    
+    <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#">Aula</option>
+        {% for a in aulasMostrar %}
+            <option value="?aula={{a.id}}&mes={{seleccionadoAhora}}">{{a.nombre}}</option>
+        {% endfor %}
+    </select>  
 
-    
-    
+    <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#">Horario</option>
+        {% for h in horarios %}
+            <option value="">{{h}}</option>
+        {% endfor %}
+    </select> 
+
     </form>
-    <table class="records_list tabla">
-        <thead>
-            <tr>
-                <th>Aula/Horario</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
-        </tbody>
-    </table>
+    {% if ( aulaSeleccionada != 0 ) %}
+       <table class="records_list tabla">
+            <thead>
+                <tr>
+                    <th>Aula/Horario</th>
+                    <th>{{aulaSeleccionada}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in horarios %}
+                    <tr>
+                        <td>{{h}}</td>    
+                        <td>Gol De Boca</td>      
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+     <table class="records_list tabla">
+            <thead>
+                <tr>
+                    <th>Aula/Horario</th>
+                    {% for a in aulasMostrar %}
+                        {% if a.activo != false %}
+                            <th>{{a.nombre}}</th>
+                        {% endif %}    
+                    {% endfor %}
+                 </tr>
+            </thead>
+            <tbody>
+                {% for h in horarios %}
+                    {% set unaVar=loop.index %}
+                        <tr>
+                            <td>{{h}}</td>
+                            {% for a in aulasMostrar %}
+                             {% if a.activo != false %}
+                                {% for v in ArrayDeVista %}
+                                    {% if  (unaVar == v.1 and a.nombre == v.3) %}
+                                        <td>Gol de Boca</td>
+                                    {% else %}
+                                        <td>Sin Pintar</td>
+                                    {% endif %}
+                            {% endfor %}
+                              {% endif %} 
+                            {% endfor %}
+                        </tr> 
+                {% endfor %}
+            </tbody>
+        </table>
+        
+     
+    {% endif %} 
 {% endblock %}
