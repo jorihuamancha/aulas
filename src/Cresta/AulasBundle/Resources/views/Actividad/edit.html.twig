@@ -1,16 +1,18 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Actividad edit</h1>
 
-    {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('aulas_actividad') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+<div class='formAutogenerado'>
+		<div id='EditarActividad'>
+		    <h1>Editar Actividad</h1>
+
+		    {{ form(edit_form) }}
+
+			{#  No lo puedo alinear, que lo borre desde la lista
+				{{ form(delete_form) }} 
+			#}
+
+		</div>
+	</div>
 {% endblock %}

@@ -27,4 +27,4 @@ aulas_actividad_update:
 aulas_actividad_delete:
     path:     /{id}/delete
     defaults: { _controller: "CrestaAulasBundle:Actividad:delete" }
-    requirements: { _method: post|delete }
+    #requirements: { _method: post|delete }

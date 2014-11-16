@@ -66,8 +66,8 @@ class AulaController extends Controller
             'action' => $this->generateUrl('aulas_aula_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -147,7 +147,9 @@ class AulaController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Editar','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+
 
         return $form;
     }
@@ -190,7 +192,7 @@ class AulaController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrestaAulasBundle:Aula')->find($id);
 
@@ -200,7 +202,7 @@ class AulaController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+        //}
 
         return $this->redirect($this->generateUrl('aulas_aula'));
     }
@@ -221,4 +223,206 @@ class AulaController extends Controller
             ->getForm()
         ;
     }
+
+     public function disponibilidadAction()
+        {  
+         if (empty($_GET["mes"])) {
+            $em = $this->getDoctrine()->getManager();
+            $aulasMostrar = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
+            $mesSelect = array();
+            if (empty($_GET["aula"])){
+                $aulaSeleccionada = 0;
+            }
+            else{
+                $aulaSeleccionada = $_GET["aula"];
+            }
+            $diaActual =date('d');
+            $buscameEsto='Mes';
+            $mesActual = date('m');
+            $elmesEnNumero= array('Enero'=>1,'Febrero'=>2,'Marzo'=>3,'Abril'=>4,'Mayo'=>5,'Junio'=>6,'Julio'=>7,
+            'Agosto'=>8,'Septiembre'=>9,'Octubre'=>10,'Noviembre'=>11,'Diciembre'=>12);
+            //$asd= $elmesEnNumero[$buscameEsto];
+            $horarios = array(1=>'08:00 a 08:30',2=>'08:30 a 09:00',3=>'09:00 a 09:30',4=>'09:30 a 10:00',5=>'10:00 a 10:30',
+            6=>'10:30 a 11:00',7=>'11:00 a 11:30 ',8=>'11:30 a 12:00',9=>'12:00 a 12:30',10=>'12:30 a 13:30',11=>'13:30 a 14:00',
+            12=>'14:00 a 14:30',13=>'14:30 a 15:00',14=>'15:00 a 15:30',15=>'15:30 a 16:00',16=>'16:00 a 16:30',17=>'16:30 a 17:00',
+            18=>'17:30 a 18:00',19=>'18:30 a 19:00',20=>'19:00 a 19:30',21=>'20:00 a 20:30',22=>'20:00 a 21:00',23=>'21:00 a 21:30',
+            24=>'21:30 a 22:00');
+            $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',
+            8=>'Agosto',9=>'Septiembre',10=>'Octubre',11=>'Noviembre',12=>'Diciembre');
+
+            
+            $buscameEstoAhora = $meses[$mesActual];
+            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
+            'seleccionado'=>$buscameEsto,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,'mesActual'=>$mesActual
+            ,'diaActual'=>$diaActual,'aulaSeleccionada'=>$aulaSeleccionada,'seleccionadoAhora'=>$buscameEstoAhora));
+
+        }
+        else{
+            $em = $this->getDoctrine()->getManager();
+            $aulasMostrar = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
+
+            $reservasMostrar = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
+            $contador = 0;
+            foreach ($reservasMostrar as $aux) {
+                $reservasMostrar[$contador]->getHoraDesde();
+                //Busco los minutos para saber si es 30 o 00
+                $minutoComparableDesde = $reservasMostrar[$contador]->getHoraDesde()->format('i');
+                $horaComparableDesde = $reservasMostrar[$contador]->getHoraDesde()->format('H');
+                $minutoComparableHasta = $reservasMostrar[$contador]->getHoraHasta()->format('i');
+                $horaComparableHasta = $reservasMostrar[$contador]->getHoraHasta()->format('H');
+                //Traigo la hora desde de las reservas.
+                $hh = $reservasMostrar[$contador]->getHoraHasta()->format('H:i');
+                $hd = $reservasMostrar[$contador]->getHoraDesde()->format('H:i');
+                //si el min es 30 deberia concatenar con la hora siguente.
+                if ( ($minutoComparableDesde == 30) and ($minutoComparableHasta == 00) ){
+                    //a la hora le sumo uno para llegar al valor.
+                    $horaComparableDesde = $horaComparableDesde + 1;
+                    //Esto pro si la hora es 08 por ejemplo increible, pero real
+                    if (strlen($horaComparableDesde) == 1){
+                        $horaComparableDesde ='0' . $horaComparableDesde ; 
+                    } 
+                    if (strlen($horaComparableHasta) == 1){
+                        $horaComparableHasta ='0' . $horaComparableHasta ; 
+                    } 
+                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
+                    $hd = $hd . ' a ' . $horaComparableDesde . ':00';
+                    $hh = $hh . ' a ' . $horaComparableHasta . ':30';
+                    //Busco el aula de la reserva (nombre)
+                    $aulaNombre = $aulaVar->getNombre();
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
+                }
+                elseif (($minutoComparableDesde == 30) and ($minutoComparableHasta == 30)){
+                    //a la hora le sumo uno para llegar al valor.
+                    $horaComparableDesde = $horaComparableDesde + 1;
+                    $horaComparableHasta = $horaComparableHasta + 1;
+                    //Esto pro si la hora es 08 por ejemplo increible, pero real
+                    if (strlen($horaComparableDesde) == 1){
+                        $horaComparableDesde ='0' . $horaComparableDesde ; 
+                    } 
+                    if (strlen($horaComparableHasta) == 1){
+                        $horaComparableHasta ='0' . $horaComparableHasta ; 
+                    } 
+                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
+                    $hd = $hd . ' a ' . $horaComparableDesde . ':00';
+                    $hh = $hh . ' a ' . $horaComparableHasta . ':00';
+                    $aulaNombre = $aulaVar->getNombre();
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
+                }
+                elseif (($minutoComparableDesde == 00) and ($minutoComparableHasta == 30)) {
+                     //a la hora le sumo uno para llegar al valor.
+                    $horaComparableHasta = $horaComparableHasta + 1;
+                    //Esto pro si la hora es 08 por ejemplo increible, pero real
+                    if (strlen($horaComparableDesde) == 1){
+                        $horaComparableDesde ='0' . $horaComparableDesde ; 
+                    } 
+                    if (strlen($horaComparableHasta) == 1){
+                        $horaComparableHasta ='0' . $horaComparableHasta ; 
+                    } 
+                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
+                    $hd = $hd . ' a ' . $horaComparableDesde . ':30';
+                    $hh = $hh . ' a ' . $horaComparableHasta . ':00';
+                    $aulaNombre = $aulaVar->getNombre();
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);     
+                }
+                elseif (($minutoComparableDesde == 00) and ($minutoComparableHasta == 00)){
+                    //a la hora le sumo uno para llegar al valor.
+                    //Esto pro si la hora es 08 por ejemplo increible, pero real
+                    if (strlen($horaComparableDesde) == 1){
+                        $horaComparableDesde ='0' . $horaComparableDesde ; 
+                    } 
+                    if (strlen($horaComparableHasta) == 1){
+                        $horaComparableHasta ='0' . $horaComparableHasta ; 
+                    } 
+                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
+                    $hd = $hd . ' a ' . $horaComparableDesde . ':30';
+                    $hh = $hh . ' a ' . $horaComparableHasta . ':30';
+                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find(2);
+                    $aulaNombre = $aulaVar->getNombre();
+                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
+                     
+                }
+                else{
+                    throw $this->createNotFoundException('te metiste donde no debias y florecio un error, que grande!');
+                }
+                //Cargo array cn indices iguales a los conseguidos anteriormente para recuperar un 
+                //valor numerico que represente la ubicacion del otro array!
+                $arrayDeTranformacion = $horarios = array('08:00 a 08:30'=>1,'08:30 a 09:00'=>2,'09:00 a 09:30'=>3,'09:30 a 10:00'=>4
+                ,'10:00 a 10:30'=>5,'10:30 a 11:00'=>6,'11:00 a 11:30'=>7,'11:30 a 12:00'=>8,'12:00 a 12:30'=>9,'12:30 a 13:30'=>10,
+                '13:30 a 14:00'=>11,'14:00 a 14:30'=>12,'14:30 a 15:00'=>13,'15:00 a 15:30'=>14,'15:30 a 16:00'=>15,'16:00 a 16:30'=>16,
+                '16:30 a 17:00'=>17,'17:30 a 18:00'=>18,'18:30 a 19:00'=>19,'19:00 a 19:30'=>20,'20:00 a 20:30'=>21,'20:00 a 21:00'=>22,
+                '21:00 a 21:30'=>23,'21:30 a 22:00'=>24);
+                //guardo en un array para pasarle a la vista, el valor qe tengo en la reserva transformado por el array de transformacion.
+                //neg del futuro no cambies esas variables por q se rompe la vista!!
+                $ArrayDeVista[$contador] = array(1=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[1]],
+                2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3]);
+                $contador = $contador + 1;
+            }
+          
+            if (empty($_GET["aula"])){
+                $aulaSeleccionada = 0;
+            }
+            else{
+                $aulaSeleccionada = $_GET["aula"];
+              
+            }
+            $buscameEsto= $_GET["mes"];
+            $AnioActual = date('Y');
+                $dias = 1;
+                $MesesDe30 =  array();
+                $MeseDe31 =  array();
+                $Febrero = array();
+                while ($dias < 32){
+                    $MeseDe31[$dias] = $dias;
+                    $dias = $dias + 1;
+                }
+                $dias = 1;
+                while ($dias < 31){
+                    $MesesDe30[$dias] = $dias;
+                    $dias = $dias + 1;
+                }
+                $dias = 1;
+                if (($AnioActual % 4 == 0) && ($AnioActual % 100 != 0) || ($AnioActual % 400 == 0)){
+                    //es bisiesto   
+                    while ($dias < 30){
+                        $Febrero[$dias] = $dias;
+                        $dias = $dias + 1;
+                    }
+                }
+                else{
+                    //NOPE
+                     while ($dias < 29){
+                        $Febrero[$dias] = $dias;
+                        $dias = $dias + 1;
+                     }
+                }
+            $mesActual = date('m');
+            $diaActual =date('d'); 
+            $horarios = array(1=>'08:00 a 08:30',2=>'08:30 a 09:00',3=>'09:00 a 09:30',4=>'09:30 a 10:00',5=>'10:00 a 10:30',
+            6=>'10:30 a 11:00',7=>'11:00 a 11:30 ',8=>'11:30 a 12:00',9=>'12:00 a 12:30',10=>'12:30 a 13:30',11=>'13:30 a 14:00',
+            12=>'14:00 a 14:30',13=>'14:30 a 15:00',14=>'15:00 a 15:30',15=>'15:30 a 16:00',16=>'16:00 a 16:30',17=>'16:30 a 17:00',
+            18=>'17:30 a 18:00',19=>'18:30 a 19:00',20=>'19:00 a 19:30',21=>'20:00 a 20:30',22=>'20:00 a 21:00',23=>'21:00 a 21:30',
+            24=>'21:30 a 22:00');
+            $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',
+            8=>'Agosto',9=>'Septiembre',10=>'Octubre',11=>'Noviembre',12=>'Diciembre');
+            $unArray = array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $MesesDe30,
+            'Mayo' => $MeseDe31,'Junio' => $MesesDe30,'Julio' => $MeseDe31,'Agosto' => $MeseDe31,'Septiembre' => $MesesDe30,
+            'Octubre' => $MeseDe31,'Noviembre' => $MesesDe30,'Diciembre' => $MeseDe31);
+            //$mesSelect=1;
+            $mesSelect = $unArray[$buscameEsto];
+            
+
+            $elmesEnNumero= array('Enero'=>1,'Febrero'=>2,'Marzo'=>3,'Abril'=>4,'Mayo'=>5,'Junio'=>6,'Julio'=>7,
+            'Agosto'=>8,'Septiembre'=>9,'Octubre'=>10,'Noviembre'=>11,'Diciembre'=>12);
+            $asd= $elmesEnNumero[$buscameEsto];
+
+            $buscameEstoAhora = $buscameEsto; 
+            return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
+            'seleccionado'=>$buscameEsto,'mesActual'=>$mesActual,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,
+            'diaActual'=>$diaActual,'asd'=>$asd,'aulaSeleccionada'=>$aulaSeleccionada,'seleccionadoAhora'=>$buscameEstoAhora,
+            'ArrayDeVista'=>$ArrayDeVista));
+
+
+            //Por el neg de la gente
+        }
+     }
 }
