@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+{% block title %}Cursos {% endblock %}
+{% block body -%}
+    <h1 name='top'>Listado de Cursos</h1>
+
+    <ul>
+            <a href="{{ path('aulas_curso_new') }}" class="btn btn-default botonTabla">
+                Nuevo curso
+            </a>
+    </ul>
+    <table class="records_list tabla">
+        <thead>
+            <tr>
+            	<th>Nombre</th>
+                <th>Carrera</th>
+                <th>Año</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+				<td>{{ entity.nombre }}</td>
+                <td>{{ entity.Carrera.nombre }}</td>
+				<td>{{ entity.anio }}</td>
+                <td>
+                <ul>
+                        <a href="{{ path('aulas_curso_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
+                        
+                        <a href="{{ path('aulas_curso_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
+                        
+                        <a href="{{ path('aulas_curso_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
+                        
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{#    <ul>
+            <a href="#top" class="btn btn-default botonTabla">
+                Volver arriba
+            </a>
+    </ul>
+#}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends '::base.html.twig' %}
+{% block title %}Ver Curso {% endblock %}
+{% block body -%}
+    <h1>Curso</h1>
+
+    <table class="record_properties tabla verItem">
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td><b>{{ entity.nombre }}</b></td>
+            </tr>
+            <tr>
+                <th>Carrera</th>
+                <td>{{ entity.Carrera.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Año</th>
+                <td>{{ entity.anio }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions tablaAcciones">
+                    <a class="btn btn-default botonTabla" href="{{ path('aulas_curso_edit', { 'id': entity.id }) }}">
+                        Editar
+                    </a>
+                    {{ form(delete_form) }}
+                    
+                    <a class="btn btn-default botonTabla" href="{{ path('aulas_curso') }}">
+                        Volver a la lista
+                    </a>
+        </ul>
+</p>
+{% endblock %}

@@ -10,16 +10,30 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Persona
+
+/** @ORM\MappedSuperclass */
+
+abstract class Persona
 {
     /**
-     * @var integer
+     * Article
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Table(name="Persona")
+     * @ORM\Entity(repositoryClass="Cresta\AulasBundle\Entity\Persona")
+     * @ORM\InheritanceType("JOINED")
+     * @ORM\DiscriminatorColumn(name="discr", type="string")
+     * @ORM\DiscriminatorMap({"docente" = "Docente","administrador" = "Administrador"})
      */
-    private $id;
+
+    /**
+     * @OneToOne(targetEntity="Docente")
+     * @JoinColumn(name="id", referencedColumnName="id")
+     */
+
+    /**
+     * @OneToOne(targetEntity="Administrador")
+     * @JoinColumn(name="id", referencedColumnName="id")
+     */
 
     /**
      * @var string
@@ -28,26 +42,13 @@ class Persona
      */
     private $nombre;
 
-     /* ---------------------------------------------- Persona-Movimiento-------------------------------------------------------*/
-
-     /**
-     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Movimiento")
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido", type="string", length=45)
      */
-
-     private $movimientos;
-        /*---By Neg---*/
-     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
-
-      /**
-     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Reserva")
-     */
-
-      private $reservapersonas;
-        /*---By Neg---*/
-
-
-    /* ---------------------------------------------- Fin relaciones-------------------------------------------------------*/
-
+    private $apellido;
+   
 
     /* ---------------------------------------------- Constructor -----------------------------------------------------------*/
 
@@ -59,52 +60,6 @@ class Persona
         /*---By Neg---*/
     /* ---------------------------------------------- Fin Constructor -------------------------------------------------------*/
     
-    
-    /* ---------------------------------------------- Get reservapersonas ----------------------------------------------------------*/
-
-    public function getResevaPersonas(){
-        
-        return $this->reservapersonas;
-    }
-            /*---By Neg---*/
-    
-    /* ---------------------------------------------- Fin Get reservapersonas-------------------------------------------------------*/  
-    
-    /* ---------------------------------------------- Set reservapersonas --------------------------------------------------------------*/
-
-    public function addReservaPersonas (Cresta\AulasBundle\Entity\Reserva $reservapersonas){
-        
-        $this->reservapersonas[] = $reservapersonas;
-    }
-        /*---By Neg---*/
-    /* ---------------------------------------------- fin Get reservapersonas ----------------------------------------------------------*/
-
-    /* ---------------------------------------------- Set movimientos ------------------------------------------------------------------*/
-    public function addMovimientos (Cresta\AulasBundle\Entity\Movimiento $movimientos){
-        $this->movimientos[] = $movimientos;
-    }
-        /*---By Neg---*/
-    /* ---------------------------------------------- fin set movimientos --------------------------------------------------------------*/
-
-    /* ---------------------------------------------- get movimientos ------------------------------------------------------------------*/
-
-    public function getMovimientos(){
-        return $this->movimientos;
-    }
-        /*---By Neg---*/
-    /* ---------------------------------------------- fin set movimientos --------------------------------------------------------------*/
-
-      
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
     /**
      * Set nombre
      *
@@ -127,4 +82,28 @@ class Persona
     {
         return $this->nombre;
     }
+
+    /**
+     * Set apellido
+     *
+     * @param string $apellido
+     * @return Persona
+     */
+    public function setApellido($apellido)
+    {
+        $this->apellido = $apellido;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido
+     *
+     * @return string 
+     */
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
+
 }

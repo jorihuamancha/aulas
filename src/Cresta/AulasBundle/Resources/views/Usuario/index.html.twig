@@ -1,0 +1,60 @@
+{% extends '::base.html.twig' %}
+{% block title %}Usuarios {% endblock %}
+{% block body -%}
+    <h1>Lista de Usuarios</h1>
+    <table class="records_list tabla">
+        <thead>
+            <tr>
+                <th>Nombre de Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Tipo</th>
+                <th>Activo</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><b>{{ entity.username }}</b></td>
+
+                {% if entity.administrador is null %}
+                    <td>{{entity.docente.nombre}}</td>
+                    <td>{{entity.docente.apellido}}</td>
+                {% else %}
+                    <td>{{entity.administrador.nombre}}</td>
+                    <td>{{entity.administrador.apellido}}</td>
+                {% endif %}
+
+                <td>{{ entity.email }}</td>
+                <td>
+                    {% if entity.docente is null %}
+                        Administrador
+                    {% else %}
+                        Docente
+                    {% endif %}
+                </td>
+                <td>
+                    {% if entity.enabled==1 %}
+                        SI
+                    {% else %}
+                        NO
+                    {% endif %}
+                </td>
+                <td>
+                <ul>
+
+                        <a href="{{ path('aulas_usuario_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
+
+
+                        <a href="{{ path('aulas_usuario_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
+
+                        <a href="{{ path('aulas_usuario_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

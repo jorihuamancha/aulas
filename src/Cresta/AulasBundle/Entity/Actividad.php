@@ -12,11 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Actividad extends Tarea
 {
-    /**
+
+/**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
+     * @ORM\id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
@@ -28,23 +29,13 @@ class Actividad extends Tarea
      */
     private $tipo;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
     /**
      * Set tipo
      *
      * @param string $tipo
      * @return Actividad
      */
+
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
@@ -60,5 +51,15 @@ class Actividad extends Tarea
     public function getTipo()
     {
         return $this->tipo;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

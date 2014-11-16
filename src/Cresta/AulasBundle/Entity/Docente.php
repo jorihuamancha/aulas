@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Docente extends Persona
 {
+
     /**
      * @var integer
      *
@@ -21,12 +22,6 @@ class Docente extends Persona
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="apellido", type="string", length=45)
-     */
-    private $apellido;
 
     /**
      * @var boolean
@@ -35,39 +30,7 @@ class Docente extends Persona
      */
     private $activo;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set apellido
-     *
-     * @param string $apellido
-     * @return Docente
-     */
-    public function setApellido($apellido)
-    {
-        $this->apellido = $apellido;
-
-        return $this;
-    }
-
-    /**
-     * Get apellido
-     *
-     * @return string 
-     */
-    public function getApellido()
-    {
-        return $this->apellido;
-    }
+    private $personaDocente;
 
     /**
      * Set activo
@@ -91,4 +54,20 @@ class Docente extends Persona
     {
         return $this->activo;
     }
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    public function getPersonaDocente(){
+        return $this->personaDocente;
+    }
+
 }
