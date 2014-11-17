@@ -1,0 +1,89 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Aulas disponibles</h1>
+    <form> 
+   <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#">{{seleccionado}}</option>
+        {% for m in meses %}
+         {% if loop.index >= mesActual %}
+            {% if seleccionado != m %}
+                <option value="?mes={{m}}" > {{m}}</option>
+             {% endif %}
+         {% endif %}   
+       {% endfor %}
+    </select>
+
+    <select>
+        {% for dia in mesSelect %}
+            {% if ( asd == mesActual) %}
+                {% if (loop.index >= diaActual) %}
+                    <option value="{{dia}}">{{dia}}</option>
+                {% endif %}
+            {% else %}
+                <option value="{{dia}}">{{dia}}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#">Aula</option>
+        {% for a in aulasMostrar %}
+            <option value="?aula={{a.id}}&mes={{seleccionadoAhora}}">{{a.nombre}}</option>
+        {% endfor %}
+    </select>  
+
+    <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#">Horario</option>
+        {% for h in horarios %}
+            <option value="">{{h}}</option>
+        {% endfor %}
+    </select> 
+
+    </form>
+    {% if ( aulaSeleccionada != 0 ) %}
+       <table class="records_list tabla">
+            <thead>
+                <tr>
+                    <th>Aula/Horario</th>
+                    <th>{{aulaSeleccionada}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in horarios %}
+                    <tr>
+                        <td>{{h}}</td>    
+                        <td>Gol De Boca</td>      
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+     <table class="records_list tabla">
+            <tbody>
+
+            {% for array in 0..10  %} 
+                        {{loop.index - 1}}
+                        {% if ((loop.index -1) > 0) %}
+                            <tr><td>asd</td></tr>
+                        {% else %}
+                            {% for i in 0..5 %}
+                                <th>array</th>
+                            {%endfor%}
+                        {% endif %}
+                {% endfor %}
+                {% for array in matrizDeVista  %} 
+                        {{loop.index - 1}}
+                        {% if ((loop.index -1) == 0) %}
+                            {% for i in 1..5 %}
+                             <tr><td>asd</td></tr>
+                            {%endfor%}
+                        {% else %}
+                            <th>{{matrizDeVista[loop.index -1][0]}}</th>
+                        {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        
+     
+    {% endif %} 
+{% endblock %}

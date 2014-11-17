@@ -1,42 +1,35 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Actividades {% endblock %}
 {% block body -%}
-    <h1>Actividad list</h1>
-
-    <table class="records_list">
+    <h1>Lista de Actividades</h1>
+    <ul>
+        <a href="{{ path('aulas_actividad_new') }} "class="btn btn-default botonTabla">Nueva Actividad</a>
+    </ul>
+    <table class="records_list tabla">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Tipo</th>
                 <th>Nombre</th>
-                <th>Actions</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('aulas_actividad_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.tipo }}</td><td>{{ entity.nombre }}</td>
+                <td>{{ entity.tipo }}</td>
+                <td>{{ entity.nombre }}</td>
                 <td>
                 <ul>
-                    <li>
-                        <a href="{{ path('aulas_actividad_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('aulas_actividad_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
+                    <a href="{{ path('aulas_actividad_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
+                        
+                    <a href="{{ path('aulas_actividad_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
+
+                    <a href="{{ path('aulas_actividad_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
+
                 </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('aulas_actividad_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
     {% endblock %}

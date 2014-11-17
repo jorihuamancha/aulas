@@ -67,7 +67,9 @@ class ActividadController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+       // $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -84,6 +86,7 @@ class ActividadController extends Controller
         return $this->render('CrestaAulasBundle:Actividad:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+
         ));
     }
 
@@ -146,8 +149,8 @@ class ActividadController extends Controller
             'action' => $this->generateUrl('aulas_actividad_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Editar','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -190,7 +193,7 @@ class ActividadController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrestaAulasBundle:Actividad')->find($id);
 
@@ -200,7 +203,7 @@ class ActividadController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+       // }
 
         return $this->redirect($this->generateUrl('aulas_actividad'));
     }
