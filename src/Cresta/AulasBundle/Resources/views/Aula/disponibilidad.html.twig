@@ -59,33 +59,27 @@
         </table>
     {% else %}
      <table class="records_list tabla">
-            <thead>
-                <tr>
-                    <th>Aula/Horario</th>
-                    {% for a in aulasMostrar %}
-                        {% if a.activo != false %}
-                            <th>{{a.nombre}}</th>
-                        {% endif %}    
-                    {% endfor %}
-                 </tr>
-            </thead>
             <tbody>
-                {% for h in horarios %}
-                    {% set unaVar=loop.index %}
-                        <tr>
-                            <td>{{h}}</td>
-                            {% for a in aulasMostrar %}
-                             {% if a.activo != false %}
-                                {% for v in ArrayDeVista %}
-                                    {% if  (unaVar == v.1 and a.nombre == v.3) %}
-                                        <td>Gol de Boca</td>
-                                    {% else %}
-                                        <td>Sin Pintar</td>
-                                    {% endif %}
-                            {% endfor %}
-                              {% endif %} 
-                            {% endfor %}
-                        </tr> 
+
+            {% for array in 0..10  %} 
+                        {{loop.index - 1}}
+                        {% if ((loop.index -1) > 0) %}
+                            <tr><td>asd</td></tr>
+                        {% else %}
+                            {% for i in 0..5 %}
+                                <th>array</th>
+                            {%endfor%}
+                        {% endif %}
+                {% endfor %}
+                {% for array in matrizDeVista  %} 
+                        {{loop.index - 1}}
+                        {% if ((loop.index -1) == 0) %}
+                            {% for i in 1..5 %}
+                             <tr><td>asd</td></tr>
+                            {%endfor%}
+                        {% else %}
+                            <th>{{matrizDeVista[loop.index -1][0]}}</th>
+                        {% endif %}
                 {% endfor %}
             </tbody>
         </table>

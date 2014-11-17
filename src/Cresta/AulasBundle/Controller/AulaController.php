@@ -344,19 +344,50 @@ class AulaController extends Controller
                 else{
                     throw $this->createNotFoundException('te metiste donde no debias y florecio un error, que grande!');
                 }
+                $horarios = array(1=>'08:00 a 08:30',2=>'08:30 a 09:00',3=>'09:00 a 09:30',4=>'09:30 a 10:00',5=>'10:00 a 10:30',
+                6=>'10:30 a 11:00',7=>'11:00 a 11:30 ',8=>'11:30 a 12:00',9=>'12:00 a 12:30',10=>'12:30 a 13:30',11=>'13:30 a 14:00',
+                12=>'14:00 a 14:30',13=>'14:30 a 15:00',14=>'15:00 a 15:30',15=>'15:30 a 16:00',16=>'16:00 a 16:30',17=>'16:30 a 17:00',
+                18=>'17:30 a 18:00',19=>'18:30 a 19:00',20=>'19:00 a 19:30',21=>'20:00 a 20:30',22=>'20:00 a 21:00',23=>'21:00 a 21:30',
+                24=>'21:30 a 22:00');
                 //Cargo array cn indices iguales a los conseguidos anteriormente para recuperar un 
                 //valor numerico que represente la ubicacion del otro array!
-                $arrayDeTranformacion = $horarios = array('08:00 a 08:30'=>1,'08:30 a 09:00'=>2,'09:00 a 09:30'=>3,'09:30 a 10:00'=>4
+                $arrayDeTranformacion  = array('08:00 a 08:30'=>1,'08:30 a 09:00'=>2,'09:00 a 09:30'=>3,'09:30 a 10:00'=>4
                 ,'10:00 a 10:30'=>5,'10:30 a 11:00'=>6,'11:00 a 11:30'=>7,'11:30 a 12:00'=>8,'12:00 a 12:30'=>9,'12:30 a 13:30'=>10,
                 '13:30 a 14:00'=>11,'14:00 a 14:30'=>12,'14:30 a 15:00'=>13,'15:00 a 15:30'=>14,'15:30 a 16:00'=>15,'16:00 a 16:30'=>16,
                 '16:30 a 17:00'=>17,'17:30 a 18:00'=>18,'18:30 a 19:00'=>19,'19:00 a 19:30'=>20,'20:00 a 20:30'=>21,'20:00 a 21:00'=>22,
                 '21:00 a 21:30'=>23,'21:30 a 22:00'=>24);
                 //guardo en un array para pasarle a la vista, el valor qe tengo en la reserva transformado por el array de transformacion.
                 //neg del futuro no cambies esas variables por q se rompe la vista!!
-                $ArrayDeVista[$contador] = array(1=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[1]],
+                $ArrayContenedor[$contador] = array(1=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[1]],
                 2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3]);
                 $contador = $contador + 1;
             }
+            $x = 0;
+            $matrizDeVista  = array();
+            for($i = 1; $i < count($horarios) + 1; ++$i) {
+                $matrizDeVista[$x][$i] = $horarios[$i];
+            }
+            
+            $cont = 0;
+            
+            $matrizDeVista[1][$x] = 'Soy un mensaje';
+            for($i = 2; $i < count($aulasMostrar) + 1; ++$i) {
+                $matrizDeVista[$i][$x] = $aulasMostrar[$cont]->getNombre();
+                ++$cont ;
+            }
+            echo "<PRE>";
+            print_r($matrizDeVista);
+            echo "</PRE>";
+            //test!
+            /*
+            $jpg = $matrizDeVista[0][1];
+            $jpg1 = $matrizDeVista[0][2];
+            $jpg2 = $matrizDeVista[0][3];
+            $jpg3 = $matrizDeVista[0][4];*/
+
+            //die($jpg.$jpg1.$jpg2.$jpg3);
+
+            //$matrizDeVista = array ()
           
             if (empty($_GET["aula"])){
                 $aulaSeleccionada = 0;
@@ -419,7 +450,7 @@ class AulaController extends Controller
             return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
             'seleccionado'=>$buscameEsto,'mesActual'=>$mesActual,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,
             'diaActual'=>$diaActual,'asd'=>$asd,'aulaSeleccionada'=>$aulaSeleccionada,'seleccionadoAhora'=>$buscameEstoAhora,
-            'ArrayDeVista'=>$ArrayDeVista));
+            'matrizDeVista'=>$matrizDeVista));
 
 
             //Por el neg de la gente
