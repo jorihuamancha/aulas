@@ -20,13 +20,10 @@ class DefaultController extends Controller
     public function ayudaAction()
     {
         return $this->render('CrestaAulasBundle:Default:ayuda.html.twig', array());
-<<<<<<< HEAD
-=======
 
     }
->>>>>>> cf2c2fa5c1cf37852147d19fae7945e9d51105c2
 
-	}
 }
+
 
 ?>
