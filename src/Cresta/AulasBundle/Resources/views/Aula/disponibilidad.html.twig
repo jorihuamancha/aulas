@@ -71,7 +71,8 @@
                             {%endfor%}
                         {% endif %}
                 {% endfor %}
-                {% for array in matrizDeVista  %} 
+
+                {% for array in matrizDeVista %} 
                         {{loop.index - 1}}
                         {% if ((loop.index -1) == 0) %}
                             {% for i in 1..5 %}
