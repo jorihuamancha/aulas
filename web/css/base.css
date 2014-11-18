@@ -225,7 +225,19 @@ nav ul li a:hover{
 	margin-left:15px;
 }
 
+.records_list .HorarioOcupado{
+	background-color:#EE4545;
+	color: #FFF;
+	font-size:10px;
+	font-weight: bold;
+}
+.HorarioDisponible{
+}
 
+.records_list td{
+	height: 20px;
+	min-width:100px;
+}
 /* -------------------------------- FOSUser -------------------------------*/
 #Login{
 	width:200px;
