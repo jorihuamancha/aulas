@@ -64,7 +64,9 @@
                             <script>
                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioOcupado');
                             </script> 
-                            <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"></td>
+                            {# <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"></td> #}
+                            
+                            <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"><a href="{{path('aulas_reserva_new')}}"><img src="{{ asset('img/iconos/agregar.png') }}" class="icono" alt="Agregar" /></a></td>
                             
                             {% for disponible in ArrayContenedor %}
                                 {% set valor = (disponible.2-(disponible.1)) %}  
@@ -74,8 +76,6 @@
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
                                             document.getElementById("{{horario}}{{nombreActual}}").setAttribute('rowspan','{{valor}}');
-                                            //document.getElementById("{{horario}}{{nombreActual}}").remove();
-                                            //document.getElementById("{{horario}}{{nombreActual}}").deleteRow('');
 
                                         </script>                                            
                                 {% endif %}
