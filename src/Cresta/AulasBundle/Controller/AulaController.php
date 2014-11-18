@@ -375,15 +375,11 @@ class AulaController extends Controller
                 2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3]);
                 $contador = $contador + 1;
             }
-            echo "<PRE>";
-            print_r($ArrayContenedor);
-            echo "</PRE>";
             $mesSelect = array();
             $diaActual =date('d');
             $mesActual = date('m');
             $buscameEsto='Mes';
             $buscameEstoAhora = $meses[$mesActual];
-            //$ArrayContenedor = null;
             return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
             'seleccionadoMes'=>$buscameEsto,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,'mesActual'=>$mesActual
             ,'diaActual'=>$diaActual,'seleccionadoMesAhora'=>$buscameEstoAhora,'ArrayContenedor'=>$ArrayContenedor,'seleccionadoDia' => 'Dia'));
