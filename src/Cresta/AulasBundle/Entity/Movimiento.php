@@ -29,13 +29,6 @@ class Movimiento
     private $fecha;
 
     /**
-     * @ORM\OneToOne(targetEntity="Persona", inversedBy="Movimiento")
-    */
-
-    private $movimientoPersona;
-
-
-    /**
      * @ORM\OneToOne(targetEntity="Reserva", inversedBy="Movimiento")
     */
 

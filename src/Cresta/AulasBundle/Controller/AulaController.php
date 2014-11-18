@@ -274,14 +274,13 @@ class AulaController extends Controller
         $unArray = array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $MesesDe30,
         'Mayo' => $MeseDe31,'Junio' => $MesesDe30,'Julio' => $MeseDe31,'Agosto' => $MeseDe31,'Septiembre' => $MesesDe30,
         'Octubre' => $MeseDe31,'Noviembre' => $MesesDe30,'Diciembre' => $MeseDe31);
+        
         $em = $this->getDoctrine()->getManager();
-        $mesActual = date('m');
-        $diaActual =date('d');
+        $query1 = $em->createQuery('SELECT a FROM CrestaAulasBundle:Aula a  ORDER BY a.nombre ASC');
+        $aulasMostrar =  $query1->getResult();
 
         //Aca termina lo generico
         if ((empty($_GET["mes"])) and (empty($_GET["dia"]))){
-            $query1 = $em->createQuery('SELECT a FROM CrestaAulasBundle:Aula a  ORDER BY a.nombre ASC');
-            $aulasMostrar =  $query1->getResult();
             $pasar = date('Y-m-d');
             $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fechaReserva = :fechitaMostri')->setParameter('fechitaMostri', $pasar);
             $reservasMostrar = $query->getResult();
@@ -379,8 +378,10 @@ class AulaController extends Controller
             }
             if ((count($reservasMostrar)) == 0){
                 $ArrayContenedor = null;
-            }
+                }
             $mesSelect = array();
+            $diaActual =date('d');
+            $mesActual = date('m');
             $buscameEsto='Mes';
             $buscameEstoAhora = $meses[$mesActual];
             return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
@@ -388,136 +389,8 @@ class AulaController extends Controller
             ,'diaActual'=>$diaActual,'seleccionadoMesAhora'=>$buscameEstoAhora,'ArrayContenedor'=>$ArrayContenedor,'seleccionadoDia' => 'Dia'));
 
         }
-        elseif (((($_GET["mes"] == 'Mes')) or (!isset($_GET["dia"]))) and (isset ($_GET["aula"]))){
-             throw $this->createNotFoundException('Para filtrar el aula, primero completa el campo mes y dia para que podamos encontrar lo que estas buscando :D');
-        }
-        elseif ((!empty($_GET["mes"])) and (!empty($_GET["dia"])) and (!empty($_GET["aula"]))) {
-
-            $seleccionadoDia = $_GET["dia"];
-            $buscameEsto= $_GET["mes"];
-            $asd = $elmesEnNumero[$buscameEsto];
-
-            //tengo la id buscate el aula pedru
-            $idDelAulaSeleccionada = $_GET["aula"];
-            
-            $aulasMostrar[0] = $em->getRepository('CrestaAulasBundle:Aula')->find($idDelAulaSeleccionada); 
-            /* dios es cuate
-            // $seleccionadoAula = $aulasMostrar->getNombre();
-            echo "<PRE>";
-            print_r($aulasMostrar);
-            echo "</PRE>";*/
-            $mesSelect = $unArray[$buscameEsto];
-            //$aulasMostrar[]['nombre'] = $seleccionadoAula;
-            $buscameEstoAhora = $meses[$mesActual];
-            $pasar = $AnioActual . '-' . $asd . '-' . $seleccionadoDia;
-            $parameters = array('fechitaMostri' => $pasar,'elaula' =>  $idDelAulaSeleccionada);
-            $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fechaReserva = :fechitaMostri and r.reservaAula = :elaula')->setParameters($parameters);
-            $reservasMostrar = $query->getResult();
-            $contador =0;
-             foreach ($reservasMostrar as $aux) {
-                $reservasMostrar[$contador]->getHoraDesde();
-                //Busco los minutos para saber si es 30 o 00
-                $minutoComparableDesde = $reservasMostrar[$contador]->getHoraDesde()->format('i');
-                $horaComparableDesde = $reservasMostrar[$contador]->getHoraDesde()->format('H');
-                $minutoComparableHasta = $reservasMostrar[$contador]->getHoraHasta()->format('i');
-                $horaComparableHasta = $reservasMostrar[$contador]->getHoraHasta()->format('H');
-                //Traigo la hora desde de las reservas.
-                $hh = $reservasMostrar[$contador]->getHoraHasta()->format('H:i');
-                $hd = $reservasMostrar[$contador]->getHoraDesde()->format('H:i');
-                //si el min es 30 deberia concatenar con la hora siguente.
-                if ( ($minutoComparableDesde == 30) and ($minutoComparableHasta == 00) ){
-                    //a la hora le sumo uno para llegar al valor.
-                    $horaComparableDesde = $horaComparableDesde + 1;
-                    //Esto pro si la hora es 08 por ejemplo increible, pero real
-                    if (strlen($horaComparableDesde) == 1){
-                        $horaComparableDesde ='0' . $horaComparableDesde ; 
-                    } 
-                    if (strlen($horaComparableHasta) == 1){
-                        $horaComparableHasta ='0' . $horaComparableHasta ; 
-                    } 
-                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
-                    $hd = $hd . ' a ' . $horaComparableDesde . ':00';
-                    $hh = $hh . ' a ' . $horaComparableHasta . ':30';
-                    //Busco el aula de la reserva (nombre)
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
-                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
-                    $aulaNombre = $aulaVar->getNombre();
-                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
-                }
-                elseif (($minutoComparableDesde == 30) and ($minutoComparableHasta == 30)){
-                    //a la hora le sumo uno para llegar al valor.
-                    $horaComparableDesde = $horaComparableDesde + 1;
-                    $horaComparableHasta = $horaComparableHasta + 1;
-                    //Esto pro si la hora es 08 por ejemplo increible, pero real
-                    if (strlen($horaComparableDesde) == 1){
-                        $horaComparableDesde ='0' . $horaComparableDesde ; 
-                    } 
-                    if (strlen($horaComparableHasta) == 1){
-                        $horaComparableHasta ='0' . $horaComparableHasta ; 
-                    } 
-                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
-                    $hd = $hd . ' a ' . $horaComparableDesde . ':00';
-                    $hh = $hh . ' a ' . $horaComparableHasta . ':00';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
-                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
-                    $aulaNombre = $aulaVar->getNombre();
-                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
-                }
-                elseif (($minutoComparableDesde == 00) and ($minutoComparableHasta == 30)) {
-                     //a la hora le sumo uno para llegar al valor.
-                    $horaComparableHasta = $horaComparableHasta + 1;
-                    //Esto pro si la hora es 08 por ejemplo increible, pero real
-                    if (strlen($horaComparableDesde) == 1){
-                        $horaComparableDesde ='0' . $horaComparableDesde ; 
-                    } 
-                    if (strlen($horaComparableHasta) == 1){
-                        $horaComparableHasta ='0' . $horaComparableHasta ; 
-                    } 
-                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
-                    $hd = $hd . ' a ' . $horaComparableDesde . ':30';
-                    $hh = $hh . ' a ' . $horaComparableHasta . ':00';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
-                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
-                    $aulaNombre = $aulaVar->getNombre();
-                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);     
-                }
-                elseif (($minutoComparableDesde == 00) and ($minutoComparableHasta == 00)){
-                    //a la hora le sumo uno para llegar al valor.
-                    //Esto pro si la hora es 08 por ejemplo increible, pero real
-                    if (strlen($horaComparableDesde) == 1){
-                        $horaComparableDesde ='0' . $horaComparableDesde ; 
-                    } 
-                    if (strlen($horaComparableHasta) == 1){
-                        $horaComparableHasta ='0' . $horaComparableHasta ; 
-                    } 
-                    //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
-                    $hd = $hd . ' a ' . $horaComparableDesde . ':30';
-                    $hh = $hh . ' a ' . $horaComparableHasta . ':30';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
-                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
-                    $aulaNombre = $aulaVar->getNombre();
-                    $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);    
-                }
-                else{
-                    throw $this->createNotFoundException('Lo sentimos se rompieron las reservas :/ los horarios deberian ser en minutos 00 o 30.');
-                }
-                $ArrayContenedor[$contador] = array(1=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[1]],
-                2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3]);
-                $contador = $contador + 1;
-            }
-            if ((count($reservasMostrar)) == 0){
-                $ArrayContenedor = null;
-            }
-
-
-              return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
-            'seleccionadoMes'=>$buscameEsto,'mesActual'=>$mesActual,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,
-            'diaActual'=>$diaActual,'asd'=>$asd,'seleccionadoMesAhora'=>$buscameEstoAhora,
-            'ArrayContenedor'=>$ArrayContenedor,'seleccionadoDia' =>$seleccionadoDia));
-        }
         else{
-            $query1 = $em->createQuery('SELECT a FROM CrestaAulasBundle:Aula a  ORDER BY a.nombre ASC');
-            $aulasMostrar =  $query1->getResult();
+            
             $seleccionadoDia = $_GET["dia"];
             $buscameEsto= $_GET["mes"];
             $asd= $elmesEnNumero[$buscameEsto];
@@ -620,7 +493,7 @@ class AulaController extends Controller
             }
             if ((count($reservasMostrar)) == 0){
                 $ArrayContenedor = null;
-            }
+                }
            
             
             $diaActual =date('d'); 

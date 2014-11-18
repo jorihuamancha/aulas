@@ -8,6 +8,7 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
             <tr>
                 <td><a href="{{ path('aulas_persona_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.nombre }}</td>
+                <td>{{ entity.apellido }}</td>
                 <td>
                 <ul>
                     <li>

@@ -16,6 +16,7 @@ class PersonaType extends AbstractType
     {
         $builder
             ->add('nombre')
+            ->add('apellido')
         ;
     }
     
@@ -37,3 +38,4 @@ class PersonaType extends AbstractType
         return 'cresta_aulasbundle_persona';
     }
 }
+

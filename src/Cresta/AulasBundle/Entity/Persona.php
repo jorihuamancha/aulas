@@ -13,16 +13,27 @@ use Doctrine\ORM\Mapping as ORM;
 
 /** @ORM\MappedSuperclass */
 
-class Persona
+abstract class Persona
 {
     /**
-     * @var integer
+     * Article
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Table(name="Persona")
+     * @ORM\Entity(repositoryClass="Cresta\AulasBundle\Entity\Persona")
+     * @ORM\InheritanceType("JOINED")
+     * @ORM\DiscriminatorColumn(name="discr", type="string")
+     * @ORM\DiscriminatorMap({"docente" = "Docente","administrador" = "Administrador"})
      */
-    private $id;
+
+    /**
+     * @OneToOne(targetEntity="Docente")
+     * @JoinColumn(name="id", referencedColumnName="id")
+     */
+
+    /**
+     * @OneToOne(targetEntity="Administrador")
+     * @JoinColumn(name="id", referencedColumnName="id")
+     */
 
     /**
      * @var string
@@ -31,6 +42,12 @@ class Persona
      */
     private $nombre;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido", type="string", length=45)
+     */
+    private $apellido;
    
 
     /* ---------------------------------------------- Constructor -----------------------------------------------------------*/
@@ -43,17 +60,6 @@ class Persona
         /*---By Neg---*/
     /* ---------------------------------------------- Fin Constructor -------------------------------------------------------*/
     
-    
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
     /**
      * Set nombre
      *
@@ -76,4 +82,28 @@ class Persona
     {
         return $this->nombre;
     }
+
+    /**
+     * Set apellido
+     *
+     * @param string $apellido
+     * @return Persona
+     */
+    public function setApellido($apellido)
+    {
+        $this->apellido = $apellido;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido
+     *
+     * @return string 
+     */
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
+
 }
