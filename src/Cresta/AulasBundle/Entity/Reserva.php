@@ -118,6 +118,9 @@ class Reserva
      public function setreservaAula($reservaAula){
         return $this->reservaAula = $reservaAula;
     }
+
+
+
      public function setRecursos($recursos){
         return $this->recursos = $recursos;
     }

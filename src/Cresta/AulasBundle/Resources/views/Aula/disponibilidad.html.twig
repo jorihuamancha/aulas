@@ -72,24 +72,35 @@
                             <td>{{horario}}</td>
                             {% for aula in aulasMostrar %} 
                             {% set nombreActual = aula.nombre %}
-                            <td id = "{{horario}}{{nombreActual}}" style = "background-color:green"></td>
+                            <script>
+                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioOcupado');
+                            </script> 
+                            <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"></td>
                             {% for disponible in ArrayContenedor %}
-                                {% if ((disponible.1 == valorIndexHora) and (disponible.3 == nombreActual)) %}                              
+                                {% set valor = (disponible.2-(disponible.1-1)) %}  
+                                {% if ((disponible.1 == valorIndexHora) and (disponible.3 == nombreActual)) %}                            
                                         <script>
                                             document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "NOPE";
-                                            
+                                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
+                                            document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
+                                           // document.getElementById("{{horario}}{{nombreActual}}").setAttribute('rowspan','{{valor}}');
+                                            // document.getElementById("{{horario}}{{nombreActual}}").removeChild(childNodes['{{valor}}']);  
                                         </script>                                            
                                 {% endif %}
-                                {% if ((disponible.2 > valorIndexHora) and (disponible.1 < valorIndexHora) and (disponible.3 == nombreActual)) %}                              
-                                        <script>
+                                 {% if ((disponible.2 > valorIndexHora) and (disponible.1 < valorIndexHora) and (disponible.3 == nombreActual)) %}                              
+                                       <script>
                                             document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "NOPE";
-                                        </script>                                            
+                                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
+                                            document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
+                                        </script>                                          
                                 {% endif %}
-                                {% if ((disponible.2 == valorIndexHora) and (disponible.3 == nombreActual)) %}                              
-                                        <script>
+                                 {% if ((disponible.2 == valorIndexHora) and (disponible.3 == nombreActual)) %}                              
+                                         <script>
                                             document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "NOPE";
-                                        </script>                                            
-                                {% endif %}
+                                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
+                                            document.getElementById("{{horario}}{{nombreActual}}")classList.add('HorarioOcupado');
+                                        </script>                                          
+                                {% endif %} 
                             {% endfor %}
                            {% endfor %}
                        </tr>
