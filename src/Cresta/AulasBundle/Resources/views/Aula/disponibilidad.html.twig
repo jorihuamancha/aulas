@@ -58,29 +58,43 @@
             </tbody>
         </table>
     {% else %}
-     <table class="records_list tabla">
-            <tbody>
-
-            {% for array in 0..10  %} 
-                        {{loop.index - 1}}
-                        {% if ((loop.index -1) > 0) %}
-                            <tr><td>asd</td></tr>
-                        {% else %}
-                            {% for i in 0..5 %}
-                                <th>array</th>
-                            {%endfor%}
-                        {% endif %}
-                {% endfor %}
-                {% for array in matrizDeVista  %} 
-                        {{loop.index - 1}}
-                        {% if ((loop.index -1) == 0) %}
-                            {% for i in 1..5 %}
-                             <tr><td>asd</td></tr>
-                            {%endfor%}
-                        {% else %}
-                            <th>{{matrizDeVista[loop.index -1][0]}}</th>
-                        {% endif %}
-                {% endfor %}
+     <table class="records_list tabla" >
+            <tbody>   
+                   
+                    <th>Hora/Aula</th>
+                   
+                    {% for aula in aulasMostrar %}  
+                        <th>{{aula.nombre}}</th>
+                    {% endfor %}
+                    {% for horario in horarios %}
+                       <tr> 
+                           {% set valorIndexHora = loop.index %}
+                            <td>{{horario}}</td>
+                            {% for aula in aulasMostrar %} 
+                            {% set nombreActual = aula.nombre %}
+                            <td id = "{{horario}}{{nombreActual}}" style = "background-color:green"></td>
+                            {% for disponible in ArrayContenedor %}
+                                {% if ((disponible.1 == valorIndexHora) and (disponible.3 == nombreActual)) %}                              
+                                        <script>
+                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "NOPE";
+                                            
+                                        </script>                                            
+                                {% endif %}
+                                {% if ((disponible.2 > valorIndexHora) and (disponible.1 < valorIndexHora) and (disponible.3 == nombreActual)) %}                              
+                                        <script>
+                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "NOPE";
+                                        </script>                                            
+                                {% endif %}
+                                {% if ((disponible.2 == valorIndexHora) and (disponible.3 == nombreActual)) %}                              
+                                        <script>
+                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "NOPE";
+                                        </script>                                            
+                                {% endif %}
+                            {% endfor %}
+                           {% endfor %}
+                       </tr>
+                    {% endfor %}
+                
             </tbody>
         </table>
         

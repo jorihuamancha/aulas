@@ -288,6 +288,7 @@ class AulaController extends Controller
                     $hd = $hd . ' a ' . $horaComparableDesde . ':00';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':30';
                     //Busco el aula de la reserva (nombre)
+                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find(2);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
                 }
@@ -305,6 +306,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':00';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':00';
+                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find(2);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
                 }
@@ -321,6 +323,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':30';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':00';
+                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find(2);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);     
                 }
@@ -336,7 +339,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':30';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':30';
-                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find(2);
+                    $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find(5);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
                      
@@ -376,8 +379,9 @@ class AulaController extends Controller
                 ++$cont ;
             }
             echo "<PRE>";
-            print_r($matrizDeVista);
+            print_r($ArrayContenedor);
             echo "</PRE>";
+
             //test!
             /*
             $jpg = $matrizDeVista[0][1];
@@ -450,7 +454,7 @@ class AulaController extends Controller
             return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
             'seleccionado'=>$buscameEsto,'mesActual'=>$mesActual,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,
             'diaActual'=>$diaActual,'asd'=>$asd,'aulaSeleccionada'=>$aulaSeleccionada,'seleccionadoAhora'=>$buscameEstoAhora,
-            'matrizDeVista'=>$matrizDeVista));
+            'matrizDeVista'=>$matrizDeVista,'ArrayContenedor'=>$ArrayContenedor));
 
 
             //Por el neg de la gente
