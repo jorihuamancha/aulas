@@ -67,8 +67,10 @@ class CarreraController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
+        
         return $form;
     }
 
@@ -147,7 +149,11 @@ class CarreraController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        //$form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Editar','attr'=>array('class'=>'btn btn-default botonTabla')));
+        //ESTO LO QUE HACE ES VOLVER A LA ULTIMA PAGINA QUE VISITE
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+
 
         return $form;
     }
@@ -190,7 +196,7 @@ class CarreraController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrestaAulasBundle:Carrera')->find($id);
 
@@ -200,7 +206,7 @@ class CarreraController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+        //}
 
         return $this->redirect($this->generateUrl('aulas_carrera'));
     }

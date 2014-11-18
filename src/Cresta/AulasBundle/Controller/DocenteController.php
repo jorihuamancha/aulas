@@ -5,37 +5,37 @@ namespace Cresta\AulasBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Cresta\AulasBundle\Entity\Usuario;
-use Cresta\AulasBundle\Form\UsuarioType;
+use Cresta\AulasBundle\Entity\Docente;
+use Cresta\AulasBundle\Form\DocenteType;
 
 /**
- * Usuario controller.
+ * Docente controller.
  *
  */
-class UsuarioController extends Controller
+class DocenteController extends Controller
 {
 
     /**
-     * Lists all Usuario entities.
+     * Lists all Docente entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CrestaAulasBundle:Usuario')->findAll();
+        $entities = $em->getRepository('CrestaAulasBundle:Docente')->findAll();
 
-        return $this->render('CrestaAulasBundle:Usuario:index.html.twig', array(
+        return $this->render('CrestaAulasBundle:Docente:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Usuario entity.
+     * Creates a new Docente entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Usuario();
+        $entity = new Docente();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,26 +44,26 @@ class UsuarioController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_usuario_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('aulas_docente_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('CrestaAulasBundle:Usuario:new.html.twig', array(
+        return $this->render('CrestaAulasBundle:Docente:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Creates a form to create a Usuario entity.
+     * Creates a form to create a Docente entity.
      *
-     * @param Usuario $entity The entity
+     * @param Docente $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Usuario $entity)
+    private function createCreateForm(Docente $entity)
     {
-        $form = $this->createForm(new UsuarioType(), $entity, array(
-            'action' => $this->generateUrl('aulas_usuario_create'),
+        $form = $this->createForm(new DocenteType(), $entity, array(
+            'action' => $this->generateUrl('aulas_docente_create'),
             'method' => 'POST',
         ));
 
@@ -73,60 +73,60 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Displays a form to create a new Usuario entity.
+     * Displays a form to create a new Docente entity.
      *
      */
     public function newAction()
     {
-        $entity = new Usuario();
+        $entity = new Docente();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('CrestaAulasBundle:Usuario:new.html.twig', array(        
+        return $this->render('CrestaAulasBundle:Docente:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Usuario entity.
+     * Finds and displays a Docente entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('CrestaAulasBundle:Usuario')->find($id);
+        $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
+            throw $this->createNotFoundException('Unable to find Docente entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('CrestaAulasBundle:Usuario:show.html.twig', array(
+        return $this->render('CrestaAulasBundle:Docente:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Usuario entity.
+     * Displays a form to edit an existing Docente entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('CrestaAulasBundle:Usuario')->find($id);
+        $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
+            throw $this->createNotFoundException('Unable to find Docente entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('CrestaAulasBundle:Usuario:edit.html.twig', array(
+        return $this->render('CrestaAulasBundle:Docente:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -134,16 +134,16 @@ class UsuarioController extends Controller
     }
 
     /**
-    * Creates a form to edit a Usuario entity.
+    * Creates a form to edit a Docente entity.
     *
-    * @param Usuario $entity The entity
+    * @param Docente $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Usuario $entity)
+    private function createEditForm(Docente $entity)
     {
-        $form = $this->createForm(new UsuarioType(), $entity, array(
-            'action' => $this->generateUrl('aulas_usuario_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new DocenteType(), $entity, array(
+            'action' => $this->generateUrl('aulas_docente_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -152,17 +152,17 @@ class UsuarioController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Usuario entity.
+     * Edits an existing Docente entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('CrestaAulasBundle:Usuario')->find($id);
+        $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
+            throw $this->createNotFoundException('Unable to find Docente entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -172,17 +172,17 @@ class UsuarioController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_usuario_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('aulas_docente_edit', array('id' => $id)));
         }
 
-        return $this->render('CrestaAulasBundle:Usuario:edit.html.twig', array(
+        return $this->render('CrestaAulasBundle:Docente:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Usuario entity.
+     * Deletes a Docente entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -192,21 +192,21 @@ class UsuarioController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('CrestaAulasBundle:Usuario')->find($id);
+            $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Usuario entity.');
+                throw $this->createNotFoundException('Unable to find Docente entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('aulas_usuario'));
+        return $this->redirect($this->generateUrl('aulas_docente'));
     }
 
     /**
-     * Creates a form to delete a Usuario entity by id.
+     * Creates a form to delete a Docente entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -215,7 +215,7 @@ class UsuarioController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('aulas_usuario_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('aulas_docente_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

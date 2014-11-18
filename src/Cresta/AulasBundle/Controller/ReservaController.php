@@ -4,10 +4,12 @@ namespace Cresta\AulasBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Cresta\AulasBundle\Entity\Reserva;
 use Cresta\AulasBundle\Form\ReservaType;
+use Cresta\AulasBundle\Controller\MovimientoController;
 
+
+require_once 'ReservaController.php';
 /**
  * Reserva controller.
  *
@@ -181,6 +183,9 @@ class ReservaController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
+
+
     /**
      * Deletes a Reserva entity.
      *
@@ -190,20 +195,53 @@ class ReservaController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        //Esto no va nunca
+        //if ($form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
+            $idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id)->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
+            
+            
+            //echo($idReserva);
+            
+            //esto de abajo esta comentado para para ver si en vardump me da los valores de $entity
 
-            if (!$entity) {
+            /*if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Reserva entity.');
+            }else{
+                //Si esta todo bien, cuando elimino una reserva, creo un objeto movimiento
+                $nuevoObjetoMovimiento = new MovimientoController();
+                //Llamo al metodo del objeto moviemiento para crear un movimiento
+                
+                //El problema esta aca, en la invocacion del metodo
+                $nuevoObjetoMovimiento->newAction($id);                
+                
+            } */
+
+            if (!$idReserva) {
                 throw $this->createNotFoundException('Unable to find Reserva entity.');
             }
+            
+             
+            //Si esta todo bien, cuando elimino una reserva, creo un objeto movimiento
+            //$nuevoObjetoMovimiento = new MovimientoController();
+            //Llamo al metodo del objeto moviemiento para crear un movimiento                                     
+            //$nuevoObjetoMovimiento->newAction($idReserva);  
+            $soy_un_movimiento = $this->get('nuevo_movimiento');
+            
+            $soy_un_movimiento->newAction($idReserva);    
+               
 
             $em->remove($entity);
             $em->flush();
-        }
+        // } Esto no va nunca
 
         return $this->redirect($this->generateUrl('aulas_reserva'));
     }
+
+
+
 
     /**
      * Creates a form to delete a Reserva entity by id.
@@ -221,4 +259,11 @@ class ReservaController extends Controller
             ->getForm()
         ;
     }
+
+
+
+
+    
+
+
 }
