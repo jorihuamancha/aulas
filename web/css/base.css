@@ -225,7 +225,13 @@ nav ul li a:hover{
 	margin-left:15px;
 }
 
+.HorarioOcupado{
+	background-color:red;
+}
+.HorarioDisponible{
+	background-color:green;
 
+}
 /* -------------------------------- FOSUser -------------------------------*/
 #Login{
 	width:200px;
