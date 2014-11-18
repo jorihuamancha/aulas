@@ -37,6 +37,7 @@ class CursoController extends Controller
     {
         $entity = new Curso();
         $form = $this->createCreateForm($entity);
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -67,7 +68,8 @@ class CursoController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -147,7 +149,8 @@ class CursoController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -190,7 +193,7 @@ class CursoController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+//        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
 
@@ -200,7 +203,7 @@ class CursoController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+  //      }
 
         return $this->redirect($this->generateUrl('aulas_curso'));
     }
@@ -217,7 +220,7 @@ class CursoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('aulas_curso_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Eliminar','attr'=>array('class'=>'btn btn-default botonTabla')))
             ->getForm()
         ;
     }

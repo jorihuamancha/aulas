@@ -15,7 +15,8 @@ class ActividadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tipo')
+            ->add('nombre','text',array('label'=>'Nombre'))
+            ->add('tipo','text',array('label'=>'Tipo'))
         ;
     }
     

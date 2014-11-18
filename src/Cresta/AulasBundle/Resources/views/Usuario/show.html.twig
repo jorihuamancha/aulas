@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Usuario</h1>
+
+    <table class="record_properties tabla">
+        <tbody>
+            <tr>
+                <th>Usuario</th>
+                <td>{{ entity.username }}</td>
+            </tr>
+
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+
+            <tr>
+                <th>Activo</th>
+                <td>
+                    {% if entity.enabled==1 %}
+                        SI
+                    {% else %}
+                        NO
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+
+            <a href="{{ path('aulas_usuario_edit', { 'id': entity.id }) }}" class="btn btn-default botonTabla">
+                Editar
+            </a>
+
+            <a href="{{ path('aulas_usuario') }}" class="btn btn-default botonTabla">
+                Volver a la lista
+            </a>
+</ul>
+</p>
+{% endblock %}

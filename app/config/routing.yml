@@ -23,6 +23,7 @@ fos_user_change_password:
 
 #Fin Agregado FOSUser
 
+<<<<<<< HEAD
 #Agregado del PdfBundle
 
 pdf_file:
@@ -33,3 +34,5 @@ pdf_file:
     defaults: { _controller: Cresta:AulasBundle:PdfController:helloAction }
 
 #Fin Agregado PDFbundle
+=======
+>>>>>>> cf2c2fa5c1cf37852147d19fae7945e9d51105c2

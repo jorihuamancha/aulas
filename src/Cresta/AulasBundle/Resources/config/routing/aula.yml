@@ -27,4 +27,8 @@ aulas_aula_update:
 aulas_aula_delete:
     path:     /{id}/delete
     defaults: { _controller: "CrestaAulasBundle:Aula:delete" }
-    requirements: { _method: post|delete }
+    #requirements: { _method: post|delete }
+
+aulas_aula_disponibilidad:
+    path:     /disponibilidad
+    defaults: { _controller: "CrestaAulasBundle:Aula:disponibilidad" }
