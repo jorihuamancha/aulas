@@ -118,6 +118,7 @@ nav ul li a:hover{
 	clear:both;
 	overflow-y:auto;
 	margin-bottom:30px;
+	margin-top:10px;
 }
 
 .tabla th {
@@ -230,6 +231,18 @@ nav ul li a:hover{
 	color: #FFF;
 	font-size:10px;
 	font-weight: bold;
+}
+.HorarioDisponible a{
+	opacity: 0;
+	padding-left:30px;
+	padding-right:30px;
+	padding-top:2px;
+	padding-bottom:2px;
+
+}
+
+.HorarioDisponible a:hover{
+	opacity: 1;
 }
 
 .records_list td{
