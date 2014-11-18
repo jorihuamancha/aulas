@@ -47,8 +47,11 @@
    
      <table class="records_list tabla" >
             <tbody>   
+            {% if ArrayContenedor is null %}
+                nada que te pueda mostrar
+            {%else%}
                 <th>Hora/Aula</th>
-                   
+                
                 {% for aula in aulasMostrar %}  
                     <th>{{aula.nombre}}</th>
                 {% endfor %}
@@ -62,6 +65,7 @@
                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioOcupado');
                             </script> 
                             <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"></td>
+                            
                             {% for disponible in ArrayContenedor %}
                                 {% set valor = (disponible.2-(disponible.1-1)) %}  
                                 {% if ((disponible.1 == valorIndexHora) and (disponible.3 == nombreActual)) %}                            
@@ -89,10 +93,15 @@
                                 {% endif %} 
                             {% endfor %}
                            {% endfor %}
+
                        </tr>
                     {% endfor %}
+           
+                
+            {%endif%}
                 
             </tbody>
+            
         </table>
         
      

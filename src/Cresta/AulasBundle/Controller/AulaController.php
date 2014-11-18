@@ -270,6 +270,7 @@ class AulaController extends Controller
                     $dias = $dias + 1;
                 }
             }
+
         $unArray = array('Enero' => $MeseDe31,'Febrero' => $Febrero,'Marzo' => $MeseDe31,'Abril' => $MesesDe30,
         'Mayo' => $MeseDe31,'Junio' => $MesesDe30,'Julio' => $MeseDe31,'Agosto' => $MeseDe31,'Septiembre' => $MesesDe30,
         'Octubre' => $MeseDe31,'Noviembre' => $MesesDe30,'Diciembre' => $MeseDe31);
@@ -379,8 +380,8 @@ class AulaController extends Controller
             echo "</PRE>";
             $mesSelect = array();
             $diaActual =date('d');
-            $buscameEsto='Mes';
             $mesActual = date('m');
+            $buscameEsto='Mes';
             $buscameEstoAhora = $meses[$mesActual];
             //$ArrayContenedor = null;
             return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
@@ -389,14 +390,16 @@ class AulaController extends Controller
 
         }
         else{
+            
             $seleccionadoDia = $_GET["dia"];
             $buscameEsto= $_GET["mes"];
-            $mesActual = date('m');
-            $pasar = $AnioActual . '-' . $mesActual . '-' . $seleccionadoDia;
-
+            $asd= $elmesEnNumero[$buscameEsto];
+            $pasar = $AnioActual . '-' . $asd . '-' . $seleccionadoDia;
             $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fechaReserva = :fechitaMostri')->setParameter('fechitaMostri', $pasar);
             $reservasMostrar = $query->getResult();
             $contador = 0;
+
+         
             foreach ($reservasMostrar as $aux) {
                 $reservasMostrar[$contador]->getHoraDesde();
                 //Busco los minutos para saber si es 30 o 00
@@ -488,12 +491,16 @@ class AulaController extends Controller
                 2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3]);
                 $contador = $contador + 1;
             }
+            if ((count($reservasMostrar)) == 0){
+                $ArrayContenedor = null;
+                }
            
             
             $diaActual =date('d'); 
             $mesSelect = $unArray[$buscameEsto];
             $asd= $elmesEnNumero[$buscameEsto];
             $buscameEstoAhora = $buscameEsto; 
+            $mesActual = date('m');
             return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
             'seleccionadoMes'=>$buscameEsto,'mesActual'=>$mesActual,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,
             'diaActual'=>$diaActual,'asd'=>$asd,'seleccionadoMesAhora'=>$buscameEstoAhora,
