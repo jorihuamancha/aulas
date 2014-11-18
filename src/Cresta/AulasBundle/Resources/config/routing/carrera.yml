@@ -27,4 +27,4 @@ aulas_carrera_update:
 aulas_carrera_delete:
     path:     /{id}/delete
     defaults: { _controller: "CrestaAulasBundle:Carrera:delete" }
-   # requirements: { _method: post|delete }
+    requirements: { _method: post|delete }

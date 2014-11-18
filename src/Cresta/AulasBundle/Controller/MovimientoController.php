@@ -11,6 +11,8 @@ use Cresta\AulasBundle\Form\MovimientoType;
 use Cresta\AulasBundle\Entity\Reserva;
 use Cresta\AulasBundle\Form\ReservaType;
 
+use Doctrine\ORM\EntityManager;
+
 
 /**
  * Movimiento controller.
@@ -18,10 +20,16 @@ use Cresta\AulasBundle\Form\ReservaType;
  */
 class MovimientoController extends Controller
 {
+    /**
+     *
+     * @var EntityManager 
+     */
 
+    protected $em;
 
-    public function __construct () {
-        return $this;
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->em = $entityManager;
     }
 
     /**
@@ -86,25 +94,29 @@ class MovimientoController extends Controller
      *  
      */
     public function newAction($idReserva)
-    {        
+    {      
+
         
         //Llamo al manejador de entidades
-        $em = $this->getDoctrine()->getManager();                
+        $em = $this->getDoctrine()->getEntityManager();  die('llegue aca');               
         //Creo un repositorio para, que es un objeto, para manejar los datos.
         $reservaEliminada = $em->getRepository('CrestaAulasBundle:Reserva')->find($idReserva); //Busco pasando como parametro el id de reserva
         
-        
+          
 
         $entity = new Movimiento();
         $form   = $this->createCreateForm($entity);
         $fechaDeHoy = date('now'); //Asigno la fecha del dia de la baja para pasarlo a la vista y mostrarlo
         $entity->this->setFecha($fechaDeHoy);
 
+             
+
         return $this->render('CrestaAulasBundle:Movimiento:new.html.twig', array(
             'fecha' => $fechaDeHoy, //Paso la fecha de hoy para que se muestre en la vista
             'reservaEliminada' => $reservaEliminada, //Paso la reserva eliminada para cargar los valores en la vista
             'entity' => $entity, //Paso la entidad movimiento para cargar los valores del movimiento
             'form'   => $form->createView(),
+        
         ));
     }
 

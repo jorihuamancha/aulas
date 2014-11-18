@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Cresta\AulasBundle\Entity\Reserva;
 use Cresta\AulasBundle\Form\ReservaType;
+use Cresta\AulasBundle\Controller\MovimientoController;
+
 
 require_once 'ReservaController.php';
 /**
@@ -181,6 +183,37 @@ class ReservaController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
+
+    protected function nuevoMovimiento($idReserva)
+    {      
+
+        
+        //Llamo al manejador de entidades
+        $em = $this->getDoctrine()->getEntityManager();  die('llegue aca');               
+        //Creo un repositorio para, que es un objeto, para manejar los datos.
+        $reservaEliminada = $em->getRepository('CrestaAulasBundle:Reserva')->find($idReserva); //Busco pasando como parametro el id de reserva
+        
+          
+
+        $entity = new Movimiento();
+        $form   = $this->createCreateForm($entity);
+        $fechaDeHoy = date('now'); //Asigno la fecha del dia de la baja para pasarlo a la vista y mostrarlo
+        $entity->this->setFecha($fechaDeHoy);
+
+             
+
+        return $this->render('CrestaAulasBundle:Movimiento:new.html.twig', array(
+            'fecha' => $fechaDeHoy, //Paso la fecha de hoy para que se muestre en la vista
+            'reservaEliminada' => $reservaEliminada, //Paso la reserva eliminada para cargar los valores en la vista
+            'entity' => $entity, //Paso la entidad movimiento para cargar los valores del movimiento
+            'form'   => $form->createView(),
+        
+        ));
+    }
+
+
+
     /**
      * Deletes a Reserva entity.
      *
@@ -195,8 +228,8 @@ class ReservaController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             //$entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
-            $idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id)->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
-            
+            //$idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id)->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
+            $idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
             
             //echo($idReserva);
             
@@ -218,12 +251,18 @@ class ReservaController extends Controller
                 throw $this->createNotFoundException('Unable to find Reserva entity.');
             }
             
+             
             //Si esta todo bien, cuando elimino una reserva, creo un objeto movimiento
-            $nuevoObjetoMovimiento = new MovimientoController();
-            //Llamo al metodo del objeto moviemiento para crear un movimiento             
-            $nuevoObjetoMovimiento->newAction($idReserva);                
-                
+            //$nuevoObjetoMovimiento = new MovimientoController();
+            //Llamo al metodo del objeto moviemiento para crear un movimiento                                     
+            //$nuevoObjetoMovimiento->newAction($idReserva);  
+            //$soy_un_movimiento = $this->get('nuevo_movimiento');
             
+            //$soy_un_movimiento->newAction($idReserva);    
+                        
+            nuevoMovimiento($idReserva);
+
+
 
             $em->remove($entity);
             $em->flush();
@@ -231,6 +270,9 @@ class ReservaController extends Controller
 
         return $this->redirect($this->generateUrl('aulas_reserva'));
     }
+
+
+
 
     /**
      * Creates a form to delete a Reserva entity by id.
@@ -248,4 +290,11 @@ class ReservaController extends Controller
             ->getForm()
         ;
     }
+
+
+
+
+    
+
+
 }

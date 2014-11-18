@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+  #  - { resource: "@AulasBundle/Resources/config/services.yml" }  # ---> Tengo problemas aca
 
 framework:
     #esi:             ~
