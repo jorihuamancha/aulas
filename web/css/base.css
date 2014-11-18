@@ -196,14 +196,14 @@ nav ul li a:hover{
 .formAutogenerado #NuevaCarrera div:nth-child(3),.formAutogenerado #NuevaCarrera div:nth-child(4),
 .formAutogenerado #NuevaActividad div:nth-child(3), .formAutogenerado #NuevaActividad div:nth-child(4),
 .formAutogenerado #NuevoRecurso div:nth-child(3),.formAutogenerado #NuevoRecurso div:nth-child(4),
-.formAutogenerado #NuevaAula div:nth-child(6),.formAutogenerado #NuevaAula div:nth-child(7),
+.formAutogenerado #NuevaAula div:nth-child(5),.formAutogenerado #NuevaAula div:nth-child(6),
 .formAutogenerado #NuevaAlerta div:nth-child(4),.formAutogenerado #NuevaAlerta div:nth-child(5),
 /*Editar*/
 .formAutogenerado #EditarCurso div:nth-child(4),.formAutogenerado #EditarCurso div:nth-child(5),
 .formAutogenerado #EditarCarrera div:nth-child(3),.formAutogenerado #EditarCarrera div:nth-child(4),
 .formAutogenerado #EditarActividad div:nth-child(3),.formAutogenerado #EditarActividad div:nth-child(4),
 .formAutogenerado #EditarRecurso div:nth-child(3),.formAutogenerado #EditarRecurso div:nth-child(4),
-.formAutogenerado #EditarAula div:nth-child(6),.formAutogenerado #EditarAula div:nth-child(7),
+.formAutogenerado #EditarAula div:nth-child(5),.formAutogenerado #EditarAula div:nth-child(6),
 .formAutogenerado #EditarAlerta div:nth-child(4),.formAutogenerado #EditarAlerta div:nth-child(5),
 .formAutogenerado #EditarUsuario div:nth-child(4),.formAutogenerado #EditarUsuario div:nth-child(5){
 /* DIVs del botón CREAR y Volver a la lista */

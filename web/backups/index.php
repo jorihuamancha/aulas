@@ -26,7 +26,7 @@ system($command,$output);
 
 if ($output == '0'){  //Si se creó con exito el BackUp
 					echo "<div id='mensaje' class='alert alert-success' style='margin-top:auto; margin-bottom:auto'>
-						  				<h3>La base de datos fue creada con &eacute;xito</h3> </br> <b>Ruta:</b> " . $pathActual . "</br> <b>Nombre del backup:</b> " . $NombreBackup . 
+						  				<h3>La base de datos fue exportada con &eacute;xito</h3> </br> <b>Ruta:</b> " . $pathActual . "</br> <b>Nombre del backup:</b> " . $NombreBackup . 
 						  "
 						  <center> <input type='button' class='btn btn-default botonTabla' value='Aceptar' onclick='window.close()'/></center>
 						  </div>
