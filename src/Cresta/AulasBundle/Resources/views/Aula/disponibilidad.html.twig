@@ -34,13 +34,6 @@
                 <option value="?mes={{seleccionadoMes}}&dia={{seleccionadoDia}}&aula={{a.id}}">{{a.nombre}}</option>
             {% endfor %}
         </select>  
-
-        <select onchange="location.href=this.options[this.selectedIndex].value">
-            <option value="#">Horario</option>
-            {% for h in horarios %}
-                <option value="">{{h}}</option>
-            {% endfor %}
-        </select> 
         <a class="btn btn-default botonTabla" href = "disponibilidad">Quitar Filtros</a>
 
     </form>
@@ -64,7 +57,7 @@
                             <script>
                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioOcupado');
                             </script> 
-                            <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"></td>
+                            <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"><a href="{{path('aulas_reserva_new')}}"><img src="{{ asset('img/iconos/agregar.png') }}" class="icono" alt="Agregar" /></a></td>
                             
                             {% for disponible in ArrayContenedor %}
                                 {% set valor = (disponible.2-(disponible.1-1)) %}  
