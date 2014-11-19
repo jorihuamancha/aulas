@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Cresta\AulasBundle\Entity\Reserva;
 use Cresta\AulasBundle\Form\ReservaType;
 use Cresta\AulasBundle\Controller\MovimientoController;
-
+use Cresta\AulasBundle\Entity\Movimiento;
 
 require_once 'ReservaController.php';
 /**
@@ -190,26 +190,32 @@ class ReservaController extends Controller
 
         
         //Llamo al manejador de entidades
-        $em = $this->getDoctrine()->getEntityManager();  die('llegue aca');               
+        $em = $this->getDoctrine()->getEntityManager();                 
         //Creo un repositorio para, que es un objeto, para manejar los datos.
-        $reservaEliminada = $em->getRepository('CrestaAulasBundle:Reserva')->find($idReserva); //Busco pasando como parametro el id de reserva
+        //$reservaEliminada = $em->getRepository('CrestaAulasBundle:Reserva')->find($idReserva); //Busco pasando como parametro el id de reserva
         
-          
+    
 
-        $entity = new Movimiento();
-        $form   = $this->createCreateForm($entity);
+        $movimiento = new Movimiento();
+        //$MovimientoController = new MovimientoController();
+        //$form   = $MovimientoController->createCreateForm($movimiento);
         $fechaDeHoy = date('now'); //Asigno la fecha del dia de la baja para pasarlo a la vista y mostrarlo
-        $entity->this->setFecha($fechaDeHoy);
+        $movimiento->setFecha($fechaDeHoy);
 
-             
+        //Busco el objeto reserva a eliminar para asignarle los valores de ese objeto al movimiento
+        $query = $em->createQuery('SELECT u FROM Cresta\AulasBundle\Entity\Reserva u WHERE u.id = :id');
+        $query->setParameter(':id', $idReserva);
+        $reserva = $query->getResult(); // array de objetos Reserva
 
-        return $this->render('CrestaAulasBundle:Movimiento:new.html.twig', array(
+        die($reserva);   
+
+        /*return $this->render('CrestaAulasBundle:Movimiento:new.html.twig', array(
             'fecha' => $fechaDeHoy, //Paso la fecha de hoy para que se muestre en la vista
             'reservaEliminada' => $reservaEliminada, //Paso la reserva eliminada para cargar los valores en la vista
             'entity' => $entity, //Paso la entidad movimiento para cargar los valores del movimiento
             'form'   => $form->createView(),
         
-        ));
+        )); */
     }
 
 
@@ -260,7 +266,7 @@ class ReservaController extends Controller
             
             //$soy_un_movimiento->newAction($idReserva);    
                         
-            nuevoMovimiento($idReserva);
+            self::nuevoMovimiento($idReserva);
 
 
 

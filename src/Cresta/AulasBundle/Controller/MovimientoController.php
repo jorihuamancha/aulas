@@ -20,16 +20,11 @@ use Doctrine\ORM\EntityManager;
  */
 class MovimientoController extends Controller
 {
-    /**
-     *
-     * @var EntityManager 
-     */
+    
 
-    protected $em;
-
-    public function __construct(EntityManager $entityManager)
+    public function __construct()
     {
-        $this->em = $entityManager;
+        return $this;
     }
 
     /**
