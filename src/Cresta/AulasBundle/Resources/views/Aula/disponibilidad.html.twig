@@ -31,7 +31,7 @@
         <select onchange="location.href=this.options[this.selectedIndex].value">
             <option value="#">Aula</option>
             {% for a in aulasMostrar %}
-                <option value="?aula={{a.id}}&mes={{seleccionadoMes}}">{{a.nombre}}</option>
+                <option value="?mes={{seleccionadoMes}}&dia={{seleccionadoDia}}&aula={{a.id}}">{{a.nombre}}</option>
             {% endfor %}
         </select>  
         <a class="btn btn-default botonTabla" href = "disponibilidad">Quitar Filtros</a>
