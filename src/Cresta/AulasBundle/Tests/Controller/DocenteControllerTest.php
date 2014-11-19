@@ -4,7 +4,7 @@ namespace Cresta\AulasBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AulaControllerTest extends WebTestCase
+class DocenteControllerTest extends WebTestCase
 {
     /*
     public function testCompleteScenario()
@@ -13,13 +13,13 @@ class AulaControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/aulas_aula/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /aulas_aula/");
+        $crawler = $client->request('GET', '/aulas_docente/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /aulas_docente/");
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'cresta_aulasbundle_aula[field_name]'  => 'Test',
+            'cresta_aulasbundle_docente[field_name]'  => 'Test',
             // ... other fields to fill
         ));
 
@@ -33,7 +33,7 @@ class AulaControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Update')->form(array(
-            'cresta_aulasbundle_aula[field_name]'  => 'Foo',
+            'cresta_aulasbundle_docente[field_name]'  => 'Foo',
             // ... other fields to fill
         ));
 

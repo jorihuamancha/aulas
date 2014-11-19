@@ -28,18 +28,40 @@ class Movimiento
      */
     private $fecha;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Persona", inversedBy="Movimiento")
-    */
-
-    private $movimientoPersona;
-
 
     /**
-     * @ORM\OneToOne(targetEntity="Reserva", inversedBy="Movimiento")
-    */
+     * @var string
+     *
+     * @ORM\Column(name="reservaAula", type="string")
+     */
+    private $reservaAula;
 
-    private $reservaMovimiento;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reservaHoraDesde", type="time")
+     */
+    private $reservaHoraDesde;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reservaHoraHasta", type="time")
+     */
+    private $reservaHoraHasta;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reservaParaDiaDeReserva", type="date")
+     */
+    private $reservaParaDiaDeReserva; //esta es la fecha para la cual iba a estar hecha la reserva
+
+
+
 
     /**
      * Get id
