@@ -119,6 +119,18 @@ class Movimiento
     }
 
 
+
+    /**
+     * Get reservaAula
+     *
+     * @return string 
+     */
+    public function getReservaAula()
+    {
+        return $this->reservaAula;
+    }
+
+
     /**
      * Set reservaHoraDesde
      *
@@ -130,6 +142,18 @@ class Movimiento
         $this->reservaHoraDesde = $reservaHoraDesde;
 
         return $this;
+    }
+
+
+
+    /**
+     * Get reservaHoraDesde
+     *
+     * @return string 
+     */
+    public function getReservaHoraDesde()
+    {
+        return $this->reservaHoraDesde;
     }
 
 
@@ -150,6 +174,18 @@ class Movimiento
 
 
     /**
+     * Get reservaHoraHasta
+     *
+     * @return string 
+     */
+    public function getReservaHoraHasta()
+    {
+        return $this->reservaHoraHasta;
+    }
+
+
+
+    /**
      * Set reservaParaDiaDeReserva
      *
      * @param string $reservaParaDiaDeReserva
@@ -160,6 +196,18 @@ class Movimiento
         $this->reservaParaDiaDeReserva = $reservaParaDiaDeReserva;
 
         return $this;
+    }
+
+
+
+    /**
+     * Get reservaParaDiaDeReserva
+     *
+     * @return string 
+     */
+    public function getReservaParaDiaDeReserva()
+    {
+        return $this->reservaParaDiaDeReserva;
     }
 
 
@@ -176,5 +224,16 @@ class Movimiento
         $this->movimientoPersona = $movimientoPersona;
 
         return $this;
+    }
+
+
+    /**
+     * Get movimientoPersona
+     *
+     * @return string 
+     */
+    public function getMovimientoPersona()
+    {
+        return $this->movimientoPersona;
     }
 }
