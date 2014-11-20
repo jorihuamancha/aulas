@@ -493,7 +493,7 @@ class AulaController extends Controller
             }
             if ((count($reservasMostrar)) == 0){
                 $ArrayContenedor = null;
-                }
+            }
            
             
             $diaActual =date('d'); 

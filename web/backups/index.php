@@ -12,9 +12,10 @@
 $dbhost = 'localhost';
 $dbname = 'symfony';
 $dbuser = 'root';
-$dbpass = '';
+$dbpass = 'kapanga';
+
 $pathActual = getcwd() . '/'; //trae el path actual 
- 
+echo $pathActual;
 $backup_file = $pathActual . 'GestionAulas' . date("Y-m-d-H-i-s") . '.sql';
 $NombreBackup =  'GestionAulas' . date("Y-m-d-H-i-s") . '.sql';
 
