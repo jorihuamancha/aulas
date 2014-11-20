@@ -206,8 +206,9 @@ class ReservaController extends Controller
         $movimiento = new Movimiento();
         //$MovimientoController = new MovimientoController();
         //$form   = $MovimientoController->createCreateForm($movimiento);
-        $fechaDeHoy = date('now'); //Asigno la fecha del dia de la baja para pasarlo a la vista y mostrarlo
-        $movimiento->setFecha($fechaDeHoy);
+        $fechaDeHoy = date('Y-m-d'); //Asigno la fecha del dia de la baja para pasarlo a la vista y mostrarlo
+        
+        $movimiento->setFecha(new \DateTime($fechaDeHoy));
 
         //Busco el objeto reserva a eliminar para asignarle los valores de ese objeto al movimiento
         //$query = $em->createQuery('SELECT u FROM Cresta\AulasBundle\Entity\Reserva u WHERE u.id = :id');
@@ -220,9 +221,12 @@ class ReservaController extends Controller
         //PREGUNTO EL NOMBRE DE USUARIO DEL USUARIO QUE EJECUTO LA ACCION DE ELIMINAR
         $user = $this->container->get('security.context')->getToken()->getUser();
         $movimientoPersona = $user->getUsername(); //ASIGNO EL NOMBRE DE USUARIO A UNA VARIABLE
+        //var_dump($movimientoPersona);
         $horaDesde = $reservaEliminada->getHoraDesde();
         $horaHasta = $reservaEliminada->getHoraHasta();
+
         $reservaParaElDiaDeReserva = $reservaEliminada->getFechaReserva();
+        //var_dump($reservaParaElDiaDeReserva);
         
         //tomo el id del aula que esta en la reserva
         $idAula = $reservaEliminada->getAula();
@@ -234,8 +238,35 @@ class ReservaController extends Controller
 
         //asigno nombre a varialbe
         $aulaParaMovimiento = $aula->getNombre();
+        //var_dump($aulaParaMovimiento);
 
-        die($aulaParaMovimiento); 
+
+        $movimiento->setUsuario($movimientoPersona);
+        $movimiento->setReservaAula($aulaParaMovimiento);
+        
+
+        $horaDesde->format('h:m:s');
+        var_dump($horaDesde);     
+        die('aca'); 
+        $movimiento->setReservaHoraDesde(new \DateTime($horaDesde));       
+        
+
+        $horaHasta->format('h:m:s');          
+        //var_dump($horaHasta1);
+        $movimiento->setReservaHoraHasta(new \DateTime($horaHasta));
+
+
+        $reservaParaElDiaDeReserva->format('Y-m-d');
+        //var_dump($reservaParaElDiaDeReserva1);
+        $movimiento->setReservaParaDiaDeReserva(new \DateTime($reservaParaElDiaDeReserva));
+
+
+        $em3 = $this->getDoctrine()->getEntityManager();        
+        $em3->persist($movimiento);
+        $em3->flush();
+        //die('aca llego');
+
+        
 
         /*return $this->render('CrestaAulasBundle:Movimiento:new.html.twig', array(
             'fecha' => $fechaDeHoy, //Paso la fecha de hoy para que se muestre en la vista
@@ -302,7 +333,7 @@ class ReservaController extends Controller
             
             //$soy_un_movimiento->newAction($idReserva);    
                         
-            self::nuevoMovimiento($idReserva);
+            $this->nuevoMovimiento($idReserva);
 
 
             $em->remove($entity);
