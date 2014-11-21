@@ -634,7 +634,7 @@ class AulaController extends Controller
             'ArrayContenedor'=>$ArrayContenedor,'seleccionadoDia' =>$seleccionadoDia));
 
 
-            //Por el neg de la gente
+            //Por el neg de la people
         }
      }
 }
