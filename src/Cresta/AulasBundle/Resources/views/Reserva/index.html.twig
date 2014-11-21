@@ -29,12 +29,14 @@
         {% for entity in entities %}
             <tr>
                 
+
+                <td>{{ entity.reservaPersona }}</td>
                 <td>{{ entity.estado }}</td>
                 <td>{{ entity.observaciones }}</td>
-                <td>{% if entity.fechaRegistro %}{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.horaDesde |date('HH:mm') }}</td>
-                <td>{{ entity.horaHasta |date('HH:mm') }}</td>
-                <td>{% if entity.fechaReserva %}{{ entity.fechaReserva|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.fechaRegistro %}{{ entity.fechaRegistro|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ entity.horaDesde |date('H:m') }}</td>
+                <td>{{ entity.horaHasta |date('H:m') }}</td>
+                <td>{% if entity.fechaReserva %}{{ entity.fechaReserva|date('Y-m-d') }}{% endif %}</td>
                 <td>
                 <ul>
                         <a href="{{ path('aulas_reserva_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>

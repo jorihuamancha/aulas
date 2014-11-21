@@ -28,8 +28,7 @@ class ReservaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
-
+        $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
         return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -245,6 +244,7 @@ class ReservaController extends Controller
         $movimiento->setReservaAula($aulaParaMovimiento);
         
 
+
         $horaDesde->format('h:m:s');
         var_dump($horaDesde);     
         die('aca'); 
@@ -258,6 +258,21 @@ class ReservaController extends Controller
 
         $reservaParaElDiaDeReserva->format('Y-m-d');
         //var_dump($reservaParaElDiaDeReserva1);
+
+        //$horaDesde->format('h:m:s');
+        $horaDesde = date('h:m:s');
+        $movimiento->setReservaHoraDesde(new \DateTime($horaDesde));       
+        
+
+        //$horaHasta->format('h:m:s');          
+        //var_dump($horaHasta1);
+        $horaHasta = date('h:m:s');
+        $movimiento->setReservaHoraHasta(new \DateTime($horaHasta));
+
+
+        //$reservaParaElDiaDeReserva->format('Y-m-d');
+        //var_dump($reservaParaElDiaDeReserva1);
+        $reservaParaElDiaDeReserva = date('Y-m-d');
         $movimiento->setReservaParaDiaDeReserva(new \DateTime($reservaParaElDiaDeReserva));
 
 
@@ -295,7 +310,12 @@ class ReservaController extends Controller
 
             $entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
             $idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id)->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
-            
+
+
+            //$entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
+            //$idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id)->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
+            $idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
+
 
             //$entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
             //$idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id)->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
@@ -362,11 +382,6 @@ class ReservaController extends Controller
             ->getForm()
         ;
     }
-
-
-
-
-    
 
 
 }
