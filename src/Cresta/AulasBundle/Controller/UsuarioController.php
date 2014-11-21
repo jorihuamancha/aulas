@@ -8,10 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Cresta\AulasBundle\Entity\Usuario;
 use Cresta\AulasBundle\Form\UsuarioType;
 
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\Extension\Core\EventListener\TrimListener;
-
 /**
  * Usuario controller.
  *
@@ -70,7 +66,7 @@ class UsuarioController extends Controller
             'action' => $this->generateUrl('aulas_usuario_create'),
             'method' => 'POST',
         ));
-        $form->add('submit', 'submit', array('label' => 'Create'));
+
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;

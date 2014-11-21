@@ -118,7 +118,6 @@ nav ul li a:hover{
 	clear:both;
 	overflow-y:auto;
 	margin-bottom:30px;
-	margin-top:10px;
 }
 
 .tabla th {
@@ -197,14 +196,14 @@ nav ul li a:hover{
 .formAutogenerado #NuevaCarrera div:nth-child(3),.formAutogenerado #NuevaCarrera div:nth-child(4),
 .formAutogenerado #NuevaActividad div:nth-child(3), .formAutogenerado #NuevaActividad div:nth-child(4),
 .formAutogenerado #NuevoRecurso div:nth-child(3),.formAutogenerado #NuevoRecurso div:nth-child(4),
-.formAutogenerado #NuevaAula div:nth-child(5),.formAutogenerado #NuevaAula div:nth-child(6),
+.formAutogenerado #NuevaAula div:nth-child(6),.formAutogenerado #NuevaAula div:nth-child(7),
 .formAutogenerado #NuevaAlerta div:nth-child(4),.formAutogenerado #NuevaAlerta div:nth-child(5),
 /*Editar*/
 .formAutogenerado #EditarCurso div:nth-child(4),.formAutogenerado #EditarCurso div:nth-child(5),
 .formAutogenerado #EditarCarrera div:nth-child(3),.formAutogenerado #EditarCarrera div:nth-child(4),
 .formAutogenerado #EditarActividad div:nth-child(3),.formAutogenerado #EditarActividad div:nth-child(4),
 .formAutogenerado #EditarRecurso div:nth-child(3),.formAutogenerado #EditarRecurso div:nth-child(4),
-.formAutogenerado #EditarAula div:nth-child(5),.formAutogenerado #EditarAula div:nth-child(6),
+.formAutogenerado #EditarAula div:nth-child(6),.formAutogenerado #EditarAula div:nth-child(7),
 .formAutogenerado #EditarAlerta div:nth-child(4),.formAutogenerado #EditarAlerta div:nth-child(5),
 .formAutogenerado #EditarUsuario div:nth-child(4),.formAutogenerado #EditarUsuario div:nth-child(5){
 /* DIVs del botón CREAR y Volver a la lista */
@@ -226,29 +225,7 @@ nav ul li a:hover{
 	margin-left:15px;
 }
 
-.records_list .HorarioOcupado{
-	background-color:#EE4545;
-	color: #FFF;
-	font-size:10px;
-	font-weight: bold;
-}
-.HorarioDisponible a{
-	opacity: 0;
-	padding-left:30px;
-	padding-right:30px;
-	padding-top:2px;
-	padding-bottom:2px;
 
-}
-
-.HorarioDisponible a:hover{
-	opacity: 1;
-}
-
-.records_list td{
-	height: 20px;
-	min-width:100px;
-}
 /* -------------------------------- FOSUser -------------------------------*/
 #Login{
 	width:200px;
