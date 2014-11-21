@@ -11,23 +11,22 @@
                 <th>Aula</th>
                 <th>Fecha desde</th>
                 <th>Fecha hasta</th>
+                <th>Fecha de Movimiento</th>
+
 
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{{ entity.fecha }}</td>
-                <td>{{ reservaEliminada.usuario }}</td>
-                <td>{{ reservaEliminada.aula }}</td>
-                <td>{{ reservaEliminada.fechaDesde |date('H:i:s') }}</td>
-                <td>{{ reservaEliminada.fechaHasta |date('H:i:s') }}</td>                
+     
+                <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ entity.movimientoPersona }}</td>
+                <td>{{ entity.reservaAula }}</td>
+                <td>{{ entity.reservaHoraDesde |date('H:i') }}</td>
+                <td>{{ entity.reservaHoraHasta |date('H:i') }}</td>                       
+                <td>{% if entity.reservaParaDiaDeReserva %}{{ entity.reservaParaDiaDeReserva|date('Y-m-d') }}{% endif %}</td>
 
-                        <a href="{{ path('aulas_movimiento_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>                        
-                        
-                        
-                </ul>
-                </td>
             </tr>
         {% endfor %}
         </tbody>
