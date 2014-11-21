@@ -7,28 +7,8 @@
         <tbody>
             <tr>
                 <th>Usuario</th>
-                <td><b>{{ entity.username }}</b></td>
+                <td>{{ entity.username }}</td>
             </tr>
-            {% if entity.administrador is null %}
-                <tr>
-                    <th>Nombre</th>
-                    <td>{{ entity.docente.nombre }}</td>
-                </tr>
-
-                <tr>
-                    <th>Apellido</th>
-                    <td>{{ entity.docente.apellido }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <th>Nombre</th>
-                    <td>{{ entity.administrador.nombre }}</td>
-                </tr>
-
-                <tr>
-                    <th>Apellido</th>
-                    <td>{{ entity.administrador.apellido }}</td>
-            {% endif %}
 
             <tr>
                 <th>Email</th>

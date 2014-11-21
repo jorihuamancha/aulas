@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+  #  - { resource: "@AulasBundle/Resources/config/services.yml" }  # ---> Tengo problemas aca
 
 framework:
     #esi:             ~
@@ -74,3 +75,16 @@ fos_user:
     firewall_name: main
     # el namespace de tu clase 'User' específica
     user_class:    Cresta\AulasBundle\Entity\Usuario
+
+
+#parameters:
+#    nuevo_movimiento.class:      Cresta\AulasBundle\Controller\MovimientoController
+#    nuevo_movimiento.transport:  idReserva
+
+#services:
+#    nuevo_movimiento:
+#        class:        "%nuevo_movimiento.class%"
+#        arguments:    ["%nuevo_movimiento.transport%"]
+
+    #user_class:    Cresta\AulasBundle\Entity\Usuario
+

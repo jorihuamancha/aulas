@@ -83,19 +83,19 @@ class Reserva
 
     private $recursos;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="Reserva")
+    */
+
+    private $reservaPersona;
+
     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
      /**
      * @ORM\ManyToOne(targetEntity="Aula", inversedBy="Reserva")
      */
 
     private $reservaAula;
-
-    /* ----------------------------------------------- Usuario ----------------------------------------------------------------- */
-     /**
-     * @ORM\OneToOne(targetEntity="Usuario", inversedBy="Reserva")
-     */              
-
-     /*private $reservaUsuario;*/
+      
 
     /* ---------------------------------------------- Get Cursos ---------------------------------------------------------------------*/
     public function getCursos(){
@@ -118,15 +118,8 @@ class Reserva
      public function setreservaAula($reservaAula){
         return $this->reservaAula = $reservaAula;
     }
-
-
-
      public function setRecursos($recursos){
         return $this->recursos = $recursos;
-    }
-
-     public function setReservaUsuario($reservaUsuario){
-        return $this->reservaUsuario = $reservaUsuario;
     }
     /* ---------------------------------------------- Fin Set recursos------------------------------------------------------------------*/
 
@@ -158,15 +151,6 @@ class Reserva
           /*-------By neg---------*/
     /* ---------------------------------------------- Fin Get Movientos -----------------------------------------------------------------*/
     
-
-    /* ---------------------------------------------- Get Usuario -------------------------------------------------------------------*/
-    public function getReservaUsuario(){
-        return $this->reservaUsuario;
-    }
-          /*-------By neg---------*/
-    /* ---------------------------------------------- Fin Get Movientos -----------------------------------------------------------------*/
-    
-
     /* ---------------------------------------------- Set Movimientos -------------------------------------------------------------------*/
     public function setMovimientos(\src\Cresta\AulasBundle\Entity\Movimiento $movimientos){
         $this->movimientos [] =$movimientos;
@@ -207,14 +191,15 @@ class Reserva
 
     /* ---------------------------------------------- Get aula ------------------------------------------------------------------*/
     public function getAula() {
-        return $this->aula;
+        return $this->reservaAula;
     }
         /*-------By neg---------*/
     /* ---------------------------------------------- fin Get aula --------------------------------------------------------------*/
      /* ---------------------------------------------- set aula  ----------------------------------------------------------------*/
-     public function setAula (\src\Cresta\AulasBundle\Entity\Aula $aula){
+     public function setAula ($unAula){
          
-         $this->aula =$aula;
+         $this->reservaAula =$unAula;
+         return $this;
      }
         /*-------By neg---------*/
     /* ---------------------------------------------- fin set aula -------------------------------------------------------------*/

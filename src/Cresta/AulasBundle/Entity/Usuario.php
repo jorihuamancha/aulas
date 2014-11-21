@@ -26,15 +26,35 @@ class Usuario extends BaseUser
      */
     protected $id;
 
+    /* ---------------------------------------------- Usuario-Persona------------------------------------------------------*/
     /**
-     * @ORM\OneToOne(targetEntity="Docente")
-     */             
-    protected $docente;
+     * @ORM\OneToOne(targetEntity="Persona")
+     */
 
-    /**
-     * @ORM\OneToOne(targetEntity="Administrador")
-     */              
-    protected $administrador;
+    private $personas;
+        /*-------By neg---------*/
+     /* ---------------------------------------------- Fin de relaciones ------------------------------------------------------*/
+
+
+
+    /* ---------------------------------------------- Get Persona ------------------------------------------------------*/
+    
+    public function getPersona(){
+        
+        return $this->personas;
+    }
+        /*-------By neg---------*/
+    /* ---------------------------------------------- Fin Get ----------------------------------------------------------*/ 
+
+    /* ---------------------------------------------- set Persona ------------------------------------------------------*/
+    public function setPersona(Cresta\AulasBundle\Entity\Persona $persona){
+        
+        $this->persona = $persona;
+    }
+
+        /*-------By neg---------*/
+    /* ----------------------------------------------Fin set Persona ---------------------------------------------------*/
+
 
     /**
      * Get id
@@ -45,25 +65,5 @@ class Usuario extends BaseUser
     {
         return $this->id;
     }
-
-    public function getDocente(){
-        return $this->docente;
-    }
-
-    public function setDocente($docente){
-        $this->docente=$docente;
-        return $this;
-    }
-
-    public function getAdministrador(){
-        return $this->administrador;
-    }
-
-    public function setAdministrador($administrador){
-        $this->administrador=$administrador;
-        return $this;
-    }
-
-
 
 }

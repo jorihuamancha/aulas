@@ -3,104 +3,87 @@
 {% block body -%}
     <h1>Aulas disponibles</h1>
     <form> 
-       <select onchange="location.href=this.options[this.selectedIndex].value">
-            <option value="#">{{seleccionadoMes}}</option>
-            {% for m in meses %}
-             {% if loop.index >= mesActual %}
-                {% if seleccionadoMes != m %}
-                    <option value="?mes={{m}}&dia={{seleccionadoDia}}"> {{m}}</option>
-                 {% endif %}
-             {% endif %}   
-           {% endfor %}
-        </select>
+   <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#">{{seleccionado}}</option>
+        {% for m in meses %}
+         {% if loop.index >= mesActual %}
+            {% if seleccionado != m %}
+                <option value="?mes={{m}}" > {{m}}</option>
+             {% endif %}
+         {% endif %}   
+       {% endfor %}
+    </select>
 
-        <select onchange="location.href=this.options[this.selectedIndex].value"> 
-            <option value="?mes={{seleccionadoMes}}&dia={{diaActual}}">{{seleccionadoDia}}</option>
-            {% for dia in mesSelect %}
-                {% if ( asd == mesActual) %}
-                    {% if (loop.index >= diaActual) %}
-                        {% if seleccionadoDia != dia %}
-                            <option value="?mes={{seleccionadoMes}}&dia={{dia}}">{{dia}}</option> 
-                        {% endif %}
-                    {% endif %}
-                {% else %}
-                    <option value="?mes={{seleccionadoMes}}&dia={{dia}}">{{dia}}</option>
+    <select>
+        {% for dia in mesSelect %}
+            {% if ( asd == mesActual) %}
+                {% if (loop.index >= diaActual) %}
+                    <option value="{{dia}}">{{dia}}</option>
                 {% endif %}
-            {% endfor %}
-        </select>
-        <select onchange="location.href=this.options[this.selectedIndex].value">
-            <option value="#">Aula</option>
-            {% for a in aulasMostrar %}
-                <option value="?mes={{seleccionadoMes}}&dia={{seleccionadoDia}}&aula={{a.id}}">{{a.nombre}}</option>
-            {% endfor %}
-        </select>  
-        <a class="btn btn-default botonTabla" href = "disponibilidad">Quitar Filtros</a>
+            {% else %}
+                <option value="{{dia}}">{{dia}}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#">Aula</option>
+        {% for a in aulasMostrar %}
+            <option value="?aula={{a.id}}&mes={{seleccionadoAhora}}">{{a.nombre}}</option>
+        {% endfor %}
+    </select>  
+
+    <select onchange="location.href=this.options[this.selectedIndex].value">
+        <option value="#">Horario</option>
+        {% for h in horarios %}
+            <option value="">{{h}}</option>
+        {% endfor %}
+    </select> 
 
     </form>
-   
-     <table class="records_list tabla" >
-            <tbody>   
-            {% if ArrayContenedor is null %}
-                No hay reservas
-            {%else%}
-                <th>Hora/Aula</th>
-                
-                {% for aula in aulasMostrar %}  
-                    <th>{{aula.nombre}}</th>
+    {% if ( aulaSeleccionada != 0 ) %}
+       <table class="records_list tabla">
+            <thead>
+                <tr>
+                    <th>Aula/Horario</th>
+                    <th>{{aulaSeleccionada}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in horarios %}
+                    <tr>
+                        <td>{{h}}</td>    
+                        <td>Gol De Boca</td>      
+                    </tr>
                 {% endfor %}
-                    {% for horario in horarios %}
-                       <tr> 
-                           {% set valorIndexHora = loop.index %}
-                            <td>{{horario}}</td>
-                            {% for aula in aulasMostrar %} 
-                            {% set nombreActual = aula.nombre %}
-                            <script>
-                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioOcupado');
-                            </script> 
-                            {# <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"></td> #}
-
-                            <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"><a href="{{path('aulas_reserva_new')}}"><img src="{{ asset('img/iconos/agregar.png') }}" class="icono" alt="Agregar" /></a></td>
-                            
-                            {% for disponible in ArrayContenedor %}
-                                {% set valor = (disponible.2-(disponible.1)) %}  
-                                {% if ((disponible.1 == valorIndexHora) and (disponible.3 == nombreActual)) %}                            
-                                        <script>
-                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "Ocupado";
-                                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
-                                            document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
-                                            document.getElementById("{{horario}}{{nombreActual}}").setAttribute('rowspan','{{valor}}');
-
-                                        </script>                                            
-                                {% endif %}
-                                 {% if ((disponible.2 > valorIndexHora) and (disponible.1 < valorIndexHora) and (disponible.3 == nombreActual)) %}                              
-                                       <script>
-                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "Ocupado";
-                                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
-                                            document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
-                                            document.getElementById("{{horario}}{{nombreActual}}").remove();
-                                        </script>                                          
-                                {% endif %}
-                                 {% if ((disponible.2 == valorIndexHora) and (disponible.3 == nombreActual)) %}                              
-                                         <script>
-                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "Ocupado";
-                                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
-                                            document.getElementById("{{horario}}{{nombreActual}}")classList.add('HorarioOcupado');
-
-                                        </script>
-                                {% endif %}
-                            {% endfor %}
-                           {% endfor %}
-
-                       </tr>
-                    {% endfor %}
-           
-                
-            {%endif%}
-                
             </tbody>
-            
+        </table>
+    {% else %}
+     <table class="records_list tabla">
+            <tbody>
+
+            {% for array in 0..10  %} 
+                        {{loop.index - 1}}
+                        {% if ((loop.index -1) > 0) %}
+                            <tr><td>asd</td></tr>
+                        {% else %}
+                            {% for i in 0..5 %}
+                                <th>array</th>
+                            {%endfor%}
+                        {% endif %}
+                {% endfor %}
+                {% for array in matrizDeVista  %} 
+                        {{loop.index - 1}}
+                        {% if ((loop.index -1) == 0) %}
+                            {% for i in 1..5 %}
+                             <tr><td>asd</td></tr>
+                            {%endfor%}
+                        {% else %}
+                            <th>{{matrizDeVista[loop.index -1][0]}}</th>
+                        {% endif %}
+                {% endfor %}
+            </tbody>
         </table>
         
      
- 
+    {% endif %} 
 {% endblock %}
