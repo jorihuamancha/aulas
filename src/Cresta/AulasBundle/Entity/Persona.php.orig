@@ -11,9 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 
+<<<<<<< HEAD
 /** @ORM\MappedSuperclass */
 
 abstract class Persona
+=======
+class Persona
+>>>>>>> 6e28109bb39863b0871a364aa448ba49a9ea7405
 {
     /**
      * Article
@@ -60,17 +64,6 @@ abstract class Persona
         /*---By Neg---*/
     /* ---------------------------------------------- Fin Constructor -------------------------------------------------------*/
     
-    
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
     /**
      * Set nombre
      *

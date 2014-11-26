@@ -50,9 +50,15 @@ CrestaAulasBundle_persona:
     resource: "@CrestaAulasBundle/Resources/config/routing/persona.yml"
     prefix:   /persona
 
+<<<<<<< HEAD
+CrestaAulasBundle_docente:
+    resource: "@CrestaAulasBundle/Resources/config/routing/docente.yml"
+    prefix:   /docente
+=======
 _imprimir:
     path:     /imprimir/{listado}.{_format}
     defaults: { _controller: CrestaAulasBundle:Default:imprimir, _format: pdf }
 #    param:    { module: listado, action: imprimir}
     requirements:
         _format: html|pdf
+>>>>>>> 6e28109bb39863b0871a364aa448ba49a9ea7405

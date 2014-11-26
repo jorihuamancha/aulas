@@ -4,7 +4,11 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c6b973fcbb387835176ce3efc7770681",
+<<<<<<< HEAD
+    "hash": "2e956d764c0bfeb45fd22d4dd2fc4cee",
+=======
+    "hash": "8b8c7cc2eb1d1dad9fd0c0ec0048e086",
+>>>>>>> 6e28109bb39863b0871a364aa448ba49a9ea7405
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1581,7 +1585,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Common additional features for Twig that do not directly belong in core",
