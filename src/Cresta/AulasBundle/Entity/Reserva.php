@@ -22,11 +22,59 @@ class Reserva
     private $id;
 
     /**
-     * @var string
+     * @ORM\ManyToOne(targetEntity="Docente")
+     */
+    private $docente;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Aula")
+     */
+    private $aula;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Curso")
+     */
+    private $curso;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Actividad")
+     */
+    private $actividad;
+
+    /**
+     * @var \DateTime
      *
-     * @ORM\Column(name="estado", type="string", length=45)
+     * @ORM\Column(name="fecha", type="datetime")
+     */
+    private $fecha;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="horaDesde", type="time")
+     */
+    private $horaDesde;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="horaHasta", type="time")
+     */
+    private $horaHasta;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="estado", type="boolean")
      */
     private $estado;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="usuario", type="integer")
+     */
+    private $usuario;
 
     /**
      * @var string
@@ -36,188 +84,39 @@ class Reserva
     private $observaciones;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="fechaRegistro", type="date")
+     * @ORM\Column(name="fechaRegistro", type="datetime")
      */
     private $fechaRegistro;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="horaDesde", type="time")
+     * @ORM\Column(name="horaRegistro", type="time")
      */
-    private $horaDesde;
+    private $horaRegistro;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="horaHasta", type="time")
-     */
-    private $horaHasta;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="fechaReserva", type="date")
-     */
-    private $fechaReserva;
-    /* ---------------------------------------------- Reserva-Curso-----------------------------------------------------------*/
-    /**
-     * @ORM\ManyToOne(targetEntity="Curso")
-     */
-
-    private $cursos;
-
-        /* ---------------------------------------------- Reserva-Actividad-----------------------------------------------------------*/
-    /**
-     * @ORM\ManyToOne(targetEntity="Actividad")
-     */
-
-    private $actividades;
-      
-    /* ---------------------------------------------- Reserva-Recursos----------------------------------------------------------*/
-    /**
-     * @ORM\ManyToOne(targetEntity="Recurso", inversedBy="Reserva")
-     */
-
+    * @ORM\ManyToMany(targetEntity="Recurso")
+    * @ORM\JoinTable(name="Reservas_Recursos",
+    *      joinColumns={@ORM\JoinColumn(name="idReserva", referencedColumnName="id")},
+    *      inverseJoinColumns={@ORM\JoinColumn(name="idRecurso", referencedColumnName="id")}
+    *      )
+    */
     private $recursos;
 
-    /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
-     /**
-     * @ORM\ManyToOne(targetEntity="Aula", inversedBy="Reserva")
-     */
-
-    private $reservaAula;
-
-    /* ----------------------------------------------- Usuario ----------------------------------------------------------------- */
-     /**
-     * @ORM\OneToOne(targetEntity="Usuario", inversedBy="Reserva")
-     */              
-
-     /*private $reservaUsuario;*/
-
-    /* ---------------------------------------------- Get Cursos ---------------------------------------------------------------------*/
-    public function getCursos(){
-        return $this->cursos;
-    }
-          /*-------By qw37ry---------*/
-    /* ---------------------------------------------- Fin Get Cursos -----------------------------------------------------------------*/
-    public function setCursos($cursos){
-        return $this->cursos = $cursos;
-    }
-          /*-- jori y nico love--*/
-    
-    public function setActividades($actividades){
-        return $this->actividades = $actividades;
-    }
-    /* ---------------------------------------------- Set Recursos   -------------------------------------------------------------------*/
-    public function setReservaPersona($reservaPersona){
-        return $this->reservaPersona = $reservaPersona;
-    }
-     public function setreservaAula($reservaAula){
-        return $this->reservaAula = $reservaAula;
+    public function __construct(){
+        $this->recursos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
-
-     public function setRecursos($recursos){
-        return $this->recursos = $recursos;
-    }
-
-     public function setReservaUsuario($reservaUsuario){
-        return $this->reservaUsuario = $reservaUsuario;
-    }
-    /* ---------------------------------------------- Fin Set recursos------------------------------------------------------------------*/
-
-        /* ---------------------------------------------- Get ReservaPersona -------------------------------------------------------------------*/
-    public function getReservaPersona(){
-        return $this->reservaPersona;
-    }
-          /*-------By qw3r7y---------*/
-    /* ---------------------------------------------- Fin Get ReservaPersona -----------------------------------------------------------------*/
-
-            /* ---------------------------------------------- Get ReservaAula -------------------------------------------------------------------*/
-    public function getReservaAula(){
-        return $this->reservaAula;
-    }
-          /*-------By qw3r7y---------*/
-    /* ---------------------------------------------- Fin Get ReservaAula-----------------------------------------------------------------*/
-
-        /* ---------------------------------------------- Get Activadades -------------------------------------------------------------------*/
-    public function getActividades(){
-        return $this->actividades;
-    }
-          /*-------By qw3r7y---------*/
-    /* ---------------------------------------------- Fin Get Actividades -----------------------------------------------------------------*/
-
-    /* ---------------------------------------------- Get Movimientos -------------------------------------------------------------------*/
-    public function getMovimientos(){
-        return $this->movimientos;
-    }
-          /*-------By neg---------*/
-    /* ---------------------------------------------- Fin Get Movientos -----------------------------------------------------------------*/
-    
-
-    /* ---------------------------------------------- Get Usuario -------------------------------------------------------------------*/
-    public function getReservaUsuario(){
-        return $this->reservaUsuario;
-    }
-          /*-------By neg---------*/
-    /* ---------------------------------------------- Fin Get Movientos -----------------------------------------------------------------*/
-    
-
-    /* ---------------------------------------------- Set Movimientos -------------------------------------------------------------------*/
-    public function setMovimientos(\src\Cresta\AulasBundle\Entity\Movimiento $movimientos){
-        $this->movimientos [] =$movimientos;
-    }
-          /*-------By neg---------*/
-
-    /* ---------------------------------------------- Fin Set Movimientos----------------------------------------------------------------*/
-
-    /* ---------------------------------------------- Get Recursos ---------------------------------------------------------------------*/
     public function getRecursos(){
         return $this->recursos;
     }
-          /*-------By neg---------*/
-    /* ---------------------------------------------- Fin Get Recursos -----------------------------------------------------------------*/
-    
-    /* ---------------------------------------------- Set Recursos   -------------------------------------------------------------------*/
-    public function addRecursos(\src\Cresta\AulasBundle\Entity\Recurso $recursos){
-        $this->recursos [] =$recursos;
+
+    public function setRecursos(\src\Cresta\AulasBundle\Entity\Recurso $recursos){
+        $this->recursos []=$recursos;
     }
-          /*-------By neg---------*/
-
-    /* ---------------------------------------------- Fin Set recursos------------------------------------------------------------------*/
-
-    /* ---------------------------------------------- Get tarea -----------------------------------------------------------------*/
-    public function getTareas() {
-        return $this->tareas;
-    }
-        /*-------By neg---------*/
-    /* ---------------------------------------------- fin Get tarea -------------------------------------------------------------*/
-     /* ---------------------------------------------- set tarea ----------------------------------------------------------------*/
-     public function setTareas (\src\Cresta\AulasBundle\Entity\Tarea $tareas){
-         
-         $this->tareas =$tareas;
-     }
-        /*-------By neg---------*/
-    /* ---------------------------------------------- fin set tarea -------------------------------------------------------------*/
-
-
-    /* ---------------------------------------------- Get aula ------------------------------------------------------------------*/
-    public function getAula() {
-        return $this->aula;
-    }
-        /*-------By neg---------*/
-    /* ---------------------------------------------- fin Get aula --------------------------------------------------------------*/
-     /* ---------------------------------------------- set aula  ----------------------------------------------------------------*/
-     public function setAula (\src\Cresta\AulasBundle\Entity\Aula $aula){
-         
-         $this->aula =$aula;
-     }
-        /*-------By neg---------*/
-    /* ---------------------------------------------- fin set aula -------------------------------------------------------------*/
 
     /**
      * Get id
@@ -230,9 +129,170 @@ class Reserva
     }
 
     /**
+     * Set docente
+     *
+     * @param integer $docente
+     * @return Reserva
+     */
+    public function setDocente($docente)
+    {
+        $this->docente = $docente;
+
+        return $this;
+    }
+
+    /**
+     * Get docente
+     *
+     * @return integer 
+     */
+    public function getDocente()
+    {
+        return $this->docente;
+    }
+
+    /**
+     * Set aula
+     *
+     * @param integer $aula
+     * @return Reserva
+     */
+    public function setAula($aula)
+    {
+        $this->aula = $aula;
+
+        return $this;
+    }
+
+    /**
+     * Get aula
+     *
+     * @return integer 
+     */
+    public function getAula()
+    {
+        return $this->aula;
+    }
+
+    /**
+     * Set curso
+     *
+     * @param integer $curso
+     * @return Reserva
+     */
+    public function setCurso($curso)
+    {
+        $this->curso = $curso;
+
+        return $this;
+    }
+
+    /**
+     * Get curso
+     *
+     * @return integer 
+     */
+    public function getCurso()
+    {
+        return $this->curso;
+    }
+
+    /**
+     * Set actividad
+     *
+     * @param integer $actividad
+     * @return Reserva
+     */
+    public function setActividad($actividad)
+    {
+        $this->actividad = $actividad;
+
+        return $this;
+    }
+
+    /**
+     * Get actividad
+     *
+     * @return integer 
+     */
+    public function getActividad()
+    {
+        return $this->actividad;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return Reserva
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * Set horaDesde
+     *
+     * @param \DateTime $horaDesde
+     * @return Reserva
+     */
+    public function setHoraDesde($horaDesde)
+    {
+        $this->horaDesde = $horaDesde;
+
+        return $this;
+    }
+
+    /**
+     * Get horaDesde
+     *
+     * @return \DateTime 
+     */
+    public function getHoraDesde()
+    {
+        return $this->horaDesde;
+    }
+
+    /**
+     * Set horaHasta
+     *
+     * @param \DateTime $horaHasta
+     * @return Reserva
+     */
+    public function setHoraHasta($horaHasta)
+    {
+        $this->horaHasta = $horaHasta;
+
+        return $this;
+    }
+
+    /**
+     * Get horaHasta
+     *
+     * @return \DateTime 
+     */
+    public function getHoraHasta()
+    {
+        return $this->horaHasta;
+    }
+
+    /**
      * Set estado
      *
-     * @param string $estado
+     * @param boolean $estado
      * @return Reserva
      */
     public function setEstado($estado)
@@ -245,11 +305,34 @@ class Reserva
     /**
      * Get estado
      *
-     * @return string 
+     * @return boolean 
      */
     public function getEstado()
     {
         return $this->estado;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param integer $usuario
+     * @return Reserva
+     */
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return integer 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 
     /**
@@ -278,7 +361,7 @@ class Reserva
     /**
      * Set fechaRegistro
      *
-     * @param string $fechaRegistro
+     * @param \DateTime $fechaRegistro
      * @return Reserva
      */
     public function setFechaRegistro($fechaRegistro)
@@ -291,7 +374,7 @@ class Reserva
     /**
      * Get fechaRegistro
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getFechaRegistro()
     {
@@ -299,71 +382,25 @@ class Reserva
     }
 
     /**
-     * Set horaDesde
+     * Set horaRegistro
      *
-     * @param string $horaDesde
+     * @param \DateTime $horaRegistro
      * @return Reserva
      */
-    public function setHoraDesde($horaDesde)
+    public function setHoraRegistro($horaRegistro)
     {
-        $this->horaDesde = $horaDesde;
+        $this->horaRegistro = $horaRegistro;
 
         return $this;
     }
 
     /**
-     * Get horaDesde
+     * Get horaRegistro
      *
-     * @return string 
+     * @return \DateTime 
      */
-    public function getHoraDesde()
+    public function getHoraRegistro()
     {
-        return $this->horaDesde;
-    }
-
-    /**
-     * Set horaHasta
-     *
-     * @param string $horaHasta
-     * @return Reserva
-     */
-    public function setHoraHasta($horaHasta)
-    {
-        $this->horaHasta = $horaHasta;
-
-        return $this;
-    }
-
-    /**
-     * Get horaHasta
-     *
-     * @return string 
-     */
-    public function getHoraHasta()
-    {
-        return $this->horaHasta;
-    }
-
-    /**
-     * Set fechaReserva
-     *
-     * @param string $fechaReserva
-     * @return Reserva
-     */
-    public function setFechaReserva($fechaReserva)
-    {
-        $this->fechaReserva = $fechaReserva;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaReserva
-     *
-     * @return string 
-     */
-    public function getFechaReserva()
-    {
-        return $this->fechaReserva;
+        return $this->horaRegistro;
     }
 }

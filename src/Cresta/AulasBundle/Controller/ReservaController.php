@@ -4,6 +4,7 @@ namespace Cresta\AulasBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Cresta\AulasBundle\Entity\Reserva;
 use Cresta\AulasBundle\Form\ReservaType;
 
@@ -43,7 +44,7 @@ class ReservaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_reserva_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
         }
 
         return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
@@ -62,10 +63,12 @@ class ReservaController extends Controller
     private function createCreateForm(Reserva $entity)
     {
         $form = $this->createForm(new ReservaType(), $entity, array(
-            'action' => $this->generateUrl('aulas_reserva_create'),
+            'action' => $this->generateUrl('reserva_create'),
             'method' => 'POST',
         ));
+        $user = $this->container->get('security.context')->getToken()->getUser();
 
+        $form->add('submit', 'submit', array('label' => 'Usuario','attr'=>array('value'=>$user->getId())));
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -142,7 +145,7 @@ class ReservaController extends Controller
     private function createEditForm(Reserva $entity)
     {
         $form = $this->createForm(new ReservaType(), $entity, array(
-            'action' => $this->generateUrl('aulas_reserva_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('reserva_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -171,7 +174,7 @@ class ReservaController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_reserva_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('reserva_edit', array('id' => $id)));
         }
 
         return $this->render('CrestaAulasBundle:Reserva:edit.html.twig', array(
@@ -201,7 +204,7 @@ class ReservaController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('aulas_reserva'));
+        return $this->redirect($this->generateUrl('reserva'));
     }
 
     /**
@@ -214,7 +217,7 @@ class ReservaController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('aulas_reserva_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('reserva_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

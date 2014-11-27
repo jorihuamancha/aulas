@@ -20,15 +20,15 @@ class ReservaType extends AbstractType
             ->add('fechaRegistro')
             ->add('horaDesde')
             ->add('horaHasta')
-            ->add('fechaReserva')
-            ->add('cursos','entity',array('class'=>'CrestaAulasBundle:Curso','property'=>'nombre'))
-            ->add('actividades','entity',array('class'=>'CrestaAulasBundle:Actividad','property'=>'nombre'))
+            ->add('fecha')
+            ->add('curso','entity',array('class'=>'CrestaAulasBundle:Curso','property'=>'nombre'))
+            ->add('actividad','entity',array('class'=>'CrestaAulasBundle:Actividad','property'=>'nombre'))
             //->add('recursos','entity',array('class'=>'CrestaAulasBundle:Recurso','property'=>'nombre'))
             ->add('recursos','entity',array('class'=>'CrestaAulasBundle:Recurso','property'=>'nombre','multiple'=>true,'expanded'=>true))
             //->add('activo','checkbox',array('label'=>'Activo:','required'=>false,'data'=>true))
-            ->add('reservaPersona','entity',array('class'=>'CrestaAulasBundle:Persona','property'=>'nombre'))
-            ->add('reservaAula','entity',array('class'=>'CrestaAulasBundle:Aula','property'=>'nombre'))
+            ->add('aula','entity',array('class'=>'CrestaAulasBundle:Aula','property'=>'nombre'))
             //->add('reservaUsuario','entity',array('class'=>'CrestaAulasBundle:Usuario','property'=>'id'))
+            ->add('usuario','entity',array('class'=>'CrestaAulasBundle:Usuario','property'=>'id','attr'=>array('class'=>'oculto')))
         ;   
     }
     

@@ -7,33 +7,36 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Usuario</th>
-                <th>Estado</th>
-                <th>Observaciones</th>
-                <th>Fecharegistro</th>
+                <th>Fecha</th>
                 <th>Horadesde</th>
                 <th>Horahasta</th>
-                <th>Fechareserva</th>
+                <th>Estado</th>
+                <th>Usuario</th>
+                <th>Observaciones</th>
+                <th>Fecharegistro</th>
+                <th>Horaregistro</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('aulas_reserva_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('reserva_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.horaDesde }}</td>
+                <td>{{ entity.horaHasta }}</td>
                 <td>{{ entity.estado }}</td>
+                <td>{{ entity.usuario }}</td>
                 <td>{{ entity.observaciones }}</td>
                 <td>{% if entity.fechaRegistro %}{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.horaDesde |date('HH:mm') }}</td>
-                <td>{{ entity.horaHasta |date('HH:mm') }}</td>
-                <td>{% if entity.fechaReserva %}{{ entity.fechaReserva|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.horaRegistro }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('aulas_reserva_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('reserva_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('aulas_reserva_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('reserva_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -44,7 +47,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('aulas_reserva_new') }}">
+            <a href="{{ path('reserva_new') }}">
                 Create a new entry
             </a>
         </li>
