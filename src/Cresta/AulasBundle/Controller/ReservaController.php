@@ -245,14 +245,16 @@ class ReservaController extends Controller
         
 
         //$horaDesde->format('h:m:s');
-        $horaDesde = date('h:m:s');
-        $movimiento->setReservaHoraDesde(new \DateTime($horaDesde));       
+        //$horaDesde = date('h:m:s');        
+        //$movimiento->setReservaHoraDesde(new \DateTime($horaDesde));    
+        $movimiento->setReservaHoraDesde($horaDesde);   
         
 
         //$horaHasta->format('h:m:s');          
         //var_dump($horaHasta1);
-        $horaHasta = date('h:m:s');
-        $movimiento->setReservaHoraHasta(new \DateTime($horaHasta));
+        //$horaHasta = date('h:m:s');      
+        //$movimiento->setReservaHoraHasta(new \DateTime($horaHasta));
+        $movimiento->setReservaHoraHasta($horaHasta);
 
 
         //$reservaParaElDiaDeReserva->format('Y-m-d');
