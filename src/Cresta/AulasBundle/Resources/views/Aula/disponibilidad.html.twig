@@ -1,6 +1,5 @@
 {% extends '::base.html.twig' %}
-
-{% block body -%}
+{% block body %}
     <h1>Aulas disponibles</h1>
     <form> 
        <select onchange="location.href=this.options[this.selectedIndex].value">
@@ -99,17 +98,11 @@
                                 {% endif %}
                             {% endfor %}
                            {% endfor %}
-
                        </tr>
-                    {% endfor %}
-           
-                
-            {%endif%}
-                
-            </tbody>
-            
+                    {% endfor %}     
+             {%endif%}         
+            </tbody>     
         </table>
-        
-     
- 
 {% endblock %}
+
+
