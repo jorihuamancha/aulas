@@ -42,24 +42,20 @@ class Reserva
     private $actividad;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(name="fecha", type="datetime")
      */
     private $fecha;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="horaDesde", type="time")
-     */
+	/**
+     * @ORM\OneToOne(targetEntity="Horas")
+    */
     private $horaDesde;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="horaHasta", type="time")
-     */
+	/**
+     * @ORM\OneToOne(targetEntity="Horas")
+    */
     private $horaHasta;
 
     /**
@@ -84,14 +80,14 @@ class Reserva
     private $observaciones;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(name="fechaRegistro", type="datetime")
      */
     private $fechaRegistro;
 
     /**
-     * @var \DateTime
+     * @var \Time
      *
      * @ORM\Column(name="horaRegistro", type="time")
      */
@@ -364,8 +360,9 @@ class Reserva
      * @param \DateTime $fechaRegistro
      * @return Reserva
      */
-    public function setFechaRegistro($fechaRegistro)
+    public function setFechaRegistro()//$fechaRegistro)
     {
+        $fechaRegistro=date('Y-m-d');
         $this->fechaRegistro = $fechaRegistro;
 
         return $this;
@@ -387,8 +384,9 @@ class Reserva
      * @param \DateTime $horaRegistro
      * @return Reserva
      */
-    public function setHoraRegistro($horaRegistro)
+    public function setHoraRegistro()//$horaRegistro)
     {
+        $horaRegistro= date('h:i:s');
         $this->horaRegistro = $horaRegistro;
 
         return $this;
