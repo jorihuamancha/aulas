@@ -62,54 +62,48 @@ class Reserva
      * @ORM\Column(name="fechaReserva", type="date")
      */
     private $fechaReserva;
+
     /* ---------------------------------------------- Reserva-Curso-----------------------------------------------------------*/
     /**
-     * @ORM\ManyToOne(targetEntity="Curso")
+     * @ORM\OneToOne(targetEntity="Curso")
      */
-
-    private $cursos;
+    private $curso;
 
         /* ---------------------------------------------- Reserva-Actividad-----------------------------------------------------------*/
     /**
-     * @ORM\ManyToOne(targetEntity="Actividad")
+     * @ORM\OneToOne(targetEntity="Actividad")
      */
-
-    private $actividades;
+    private $actividad;
       
     /* ---------------------------------------------- Reserva-Recursos----------------------------------------------------------*/
     /**
      * @ORM\ManyToOne(targetEntity="Recurso", inversedBy="Reserva")
      */
-
     private $recursos;
 
     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
      /**
      * @ORM\ManyToOne(targetEntity="Aula", inversedBy="Reserva")
      */
-
     private $reservaAula;
 
     /* ----------------------------------------------- Usuario ----------------------------------------------------------------- */
-     /**
-     * @ORM\OneToOne(targetEntity="Usuario", inversedBy="Reserva")
-     */              
 
-     /*private $reservaUsuario;*/
+    /*private $reservaUsuario;*/
 
     /* ---------------------------------------------- Get Cursos ---------------------------------------------------------------------*/
-    public function getCursos(){
-        return $this->cursos;
+    public function getCurso(){
+        return $this->curso;
     }
           /*-------By qw37ry---------*/
     /* ---------------------------------------------- Fin Get Cursos -----------------------------------------------------------------*/
-    public function setCursos($cursos){
-        return $this->cursos = $cursos;
+    public function setCurso($curso){
+        return $this->curso = $curso;
     }
           /*-- jori y nico love--*/
     
-    public function setActividades($actividades){
-        return $this->actividades = $actividades;
+    public function setActividad($actividad){
+        return $this->actividad = $actividad;
     }
     /* ---------------------------------------------- Set Recursos   -------------------------------------------------------------------*/
     public function setReservaPersona($reservaPersona){
@@ -119,9 +113,7 @@ class Reserva
         return $this->reservaAula = $reservaAula;
     }
 
-
-
-     public function setRecursos($recursos){
+    public function setRecursos($recursos){
         return $this->recursos = $recursos;
     }
 
@@ -145,11 +137,11 @@ class Reserva
     /* ---------------------------------------------- Fin Get ReservaAula-----------------------------------------------------------------*/
 
         /* ---------------------------------------------- Get Activadades -------------------------------------------------------------------*/
-    public function getActividades(){
-        return $this->actividades;
+    public function getActividad(){
+        return $this->actividad;
     }
           /*-------By qw3r7y---------*/
-    /* ---------------------------------------------- Fin Get Actividades -----------------------------------------------------------------*/
+    /* ---------------------------------------------- Fin Get Actividad -----------------------------------------------------------------*/
 
     /* ---------------------------------------------- Get Movimientos -------------------------------------------------------------------*/
     public function getMovimientos(){

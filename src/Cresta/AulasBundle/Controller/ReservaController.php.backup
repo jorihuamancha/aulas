@@ -4,7 +4,6 @@ namespace Cresta\AulasBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Cresta\AulasBundle\Entity\Reserva;
 use Cresta\AulasBundle\Form\ReservaType;
 
@@ -49,7 +48,7 @@ class ReservaController extends Controller
 
         return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
         ));
     }
 
@@ -105,7 +104,7 @@ class ReservaController extends Controller
 
         return $this->render('CrestaAulasBundle:Reserva:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView()
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -143,7 +142,7 @@ class ReservaController extends Controller
     private function createEditForm(Reserva $entity)
     {
         $form = $this->createForm(new ReservaType(), $entity, array(
-            'action' => $this->generateUrl('reserva_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('aulas_reserva_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -172,7 +171,7 @@ class ReservaController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('reserva_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('aulas_reserva_edit', array('id' => $id)));
         }
 
         return $this->render('CrestaAulasBundle:Reserva:edit.html.twig', array(
@@ -202,7 +201,7 @@ class ReservaController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('reserva'));
+        return $this->redirect($this->generateUrl('aulas_reserva'));
     }
 
     /**
@@ -215,7 +214,7 @@ class ReservaController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('reserva_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('aulas_reserva_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

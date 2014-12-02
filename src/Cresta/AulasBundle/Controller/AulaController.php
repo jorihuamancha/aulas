@@ -511,3 +511,4 @@ class AulaController extends Controller
         }
      }
 }
+
