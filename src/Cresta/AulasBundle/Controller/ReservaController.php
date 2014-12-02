@@ -186,7 +186,7 @@ class ReservaController extends Controller
         ));
     }
 
-
+    /*
     protected function nuevoMovimiento($idReserva)
     {      
 
@@ -276,8 +276,80 @@ class ReservaController extends Controller
             'entity' => $entity, //Paso la entidad movimiento para cargar los valores del movimiento
             'form'   => $form->createView(),
         
+        )); */    
+    //}
+    
+
+    protected function nuevoMovimiento($idReserva)
+    {      
+        
+        //Llamo al manejador de entidades
+        $em = $this->getDoctrine()->getEntityManager();                 
+        //Creo un repositorio para, que es un objeto, para manejar los datos.
+        $reservaEliminada = $em->getRepository('CrestaAulasBundle:Reserva')->find($idReserva); //Busco pasando como parametro el id de reserva
+        
+        
+        //$em = $this->getDoctrine()->getEntityManager();                 
+        //Creo un repositorio para, que es un objeto, para manejar los datos.
+        //$reservaEliminada = $em->getRepository('CrestaAulasBundle:Reserva')->find($idReserva);
+        $movimiento = new Movimiento();
+        //$MovimientoController = new MovimientoController();
+        //$form   = $MovimientoController->createCreateForm($movimiento);
+        $fechaDeHoy = date('Y-m-d'); //Asigno la fecha del dia de la baja para pasarlo a la vista y mostrarlo
+        
+        $movimiento->setFecha(new \DateTime($fechaDeHoy));
+        //Busco el objeto reserva a eliminar para asignarle los valores de ese objeto al movimiento
+        //$query = $em->createQuery('SELECT u FROM Cresta\AulasBundle\Entity\Reserva u WHERE u.id = :id');
+        //$query->setParameter(':id', $idReserva);
+        //$reserva = $query->getResult(); // array de objetos Reserva
+        //$asd = $reserva[0];
+        $reservaPersona = $reservaEliminada->getReservaPersona();
+        //PREGUNTO EL NOMBRE DE USUARIO DEL USUARIO QUE EJECUTO LA ACCION DE ELIMINAR
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $movimientoPersona = $user->getUsername(); //ASIGNO EL NOMBRE DE USUARIO A UNA VARIABLE
+        //var_dump($movimientoPersona);
+        $horaDesde = $reservaEliminada->getHoraDesde();
+        $horaHasta = $reservaEliminada->getHoraHasta();
+        $reservaParaElDiaDeReserva = $reservaEliminada->getFechaReserva();
+        //var_dump($reservaParaElDiaDeReserva);
+        
+        //tomo el id del aula que esta en la reserva
+        $idAula = $reservaEliminada->getAula();
+        //busco el aula para tomar el nombre
+        $em2 = $this->getDoctrine()->getEntityManager();                 
+        //Creo un repositorio para, que es un objeto, para manejar los datos.
+        $aula = $em2->getRepository('CrestaAulasBundle:Aula')->find($idAula);
+        //asigno nombre a varialbe
+        $aulaParaMovimiento = $aula->getNombre();
+        //var_dump($aulaParaMovimiento);
+        $movimiento->setUsuario($movimientoPersona);
+        $movimiento->setReservaAula($aulaParaMovimiento);
+        
+        $horaDesde->format('h:m:s');
+
+        $movimiento->setReservaHoraDesde($horaDesde);       
+        
+        $horaHasta->format('h:m:s');          
+        //var_dump($horaHasta1);
+        $movimiento->setReservaHoraHasta($horaHasta);
+        $reservaParaElDiaDeReserva->format('Y-m-d');
+        //var_dump($reservaParaElDiaDeReserva1);
+        $movimiento->setReservaParaDiaDeReserva($reservaParaElDiaDeReserva);
+        $em3 = $this->getDoctrine()->getEntityManager();        
+        $em3->persist($movimiento);
+        $em3->flush();
+        //die('aca llego');
+        
+        /*return $this->render('CrestaAulasBundle:Movimiento:new.html.twig', array(
+            'fecha' => $fechaDeHoy, //Paso la fecha de hoy para que se muestre en la vista
+            'reservaEliminada' => $reservaEliminada, //Paso la reserva eliminada para cargar los valores en la vista
+            'entity' => $entity, //Paso la entidad movimiento para cargar los valores del movimiento
+            'form'   => $form->createView(),
+        
         )); */
     }
+
+
 
 
 
@@ -334,7 +406,7 @@ class ReservaController extends Controller
             $this->nuevoMovimiento($idReserva);
 
 
-            $em->remove($entity);
+            $em->remove($idReserva);
             $em->flush();
         // } Esto no va nunca
 
