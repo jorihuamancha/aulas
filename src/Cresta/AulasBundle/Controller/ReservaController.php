@@ -70,7 +70,7 @@ class ReservaController extends Controller
 
         //$form->add('submit', 'submit', array('label' => 'Usuario','attr'=>array('value'=>$user->getId())));
         $form->add('submit', 'submit', array('label' => 'Create'));
-
+        
         return $form;
     }
 
