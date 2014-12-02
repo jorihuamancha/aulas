@@ -74,3 +74,10 @@ fos_user:
     firewall_name: main
     # el namespace de tu clase 'User' específica
     user_class:    Cresta\AulasBundle\Entity\Usuario
+    # ...
+    registration:
+        form:
+            type:     cresta_aulasbundle_user_registration
+    profile:
+        form:
+            type:     cresta_aulasbundle_user_profile

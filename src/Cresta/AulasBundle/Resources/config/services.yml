@@ -1,7 +1,13 @@
-parameters:
-#    cresta_aulas.example.class: Cresta\AulasBundle\Example
-
+# src/Acme/UserBundle/Resources/config/services.yml
 services:
-#    cresta_aulas.example:
-#        class: %cresta_aulas.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    cresta_aulasbundle_user.registration.form.type:
+        class:     Cresta\AulasBundle\Form\RegistrationFormType
+        arguments:     [%fos_user.model.user.class%]
+        tags:
+            - { name:     form.type, alias:     cresta_aulasbundle_user_registration }
+
+    cresta_aulasbundle_user.profile.form.type:
+        class:     Cresta\AulasBundle\Form\ProfileFormType
+        arguments:     [%fos_user.model.user.class%]
+        tags:
+            - { name:     form.type, alias:     cresta_aulasbundle_user_profile }

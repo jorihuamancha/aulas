@@ -138,8 +138,8 @@
       				Docentes <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
-                                <li><a href="#">Listado de docentes</a></li>
-                                <li><a href="#">Nuevo docente</a></li>
+                                <li><a href="{{ path('aulas_docente') }}">Listado de docentes</a></li>
+                                <li><a href="{{ path('aulas_carrera_new') }}">Nuevo docente</a></li>
     			</ul> 
   			</li>
 
@@ -162,7 +162,8 @@
           </a> 
           <ul  class= "dropdown-menu"  role= "menu" >
           <li role= "presentation" class= "dropdown-header" >Mis datos </li>
-                                <li><a href="{{ path('fos_user_change_password') }}">Modificar mis datos de usuario</a></li>
+                                <li><a href="{{ path('fos_user_profile_edit') }}">Modificar mis datos personales</a></li>
+                                <li><a href="{{ path('fos_user_change_password') }}">Cambiar contraseña</a></li>
           {% if is_granted('ROLE_ADMIN') %} <!--Si sos admin, te habilita ABM Usuarios-->
           <li role= "presentation" class= "dropdown-header" >Admin. Usuarios </li>
                                 <li><a href="{{ path('aulas_usuario') }}">Listado de usuarios</a></li>

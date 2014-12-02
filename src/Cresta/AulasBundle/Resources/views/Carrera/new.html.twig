@@ -1,15 +1,10 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Nueva carrera {% endblock %}
 {% block body -%}
-    <h1>Carrera creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('aulas_carrera') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <h1>Nueva Carrera</h1>
+    <div class="formAutogenerado">
+	    <div id="NuevaCarrera">
+	    	{{ form(form) }}	
+	    </div>
+    </div>
 {% endblock %}

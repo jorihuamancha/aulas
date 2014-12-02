@@ -27,7 +27,7 @@ class Usuario extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Docente")
+     * @ORM\OneToOne(targetEntity="Docente",cascade={"persist"})
      */             
     protected $docente;
 

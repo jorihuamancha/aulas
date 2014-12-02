@@ -249,6 +249,7 @@ nav ul li a:hover{
 	height: 20px;
 	min-width:100px;
 }
+
 /* -------------------------------- FOSUser -------------------------------*/
 #Login{
 	width:200px;
@@ -295,27 +296,51 @@ nav ul li a:hover{
 	margin:15px;
 }
 
-#cambiarMisdatos{
-	width:300px;
-}
-
-#cambiarMisdatos label{
+#cambiarClave label{
 	font-weight: normal;
-	margin-left:10px;
+	margin-left:20px;
 }
 
-#cambiarMisdatos input{
+#cambiarClave input{
 	margin-left:2px;
 }
 
-#cambiarMisdatos #botonCambiardatos {
+#cambiarClave #botonClave {
 	display:block;
 	float:right;
-	margin:15px;
+	margin:20px;
 }
 
 #resetting{
 	margin:20px;
+}
+
+#fos_user_profile_form_docente div:nth-child(3){
+	display:none;
+}
+
+#modificarMisDatos div:nth-child(4) {
+	margin-top:-20px;
+}
+
+#modificarMisDatos{
+	margin-left:20px;
+}
+
+#modificarMisDatos label,#cambiarClave label{
+	font-weight: normal;
+}
+
+#fos_user_registration_form{
+	margin-left:20px;
+}
+
+#fos_user_registration_form div:nth-child(5){
+	margin-top:-20px;
+}
+
+#fos_user_registration_form_docente div:nth-child(3){
+	display:none;
 }
 
 /* ------------------------------ Fin FOSUser ------------------------------------ */
