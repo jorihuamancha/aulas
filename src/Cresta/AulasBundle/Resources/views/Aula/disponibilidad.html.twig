@@ -66,7 +66,7 @@
                             {# <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"></td> #}
 
                             <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible">
-                                <a href="{{path('aulas_reserva_new')}}">Agregar</a>
+                                <a href="{{path('reserva_new')}}">Agregar</a>
                             </td>
                             
                             {% for disponible in ArrayContenedor %}
@@ -105,107 +105,3 @@
         </table>
 {% endblock %}
 
-{% extends '::base.html.twig' %}
-
-{% block body -%}
-    <h1>Aulas disponibles</h1>
-    <form> 
-       <select onchange="location.href=this.options[this.selectedIndex].value">
-            <option value="#">{{seleccionadoMes}}</option>
-            {% for m in meses %}
-             {% if loop.index >= mesActual %}
-                {% if seleccionadoMes != m %}
-                    <option value="?mes={{m}}&dia={{seleccionadoDia}}"> {{m}}</option>
-                 {% endif %}
-             {% endif %}   
-           {% endfor %}
-        </select>
-
-        <select onchange="location.href=this.options[this.selectedIndex].value"> 
-            <option value="?mes={{seleccionadoMes}}&dia={{diaActual}}">{{seleccionadoDia}}</option>
-            {% for dia in mesSelect %}
-                {% if ( asd == mesActual) %}
-                    {% if (loop.index >= diaActual) %}
-                        {% if seleccionadoDia != dia %}
-                            <option value="?mes={{seleccionadoMes}}&dia={{dia}}">{{dia}}</option> 
-                        {% endif %}
-                    {% endif %}
-                {% else %}
-                    <option value="?mes={{seleccionadoMes}}&dia={{dia}}">{{dia}}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
-        <select onchange="location.href=this.options[this.selectedIndex].value">
-            <option value="#">Aula</option>
-            {% for a in aulasMostrar %}
-                <option value="?aula={{a.id}}&mes={{seleccionadoMes}}">{{a.nombre}}</option>
-            {% endfor %}
-        </select>  
-        <a class="btn btn-default botonTabla" href = "disponibilidad">Quitar Filtros</a>
-
-    </form>
-   
-     <table class="records_list tabla" >
-            <tbody>   
-            {% if ArrayContenedor is null %}
-                No hay reservas
-            {%else%}
-                <th>Hora/Aula</th>
-                
-                {% for aula in aulasMostrar %}  
-                    <th>{{aula.nombre}}</th>
-                {% endfor %}
-                    {% for horario in horarios %}
-                       <tr> 
-                           {% set valorIndexHora = loop.index %}
-                            <td>{{horario}}</td>
-                            {% for aula in aulasMostrar %} 
-                            {% set nombreActual = aula.nombre %}
-                            <script>
-                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioOcupado');
-                            </script> 
-                            <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"></td>
-                            
-                            {% for disponible in ArrayContenedor %}
-                                {% set valor = (disponible.2-(disponible.1)) %}  
-                                {% if ((disponible.1 == valorIndexHora) and (disponible.3 == nombreActual)) %}                            
-                                        <script>
-                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "Ocupado";
-                                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
-                                            document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
-                                            document.getElementById("{{horario}}{{nombreActual}}").setAttribute('rowspan','{{valor}}');
-
-                                        </script>                                            
-                                {% endif %}
-                                 {% if ((disponible.2 > valorIndexHora) and (disponible.1 < valorIndexHora) and (disponible.3 == nombreActual)) %}                              
-                                       <script>
-                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "Ocupado";
-                                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
-                                            document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
-                                            document.getElementById("{{horario}}{{nombreActual}}").remove();
-                                        </script>                                          
-                                {% endif %}
-                                 {% if ((disponible.2 == valorIndexHora) and (disponible.3 == nombreActual)) %}                              
-                                         <script>
-                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "Ocupado";
-                                            document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
-                                            document.getElementById("{{horario}}{{nombreActual}}")classList.add('HorarioOcupado');
-
-                                        </script>
-                                {% endif %}
-                            {% endfor %}
-                           {% endfor %}
-
-                       </tr>
-                    {% endfor %}
-           
-                
-            {%endif%}
-                
-            </tbody>
-            
-        </table>
-        
-     
- 
-{% endblock %}

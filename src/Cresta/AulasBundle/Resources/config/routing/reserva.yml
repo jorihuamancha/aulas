@@ -1,30 +1,30 @@
-aulas_reserva:
+reserva:
     path:     /
     defaults: { _controller: "CrestaAulasBundle:Reserva:index" }
 
-aulas_reserva_show:
+reserva_show:
     path:     /{id}/show
     defaults: { _controller: "CrestaAulasBundle:Reserva:show" }
 
-aulas_reserva_new:
+reserva_new:
     path:     /new
     defaults: { _controller: "CrestaAulasBundle:Reserva:new" }
 
-aulas_reserva_create:
+reserva_create:
     path:     /create
     defaults: { _controller: "CrestaAulasBundle:Reserva:create" }
     requirements: { _method: post }
 
-aulas_reserva_edit:
+reserva_edit:
     path:     /{id}/edit
     defaults: { _controller: "CrestaAulasBundle:Reserva:edit" }
 
-aulas_reserva_update:
+reserva_update:
     path:     /{id}/update
     defaults: { _controller: "CrestaAulasBundle:Reserva:update" }
     requirements: { _method: post|put }
 
-aulas_reserva_delete:
+reserva_delete:
     path:     /{id}/delete
     defaults: { _controller: "CrestaAulasBundle:Reserva:delete" }
     #requirements: { _method: post|delete }

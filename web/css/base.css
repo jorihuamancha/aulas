@@ -249,6 +249,10 @@ nav ul li a:hover{
 	height: 20px;
 	min-width:100px;
 }
+
+.oculto{
+	display:none;
+}
 /* -------------------------------- FOSUser -------------------------------*/
 #Login{
 	width:200px;

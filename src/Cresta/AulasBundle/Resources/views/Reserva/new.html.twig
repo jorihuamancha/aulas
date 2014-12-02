@@ -1,13 +1,32 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
-    <h1>Reserva creation</h1>
+{% block body %}
 
+    <h1>Nueva Reserva</h1>
+	{#
+    {{ form_label(form.estado) }}
+    {{ form( form.estado, {'attr':{'checked':'true'}} ) }}
+	{{ form_label(form.observaciones ) }}
+	{{ form( form.observaciones ) }}
+	{{ form_label(form.fechaRegistro ) }}
+	{{ form( form.fechaRegistro ) }}
+	{{ form_label( form.horaDesde ) }}
+	{{ form( form.horaDesde ) }}
+	{{ form(form.usuario)}}
+	#}
+	{#{{ usuario}}
+	{{ form_label(form.usuario={{usuario}})}}
+
+	{{ form( form.usuario, {'value':'usuario' } ) }}
+
+	<input type="number" name="usuario" value="{{idUsuario}}">
+	{% set usuario %}{{ usuario }}{% endset %}#}
+	{{ usuario }}
     {{ form(form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('aulas_reserva') }}">
+        <a href="{{ path('reserva') }}">
             Back to the list
         </a>
     </li>

@@ -5,7 +5,14 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
             <!-- Designed by Alejandro Cabane -->
             <h3 style="color:orange">Sistema de gestión de reservas de aulas</h3><!--El estilo es temporal, porque la web es temporal-->
-            <h5> Página temporal, hasta que funcione el <strong>listado de reservas</strong></h5>
+<<<<<<< HEAD
+            <h5> Página temporal, hasta que funcione el <strong>listado de reservas</strong></h5>        
+=======
+            <h5> Página temporal, hasta que funcione el <strong>listado de reservas</strong></h5>           
+            <form name="pruebaPDF" action="../../../Tests/Controller/pdfbundleTest.php" method="GET"><!-- para que sirve? -->
+            	<input type="button" action="submit" value="Imprimir" name="submit">
+            </form>
+>>>>>>> 6e28109bb39863b0871a364aa448ba49a9ea7405
             <p></p>
             <p></p>
     </div>
