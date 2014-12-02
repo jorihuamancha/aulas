@@ -41,19 +41,21 @@ class ReservaController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            //print_r($entity->getActividad());
+            //die();
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
+            return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+            ));
+        }
 
-    /**
+        /**
      * Creates a form to create a Reserva entity.
      *
      * @param Reserva $entity The entity
@@ -66,10 +68,8 @@ class ReservaController extends Controller
             'action' => $this->generateUrl('reserva_create'),
             'method' => 'POST',
         ));
-        //$user = $this->container->get('security.context')->getToken()->getUser();
 
-        //$form->add('submit', 'submit', array('label' => 'Usuario','attr'=>array('value'=>$user->getId())));
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Registrar'));
 
         return $form;
     }
@@ -82,10 +82,11 @@ class ReservaController extends Controller
     {
         $entity = new Reserva();
         $form   = $this->createCreateForm($entity);
-        //$user='1';
+
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository('CrestaAulasBundle:Usuario')->find($this->container->get('security.context')->getToken()->getUser());
         $idUsuario=$usuario->getId();
+        
         return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
             'usuario'=> $idUsuario,
             'entity' => $entity,

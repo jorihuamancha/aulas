@@ -48,14 +48,18 @@ class Reserva
      */
     private $fecha;
 
-	/**
-     * @ORM\OneToOne(targetEntity="Horas")
-    */
+    /**
+     * @var \Time
+     *
+     * @ORM\Column(name="horaDesde", type="datetime")
+     */
     private $horaDesde;
 
-	/**
-     * @ORM\OneToOne(targetEntity="Horas")
-    */
+    /**
+     * @var \Time
+     *
+     * @ORM\Column(name="horaHasta", type="datetime")
+     */
     private $horaHasta;
 
     /**
@@ -89,7 +93,7 @@ class Reserva
     /**
      * @var \Time
      *
-     * @ORM\Column(name="horaRegistro", type="time")
+     * @ORM\Column(name="horaRegistro", type="datetime")
      */
     private $horaRegistro;
 
