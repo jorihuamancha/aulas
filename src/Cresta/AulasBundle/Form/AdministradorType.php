@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DocenteType extends AbstractType
+class AdministradorType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -27,7 +27,7 @@ class DocenteType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Cresta\AulasBundle\Entity\Docente'
+            'data_class' => 'Cresta\AulasBundle\Entity\Administrador'
         ));
     }
 
@@ -36,6 +36,6 @@ class DocenteType extends AbstractType
      */
     public function getName()
     {
-        return 'cresta_aulasbundle_docente';
+        return 'cresta_aulasbundle_administrador';
     }
 }

@@ -32,7 +32,7 @@ class Usuario extends BaseUser
     protected $docente;
 
     /**
-     * @ORM\OneToOne(targetEntity="Administrador")
+     * @ORM\OneToOne(targetEntity="Administrador",cascade={"persist"})
      */              
     protected $administrador;
 

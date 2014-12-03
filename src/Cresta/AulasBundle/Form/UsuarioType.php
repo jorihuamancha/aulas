@@ -25,6 +25,7 @@ class UsuarioType extends AbstractType
             ->add('username','text',array('label'=>'Usuario: '))
             ->add('email','text',array('label'=>'Email: '))
             ->add('enabled','checkbox',array('label'=>'Activo:','required'=>false,'data'=>true))
+            ->add('administrador', new AdministradorType(),array('label'=>' '));
             //->add('docente','choice', array('choices'=>array('a'=>'Administrador', 'd'=>'Docente'),'required'=>true))
 /*            ->add('docente', 'checkbox',array('label'=>'Docente'))
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {

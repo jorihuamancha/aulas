@@ -9,7 +9,6 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Email</th>
-                <th>Activo</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -27,13 +26,6 @@
                 {% endif %}
 
                 <td>{{ entity.email }}</td>
-                <td>
-                    {% if entity.enabled==1 %}
-                        SI
-                    {% else %}
-                        NO
-                    {% endif %}
-                </td>
                 <td>
                 <ul>
 

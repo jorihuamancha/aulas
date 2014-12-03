@@ -53,3 +53,7 @@ CrestaAulasBundle_persona:
 CrestaAulasBundle_docente:
     resource: "@CrestaAulasBundle/Resources/config/routing/docente.yml"
     prefix:   /docente
+
+CrestaAulasBundle_administrador:
+    resource: "@CrestaAulasBundle/Resources/config/routing/administrador.yml"
+    prefix:   /administrador

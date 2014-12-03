@@ -208,13 +208,16 @@ nav ul li a:hover{
 .formAutogenerado #EditarAula div:nth-child(5),.formAutogenerado #EditarAula div:nth-child(6),
 .formAutogenerado #EditarAlerta div:nth-child(4),.formAutogenerado #EditarAlerta div:nth-child(5),
 .formAutogenerado #EditarDocente div:nth-child(4),.formAutogenerado #EditarDocente div:nth-child(5),
-.formAutogenerado #EditarUsuario div:nth-child(4),.formAutogenerado #EditarUsuario div:nth-child(5){
+.formAutogenerado #EditarUsuario div:nth-child(5),.formAutogenerado #EditarUsuario div:nth-child(6){
 
 
 /* DIVs del botón CREAR y Volver a la lista */
 	width:100px;
 	display:inline-block;
 	margin-bottom:10px;
+}
+.formAutogenerado #EditarUsuario div:nth-child(3){
+	visibility: hidden
 }
 
 .formAutogenerado #NuevaAlerta div:nth-child(2),.formAutogenerado #EditarAlerta div:nth-child(2){ /* div de la fecha */
@@ -274,6 +277,15 @@ nav ul li a:hover{
 	color:#E3680B;
 	text-decoration:none;
 }
+
+.oculto{
+	display:none;
+}
+
+.visible{
+	display:block;
+}
+
 
 /* -------------------------------- FOSUser -------------------------------*/
 #Login{
@@ -364,8 +376,12 @@ nav ul li a:hover{
 	margin-top:-20px;
 }
 
-#fos_user_registration_form_docente div:nth-child(3){
+#fos_user_registration_form_administrador div:nth-child(3){
 	visibility: hidden;
+}
+
+#cresta_aulasbundle_usuario_administrador{
+	margin-top:-70px;
 }
 
 /* ------------------------------ Fin FOSUser ------------------------------------ */

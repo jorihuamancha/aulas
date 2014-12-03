@@ -13,7 +13,7 @@ class ProfileFormType extends BaseType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('docente', new DocenteType(),array('label'=>' '));
+        $builder->add('administrador', new AdministradorType(),array('label'=>' '));
     }
 
     public function getName()
