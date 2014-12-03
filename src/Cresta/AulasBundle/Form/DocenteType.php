@@ -17,7 +17,7 @@ class DocenteType extends AbstractType
         $builder
             ->add('nombre')
             ->add('apellido')
-            ->add('activo')
+            ->add('activo', 'checkbox', array('data'=>true))
         ;
     }
     

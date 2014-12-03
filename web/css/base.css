@@ -365,7 +365,7 @@ nav ul li a:hover{
 }
 
 #fos_user_registration_form_docente div:nth-child(3){
-	display:none;
+	visibility: hidden;
 }
 
 /* ------------------------------ Fin FOSUser ------------------------------------ */

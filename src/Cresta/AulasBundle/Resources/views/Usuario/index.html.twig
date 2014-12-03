@@ -9,7 +9,6 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Email</th>
-                <th>Tipo</th>
                 <th>Activo</th>
                 <th>Acción</th>
             </tr>
@@ -28,13 +27,6 @@
                 {% endif %}
 
                 <td>{{ entity.email }}</td>
-                <td>
-                    {% if entity.docente is null %}
-                        Administrador
-                    {% else %}
-                        Docente
-                    {% endif %}
-                </td>
                 <td>
                     {% if entity.enabled==1 %}
                         SI
