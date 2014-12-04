@@ -18,7 +18,11 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Cresta\AulasBundle\CrestaAulasBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+<<<<<<< HEAD
 			new Ps\PdfBundle\PsPdfBundle(),
+=======
+            new Ps\PdfBundle\PsPdfBundle(),
+>>>>>>> 7c4b86f0a549b2dd993c360c1d44a305bdb7e6a3
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

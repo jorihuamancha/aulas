@@ -3,7 +3,15 @@
 namespace Cresta\AulasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+<<<<<<< HEAD
+=======
 use Ps\PdfBundle\Annotation\Pdf;
+
+/**
+* @Pdf()
+*/
+>>>>>>> 6e28109bb39863b0871a364aa448ba49a9ea7405
+
 
 class DefaultController extends Controller
 {
@@ -20,23 +28,25 @@ class DefaultController extends Controller
     public function ayudaAction()
     {
         return $this->render('CrestaAulasBundle:Default:ayuda.html.twig', array());
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 48946b35c4eec6dad48277ec10b1c9f61b28eb28
+    }
+
+=======
 
     }
 
-    /**
-    * @Pdf()
-    */
-
-    public function imprimirAction($listado){// http://localhost/aulas/web/app_dev.php/imprimir/listado.pdf
+    public function imprimirAction(){
         $formato=$this->get('request')->get('_format');
-        return $this->render(sprintf('CrestaAulasBundle:Default:listado.pdf.twig', $formato ),  
-        array( 'listado'=>$listado) );   //'nombre'=>$nombre) );
+        return $this->render(sprintf('CrestaAulasBundle:Default:lista.pdf.twig', $formato ),  array() );
     }
 
 	/*public function imprimirAction($listado){
 		$formato=$this->get('request')->get('_format');
 		return $this->render(sprintf('AulasBundle:DefaultController:lista.%s.twig', $formato), array('listado'=>$listado ));
 	}*/
+>>>>>>> 6e28109bb39863b0871a364aa448ba49a9ea7405
 }
-
-?>

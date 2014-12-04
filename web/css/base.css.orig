@@ -118,6 +118,7 @@ nav ul li a:hover{
 	clear:both;
 	overflow-y:auto;
 	margin-bottom:30px;
+	margin-top:10px;
 }
 
 .tabla th {
@@ -196,7 +197,7 @@ nav ul li a:hover{
 .formAutogenerado #NuevaCarrera div:nth-child(3),.formAutogenerado #NuevaCarrera div:nth-child(4),
 .formAutogenerado #NuevaActividad div:nth-child(3), .formAutogenerado #NuevaActividad div:nth-child(4),
 .formAutogenerado #NuevoRecurso div:nth-child(3),.formAutogenerado #NuevoRecurso div:nth-child(4),
-.formAutogenerado #NuevaAula div:nth-child(6),.formAutogenerado #NuevaAula div:nth-child(7),
+.formAutogenerado #NuevaAula div:nth-child(5),.formAutogenerado #NuevaAula div:nth-child(6),
 .formAutogenerado #NuevaAlerta div:nth-child(4),.formAutogenerado #NuevaAlerta div:nth-child(5),
 .formAutogenerado #NuevoDocente div:nth-child(4),.formAutogenerado #NuevoDocente div:nth-child(5),
 /*Editar*/
@@ -204,7 +205,7 @@ nav ul li a:hover{
 .formAutogenerado #EditarCarrera div:nth-child(3),.formAutogenerado #EditarCarrera div:nth-child(4),
 .formAutogenerado #EditarActividad div:nth-child(3),.formAutogenerado #EditarActividad div:nth-child(4),
 .formAutogenerado #EditarRecurso div:nth-child(3),.formAutogenerado #EditarRecurso div:nth-child(4),
-.formAutogenerado #EditarAula div:nth-child(6),.formAutogenerado #EditarAula div:nth-child(7),
+.formAutogenerado #EditarAula div:nth-child(5),.formAutogenerado #EditarAula div:nth-child(6),
 .formAutogenerado #EditarAlerta div:nth-child(4),.formAutogenerado #EditarAlerta div:nth-child(5),
 .formAutogenerado #EditarDocente div:nth-child(4),.formAutogenerado #EditarDocente div:nth-child(5),
 .formAutogenerado #EditarUsuario div:nth-child(5),.formAutogenerado #EditarUsuario div:nth-child(6){
@@ -232,9 +233,19 @@ nav ul li a:hover{
 	margin-left:15px;
 }
 
+.records_list .HorarioOcupado{
+	background-color:#EE4545;
+	color: #FFF;
+	font-size:10px;
+	font-weight: bold;
+}
+.HorarioDisponible a{
+	opacity: 0;
+	padding-left:30px;
+	padding-right:30px;
+	padding-top:2px;
+	padding-bottom:2px;
 
-<<<<<<< HEAD
-=======
 }
 
 .HorarioDisponible a:hover{
@@ -246,6 +257,7 @@ nav ul li a:hover{
 	min-width:100px;
 }
 
+<<<<<<< HEAD
 .subirtop{
 	background-color:white;
 	color:black;
@@ -276,7 +288,11 @@ nav ul li a:hover{
 }
 
 
->>>>>>> 14a1c328203e2e4828dbd793e2c5ae05616709ee
+=======
+.oculto{
+	display:none;
+}
+>>>>>>> b91b30da5a3e4a333a0aa780cd94067a5abf5329
 /* -------------------------------- FOSUser -------------------------------*/
 #Login{
 	width:200px;

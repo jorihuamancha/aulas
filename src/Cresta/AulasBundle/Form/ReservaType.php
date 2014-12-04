@@ -29,6 +29,11 @@ class ReservaType extends AbstractType
            // ->add('reservaPersona','entity',array('class'=>'CrestaAulasBundle:Persona','property'=>'nombre'))
             ->add('reservaAula','entity',array('class'=>'CrestaAulasBundle:Aula','property'=>'nombre'))
             //->add('reservaUsuario','entity',array('class'=>'CrestaAulasBundle:Usuario','property'=>'id'))
+            /*->add('usuario','entity',array( 'class'=>'CrestaAulasBundle:Usuario',
+                                            'property'=>'id',
+                                            'attr'=>array('class'=>'oculto')))
+            /*->add('fechaRegistro', 'text', array('data'=>date('Y-m-d')))
+            ->add('horaRegistro', 'text', array('data'=>date('h:i:s')))*/
         ;   
     }
     

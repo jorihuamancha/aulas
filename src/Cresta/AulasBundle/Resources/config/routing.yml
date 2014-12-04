@@ -54,6 +54,9 @@ CrestaAulasBundle_docente:
     resource: "@CrestaAulasBundle/Resources/config/routing/docente.yml"
     prefix:   /docente
 
-CrestaAulasBundle_administrador:
-    resource: "@CrestaAulasBundle/Resources/config/routing/administrador.yml"
-    prefix:   /administrador
+_imprimir:
+    path:     /imprimir/{listado}.{_format}
+    defaults: { _controller: CrestaAulasBundle:Default:imprimir, _format: pdf }
+#    param:    { module: listado, action: imprimir}
+    requirements:
+        _format: html|pdf

@@ -1,7 +1,26 @@
 {% extends '::base.html.twig' %}
+<<<<<<< HEAD
 {% block title %}Nueva reserva {% endblock %}
 {% block body -%}
-    <h1>Reserva creation</h1>
+    <h1>Nuevo Curso</h1>
+    <div class="formAutogenerado">
+	    <div id="NuevaReserva">
+	    	{{ form(form) }}	
+	    </div>
+
+
+			{# 
+				Agregué el boton en el formulario creado en CursoController!
+
+				        <a class="btn btn-default botonTabla" href="{{ path('aulas_reserva') }}">
+			            Volver a la lista
+			        	</a>
+			#}  
+			
+    </div>
+=======
+
+{% block body %}
 
     <h1>Nueva Reserva</h1>
 	{#
@@ -32,4 +51,5 @@
         </a>
     </li>
 </ul>
+>>>>>>> b91b30da5a3e4a333a0aa780cd94067a5abf5329
 {% endblock %}
