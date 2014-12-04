@@ -269,7 +269,7 @@ class AulaController extends Controller
                     $hd = $hd . ' a ' . $horaComparableDesde . ':00';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':30';
                     //Busco el aula de la reserva (nombre)
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
@@ -288,7 +288,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':00';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':00';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
@@ -306,7 +306,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':30';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':00';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);     
@@ -323,7 +323,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':30';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':30';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);    
@@ -366,7 +366,7 @@ class AulaController extends Controller
             $buscameEstoAhora = $meses[$mesActual];
             $pasar = $AnioActual . '-' . $asd . '-' . $seleccionadoDia;
             $parameters = array('fechitaMostri' => $pasar,'elaula' =>  $idDelAulaSeleccionada);
-            $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fecha = :fechitaMostri and r.reservaAula = :elaula')->setParameters($parameters);
+            $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fecha = :fechitaMostri and r.aula = :elaula')->setParameters($parameters);
             $reservasMostrar = $query->getResult();
             $contador =0;
              foreach ($reservasMostrar as $aux) {
@@ -394,7 +394,7 @@ class AulaController extends Controller
                     $hd = $hd . ' a ' . $horaComparableDesde . ':00';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':30';
                     //Busco el aula de la reserva (nombre)
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
@@ -413,7 +413,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':00';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':00';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
@@ -431,7 +431,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':30';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':00';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);     
@@ -448,7 +448,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':30';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':30';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);    
@@ -504,7 +504,7 @@ class AulaController extends Controller
                     $hd = $hd . ' a ' . $horaComparableDesde . ':00';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':30';
                     //Busco el aula de la reserva (nombre)
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
@@ -523,7 +523,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':00';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':00';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre); 
@@ -541,7 +541,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':30';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':00';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);     
@@ -558,7 +558,7 @@ class AulaController extends Controller
                     //concateno todo para tener el valor exacto estilo "12:30 a 13:00"
                     $hd = $hd . ' a ' . $horaComparableDesde . ':30';
                     $hh = $hh . ' a ' . $horaComparableHasta . ':30';
-                    $idBuscar = $reservasMostrar[$contador]->getreservaAula();
+                    $idBuscar = $reservasMostrar[$contador]->getAula();
                     $aulaVar = $em->getRepository('CrestaAulasBundle:Aula')->find($idBuscar);
                     $aulaNombre = $aulaVar->getNombre();
                     $arrayCargadoConHorariosConcat = array (1=>$hd,2=>$hh,3=>$aulaNombre);    
