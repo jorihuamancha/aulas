@@ -8,6 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Cresta\AulasBundle\Entity\Usuario;
 use Cresta\AulasBundle\Form\UsuarioType;
 
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Extension\Core\EventListener\TrimListener;
+
 /**
  * Usuario controller.
  *
@@ -66,7 +70,7 @@ class UsuarioController extends Controller
             'action' => $this->generateUrl('aulas_usuario_create'),
             'method' => 'POST',
         ));
-
+        $form->add('submit', 'submit', array('label' => 'Create'));
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -147,7 +151,8 @@ class UsuarioController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -190,7 +195,7 @@ class UsuarioController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+//        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrestaAulasBundle:Usuario')->find($id);
 
@@ -200,7 +205,7 @@ class UsuarioController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+//        }
 
         return $this->redirect($this->generateUrl('aulas_usuario'));
     }

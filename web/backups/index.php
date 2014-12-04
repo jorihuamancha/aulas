@@ -12,19 +12,23 @@
 $dbhost = 'localhost';
 $dbname = 'symfony';
 $dbuser = 'root';
-$dbpass = '';
+$dbpass = 'root';
 $pathActual = getcwd() . '/'; //trae el path actual 
  
-$backup_file = $pathActual . 'GestionAulas' . date("Y-m-d-H-i-s") . '.sql';
-$NombreBackup =  'GestionAulas' . date("Y-m-d-H-i-s") . '.sql';
+$backup_file = $pathActual . 'GestionAulas' . date("H-i-s-d-m-Ys") . '.sql';
+$NombreBackup =  'GestionAulas ' . date("H-i-s-d-m-Y") . '.sql';
 
 //Comando a ejecutar
-$command = "mysqldump -u $dbuser -p $dbpass $dbname > $backup_file";
+//mysqldump --user=TU_USUARIO --password=TU_CONTRASEÑA NOMBRE_BASE_DE_DATOS > copia_seguridad.sql
+$command = "mysqldump --user=$dbuser --password=$dbpass $dbname > $backup_file";
+//$command2="$dbpass";
 
+//system($command,$sarasa);
 system($command,$output);
+//print_r($output);
+//die($output);
 
-
-if ($output == '0'){  //Si se creó con exito el BackUp
+if (($output =='0')){  //Si se creó con exito el BackUp
 					echo "<div id='mensaje' class='alert alert-success' style='margin-top:auto; margin-bottom:auto'>
 						  				<h3>La base de datos fue exportada con &eacute;xito</h3> </br> <b>Ruta:</b> " . $pathActual . "</br> <b>Nombre del backup:</b> " . $NombreBackup . 
 						  "

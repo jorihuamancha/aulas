@@ -3,6 +3,31 @@
 {% block title %}Ayuda{% endblock %}
 
 {% block body %}
+<script type='text/javascript'>
+	//<![CDATA[
+	// Botón para Ir Arriba
+	jQuery.noConflict();
+	jQuery(document).ready(function() {
+	jQuery(".subirtop").hide();
+	jQuery(function () {
+	jQuery(window).scroll(function () {
+	if (jQuery(this).scrollTop() > 200) {
+	jQuery('.subirtop').fadeIn();
+	} else {
+	jQuery('.subirtop').fadeOut();
+	}
+	});
+	jQuery('.subirtop a').click(function () {
+	jQuery('body,html').animate({
+	scrollTop: 0
+	}, 800);
+	return false;
+	});
+	});
+
+	});
+//]]>
+</script>
 	<div id="ayuda" class="col-md-12 col-sm-12 col-xs-12">
 		<!--Inicio indice-->
 		<h2><a name="top">Ayuda</a></h2>
@@ -107,7 +132,6 @@
 				<div class="cuadroAyuda"><h5><a name="EliminarReserva">2.2.2. Eliminar reserva</a></h5>
 					<h6>Se visualiza un formulario donde se pueden ver y modificar los datos registrados para la reserva elegida.</h6>
 				</div>
-			</div>
 			<h4>3. Tareas</h4>
 				<h5>3.1. Curso</h5>
 				<div class="cuadroAyuda"><h5><a name="NuevoCurso">3.1.1. Nuevo curso</a></h5>
@@ -243,5 +267,6 @@
 					</h6>
 				</div>
 	</div>
-	<a href="#top">Subir al cielo</a> 
+	</div>
+	<a class="subirtop" href="#top">Subir al cielo</a> 
 {% endblock %}

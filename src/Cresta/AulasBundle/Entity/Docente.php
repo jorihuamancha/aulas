@@ -20,42 +20,12 @@ class Docente extends Persona
     private $personaDocente;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="apellido", type="string", length=45)
-     */
-    private $apellido;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="activo", type="boolean")
      */
     private $activo;
 
-
-    /**
-     * Set apellido
-     *
-     * @param string $apellido
-     * @return Docente
-     */
-    public function setApellido($apellido)
-    {
-        $this->apellido = $apellido;
-
-        return $this;
-    }
-
-    /**
-     * Get apellido
-     *
-     * @return string 
-     */
-    public function getApellido()
-    {
-        return $this->apellido;
-    }
 
     /**
      * Set activo

@@ -27,7 +27,7 @@ CREATE TABLE `Actividad` (
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `tipo` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,6 @@ CREATE TABLE `Actividad` (
 
 LOCK TABLES `Actividad` WRITE;
 /*!40000 ALTER TABLE `Actividad` DISABLE KEYS */;
-INSERT INTO `Actividad` VALUES (1,'Ejercicio con el PEMTA','Conferencia');
 /*!40000 ALTER TABLE `Actividad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,7 +51,9 @@ CREATE TABLE `Administrador` (
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `apellido` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `activo` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
+  `personaAdministrador_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_F787EED4402A0DD7` (`personaAdministrador_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -62,7 +63,7 @@ CREATE TABLE `Administrador` (
 
 LOCK TABLES `Administrador` WRITE;
 /*!40000 ALTER TABLE `Administrador` DISABLE KEYS */;
-INSERT INTO `Administrador` VALUES (1,'Alejandro','Cabane',1);
+INSERT INTO `Administrador` VALUES (1,'admin','admin',1,NULL);
 /*!40000 ALTER TABLE `Administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +106,7 @@ CREATE TABLE `Aula` (
   `capacidad` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +115,6 @@ CREATE TABLE `Aula` (
 
 LOCK TABLES `Aula` WRITE;
 /*!40000 ALTER TABLE `Aula` DISABLE KEYS */;
-INSERT INTO `Aula` VALUES (1,'101','1',35,1),(2,'103','1',35,1),(3,'102','1',35,1);
 /*!40000 ALTER TABLE `Aula` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +130,7 @@ CREATE TABLE `Carrera` (
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `observaciones` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,7 +139,6 @@ CREATE TABLE `Carrera` (
 
 LOCK TABLES `Carrera` WRITE;
 /*!40000 ALTER TABLE `Carrera` DISABLE KEYS */;
-INSERT INTO `Carrera` VALUES (1,'Analista Programador Universitario','La Plata');
 /*!40000 ALTER TABLE `Carrera` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +157,7 @@ CREATE TABLE `Curso` (
   PRIMARY KEY (`id`),
   KEY `IDX_BFA6FE8892CB7DF` (`Carrera_id`),
   CONSTRAINT `FK_BFA6FE8892CB7DF` FOREIGN KEY (`Carrera_id`) REFERENCES `Carrera` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +166,6 @@ CREATE TABLE `Curso` (
 
 LOCK TABLES `Curso` WRITE;
 /*!40000 ALTER TABLE `Curso` DISABLE KEYS */;
-INSERT INTO `Curso` VALUES (1,'Curso','2004',NULL),(2,'Beia Primavera','2004',1);
 /*!40000 ALTER TABLE `Curso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,8 +181,10 @@ CREATE TABLE `Docente` (
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `apellido` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `activo` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `personaDocente_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_3222F638971875FA` (`personaDocente_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +193,6 @@ CREATE TABLE `Docente` (
 
 LOCK TABLES `Docente` WRITE;
 /*!40000 ALTER TABLE `Docente` DISABLE KEYS */;
-INSERT INTO `Docente` VALUES (1,'Jorge','Runco',1);
 /*!40000 ALTER TABLE `Docente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,10 +206,12 @@ DROP TABLE IF EXISTS `Movimiento`;
 CREATE TABLE `Movimiento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
-  `reservaMovimiento_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_87A213AA72257DB9` (`reservaMovimiento_id`),
-  CONSTRAINT `FK_87A213AA72257DB9` FOREIGN KEY (`reservaMovimiento_id`) REFERENCES `Reserva` (`id`)
+  `reservaAula` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `reservaHoraDesde` time NOT NULL,
+  `reservaHoraHasta` time NOT NULL,
+  `reservaParaDiaDeReserva` date NOT NULL,
+  `movimientoPersona` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -235,7 +236,7 @@ CREATE TABLE `Recurso` (
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,49 +245,35 @@ CREATE TABLE `Recurso` (
 
 LOCK TABLES `Recurso` WRITE;
 /*!40000 ALTER TABLE `Recurso` DISABLE KEYS */;
-INSERT INTO `Recurso` VALUES (1,'Cañon',1);
 /*!40000 ALTER TABLE `Recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Reserva`
+-- Table structure for table `ReservaRecurso`
 --
 
-DROP TABLE IF EXISTS `Reserva`;
+DROP TABLE IF EXISTS `ReservaRecurso`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Reserva` (
+CREATE TABLE `ReservaRecurso` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cursos_id` int(11) DEFAULT NULL,
-  `actividades_id` int(11) DEFAULT NULL,
-  `recursos_id` int(11) DEFAULT NULL,
-  `estado` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `observaciones` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `fechaRegistro` date NOT NULL,
-  `horaDesde` time NOT NULL,
-  `horaHasta` time NOT NULL,
-  `fechaReserva` date NOT NULL,
-  `reservaAula_id` int(11) DEFAULT NULL,
+  `idReserva` int(11) DEFAULT NULL,
+  `idRecurso` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_D73017A76AFE7B9A` (`cursos_id`),
-  KEY `IDX_D73017A72F4F3E2F` (`actividades_id`),
-  KEY `IDX_D73017A776F0FADE` (`recursos_id`),
-  KEY `IDX_D73017A729BEB574` (`reservaAula_id`),
-  CONSTRAINT `FK_D73017A729BEB574` FOREIGN KEY (`reservaAula_id`) REFERENCES `Aula` (`id`),
-  CONSTRAINT `FK_D73017A72F4F3E2F` FOREIGN KEY (`actividades_id`) REFERENCES `Actividad` (`id`),
-  CONSTRAINT `FK_D73017A76AFE7B9A` FOREIGN KEY (`cursos_id`) REFERENCES `Curso` (`id`),
-  CONSTRAINT `FK_D73017A776F0FADE` FOREIGN KEY (`recursos_id`) REFERENCES `Recurso` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `IDX_FB7BE89D83445C9` (`idReserva`),
+  KEY `IDX_FB7BE89DA2025C96` (`idRecurso`),
+  CONSTRAINT `FK_FB7BE89DA2025C96` FOREIGN KEY (`idRecurso`) REFERENCES `ReservaRecurso` (`id`),
+  CONSTRAINT `FK_FB7BE89D83445C9` FOREIGN KEY (`idReserva`) REFERENCES `ReservaRecurso` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Reserva`
+-- Dumping data for table `ReservaRecurso`
 --
 
-LOCK TABLES `Reserva` WRITE;
-/*!40000 ALTER TABLE `Reserva` DISABLE KEYS */;
-INSERT INTO `Reserva` VALUES (3,1,1,1,'asd','asd','2014-11-04','08:30:00','10:30:00','2014-11-25',1),(4,1,1,1,'','','2014-11-18','10:00:00','14:30:00','2014-11-25',3),(5,1,1,1,'','','2014-11-18','11:30:00','14:30:00','2014-11-25',1),(6,1,1,1,'','','2014-11-18','15:00:00','15:30:00','2014-11-25',2);
-/*!40000 ALTER TABLE `Reserva` ENABLE KEYS */;
+LOCK TABLES `ReservaRecurso` WRITE;
+/*!40000 ALTER TABLE `ReservaRecurso` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ReservaRecurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -298,6 +285,8 @@ DROP TABLE IF EXISTS `Usuario`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `docente_id` int(11) DEFAULT NULL,
+  `administrador_id` int(11) DEFAULT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `username_canonical` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -314,8 +303,6 @@ CREATE TABLE `Usuario` (
   `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
   `credentials_expired` tinyint(1) NOT NULL,
   `credentials_expire_at` datetime DEFAULT NULL,
-  `docente_id` int(11) DEFAULT NULL,
-  `administrador_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_EDD889C192FC23A8` (`username_canonical`),
   UNIQUE KEY `UNIQ_EDD889C1A0D96FBF` (`email_canonical`),
@@ -323,7 +310,7 @@ CREATE TABLE `Usuario` (
   UNIQUE KEY `UNIQ_EDD889C148DFEBB7` (`administrador_id`),
   CONSTRAINT `FK_EDD889C148DFEBB7` FOREIGN KEY (`administrador_id`) REFERENCES `Administrador` (`id`),
   CONSTRAINT `FK_EDD889C194E27525` FOREIGN KEY (`docente_id`) REFERENCES `Docente` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -332,7 +319,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,'admin','admin','cabanehb@gmail.com','cabanehb@gmail.com',1,'a44rshpdir4soggskwo0ocws4k4o84o','k2p8+0+va9978MxvYav/2pCeRb91BWVV7oCN7sGtEtTqwHSyQ/2QD8V8510V1eXktf8XcYbDcKKiUME9f8JIzA==','2014-11-18 10:22:21',0,0,NULL,NULL,NULL,'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}',0,NULL,NULL,1),(4,'jrunco','jrunco','runco@fisica.unlp.edu.ar','runco@fisica.unlp.edu.ar',1,'pkwy469expcg0gg88cgg848soo0ggs','N4uWyPqy/z0ARrJtaINITVDjHc96zKz1dAz+Y1lurS1/eBjIin7+F4Zl0qI77P3+WkM1MBDbw6JoEyZgUboydQ==',NULL,0,0,NULL,NULL,NULL,'a:0:{}',0,NULL,1,NULL);
+INSERT INTO `Usuario` VALUES (1,NULL,1,'admin','admin','admin@admin.com','admin@admin.com',1,'ayotot5ghk0ks80gw8osossg80008w4','FcesD8MmVMVfWOIylY3qWEPaQi7MX7x1twZOaMYaHn12YSrj5OiMhB0u/ZcuVqqxGTFFvjZ8aui83Ol2gGUgMA==','2014-12-04 01:32:29',0,0,NULL,NULL,NULL,'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}',0,NULL);
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -345,4 +332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-18 10:59:23
+-- Dump completed on 2014-12-04  2:07:32

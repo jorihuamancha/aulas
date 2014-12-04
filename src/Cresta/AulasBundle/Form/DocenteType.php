@@ -15,9 +15,9 @@ class DocenteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
-            ->add('apellido')
-            ->add('activo')
+            ->add('nombre','text',array('label'=>'Nombre: '))
+            ->add('apellido','text',array('label'=>'Apellido: '))
+            ->add('activo', 'checkbox', array('data'=>true))
         ;
     }
     

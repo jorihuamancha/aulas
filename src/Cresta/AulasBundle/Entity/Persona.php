@@ -31,6 +31,13 @@ abstract class Persona
      */
     private $nombre;
 
+        /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido", type="string", length=45)
+     */
+    private $apellido;
+
    
 
     /* ---------------------------------------------- Constructor -----------------------------------------------------------*/
@@ -75,5 +82,28 @@ abstract class Persona
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+        /**
+     * Set apellido
+     *
+     * @param string $apellido
+     * @return Docente
+     */
+    public function setApellido($apellido)
+    {
+        $this->apellido = $apellido;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido
+     *
+     * @return string 
+     */
+    public function getApellido()
+    {
+        return $this->apellido;
     }
 }

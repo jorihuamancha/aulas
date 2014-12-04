@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+{% block title %}Editar carrera {% endblock %}
+{% block body -%}
+	<div class='formAutogenerado'>
+<<<<<<< HEAD
+		<div id='EditarCurso'>
+=======
+		<div id='EditarCarrera'>
+>>>>>>> 14a1c328203e2e4828dbd793e2c5ae05616709ee
+    		<h1>Editar Carrera</h1>
+
+    		{{ form(edit_form) }}
+
+        </div>
+    </div>
+
+<<<<<<< HEAD
+{% endblock %}
+=======
+{% endblock %}
+>>>>>>> 14a1c328203e2e4828dbd793e2c5ae05616709ee

@@ -1,16 +1,11 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Editar docente {% endblock %}
 {% block body -%}
-    <h1>Docente edit</h1>
+<div class='formAutogenerado'>
+		<div id='EditarDocente'>
+		    <h1>Editar Docente</h1>
 
-    {{ form(edit_form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('aulas_docente') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    		{{ form(edit_form) }}
+		</div>
+</div>
 {% endblock %}

@@ -12,23 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Administrador extends Persona
 {
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-
     /**
      * @var boolean
      *
      * @ORM\Column(name="activo", type="boolean")
      */
     private $activo;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Persona", inversedBy="Admnistrador")
+    */
 
     private $personaAdministrador;
 

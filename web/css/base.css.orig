@@ -1,0 +1,379 @@
+#userLogueado{
+	text-align:right;
+}
+#logo{
+	text-align:left;
+	margin-left:-40px;
+}
+.container{
+	background-color:#FFF;
+}
+
+body{
+	background-color:#CCC;
+	font-family:Arial,Helvetica,sans-serif;
+}
+
+header{
+	border-bottom:3px solid #E3680B;
+	z-index:1;
+}
+
+nav{
+	border-bottom:3px solid #E3680B;
+}
+
+footer{
+	text-align:center;
+	border-top:3px solid #E3680B;
+}
+
+nav ul li a:link,nav ul li a:visited{
+	text-decoration:none;
+	font-size:12px;
+	font-weight:bold;
+	color:#E3680B;
+	padding:10px;
+}	
+
+nav ul li a:hover{
+	text-decoration:none;
+	font-weight:bold;
+	font-size:12px;
+	color:#000;
+}
+
+.dropdown-menu a:link, .dropdown-menu a:visited, .dropdown-menu a:hover {
+	text-decoration:none;
+	color:gray;	
+	font-size:10px;
+}
+
+.btnnormal{
+	margin: 0px;
+}
+
+#userLogueado span {
+	font-weight: bold;
+}
+.dropdown-toggle{
+	min-width:90px;
+	text-align:center;
+}
+.dropdown-menu{
+	margin-left:15px;
+}
+
+.dropdown-header {
+	color:black;
+	font-weight: bold;
+	margin-left:-10px;
+	font-size:12px;
+}
+.navbar-collapse, .container-fluid {
+	padding-left:0px;
+	padding-right:0px;
+}
+
+#ayuda h3{ margin-left:1,5%; }
+#ayuda h4{ margin-left: 3%; text-decoration: underline; font-weight: bold; }
+#ayuda h5{ font-weight: bold; margin-left: 5%; }
+#ayuda h6{ margin-left: 10%; }
+.cuadroAyuda{ background-color: #EEE; border:1px solid #CCC; margin-left:5%; margin-right:5%; margin-top:5px; margin-bottom:5px; border-radius:5px; }
+#indiceSeccion { 
+	background-color: #FFF;
+	border:1px solid #CCC;
+	border-radius: 5px;
+	margin-top:10px;
+	}
+#ayuda a:link,a:visited{
+	text-decoration: none;
+	color:#000;
+}
+#ayuda a:hover{
+	text-decoration: none;
+	color:#E3680B;	
+}
+#ayuda a{
+	text-decoration:none;
+	color:#000;
+}
+
+.icono {
+	height:16px;
+	width:16px;
+	display:inline-block;
+	margin: 0 auto;
+}
+
+.tabla ul{
+	padding-left:0px;
+	margin-bottom:5px;
+}
+
+.tabla {
+	border: 1px solid #E3680B;
+	border-collapse: collapse;
+	margin-left: 50px;
+	clear:both;
+	overflow-y:auto;
+	margin-bottom:30px;
+}
+
+.tabla th {
+	background-color: #E3680B;
+	color: white;
+}
+
+.tabla td, .tabla th {
+	border: 1px solid black;
+	border-style: solid;
+	border-collapse: collapse;
+	padding:2px;
+	font-size: 13px;
+	text-align:center;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.tabla tr:nth-child(odd) {
+   background-color: #E8E8E8;
+   color:black;
+}
+
+.tabla tr:nth-child(even) {
+   background-color: #FFF;
+   color:black;
+}
+
+.tablaAcciones form{
+	/* lo hice solamente para el botón DELETE de los CRUDS,
+		ya que la vista crea un form y un boton
+	*/
+	display:inline-block;
+}
+
+.botonTabla { 
+	margin:10px;
+	display:inline-block;
+}
+
+.verItem tr:nth-child(even), .verItem tr:nth-child(odd) {
+	background-color:white;
+}
+
+.verItem{
+	margin-bottom:0px;
+}
+
+
+/* ==formAutogenerado== 
+	La clase se la pongo a los divs generales de los cruds 
+	que contienen inputs como el EDIT y el NEW */
+.formAutogenerado form input{
+	margin-left:10px;
+}
+
+.formAutogenerado form select{
+	margin-left:10px;
+}
+
+.formAutogenerado{
+	margin-top:10px;
+	width:330px;
+}
+
+.formAutogenerado div{
+	margin-top:10px;
+}
+
+/* .formAutogenerado #NuevoCurso por ejemplo, me refiero al div 
+	con ID NuevoCurso que está adentro del formAutogenerado,
+	voy a poner un ID a cada uno (Los EDITS y NEWS de cada CRUD) */
+
+/*Nuevos*/
+.formAutogenerado #NuevoCurso div:nth-child(4),.formAutogenerado #NuevoCurso div:nth-child(5),
+.formAutogenerado #NuevaCarrera div:nth-child(3),.formAutogenerado #NuevaCarrera div:nth-child(4),
+.formAutogenerado #NuevaActividad div:nth-child(3), .formAutogenerado #NuevaActividad div:nth-child(4),
+.formAutogenerado #NuevoRecurso div:nth-child(3),.formAutogenerado #NuevoRecurso div:nth-child(4),
+.formAutogenerado #NuevaAula div:nth-child(6),.formAutogenerado #NuevaAula div:nth-child(7),
+.formAutogenerado #NuevaAlerta div:nth-child(4),.formAutogenerado #NuevaAlerta div:nth-child(5),
+.formAutogenerado #NuevoDocente div:nth-child(4),.formAutogenerado #NuevoDocente div:nth-child(5),
+/*Editar*/
+.formAutogenerado #EditarCurso div:nth-child(4),.formAutogenerado #EditarCurso div:nth-child(5),
+.formAutogenerado #EditarCarrera div:nth-child(3),.formAutogenerado #EditarCarrera div:nth-child(4),
+.formAutogenerado #EditarActividad div:nth-child(3),.formAutogenerado #EditarActividad div:nth-child(4),
+.formAutogenerado #EditarRecurso div:nth-child(3),.formAutogenerado #EditarRecurso div:nth-child(4),
+.formAutogenerado #EditarAula div:nth-child(6),.formAutogenerado #EditarAula div:nth-child(7),
+.formAutogenerado #EditarAlerta div:nth-child(4),.formAutogenerado #EditarAlerta div:nth-child(5),
+.formAutogenerado #EditarDocente div:nth-child(4),.formAutogenerado #EditarDocente div:nth-child(5),
+.formAutogenerado #EditarUsuario div:nth-child(5),.formAutogenerado #EditarUsuario div:nth-child(6){
+
+
+/* DIVs del botón CREAR y Volver a la lista */
+	width:100px;
+	display:inline-block;
+	margin-bottom:10px;
+}
+.formAutogenerado #EditarUsuario div:nth-child(3){
+	visibility: hidden
+}
+
+.formAutogenerado #NuevaAlerta div:nth-child(2),.formAutogenerado #EditarAlerta div:nth-child(2){ /* div de la fecha */
+	display:inline-block;
+}
+
+.formAutogenerado #NuevaAlerta select{ /* Dia, mes, año */
+	margin:0;
+	margin-right:5px;
+}
+
+#cresta_aulasbundle_alerta_fecha{
+	margin-left:15px;
+}
+
+
+<<<<<<< HEAD
+=======
+}
+
+.HorarioDisponible a:hover{
+	opacity: 1;
+}
+
+.records_list td{
+	height: 20px;
+	min-width:100px;
+}
+
+.subirtop{
+	background-color:white;
+	color:black;
+	font-weight: bold;
+	border:2px solid gray;
+	padding:5px;
+	bottom: -2px; 
+	position: fixed; 
+	z-index: 10000; 
+	float: left;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	text-decoration: none;
+}
+
+.subirtop:hover{
+	background-color:#EEE;
+	color:#E3680B;
+	text-decoration:none;
+}
+
+.oculto{
+	display:none;
+}
+
+.visible{
+	display:block;
+}
+
+
+>>>>>>> 14a1c328203e2e4828dbd793e2c5ae05616709ee
+/* -------------------------------- FOSUser -------------------------------*/
+#Login{
+	width:200px;
+	padding-bottom:10px;
+}
+
+#username {
+	margin:3px;
+	margin-left:10px;
+}
+#password {
+	margin:3px;
+	margin-left:10px;
+}
+
+#Login h6{
+	text-align:right;
+	margin-right:15px;
+}
+
+#Login #_submit{
+	display:block;
+	float:right;
+	margin-right:15px;
+	margin-bottom:15px;
+}
+
+#register {
+	margin-top:-20px;
+	margin-bottom:20px;
+	width: 345px
+}
+#register label {
+	font-weight: normal;
+}
+
+#register input{
+	margin-left:10px;
+}
+
+#register #botonRegistrar{
+	display:block;
+	float:right;
+	margin:15px;
+}
+
+#cambiarClave label{
+	font-weight: normal;
+	margin-left:20px;
+}
+
+#cambiarClave input{
+	margin-left:2px;
+}
+
+#cambiarClave #botonClave {
+	display:block;
+	float:right;
+	margin:20px;
+}
+
+#resetting{
+	margin:20px;
+}
+
+#fos_user_profile_form_docente div:nth-child(3){
+	display:none;
+}
+
+#modificarMisDatos div:nth-child(4) {
+	margin-top:-20px;
+}
+
+#modificarMisDatos{
+	margin-left:20px;
+}
+
+#modificarMisDatos label,#cambiarClave label{
+	font-weight: normal;
+}
+
+#fos_user_registration_form{
+	margin-left:20px;
+}
+
+#fos_user_registration_form div:nth-child(5){
+	margin-top:-20px;
+}
+
+#fos_user_registration_form_administrador div:nth-child(3){
+	visibility: hidden;
+}
+
+#cresta_aulasbundle_usuario_administrador{
+	margin-top:-70px;
+}
+
+/* ------------------------------ Fin FOSUser ------------------------------------ */
+
+};
