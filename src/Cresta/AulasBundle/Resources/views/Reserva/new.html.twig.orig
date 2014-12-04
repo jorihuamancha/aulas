@@ -2,33 +2,47 @@
 <<<<<<< HEAD
 {% block title %}Nueva reserva {% endblock %}
 {% block body -%}
-    <h1>Nuevo Curso</h1>
-    <div class="formAutogenerado">
-	    <div id="NuevaReserva">
-	    	{{ form(form) }}	
-	    </div>
-
-
-			{# 
-				Agregué el boton en el formulario creado en CursoController!
-
-				        <a class="btn btn-default botonTabla" href="{{ path('aulas_reserva') }}">
-			            Volver a la lista
-			        	</a>
-			#}  
-			
-    </div>
+    <h1>Reserva creation</h1>
 =======
 
 {% block body %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			document.getElementById("cresta_aulasbundle_reserva_usuario").value = document.getElementById("idusuario").value;
+			document.getElementById("cresta_aulasbundle_reserva_fecha_time").style.display='none';
+			document.getElementById("cresta_aulasbundle_reserva_horaDesde_date").style.display='none';
+			document.getElementById("cresta_aulasbundle_reserva_horaHasta_date").style.display='none';
+			}
+		)
+		function actividad(value){
+			if(value==true){
+				document.getElementById("cresta_aulasbundle_reserva_actividad").disabled=false;
+				document.getElementById("cresta_aulasbundle_reserva_curso").disabled=true;
+				}
+			else if (value==false){
+				document.getElementById("cresta_aulasbundle_reserva_actividad").disabled=true;
+				document.getElementById("cresta_aulasbundle_reserva_curso").disabled=false;
+				}
+			}
+	</script>
+>>>>>>> c014d06fba3bd9e3b207a6d444770ddc40e8cc10
 
     <h1>Nueva Reserva</h1>
+    <input type="hidden" id="idusuario" value="{{ usuario }}" disabled>
 	{#
+	{{ form_start(form) }}
+		{{ form_row(form.usuario) }}
+		{{ form_row(form.estado) }}
+		{{ form_row(form.observaciones) }}
+		{{ form_row(form.fecha) }}
+		{{ form_row(form.horaDesde) }}
+		{{ form_row(form.horaHasta) }}
+	{{ form_end(form) }}	
     {{ form_label(form.estado) }}
     {{ form( form.estado, {'attr':{'checked':'true'}} ) }}
 	{{ form_label(form.observaciones ) }}
 	{{ form( form.observaciones ) }}
-	{{ form_label(form.fechaRegistro ) }}
+	{{ form_label(form.fechaRegistro, {'attr':{'class':'oculto'}} ) }}
 	{{ form( form.fechaRegistro ) }}
 	{{ form_label( form.horaDesde ) }}
 	{{ form( form.horaDesde ) }}
@@ -41,7 +55,18 @@
 
 	<input type="number" name="usuario" value="{{idUsuario}}">
 	{% set usuario %}{{ usuario }}{% endset %}#}
-	{{ usuario }}
+	
+	{# {% set form.usuario = usuario %} 
+	{{ form_label(form.fechaRegistro, {'attr':{'value':'oculto'}} ) }}
+	{{ form_label(form.horaRegistro, {'attr':{'value':'oculto'}} ) }}
+	#}
+	{#{{ form( form.usuario, {'data'})}}#}
+	{#<input type="hidden" id="idusuario" value="{{ usuario }}" disabled>#}
+	<label>Curso : </label>
+	<input type="checkbox" onchange="actividad(this.checked);" checked>
+	{{ form_widget(form.usuario, {'attr': {'display': 'none' } } ) }}
+	{{ form_widget(form.fechaRegistro, {'attr': { 'display':'none' } } ) }}
+	{{ form_widget(form.horaRegistro, {'attr': { 'display':'none' } } ) }}
     {{ form(form) }}
 
         <ul class="record_actions">
@@ -51,5 +76,4 @@
         </a>
     </li>
 </ul>
->>>>>>> b91b30da5a3e4a333a0aa780cd94067a5abf5329
 {% endblock %}

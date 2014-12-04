@@ -15,26 +15,30 @@ class ReservaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('estado')
-            ->add('observaciones')
-            ->add('fechaRegistro')
-            ->add('horaDesde')
-            ->add('horaHasta')
-            ->add('fechaReserva')
-            ->add('cursos','entity',array('class'=>'CrestaAulasBundle:Curso','property'=>'nombre'))
-            ->add('actividades','entity',array('class'=>'CrestaAulasBundle:Actividad','property'=>'nombre'))
-            //->add('recursos','entity',array('class'=>'CrestaAulasBundle:Recurso','property'=>'nombre'))
-            ->add('recursos','entity',array('class'=>'CrestaAulasBundle:Recurso','property'=>'nombre','multiple'=>true,'expanded'=>true))
-            //->add('activo','checkbox',array('label'=>'Activo:','required'=>false,'data'=>true))
-           // ->add('reservaPersona','entity',array('class'=>'CrestaAulasBundle:Persona','property'=>'nombre'))
-            ->add('reservaAula','entity',array('class'=>'CrestaAulasBundle:Aula','property'=>'nombre'))
-            //->add('reservaUsuario','entity',array('class'=>'CrestaAulasBundle:Usuario','property'=>'id'))
-            /*->add('usuario','entity',array( 'class'=>'CrestaAulasBundle:Usuario',
-                                            'property'=>'id',
-                                            'attr'=>array('class'=>'oculto')))
-            /*->add('fechaRegistro', 'text', array('data'=>date('Y-m-d')))
-            ->add('horaRegistro', 'text', array('data'=>date('h:i:s')))*/
-        ;   
+            ->add('usuario', 'text', array('attr'=>array('class'=>'oculto')))
+            ->add('estado', 'checkbox', array('data'=>true, 'required'=>false))
+            ->add('observaciones', 'text', array('required'=>false))
+            ->add('docente','entity',array( 'class'=>'CrestaAulasBundle:Docente',
+                                            'property'=>'apellido'))
+            ->add('curso','entity',array(   'class'=>'CrestaAulasBundle:Curso',
+                                            'property'=>'nombre'))
+            ->add('actividad','entity',array(   'class'=>'CrestaAulasBundle:Actividad',
+                                                'property'=>'nombre',
+                                                'attr'=>array('disabled'=>'true')))
+            ->add('fecha', 'datetime', array(   'data'=>new \Datetime ) )
+            ->add('horaDesde', 'datetime', array(  'data'=>new \Datetime, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
+            ->add('horaHasta', 'datetime', array(  'data'=>new \Datetime, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
+            ->add('recursos','entity',array('class'=>'CrestaAulasBundle:Recurso',
+                                            'property'=>'nombre',
+                                            'multiple'=>true,
+                                            'expanded'=>true))
+            ->add('aula','entity',array('class'=>'CrestaAulasBundle:Aula',
+                                        'property'=>'nombre'))
+            ->add('fechaRegistro', 'datetime', array(   'data'=>new \DateTime("now"),
+                                                        'attr'=>array('class'=>'oculto') ) )
+            ->add('horaRegistro', 'datetime', array(    'data'=>new \DateTime("now"),
+                                                        'attr'=>array('class'=>'oculto') ) )
+        ;
     }
     
     /**
