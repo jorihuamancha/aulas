@@ -1,7 +1,11 @@
 parameters:
 #    cresta_aulas.example.class: Cresta\AulasBundle\Example
-
+   # nuevo_movimiento.class:      Cresta\AulasBundle\Controller\MovimientoController
+   # nuevo_movimiento.transport:  idReserva
 services:
 #    cresta_aulas.example:
 #        class: %cresta_aulas.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+#    nuevo_movimiento:
+#        class:        Cresta\AulasBundle\Controller\MovimientoController
+#        arguments:    ["@doctrine.orm.entity_manager"]

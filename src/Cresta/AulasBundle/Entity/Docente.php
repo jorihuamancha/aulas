@@ -14,14 +14,17 @@ class Docente extends Persona
 {
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+     * @ORM\OneToOne(targetEntity="Persona", inversedBy="Docente")
+    */
 
+    private $personaDocente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido", type="string", length=45)
+     */
+    private $apellido;
 
     /**
      * @var boolean
@@ -30,7 +33,29 @@ class Docente extends Persona
      */
     private $activo;
 
-    private $personaDocente;
+
+    /**
+     * Set apellido
+     *
+     * @param string $apellido
+     * @return Docente
+     */
+    public function setApellido($apellido)
+    {
+        $this->apellido = $apellido;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido
+     *
+     * @return string 
+     */
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
 
     /**
      * Set activo
@@ -54,20 +79,4 @@ class Docente extends Persona
     {
         return $this->activo;
     }
-
-    /**
-     * Get activo
-     *
-     * @return boolean 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-
-    public function getPersonaDocente(){
-        return $this->personaDocente;
-    }
-
 }

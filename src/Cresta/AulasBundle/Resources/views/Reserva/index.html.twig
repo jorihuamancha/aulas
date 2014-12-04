@@ -5,8 +5,11 @@
 
     <table class="records_list">
         <thead>
+            <tr>                
+            <tr>                
             <tr>
                 <th>Id</th>
+                <th>Usuario</th>
                 <th>Estado</th>
                 <th>Observaciones</th>
                 <th>Fecharegistro</th>
@@ -28,12 +31,11 @@
                 <td>{% if entity.fechaReserva %}{{ entity.fechaReserva|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
-                    <li>
-                        <a href="{{ path('aulas_reserva_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('aulas_reserva_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
+                        <a href="{{ path('aulas_reserva_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
+                    
+                        <a href="{{ path('aulas_reserva_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
+
+                        <a href="{{ path('aulas_reserva_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
                 </ul>
                 </td>
             </tr>

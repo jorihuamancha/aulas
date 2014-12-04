@@ -16,24 +16,13 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class Persona
 {
     /**
-     * Article
+     * @var integer
      *
-     * @ORM\Table(name="Persona")
-     * @ORM\Entity(repositoryClass="Cresta\AulasBundle\Entity\Persona")
-     * @ORM\InheritanceType("JOINED")
-     * @ORM\DiscriminatorColumn(name="discr", type="string")
-     * @ORM\DiscriminatorMap({"docente" = "Docente","administrador" = "Administrador"})
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-
-    /**
-     * @OneToOne(targetEntity="Docente")
-     * @JoinColumn(name="id", referencedColumnName="id")
-     */
-
-    /**
-     * @OneToOne(targetEntity="Administrador")
-     * @JoinColumn(name="id", referencedColumnName="id")
-     */
+    private $id;
 
     /**
      * @var string
@@ -42,12 +31,6 @@ abstract class Persona
      */
     private $nombre;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="apellido", type="string", length=45)
-     */
-    private $apellido;
    
 
     /* ---------------------------------------------- Constructor -----------------------------------------------------------*/
@@ -60,6 +43,17 @@ abstract class Persona
         /*---By Neg---*/
     /* ---------------------------------------------- Fin Constructor -------------------------------------------------------*/
     
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Set nombre
      *
@@ -82,28 +76,4 @@ abstract class Persona
     {
         return $this->nombre;
     }
-
-    /**
-     * Set apellido
-     *
-     * @param string $apellido
-     * @return Persona
-     */
-    public function setApellido($apellido)
-    {
-        $this->apellido = $apellido;
-
-        return $this;
-    }
-
-    /**
-     * Get apellido
-     *
-     * @return string 
-     */
-    public function getApellido()
-    {
-        return $this->apellido;
-    }
-
 }

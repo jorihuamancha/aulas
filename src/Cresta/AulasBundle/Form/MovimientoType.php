@@ -17,7 +17,10 @@ class MovimientoType extends AbstractType
         $builder
             ->add('fecha')
             ->add('movimientoPersona')
-            ->add('reservaMovimiento')
+            ->add('reservaAula')
+            ->add('reservaHorahaDesde')
+            ->add('reservaHoraHasta')
+            ->add('reservaParaDiDeReserva')
         ;
     }
     

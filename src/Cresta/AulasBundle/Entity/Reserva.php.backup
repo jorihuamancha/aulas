@@ -79,12 +79,14 @@ class Reserva
     /**
      * @ORM\ManyToOne(targetEntity="Recurso", inversedBy="Reserva")
      */
+
     private $recursos;
 
     /* ---------------------------------------------- Persona-reserva-------------------------------------------------------*/
      /**
      * @ORM\ManyToOne(targetEntity="Aula", inversedBy="Reserva")
      */
+
     private $reservaAula;
 
     /* ----------------------------------------------- Usuario ----------------------------------------------------------------- */

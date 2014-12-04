@@ -28,11 +28,48 @@ class Movimiento
      */
     private $fecha;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Reserva", inversedBy="Movimiento")
-    */
 
-    private $reservaMovimiento;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reservaAula", type="string")
+     */
+    private $reservaAula;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reservaHoraDesde", type="time")
+     */
+    private $reservaHoraDesde;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reservaHoraHasta", type="time")
+     */
+    private $reservaHoraHasta;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reservaParaDiaDeReserva", type="date")
+     */
+    private $reservaParaDiaDeReserva; //esta es la fecha para la cual iba a estar hecha la reserva
+
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="movimientoPersona", type="string")
+     */
+    private $movimientoPersona;
+
+
 
     /**
      * Get id
@@ -66,4 +103,136 @@ class Movimiento
     {
         return $this->fecha;
     }
+
+
+    /**
+     * Set reservaAula
+     *
+     * @param string $reservaAula
+     * @return Movimiento
+     */
+    public function setReservaAula($reservaAula)
+    {
+        $this->reservaAula = $reservaAula;
+
+        return $this;
+    }
+
+    /**
+     * Get reservaAula
+     *
+     * @return string 
+     */
+    public function getReservaAula()
+    {
+        return $this->reservaAula;
+    }
+
+    /**
+     * Set reservaHoraDesde
+     *
+     * @param string $reservaHoraDesde
+     * @return Movimiento
+     */
+    public function setReservaHoraDesde($reservaHoraDesde)
+    {
+        $this->reservaHoraDesde = $reservaHoraDesde;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Get reservaHoraDesde
+     *
+     * @return string 
+     */
+    public function getReservaHoraDesde()
+    {
+        return $this->reservaHoraDesde;
+    }
+
+
+
+    /**
+     * Set reservaHoraHasta
+     *
+     * @param string $reservaHoraHasta
+     * @return Movimiento
+     */
+    public function setReservaHoraHasta($reservaHoraHasta)
+    {
+        $this->reservaHoraHasta = $reservaHoraHasta;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Get reservaHoraHasta
+     *
+     * @return string 
+     */
+    public function getReservaHoraHasta()
+    {
+        return $this->reservaHoraHasta;
+    }
+
+
+
+    /**
+     * Set reservaParaDiaDeReserva
+     *
+     * @param string $reservaParaDiaDeReserva
+     * @return Movimiento
+     */
+    public function setReservaParaDiaDeReserva($reservaParaDiaDeReserva)
+    {
+        $this->reservaParaDiaDeReserva = $reservaParaDiaDeReserva;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Get reservaParaDiaDeReserva
+     *
+     * @return string 
+     */
+    public function getReservaParaDiaDeReserva()
+    {
+        return $this->reservaParaDiaDeReserva;
+    }
+
+
+
+    /**
+     * Set movimientoPersona
+     *
+     * @param string $movimientoPersona
+     * @return Movimiento
+     */
+    public function setUsuario($movimientoPersona)
+    {
+        $this->movimientoPersona = $movimientoPersona;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Get movimientoPersona
+     *
+     * @return string 
+     */
+    public function getMovimientoPersona()
+    {
+        return $this->movimientoPersona;
+    }
+    
+
 }

@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+{% block title %}Reservas {% endblock %}
+{% block body -%}
+    <h1>Lista de Reservas</h1>
+
+    <ul>
+
+            <a href="{{ path('aulas_reserva_new') }}" class="btn btn-default botonTabla">
+                Nueva Reserva
+            </a>
+    </ul>
+    <table class="records_list tabla">
+        <thead>
+            <tr>                
+            <tr>                
+            <tr>
+<<<<<<< HEAD
+                <th>Id</th>
+=======
+                <th>Usuario</th>
+>>>>>>> e708818d9ab632feb248409ec7433d3726ca2493
+                <th>Estado</th>
+                <th>Observaciones</th>
+                <th>Fecharegistro</th>
+                <th>Horadesde</th>
+                <th>Horahasta</th>
+                <th>Fechareserva</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+
+
+                <td>{{ entity.reservaPersona }}</td>
+                <td>{{ entity.estado }}</td>
+                <td>{{ entity.observaciones }}</td>
+<<<<<<< HEAD
+                <td>{% if entity.fechaRegistro %}{{ entity.fechaRegistro|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.horaDesde }}</td>
+                <td>{{ entity.horaHasta }}</td>
+                <td>{% if entity.fechaReserva %}{{ entity.fechaReserva|date('Y-m-d H:i:s') }}{% endif %}</td>
+=======
+                <td>{% if entity.fechaRegistro %}{{ entity.fechaRegistro|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ entity.horaDesde |date('H:m') }}</td>
+                <td>{{ entity.horaHasta |date('H:m') }}</td>
+                <td>{% if entity.fechaReserva %}{{ entity.fechaReserva|date('Y-m-d') }}{% endif %}</td>
+>>>>>>> e708818d9ab632feb248409ec7433d3726ca2493
+                <td>
+                <ul>
+                        <a href="{{ path('aulas_reserva_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
+                    
+                        <a href="{{ path('aulas_reserva_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
+
+                        <a href="{{ path('aulas_reserva_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    {% endblock %}
