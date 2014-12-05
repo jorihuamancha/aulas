@@ -1,19 +1,23 @@
 {% extends '::base.html.twig' %}
-
+{% block title %} Listado de Reservas {% endblock %}
 {% block body -%}
-    <h1>Reserva list</h1>
+    <h1>Lista de Reservas</h1>
+
+    <ul>
+            <a href="{{ path('reserva_new') }}" class="btn btn-default botonTabla">
+                Nueva reserva
+            </a>
+    </ul>
 
     <table class="records_list tabla">
         <thead>
             <tr>
-                <th>Fecha</th>
-                <th>Hora desde</th>
-                <th>Hora hasta</th>
-                <th>Estado</th>
-                <th>Usuario</th>    
-                <th>Observaciones</th>
-                <th>F. Registro</th>
-                <th>Hora Registro</th>
+                <th>Fecha Reserva</th>
+                <th>Horario</th>
+                <th>Docente</th>
+                <th>Curso/Actividad</th>
+                <th>Carrera</th>
+                <th>Aula</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -21,13 +25,23 @@
         {% for entity in entities %}
             <tr>
                 <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ entity.horaDesde|date('H:i') }}</td>
-                <td>{{ entity.horaHasta|date('H:i') }}</td>
-                <td>{{ entity.estado }}</td>
-                <td>{{ entity.usuario }}</td>
-                <td>{{ entity.observaciones }}</td>
-                <td>{% if entity.fechaRegistro %}{{ entity.fechaRegistro|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ entity.horaRegistro|date('H:i') }}</td>
+                <td>{{ entity.horaDesde|date('H:i') }}hs / {{ entity.horaHasta|date('H:i') }}hs</td>
+                <td>{{ entity.docente.apellido }}, {{ entity.docente.nombre }}</td>
+                <td>
+                    {% if entity.actividad == null %}
+                        {{ entity.curso.nombre }}
+                    {% else %}
+                        {{ entity.actividad.nombre }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if entity.curso == null %}
+                        N/A
+                    {% else %}
+                        {{ entity.curso.Carrera.nombre }}
+                    {% endif %}
+                </td>
+                <td>{{ entity.aula.nombre }}</td>
                 <td>
                 <ul>
                      <a href="{{ path('reserva_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
@@ -41,12 +55,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('reserva_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
     {% endblock %}
