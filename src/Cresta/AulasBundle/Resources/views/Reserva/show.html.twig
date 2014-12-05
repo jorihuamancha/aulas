@@ -1,60 +1,93 @@
 {% extends '::base.html.twig' %}
-{% block title %}Ver reserva {% endblock %}
+{% block title %}Ver Reserva {% endblock %}
 {% block body -%}
     <h1>Reserva</h1>
 
-    <table class="record_properties">
+    <table class="record_properties tabla">
         <tbody>
-            {#<tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>#}
             <tr>
                 <th>Fecha de Reserva</th>
-                <td>{{ entity.fecha|date('Y-m-d') }}</td>
+                <td>{{ entity.fecha|date('d-m-Y') }}</td>
             </tr>
             <tr>
                 <th>Hora desde</th>
-                <td>{{ entity.horaDesde|date('H:i') }}</td>
+                <td>{{ entity.horaDesde|date('H:i') }} hs</td>
             </tr>
             <tr>
                 <th>Hora hasta</th>
-                <td>{{ entity.horaHasta|date('H:i') }}</td>
+                <td>{{ entity.horaHasta|date('H:i') }} hs</td>
             </tr>
             <tr>
-                <th>Estado</th>
-                <td>{{ entity.estado }}</td>
+                <th>Docente</th>
+                <td>{{ entity.docente.apellido }}, {{ entity.docente.nombre }}</td>
+            </tr>
+            <tr>
+                    {% if entity.actividad == null %}
+                        <th>Curso</th>
+                        <td>{{ entity.curso.nombre }}</td>
+                    {% else %}
+                        <th>Actividad</th>
+                        <td>{{ entity.actividad.nombre }}</td>
+                    {% endif %}
+            </tr>
+            {% if entity.curso == null %}
+
+            {% else %}
+                <tr>
+                    <th>Carrera</th>
+                    <td>
+                        {{ entity.curso.Carrera.nombre }}
+                    </td>
+                </tr>
+            {% endif %}                    
+            <tr>
+                <th>Aula <i>(Capacidad)</i></th>
+                <td>{{ entity.aula.nombre }} <i>({{ entity.aula.capacidad }})</i></td>
+            </tr>
+            <tr>
+                <th>Recursos</th>
+                {% if entity.recursos == null %}
+                    N/A
+                {% else %}
+                    <td>
+                    {% for recurso in entity.recursos %}
+                        {{ recurso.nombre }} </br>
+                    {% endfor %}
+                    </td>
+                {% endif %}
+            </tr>
+            </tr>
+
+            <tr>
+                <th>Observaciones</th>
+                {% if entity.observaciones == null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.observaciones }}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Fecha de registro</th>
+                <td>{{ entity.fechaRegistro|date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th>Hora de registro</th>
+                <td>{{ entity.horaRegistro|date('H:i') }} hs</td>
             </tr>
             <tr>
                 <th>Usuario</th>
                 <td>{{ entity.usuario }}</td>
             </tr>
-            <tr>
-                <th>Observaciones</th>
-                <td>{{ entity.observaciones }}</td>
-            </tr>
-            <tr>
-                <th>Fecha de registro</th>
-                <td>{{ entity.fechaRegistro|date('Y-m-d') }}</td>
-            </tr>
-            <tr>
-                <th>Hora de registro</th>
-                <td>{{ entity.horaRegistro|date('H:i') }}</td>
-            </tr>
         </tbody>
     </table>
 
         <ul class="record_actions">
-    <li>
-        <a href="{{ path('reserva') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('reserva_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            <a class="btn btn-default botonTabla" href="{{ path('reserva_edit', { 'id': entity.id }) }}">
+                Editar
+            </a>
+
+            <a class="btn btn-default botonTabla" href="{{ path('reserva') }}">
+                Volver a la lista
+            </a>
+        </ul>
 {% endblock %}
