@@ -46,19 +46,54 @@ class ReservaController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            //print_r($entity->getActividad());
-            //die();
-            $em->persist($entity);
-            $em->flush();
+            
+            $fecha=$entity->getFecha();
+            $fecha->setTime(00, 00, 00);
+            $entity->setFecha($fecha);
 
+            $horaDesde=$entity->getHoraDesde();
+            $horaDesde->setDate(2000, 01, 01);
+            $entity->setHoraDesde($horaDesde);
+
+            $horaHasta=$entity->getHoraHasta();
+            $horaHasta->setDate(2000, 01, 01);
+            $entity->setHoraHasta($horaHasta);
+
+            //if($this->sePuede($entity->getFecha(), $entity->getHoraDesde(), $entity->getHoraHasta(), $entity->getAula())){
+                $em->persist($entity);
+                $em->flush();
+            /*}
+            else{
+
+            }*/
             return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
         }
-
         return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView()
         ));
     }
+
+    /*public function sePuede($fecha, $paramDesde, $paramHasta, $aula){
+        die($paramHasta);
+        $em = $this->getDoctrine()->getManager();//tiro todas las reservas que podrian chocar con la mia
+        $query=$em->createQuery('   SELECT r FROM CrestaAulasBundle:Reserva r 
+                                    WHERE r.aula= :aula AND r.fecha= :fecha AND 
+                                    (r.horaDesde BETWEEN (:paramDesde AND :paramHasta) ) OR 
+                                    (r.horaHasta BETWEEN (:paramDesde AND :paramHasta) ) OR
+                                    (r.horaDesde<=:paramDesde AND r.horaHasta>=:paramHasta)                                    
+                                    ');
+        //r.horaDesde y r.horaHasta son los valores de las tuplas
+        $listado=$query->getResult();
+        $re=$listado[0]->getObservaciones();
+        die($re);
+        /*if(empty($listado)){
+            return false;
+        }else{
+            return true;
+        }
+
+    }*/
 
     /**
      * Creates a form to create a Reserva entity.
@@ -75,7 +110,7 @@ class ReservaController extends Controller
         ));
         //$user = $this->container->get('security.context')->getToken()->getUser();
 
-        $form->add('submit', 'submit', array('label' => 'Registrar'));
+        $form->add('submit', 'submit', array('label' => 'Registrar','attr'=>array('class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -217,7 +252,7 @@ class ReservaController extends Controller
         //$fechaDeHoy = date('Y-m-d'); //Asigno la fecha del dia de la baja para pasarlo a la vista y mostrarlo
         
         //$movimiento->setFecha(new \Date($fechaDeHoy));
-        $movimiento->setFecha(date('now'));
+        $movimiento->setFecha(new \DateTime('now'));
         //Busco el objeto reserva a eliminar para asignarle los valores de ese objeto al movimiento
         //$query = $em->createQuery('SELECT u FROM Cresta\AulasBundle\Entity\Reserva u WHERE u.id = :id');
         //$query->setParameter(':id', $idReserva);

@@ -27,14 +27,14 @@ class ReservaType extends AbstractType
             ->add('estado', 'checkbox', array('data'=>true, 'required'=>false))
             ->add('observaciones', 'text', array('required'=>false))
             ->add('docente','entity',array( 'class'=>'CrestaAulasBundle:Docente',
-                                            'property'=>'apellido'))
+                                            'property'=>'apellido' ) )
             ->add('curso','entity',array(   'class'=>'CrestaAulasBundle:Curso',
                                             'property'=>'nombre'))
             ->add('actividad','entity',array(   'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
-                                                'attr'=>array('disabled'=>'true')))
+                                                'attr'=>array('disabled'=>'true') ) )
             ->add('fecha', 'datetime', array(   'data'=>$fechaActual) )//new \DateTime()->format('Y-m-d') ) ) //("now")
-            ->add('horaDesde', 'datetime', array(   'data'=>$horaActual, 
+            ->add('horaDesde', 'datetime', array(   'data'=>$horaActual,
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array('00'=>'00',
                                                     '30'=>'30') 
