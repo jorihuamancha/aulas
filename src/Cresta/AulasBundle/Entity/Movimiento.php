@@ -22,9 +22,9 @@ class Movimiento
     private $id;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="date")
+     * @ORM\Column(name="fecha", type="datetime")
      */
     private $fecha;
 
@@ -38,25 +38,25 @@ class Movimiento
 
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="reservaHoraDesde", type="time")
+     * @ORM\Column(name="reservaHoraDesde", type="datetime")
      */
     private $reservaHoraDesde;
 
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="reservaHoraHasta", type="time")
+     * @ORM\Column(name="reservaHoraHasta", type="datetime")
      */
     private $reservaHoraHasta;
 
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="reservaParaDiaDeReserva", type="date")
+     * @ORM\Column(name="reservaParaDiaDeReserva", type="datetime")
      */
     private $reservaParaDiaDeReserva; //esta es la fecha para la cual iba a estar hecha la reserva
 
@@ -84,7 +84,7 @@ class Movimiento
     /**
      * Set fecha
      *
-     * @param string $fecha
+     * @param \DateTime $fecha
      * @return Movimiento
      */
     public function setFecha($fecha)
@@ -97,7 +97,7 @@ class Movimiento
     /**
      * Get fecha
      *
-     * @return string 
+     * @return \Date 
      */
     public function getFecha()
     {
@@ -131,7 +131,7 @@ class Movimiento
     /**
      * Set reservaHoraDesde
      *
-     * @param string $reservaHoraDesde
+     * @param \DateTime $reservaHoraDesde
      * @return Movimiento
      */
     public function setReservaHoraDesde($reservaHoraDesde)
@@ -146,7 +146,7 @@ class Movimiento
     /**
      * Get reservaHoraDesde
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getReservaHoraDesde()
     {
@@ -158,7 +158,7 @@ class Movimiento
     /**
      * Set reservaHoraHasta
      *
-     * @param string $reservaHoraHasta
+     * @param \DateTime $reservaHoraHasta
      * @return Movimiento
      */
     public function setReservaHoraHasta($reservaHoraHasta)
@@ -173,7 +173,7 @@ class Movimiento
     /**
      * Get reservaHoraHasta
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getReservaHoraHasta()
     {

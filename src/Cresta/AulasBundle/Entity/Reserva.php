@@ -42,21 +42,21 @@ class Reserva
     private $actividad;
 
     /**
-     * @var \Date
+     * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="datetime")
      */
     private $fecha;
 
     /**
-     * @var \Time
+     * @var \DateTime
      *
      * @ORM\Column(name="horaDesde", type="datetime")
      */
     private $horaDesde;
 
     /**
-     * @var \Time
+     * @var \DateTime
      *
      * @ORM\Column(name="horaHasta", type="datetime")
      */
@@ -70,28 +70,26 @@ class Reserva
     private $estado;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="usuario", type="integer")
+     * @ORM\ManyToOne(targetEntity="Usuario")
      */
     private $usuario;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="observaciones", type="string", length=255)
+     * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
      */
     private $observaciones;
 
     /**
-     * @var \Date
+     * @var \DateTime
      *
      * @ORM\Column(name="fechaRegistro", type="datetime")
      */
     private $fechaRegistro;
 
     /**
-     * @var \Time
+     * @var \DateTime
      *
      * @ORM\Column(name="horaRegistro", type="datetime")
      */
@@ -236,7 +234,7 @@ class Reserva
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -364,9 +362,9 @@ class Reserva
      * @param \DateTime $fechaRegistro
      * @return Reserva
      */
-    public function setFechaRegistro()//$fechaRegistro)
+    public function setFechaRegistro($fechaRegistro)//$fechaRegistro)
     {
-        $fechaRegistro=date('Y-m-d');
+        //$fechaRegistro=date('Y-m-d');
         $this->fechaRegistro = $fechaRegistro;
 
         return $this;
@@ -375,7 +373,7 @@ class Reserva
     /**
      * Get fechaRegistro
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaRegistro()
     {
@@ -388,9 +386,9 @@ class Reserva
      * @param \DateTime $horaRegistro
      * @return Reserva
      */
-    public function setHoraRegistro()//$horaRegistro)
+    public function setHoraRegistro($horaRegistro)//$horaRegistro)
     {
-        $horaRegistro= date('h:i:s');
+        //$horaRegistro= date('h:i:s');
         $this->horaRegistro = $horaRegistro;
 
         return $this;

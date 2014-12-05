@@ -386,4 +386,19 @@ nav ul li a:hover{
 
 /* ------------------------------ Fin FOSUser ------------------------------------ */
 
+#cresta_aulasbundle_reserva_fecha_time{
+	visibility: hidden;
+}
+#cresta_aulasbundle_reserva_horaDesde_date{
+	visibility: hidden;
+	margin-top: -20px;
+}
+#cresta_aulasbundle_reserva_horaHasta_date{
+	visibility: hidden;
+	margin-top: -20px;
+}
+#cresta_aulasbundle_reserva_fecha_date{
+	margin-bottom: -20px;
+}
+
 };

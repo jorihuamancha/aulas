@@ -4,9 +4,9 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			document.getElementById("cresta_aulasbundle_reserva_usuario").value = document.getElementById("idusuario").value;
-			document.getElementById("cresta_aulasbundle_reserva_fecha_time").style.display='none';
-			document.getElementById("cresta_aulasbundle_reserva_horaDesde_date").style.display='none';
-			document.getElementById("cresta_aulasbundle_reserva_horaHasta_date").style.display='none';
+			document.getElementById("cresta_aulasbundle_reserva_fecha_time").style.display='block';
+			document.getElementById("cresta_aulasbundle_reserva_horaDesde_date").style.display='block';
+			document.getElementById("cresta_aulasbundle_reserva_horaHasta_date").style.display='block';
 			}
 		)
 		function actividad(value){
@@ -58,9 +58,11 @@
 	{#<input type="hidden" id="idusuario" value="{{ usuario }}" disabled>#}
 	<label>Curso : </label>
 	<input type="checkbox" onchange="actividad(this.checked);" checked>
+	{#
 	{{ form_widget(form.usuario, {'attr': {'display': 'none' } } ) }}
 	{{ form_widget(form.fechaRegistro, {'attr': { 'display':'none' } } ) }}
-	{{ form_widget(form.horaRegistro, {'attr': { 'display':'none' } } ) }}
+	{{ form_widget(form.horaRegistro, {'attr': { 'display':'none' } } ) }} 
+	#}
     {{ form(form) }}
 
         <ul class="record_actions">
