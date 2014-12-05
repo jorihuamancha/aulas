@@ -69,7 +69,7 @@ class ActividadController extends Controller
 
        // $form->add('submit', 'submit', array('label' => 'Create'));
         $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../actividad','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -150,7 +150,7 @@ class ActividadController extends Controller
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Editar','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../actividad','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
