@@ -28,6 +28,7 @@ class Curso extends Tarea
     /* ---------------------------------------------- Reserva-Curso-----------------------------------------------------------*/
     /**
      * @ORM\ManyToOne(targetEntity="Carrera")
+     * @ORM\JoinColumn(name="Carrera_id", referencedColumnName="id", onDelete="CASCADE")
     */
     private $Carrera;
 

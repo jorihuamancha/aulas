@@ -68,7 +68,7 @@ class CarreraController extends Controller
         ));
 
         $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../carrera','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         
         return $form;
@@ -150,7 +150,7 @@ class CarreraController extends Controller
         ));
 
         $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver la lista','attr'=>array('formaction'=>$_SERVER['HTTP_REFERER'],'formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../volver','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
 
         return $form;

@@ -21,7 +21,11 @@
         {% for entity in entities %}
             <tr>
 				<td>{{ entity.nombre }}</td>
-                <td>{{ entity.Carrera.nombre }}</td>
+                {% if entity.Carrera == null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.Carrera.nombre }}</td>
+                {% endif %}
 				<td>{{ entity.anio }}</td>
                 <td>
                 <ul>

@@ -27,4 +27,4 @@ aulas_tarea_update:
 aulas_tarea_delete:
     path:     /{id}/delete
     defaults: { _controller: "CrestaAulasBundle:Tarea:delete" }
-    requirements: { _method: post|delete }
+#    requirements: { _method: post|delete }
