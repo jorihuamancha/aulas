@@ -36,8 +36,8 @@ class ReservaType extends AbstractType
             ->add('fecha', 'datetime', array(   'data'=>$fechaActual) )//new \DateTime()->format('Y-m-d') ) ) //("now")
             ->add('horaDesde', 'datetime', array(   'data'=>$horaActual,
                                                     'hours'=>range(8,22), 
-                                                    'minutes'=>array('00'=>'00',
-                                                    '30'=>'30') 
+                                                    'minutes'=>array(   '00'=>'00',
+                                                                        '30'=>'30') 
                                                 ) 
                     ) //new \DateTime('H:i:s') ) )//, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
             ->add('horaHasta', 'datetime', array(   'data'=>$horaActual, 

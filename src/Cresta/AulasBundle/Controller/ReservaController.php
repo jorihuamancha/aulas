@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Cresta\AulasBundle\Entity\Reserva;
 use Cresta\AulasBundle\Form\ReservaType;
 use Cresta\AulasBundle\Controller\MovimientoController;
+use Exception;
 
 
 
@@ -45,29 +46,39 @@ class ReservaController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            
-            $fecha=$entity->getFecha();
-            $fecha->setTime(00, 00, 00);
-            $entity->setFecha($fecha);
+                $em = $this->getDoctrine()->getManager();
+                
+                $fecha=$entity->getFecha();
+                $fecha->setTime(00, 00, 00);
+                $entity->setFecha($fecha);
 
-            $horaDesde=$entity->getHoraDesde();
-            $horaDesde->setDate(2000, 01, 01);
-            $entity->setHoraDesde($horaDesde);
+                $horaDesde=$entity->getHoraDesde();
+                $horaDesde->setDate(2000, 01, 01);
+                $entity->setHoraDesde($horaDesde);
 
-            $horaHasta=$entity->getHoraHasta();
-            $horaHasta->setDate(2000, 01, 01);
-            $entity->setHoraHasta($horaHasta);
+                $horaHasta=$entity->getHoraHasta();
+                $horaHasta->setDate(2000, 01, 01);
+                $entity->setHoraHasta($horaHasta);
 
-            //if($this->sePuede($entity->getFecha(), $entity->getHoraDesde(), $entity->getHoraHasta(), $entity->getAula())){
-                $em->persist($entity);
-                $em->flush();
-            /*}
-            else{
-
-            }*/
+                $fechaActual=new \DateTime('now');
+                $fechaActual->setTime(00, 00, 00);
+                if(($entity->getFecha()>=$fechaActual)&&($entity->getHoraDesde()<$entity->getHoraHasta())){
+                    $gola=1;
+                }else{
+                    throw new Exception("Compruebe los campos de las fechas y las horas de la reserva.");   
+                }
+                try{
+                //if(($entity->getFecha()>=$fechaActual)&&($entity->getHoraDesde()<$entity->getHoraHasta())){
+                    $em->persist($entity);
+                    $em->flush();
+                    
+                }catch(Exception $e){
+                //}
+                    //$e->getMessage();
+                //throw new Exception("Compruebe los campos de las fechas y las horas de la reserva.");
+                }
             return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
-        }
+            }
         return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView()
