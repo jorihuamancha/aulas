@@ -24,7 +24,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if entity.fecha %}{{ entity.fecha|date('d-m-Y') }}{% endif %}</td>
                 <td>{{ entity.horaDesde|date('H:i') }}hs / {{ entity.horaHasta|date('H:i') }}hs</td>
                 <td>{{ entity.docente.apellido }}, {{ entity.docente.nombre }}</td>
                 <td>
