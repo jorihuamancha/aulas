@@ -4,6 +4,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Cresta\AulasBundle\Entity\Aula;
 use Cresta\AulasBundle\Form\AulaType;
+use Exception;
+
 /**
  * Aula controller.
  *
@@ -28,19 +30,43 @@ class AulaController extends Controller
      */
     public function createAction(Request $request)
     {
+       
         $entity = new Aula();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-            return $this->redirect($this->generateUrl('aulas_aula_show', array('id' => $entity->getId())));
+        //aca evitando que se creen dos aulas con mismo nombre
+        $em = $this->getDoctrine()->getManager();
+
+        $pasar = $entity->getNombre();
+        //var_dump($pasar);
+        
+        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:aula a WHERE a.nombre = :nombre')->setParameter('nombre', $pasar);
+        $aula = $query->getResult();
+        
+        if (empty($aula)) {
+
+            $compara = null;
+        }else{
+
+            $compara = $aula[0]->getNombre();
         }
-        return $this->render('CrestaAulasBundle:Aula:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+
+        if ($compara != $entity->getNombre()){
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+                return $this->redirect($this->generateUrl('aulas_aula_show', array('id' => $entity->getId())));
+            }
+            return $this->render('CrestaAulasBundle:Aula:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+                ));
+        }else{
+           throw new Exception("Ya existe un Aula con ese nombre modifique e intente nuevamente"); 
+        }
+
+        
     }
     /**
      * Creates a form to create a Aula entity.
@@ -122,7 +148,7 @@ class AulaController extends Controller
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../aula','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../aula','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
         return $form;
     }
     /**
@@ -176,7 +202,8 @@ class AulaController extends Controller
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)
-    {
+    {   
+       
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('aulas_aula_delete', array('id' => $id)))
             ->setMethod('DELETE')

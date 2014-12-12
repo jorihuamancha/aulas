@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cresta\AulasBundle\Entity\Recurso;
 use Cresta\AulasBundle\Form\RecursoType;
+use Exception;
 
 /**
  * Recurso controller.
@@ -39,18 +40,38 @@ class RecursoController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
 
-            return $this->redirect($this->generateUrl('aulas_recurso_show', array('id' => $entity->getId())));
+        $pasar = $entity->getNombre();
+        //var_dump($pasar);
+        
+        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:recurso r WHERE r.nombre = :nombre')->setParameter('nombre', $pasar);
+        $recurso = $query->getResult();
+        
+        if (empty($recurso)) {
+
+            $compara = null;
+        }else{
+
+            $compara = $recurso[0]->getNombre();
         }
 
-        return $this->render('CrestaAulasBundle:Recurso:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        if ($compara != $entity->getNombre()){
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('aulas_recurso_show', array('id' => $entity->getId())));
+            }
+
+            return $this->render('CrestaAulasBundle:Recurso:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+            ));
+        }else{
+           throw new Exception("Ya existe un recurso con ese nombre modifique e intente nuevamente"); 
+        }
     }
 
     /**
@@ -150,7 +171,7 @@ class RecursoController extends Controller
         ));
 
         $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../recurso','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../recurso','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
