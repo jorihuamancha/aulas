@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Cresta\AulasBundle\Entity\Aula;
 use Cresta\AulasBundle\Form\AulaType;
 use Exception;
+
 /**
  * Aula controller.
  *
