@@ -1,3 +1,6 @@
+
+
+
 {% extends '::base.html.twig' %}
 
 {% block body -%}
@@ -105,7 +108,7 @@
                             </script> 
                             {# <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"></td> #}
 
-                            <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"><a href="{{path('reserva_new')}}"><img src="{{ asset('img/iconos/agregar.png') }}" class="icono" alt="Agregar" /></a></td>
+                            <td id = "{{horario}}{{nombreActual}}" class="HorarioDisponible"></td>
                             
                             {% for disponible in ArrayContenedor %}
                                 {% set valor = (disponible.2-(disponible.1)) %}  
