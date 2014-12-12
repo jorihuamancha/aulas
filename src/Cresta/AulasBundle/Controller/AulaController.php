@@ -4,6 +4,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Cresta\AulasBundle\Entity\Aula;
 use Cresta\AulasBundle\Form\AulaType;
+use Exception;
 /**
  * Aula controller.
  *
@@ -28,6 +29,7 @@ class AulaController extends Controller
      */
     public function createAction(Request $request)
     {
+       
         $entity = new Aula();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -35,23 +37,35 @@ class AulaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $pasar = $entity->getNombre();
-        var_dump($pasar);
+        //var_dump($pasar);
         
-        //$query = $em->createQuery('SELECT a FROM CrestaAulasBundle:Aula r WHERE a.nombre = :nombre')->setParameter('nombre', $pasar);
-        //$reservasMostrar = $query->getResult();
+        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:aula a WHERE a.nombre = :nombre')->setParameter('nombre', $pasar);
+        $aula = $query->getResult();
+        
+        if (empty($aula)) {
+
+            $compara = null;
+        }else{
+
+            $compara = $aula[0]->getNombre();
+        }
+
+        if ($compara != $entity->getNombre()){
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+                return $this->redirect($this->generateUrl('aulas_aula_show', array('id' => $entity->getId())));
+            }
+            return $this->render('CrestaAulasBundle:Aula:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+                ));
+        }else{
+           throw new Exception("Ya existe un Aula con ese nombre modifique e intente nuevamente"); 
+        }
 
         
-      
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-            return $this->redirect($this->generateUrl('aulas_aula_show', array('id' => $entity->getId())));
-        }
-        return $this->render('CrestaAulasBundle:Aula:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
     }
     /**
      * Creates a form to create a Aula entity.
