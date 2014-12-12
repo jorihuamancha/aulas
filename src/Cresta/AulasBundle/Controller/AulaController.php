@@ -31,6 +31,17 @@ class AulaController extends Controller
         $entity = new Aula();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        //aca evitando que se creen dos aulas con mismo nombre
+        $em = $this->getDoctrine()->getManager();
+
+        $pasar = $entity->getNombre();
+        var_dump($pasar);
+        
+        //$query = $em->createQuery('SELECT a FROM CrestaAulasBundle:Aula r WHERE a.nombre = :nombre')->setParameter('nombre', $pasar);
+        //$reservasMostrar = $query->getResult();
+
+        
+      
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -122,7 +133,7 @@ class AulaController extends Controller
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../aula','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../aula','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
         return $form;
     }
     /**
