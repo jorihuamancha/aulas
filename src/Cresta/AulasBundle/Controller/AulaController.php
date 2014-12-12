@@ -176,7 +176,8 @@ class AulaController extends Controller
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)
-    {
+    {   
+       
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('aulas_aula_delete', array('id' => $id)))
             ->setMethod('DELETE')
