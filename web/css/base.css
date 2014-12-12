@@ -401,4 +401,13 @@ nav ul li a:hover{
 	margin-bottom: -20px;
 }
 
+.herramientasTop{
+	margin-left:40px;
+}
+
+.herramientasTop ul{
+	display:inline-block;
+	padding:0px;
+}
+
 };

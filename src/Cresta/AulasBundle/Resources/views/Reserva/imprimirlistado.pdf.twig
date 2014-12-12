@@ -1,0 +1,41 @@
+<pdf>
+    <dynamic-page page-size="letter-landscape">
+
+    <h1 text-align="center" text-decoration="underline" float="left">Lista de Reservas</h1>
+    <h1 text-align="center" float="right">{{"now"|date('d/m/Y')}} </h1>
+
+    <table text-align="center" margin-top="10px">
+            <tr background.color="#E3680B" color="white">
+                <td width="130px" font-style="bold" padding="8px">Fecha Reserva</td>
+                <td width="130px" font-style="bold" padding="8px">Horario</td>
+                <td width="150px" font-style="bold" padding="8px">Docente</td>
+                <td font-style="bold" padding="8px">Curso/Actividad</td>
+                <td font-style="bold" padding="8px">Carrera</td>
+                <td width="100px" font-style="bold" padding="8px">Aula</td>
+            </tr>
+        {% for entity in entities %}
+            <tr>
+                <td padding="8px">{% if entity.fecha %}{{ entity.fecha|date('d-m-Y') }}{% endif %}</td>
+                <td padding="8px">{{ entity.horaDesde|date('H:i') }}hs / {{ entity.horaHasta|date('H:i') }}hs</td>
+                <td padding="8px">{{ entity.docente.apellido }}, {{ entity.docente.nombre }}</td>
+                <td padding="8px">
+                    {% if entity.actividad == null %}
+                        {{ entity.curso.nombre }}
+                    {% else %}
+                        {{ entity.actividad.nombre }}
+                    {% endif %}
+                </td>
+                <td padding="8px">
+                    {% if entity.curso == null %}
+                        N/A
+                    {% else %}
+                        {{ entity.curso.Carrera.nombre }}
+                    {% endif %}
+                </td>
+                <td padding="8px">{{ entity.aula.nombre }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    </dynamic-page>
+</pdf>

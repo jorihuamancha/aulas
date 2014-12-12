@@ -82,3 +82,8 @@ fos_user:
     profile:
         form:
             type:   cresta_aulasbundle_user_profile
+
+
+# app/config/config.yml
+ps_pdf:
+    markdown_stylesheet_filepath: css/base.css

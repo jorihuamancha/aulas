@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Cresta\AulasBundle\Entity\Reserva;
 use Cresta\AulasBundle\Form\ReservaType;
 use Cresta\AulasBundle\Controller\MovimientoController;
+use Ps\PdfBundle\Annotation\Pdf;
 use Exception;
 
 
@@ -63,7 +64,7 @@ class ReservaController extends Controller
                 $fechaActual=new \DateTime('now');
                 $fechaActual->setTime(00, 00, 00);
                 if(($entity->getFecha()>=$fechaActual)&&($entity->getHoraDesde()<$entity->getHoraHasta())){
-                    $gola=1;
+                    $gola=1; //antes solíamos ser creativos en los nombres de las variables.
                 }else{
                     throw new Exception("Compruebe los campos de las fechas y las horas de la reserva.");   
                 }
@@ -400,6 +401,19 @@ class ReservaController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+
+    /**
+    * @Pdf()
+    */
+
+    public function imprimirAction(){// http://localhost/aulas/web/app_dev.php/imprimir/listado.pdf
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
+        $formato=$this->get('request')->get('_format');
+        return $this->render(sprintf('CrestaAulasBundle:Reserva:imprimirlistado.pdf.twig', $formato ),  
+        array( 'entities'=>$entities) );   //'nombre'=>$nombre) );
     }
 
 }

@@ -55,8 +55,8 @@ CrestaAulasBundle_docente:
     prefix:   /docente
 
 _imprimir:
-    path:     /imprimir/{listado}.{_format}
-    defaults: { _controller: CrestaAulasBundle:Default:imprimir, _format: pdf }
+    path:     /reserva/{listado}.{_format}
+    defaults: { _controller: CrestaAulasBundle:Reserva:imprimir, _format: pdf }
 #    param:    { module: listado, action: imprimir}
     requirements:
         _format: html|pdf
