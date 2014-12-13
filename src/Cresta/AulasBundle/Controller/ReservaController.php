@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cresta\AulasBundle\Entity\Reserva;
+use Cresta\AulasBundle\Entity\Aula;
 use Cresta\AulasBundle\Form\ReservaType;
 use Cresta\AulasBundle\Controller\MovimientoController;
 use Ps\PdfBundle\Annotation\Pdf;
@@ -30,10 +31,15 @@ class ReservaController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $filtroActivo=0;
 
         $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
+        if (!$entities){
+            $entities=null;
+        }
         return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array(
             'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
         ));
     }
     /**
@@ -416,4 +422,51 @@ class ReservaController extends Controller
         array( 'entities'=>$entities) );   //'nombre'=>$nombre) );
     }
 
+    public function filtroAction(){
+        $filtro=$this->get('request')->get('filtro');
+        $em = $this->getDoctrine()->getManager();
+        switch ($filtro) {
+
+            case 'Todos':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
+                break;
+
+            case 'Fecha':
+                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )
+                ->setParameter('fecha1', $_POST['fecha1'])
+                ->setParameter('fecha2', $_POST['fecha2'])
+                ->orderBy('r.fecha', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+            case 'Docente':
+                $docente = $em->getRepository('CrestaAulasBundle:Docente')->findByApellido($_POST['dato']);
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($docente);
+                break;
+
+            case 'Aula':
+                $aula = $em->getRepository('CrestaAulasBundle:Aula')->findByNombre($_POST['dato']);
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByAula($aula);
+                break;
+
+            case 'Tarea':
+                echo "Es Tarea";
+                break;
+            }
+
+            if (!$entities){
+                $entities=null;
+            }
+            $filtroActivo = 1;
+
+    return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array(
+            'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
+        ));
+    }
+
 }
+

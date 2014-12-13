@@ -432,4 +432,8 @@ nav ul li a:hover{
 .herramientasTop .filtros #fechas{
 	margin-top:0px;
 }
+
+#EnviarFiltro{
+	padding:3px;
+}
 };
