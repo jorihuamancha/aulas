@@ -154,7 +154,7 @@ class CarreraController extends Controller
         ));
 
         $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../volver','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../carrera','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
 
         return $form;

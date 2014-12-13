@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cresta\AulasBundle\Entity\Alerta;
 use Cresta\AulasBundle\Form\AlertaType;
+use Exception;
 
 /**
  * Alerta controller.
@@ -39,18 +40,22 @@ class AlertaController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+        if ($this::existeAlerta($entity)) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));
+                return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));
+            }
+
+            return $this->render('CrestaAulasBundle:Alerta:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+            ));
+        }else{
+            throw new Exception("Ya existe una Alerta con esa fecha revise e intente nuevamente.");
         }
-
-        return $this->render('CrestaAulasBundle:Alerta:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
     }
 
     /**
@@ -99,7 +104,7 @@ class AlertaController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Alerta')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Alerta entity.');
+            throw $this->createNotFoundException('No pudimos encontrar esta alerta, intenta recargar la pagina.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -121,7 +126,7 @@ class AlertaController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Alerta')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Alerta entity.');
+            throw $this->createNotFoundException('No pudimos encontrar esta alerta, intenta recargar la pagina.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -164,24 +169,29 @@ class AlertaController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Alerta')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Alerta entity.');
+            throw $this->createNotFoundException('No pudimos encontrar esta alerta, intenta recargar la pagina.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+        if ($this::existeAlerta($entity)) {
+            $deleteForm = $this->createDeleteForm($id);
+            $editForm = $this->createEditForm($entity);
+            $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
-            $em->flush();
+            if ($editForm->isValid()) {
+                $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
+                return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
+            }
+
+            return $this->render('CrestaAulasBundle:Alerta:edit.html.twig', array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }else{
+            throw new Exception("Ya existe una Alerta con esa fecha revise e intente nuevamente.");
         }
-
-        return $this->render('CrestaAulasBundle:Alerta:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+       
     }
     /**
      * Deletes a Alerta entity.
@@ -197,7 +207,7 @@ class AlertaController extends Controller
             $entity = $em->getRepository('CrestaAulasBundle:Alerta')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Alerta entity.');
+                throw $this->createNotFoundException('No pudimos encontrar esta alerta, intenta recargar la pagina.');
             }
 
             $em->remove($entity);
@@ -223,4 +233,24 @@ class AlertaController extends Controller
             ->getForm()
         ;
     }
+
+    private function existeAlerta ($entity){
+        $em = $this->getDoctrine()->getManager();
+        $fecha = $entity->getFecha();
+
+        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:alerta a WHERE a.fecha = :fecha ')->setParameter('fecha',$fecha);
+        $actividad = $query->getResult();
+        
+        if (empty($actividad)) {
+            $compara = null;
+        }else{
+            $compara = $actividad[0]->getFecha();
+        }
+        
+        if ($compara != $entity->getFecha()){
+            return true;
+        }else{
+            return false;
+        }
+     }
 }
