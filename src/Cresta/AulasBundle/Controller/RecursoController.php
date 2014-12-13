@@ -127,7 +127,7 @@ class RecursoController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Recurso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Recurso entity.');
+            throw $this->createNotFoundException('No pudimos encontrar el recurso :/ intente recargar la pagina.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -170,7 +170,7 @@ class RecursoController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Recurso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Recurso entity.');
+            throw $this->createNotFoundException('No pudimos encontrar el recurso :/ intente recargar la pagina.');
         }
         if ($this::existeRecurso($entity)){
             $deleteForm = $this->createDeleteForm($id);
@@ -207,7 +207,7 @@ class RecursoController extends Controller
             $entity = $em->getRepository('CrestaAulasBundle:Recurso')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Recurso entity.');
+                throw $this->createNotFoundException('No pudimos encontrar el recurso :/ intente recargar la pagina.');
             }
 
             $em->remove($entity);
