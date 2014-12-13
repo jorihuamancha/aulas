@@ -403,11 +403,37 @@ nav ul li a:hover{
 
 .herramientasTop{
 	margin-left:40px;
+	width:84%;
 }
 
 .herramientasTop ul{
 	display:inline-block;
 	padding:0px;
+	margin:0;
 }
 
+.herramientasTop .filtros select{
+	background-color:white;
+	padding:3px;
+}
+.herramientasTop .filtros input{
+	width:140px;
+	height: 24px;
+
+}
+
+.herramientasTop .filtros , .herramientasTop .filtros #fechas {
+	display:inline-block;
+	height:30px;
+	vertical-align: -webkit-baseline-middle;
+	margin-top:5px;
+}
+
+.herramientasTop .filtros #fechas{
+	margin-top:0px;
+}
+
+#EnviarFiltro{
+	padding:3px;
+}
 };

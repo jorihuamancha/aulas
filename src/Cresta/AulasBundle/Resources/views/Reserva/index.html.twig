@@ -1,6 +1,50 @@
 {% extends '::base.html.twig' %}
 {% block title %} Listado de Reservas {% endblock %}
 {% block body -%}
+<script type="text/javascript">
+    $( document ).ready(function() {
+            $("#fechas").css("display", "none");
+            $("#dato").css("display", "none");
+            $("#EnviarFiltro").css("display", "none");
+        });
+
+    function getval(sel) {
+       switch (sel.value) {
+         case "Todos":
+            location.reload();
+            break;
+         case "Fecha":
+            $("#fechas").css("display", "inline-block");
+            $("#dato").css("display", "none");
+            $("#formFiltros").attr("action","filtro/Fecha");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+         case "Docente":
+            $("#fechas").css("display", "none");
+            $("#dato").css("display", "inline-block");
+            $("#datoTexto").attr("placeholder","Apellido Docente");
+            $("#formFiltros").attr("action","filtro/Docente");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+         case "Aula":
+            $("#fechas").css("display", "none");
+            $("#dato").css("display", "inline-block");
+            $("#datoTexto").attr("placeholder","Aula");
+            $("#formFiltros").attr("action","filtro/Aula");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+        case "Tarea":
+            $("#fechas").css("display", "none");
+            $("#dato").css("display", "inline-block");
+            $("#datoTexto").attr("placeholder","Tarea");
+            $("#formFiltros").attr("action","filtro/Tarea");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+       }
+    }
+</script>
+
+
     <h1>Lista de Reservas</h1>
 
     <div class="herramientasTop">
@@ -9,12 +53,50 @@
                     Nueva reserva
                 </a>
         </ul>
-
         <ul>
                 <a href="imprimirlistado.pdf" target="_blank" class="btn btn-default botonTabla">
                     Imprimir
                 </a>
         </ul>
+
+        {% if filtroActivo == 1 %}
+                <a href="{{ path('reserva') }}" class="btn btn-default botonTabla">
+                    Quitar filtro
+                </a>
+        {% else %}
+            <div class="filtros">
+                <form method="POST" id="formFiltros">
+                <ul>
+                    <label>Filtrar por:</label>
+                    <select onchange="getval(this);">
+                        <option selected> Todos </option>
+                        <option> Fecha </option>
+                        <option> Docente </option>
+                        <option> Aula </option>
+                        <option> Tarea </option>
+                    </select>
+                </ul>
+                <div id="dato">
+                    <ul>
+                        <input id="datoTexto" pattern="[a-zA-Z0-9 ]+" type="text" name="dato">
+                    </ul>
+                </div>
+                <div id="fechas">
+                    <ul>
+                        <label> Fecha desde: </label>
+                            <input type="date" name="fecha1">
+                    </ul>
+                    <ul>
+                        <label> Fecha hasta: </label>
+                            <input type="date" name="fecha2">
+                    </ul>
+                </div>
+                <ul>
+                <button id="EnviarFiltro" class="btn btn-default">Enviar</button>
+                </ul>
+                </form>
+            </div>
+        {% endif %}
     </div>
 
     <table class="records_list tabla">
@@ -30,6 +112,13 @@
             </tr>
         </thead>
         <tbody>
+        {% if entities is null %}
+            <tr>
+                <td colspan="7">
+                    No se encontraron reservas.
+                </td>
+            </tr>
+        {% else %}
         {% for entity in entities %}
             <tr>
                 <td>{% if entity.fecha %}{{ entity.fecha|date('d-m-Y') }}{% endif %}</td>
@@ -62,5 +151,6 @@
             </tr>
         {% endfor %}
         </tbody>
+        {% endif %}
     </table>
     {% endblock %}

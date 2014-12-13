@@ -28,3 +28,8 @@ reserva_delete:
     path:     /{id}/delete
     defaults: { _controller: "CrestaAulasBundle:Reserva:delete" }
     #requirements: { _method: post|delete }
+
+reserva_filtro:
+    path:     /filtro/{filtro}
+    defaults: { _controller: "CrestaAulasBundle:Reserva:filtro" }
+    #requirements: { _method: get | post }
