@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cresta\AulasBundle\Entity\Actividad;
 use Cresta\AulasBundle\Form\ActividadType;
-
+use Exception;
 /**
  * Actividad controller.
  *
@@ -39,18 +39,22 @@ class ActividadController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+        if ($this::existeActividad($entity)) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_actividad_show', array('id' => $entity->getId())));
+                return $this->redirect($this->generateUrl('aulas_actividad_show', array('id' => $entity->getId())));
+            }
+
+            return $this->render('CrestaAulasBundle:Actividad:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+            ));
+        }else{
+            throw new Exception("Ya existe una Actividad con ese nombre modifique e intente nuevamente");
         }
-
-        return $this->render('CrestaAulasBundle:Actividad:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
     }
 
     /**
@@ -101,7 +105,7 @@ class ActividadController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Actividad')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Actividad entity.');
+            throw $this->createNotFoundException('No pudimos encontrar esta Actividad :/ recarga la pagina e intenta nuevamente.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -123,7 +127,7 @@ class ActividadController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Actividad')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Actividad entity.');
+            throw $this->createNotFoundException('No pudimos encontrar esta Actividad :/ recarga la pagina e intenta nuevamente');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -150,7 +154,7 @@ class ActividadController extends Controller
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Editar','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../actividad','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../actividad','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -165,24 +169,28 @@ class ActividadController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Actividad')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Actividad entity.');
+            throw $this->createNotFoundException('No pudimos encontrar esta Actividad :/ recarga la pagina e intenta nuevamente');
         }
+        if ($this::existeActividad($entity)) {
+            $deleteForm = $this->createDeleteForm($id);
+            $editForm = $this->createEditForm($entity);
+            $editForm->handleRequest($request);
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+            if ($editForm->isValid()) {
+                $em->flush();
 
-        if ($editForm->isValid()) {
-            $em->flush();
+                return $this->redirect($this->generateUrl('aulas_actividad_edit', array('id' => $id)));
+            }
 
-            return $this->redirect($this->generateUrl('aulas_actividad_edit', array('id' => $id)));
+            return $this->render('CrestaAulasBundle:Actividad:edit.html.twig', array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }else{
+            throw new Exception("Ya existe una Actividad con ese nombre modifique e intente nuevamente");
         }
-
-        return $this->render('CrestaAulasBundle:Actividad:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+       
     }
     /**
      * Deletes a Actividad entity.
@@ -198,7 +206,7 @@ class ActividadController extends Controller
             $entity = $em->getRepository('CrestaAulasBundle:Actividad')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Actividad entity.');
+                throw $this->createNotFoundException('No pudimos encontrar esta Actividad :/ recarga la pagina e intenta nuevamente');
             }
 
             $em->remove($entity);
@@ -224,4 +232,24 @@ class ActividadController extends Controller
             ->getForm()
         ;
     }
+
+    private function existeActividad ($entity){
+        $em = $this->getDoctrine()->getManager();
+        $nombre = $entity->getNombre();
+
+        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:actividad a WHERE a.nombre = :nombre ')->setParameter('nombre',$nombre);
+        $actividad = $query->getResult();
+        
+        if (empty($actividad)) {
+            $compara = null;
+        }else{
+            $compara = $actividad[0]->getNombre();
+        }
+        
+        if (strtolower($compara) != strtolower($entity->getNombre())){
+            return true;
+        }else{
+            return false;
+        }
+     }
 }
