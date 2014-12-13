@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cresta\AulasBundle\Entity\Carrera;
 use Cresta\AulasBundle\Form\CarreraType;
-
+use Exception;
 /**
  * Carrera controller.
  *
@@ -39,18 +39,22 @@ class CarreraController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+        if ($this::existeCarrera($entity)) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_carrera_show', array('id' => $entity->getId())));
+                return $this->redirect($this->generateUrl('aulas_carrera_show', array('id' => $entity->getId())));
+            }
+
+            return $this->render('CrestaAulasBundle:Carrera:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+            ));
+        }else{
+            throw new Exception("Ya existe una Carrera con ese nombre modifique e intente nuevamente");
         }
-
-        return $this->render('CrestaAulasBundle:Carrera:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
     }
 
     /**
@@ -100,7 +104,7 @@ class CarreraController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Carrera')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Carrera entity.');
+            throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -122,7 +126,7 @@ class CarreraController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Carrera')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Carrera entity.');
+            throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -166,24 +170,28 @@ class CarreraController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Carrera')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Carrera entity.');
+            throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
         }
+        if ($this::existeCarrera($entity)) {
+            $deleteForm = $this->createDeleteForm($id);
+            $editForm = $this->createEditForm($entity);
+            $editForm->handleRequest($request);
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+            if ($editForm->isValid()) {
+                $em->flush();
 
-        if ($editForm->isValid()) {
-            $em->flush();
+                return $this->redirect($this->generateUrl('aulas_carrera_edit', array('id' => $id)));
+            }
 
-            return $this->redirect($this->generateUrl('aulas_carrera_edit', array('id' => $id)));
+            return $this->render('CrestaAulasBundle:Carrera:edit.html.twig', array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }else{
+             throw new Exception("Ya existe una Carrera con ese nombre modifique e intente nuevamente");
         }
-
-        return $this->render('CrestaAulasBundle:Carrera:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        
     }
     /**
      * Deletes a Carrera entity.
@@ -199,7 +207,7 @@ class CarreraController extends Controller
             $entity = $em->getRepository('CrestaAulasBundle:Carrera')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Carrera entity.');
+                throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
             }
 
             $em->remove($entity);
@@ -225,4 +233,24 @@ class CarreraController extends Controller
             ->getForm()
         ;
     }
+
+    private function existeCarrera ($entity){
+        $em = $this->getDoctrine()->getManager();
+        $nombre = $entity->getNombre();
+
+        $query = $em->createQuery('SELECT c FROM CrestaAulasBundle:carrera c WHERE c.nombre = :nombre ')->setParameter('nombre',$nombre);
+        $carrera = $query->getResult();
+        
+        if (empty($carrera)) {
+            $compara = null;
+        }else{
+            $compara = $carrera[0]->getNombre();
+        }
+        
+        if (strtolower($compara) != strtolower($entity->getNombre())){
+            return true;
+        }else{
+            return false;
+        }
+     }
 }

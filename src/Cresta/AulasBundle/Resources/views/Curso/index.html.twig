@@ -33,7 +33,7 @@
                         
                         <a href="{{ path('aulas_curso_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
                         
-                        <a href="{{ path('aulas_curso_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
+                        <a href="{{ path('aulas_curso_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" onclick="return confirmar()" alt="Borrar" /></a>
                         
                 </ul>
                 </td>
@@ -41,10 +41,15 @@
         {% endfor %}
         </tbody>
     </table>
-{#    <ul>
-            <a href="#top" class="btn btn-default botonTabla">
-                Volver arriba
-            </a>
-    </ul>
-#}
+    <script>
+
+      function confirmar(){
+        if (confirm("¿Realmente desea realizar esta accion?") == true) {
+            return true;
+        }else{
+          return false;
+        }
+      }
+    
+    </script>
 {% endblock %}
