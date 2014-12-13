@@ -34,22 +34,7 @@ class AulaController extends Controller
         $entity = new Aula();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        //aca evitando que se creen dos aulas con mismo nombre
-        $em = $this->getDoctrine()->getManager();
-
-        $pasar = $entity->getNombre();
-        //var_dump($pasar);
-        
-        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:aula a WHERE a.nombre = :nombre')->setParameter('nombre', $pasar);
-        $aula = $query->getResult();
-        
-        if (empty($aula)) {
-            $compara = null;
-        }else{
-            $compara = $aula[0]->getNombre();
-        }
-
-        if (strtolower($compara) != strtolower($entity->getNombre())){
+        if ($this::existeAula($entity)){
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
@@ -124,6 +109,7 @@ class AulaController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Aula entity.');
         }
+        
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('CrestaAulasBundle:Aula:edit.html.twig', array(
@@ -160,18 +146,23 @@ class AulaController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Aula entity.');
         }
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-        if ($editForm->isValid()) {
-            $em->flush();
-            return $this->redirect($this->generateUrl('aulas_aula_edit', array('id' => $id)));
+
+        if ($this::existeAula($entity)){
+            $deleteForm = $this->createDeleteForm($id);
+            $editForm = $this->createEditForm($entity);
+            $editForm->handleRequest($request);
+            if ($editForm->isValid()) {
+                $em->flush();
+                return $this->redirect($this->generateUrl('aulas_aula_edit', array('id' => $id)));
+            }
+            return $this->render('CrestaAulasBundle:Aula:edit.html.twig', array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }else{
+            throw new Exception("Ya existe un Aula con ese nombre modifique e intente nuevamente"); 
         }
-        return $this->render('CrestaAulasBundle:Aula:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
     /**
      * Deletes a Aula entity.
@@ -610,6 +601,26 @@ class AulaController extends Controller
             'diaActual'=>$diaActual,'asd'=>$asd,'seleccionadoMesAhora'=>$buscameEstoAhora,
             'ArrayContenedor'=>$ArrayContenedor,'seleccionadoDia' =>$seleccionadoDia));
             //Por el neg de la gente
+        }
+     }
+
+     private function existeAula ($entity){
+        $em = $this->getDoctrine()->getManager();
+        $pasar = $entity->getNombre();
+
+        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:aula a WHERE a.nombre = :nombre')->setParameter('nombre', $pasar);
+        $aula = $query->getResult();
+        
+        if (empty($aula)) {
+            $compara = null;
+        }else{
+            $compara = $aula[0]->getNombre();
+        }
+        
+        if (strtolower($compara) != strtolower($entity->getNombre())){
+            return true;
+        }else{
+            return false;
         }
      }
 }
