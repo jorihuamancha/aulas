@@ -24,40 +24,51 @@ class ReservaType extends AbstractType
                                             'attr'=>array('class'=>'oculto'),
                                             'label'=>' '))
             //->add('usuario', 'text', array('attr'=>array('class'=>'oculto')))
-            ->add('estado', 'checkbox', array('data'=>true, 'required'=>false))
+            ->add('estado', 'checkbox', array(  'data'=>true, 'required'=>false,
+                                                'attr'=>array('class'=>'oculto')))
             ->add('observaciones', 'text', array('required'=>false))
             ->add('docente','entity',array( 'class'=>'CrestaAulasBundle:Docente',
-                                            'property'=>'apellido' ) )
+                                            'property'=>'apellido'.'nombre',
+                                            'attr'=>array('required'=>true) ) )
             ->add('curso','entity',array(   'class'=>'CrestaAulasBundle:Curso',
-                                            'property'=>'nombre'))
+                                            'property'=>'nombre',
+                                            'attr'=>array('required'=>true)))
+            ->add('carrera', 'entity', array(   'class'=>'CrestaAulasBundle:Curso',
+                                                'property'=>'nombre',
+                                                'attr'=>array(  'disabled'=>true)))
             ->add('actividad','entity',array(   'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
-                                                'attr'=>array('disabled'=>'true') ) )
-            ->add('fecha', 'datetime', array(   'data'=>$fechaActual) )//new \DateTime()->format('Y-m-d') ) ) //("now")
+                                                'attr'=>array(  'disabled'=>'true',
+                                                                'required=>true') ) )
+            ->add('fecha', 'datetime', array(   'data'=>$fechaActual,
+                                                'attr'=>array('required'=>true )))//new \DateTime()->format('Y-m-d') ) ) //("now")
             ->add('horaDesde', 'datetime', array(   'data'=>$horaActual,
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00',
-                                                                        '30'=>'30') 
-                                                ) 
-                    ) //new \DateTime('H:i:s') ) )//, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
+                                                                        '30'=>'30'),
+                                                    'attr'=>array('required'=>true) 
+                    ) )//new \DateTime('H:i:s') ) )//, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
             ->add('horaHasta', 'datetime', array(   'data'=>$horaActual, 
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00', 
-                                                                        '30'=>'30' ) 
+                                                                        '30'=>'30' ),
+                                                    'attr'=>array('required'=>true)
                                                 ) 
                     )//new \DateTime("H:i:s") ) ) //, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
             ->add('recursos','entity',array('class'=>'CrestaAulasBundle:Recurso',
                                             'property'=>'nombre',
                                             'multiple'=>true,
-                                            'expanded'=>true))
+                                            'expanded'=>true,
+                                            'attr'=>array('required'=>true)))
             ->add('aula','entity',array('class'=>'CrestaAulasBundle:Aula',
-                                        'property'=>'nombre'))
+                                        'property'=>'nombre'.'capacidad',
+                                        'attr'=>array('required'=>true)))
             ->add('fechaRegistro', 'datetime', array(   'data'=>$fechaActual, //new \DateTime("Y-m-d"),
                                                         'attr'=>array('class'=>'oculto'),
-                                                        'label'=>' ' ) )
+                                                        'label'=>' '))
             ->add('horaRegistro', 'datetime', array(    'data'=>$horaActual, //new \DateTime("H:i:s"),
                                                         'attr'=>array('class'=>'oculto'),
-                                                        'label'=>' ' ) )
+                                                        'label'=>' ') )
         ;
     }
     

@@ -106,4 +106,16 @@ abstract class Persona
     {
         return $this->apellido;
     }
+
+    /**
+     * Get apellidonombre
+     *
+     * @return string 
+     */
+    public function getApellidoNombre()
+    {
+        $apellidoNombre=$this->getApellido().', '.$this->getNombre();
+        return $apellidoNombre;
+    }
+
 }

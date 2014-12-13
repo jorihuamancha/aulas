@@ -106,6 +106,17 @@ class Aula
     }
 
     /**
+     * Get nombrecapacidad
+     *
+     * @return string 
+     */
+    public function getNombreCapacidad()
+    {
+        $nombreCapacidad=$this->getNombre().' - ('.$this->getCapacidad().')';
+        return $nombreCapacidad;
+    }
+
+    /**
      * Set capacidad
      *
      * @param string $capacidad
