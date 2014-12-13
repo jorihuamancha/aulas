@@ -144,7 +144,7 @@ class AulaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('CrestaAulasBundle:Aula')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Aula entity.');
+            throw $this->createNotFoundException('No pudimos encontrar el aula :/ intenta cargar nuevamente la pagina');
         }
 
         if ($this::existeAula($entity)){
@@ -176,7 +176,7 @@ class AulaController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrestaAulasBundle:Aula')->find($id);
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Aula entity.');
+                throw $this->createNotFoundException('No pudimos encontrar el aula :/ intenta cargar nuevamente la pagina');
             }
             $em->remove($entity);
             $em->flush();

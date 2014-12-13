@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cresta\AulasBundle\Entity\Curso;
 use Cresta\AulasBundle\Form\CursoType;
+use Exception;
 
 /**
  * Curso controller.
@@ -40,18 +41,22 @@ class CursoController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+        if($this::existeCurso($entity)){
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_curso_show', array('id' => $entity->getId())));
+                return $this->redirect($this->generateUrl('aulas_curso_show', array('id' => $entity->getId())));
+            }
+
+            return $this->render('CrestaAulasBundle:Curso:new.html.twig', array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+            ));
+        }else{
+            throw new Exception("Ya existe un Curso con ese nombre modifique e intente nuevamente");
         }
-
-        return $this->render('CrestaAulasBundle:Curso:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
     }
 
     /**
@@ -100,7 +105,7 @@ class CursoController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Curso entity.');
+            throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -122,7 +127,7 @@ class CursoController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Curso entity.');
+            throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -165,25 +170,30 @@ class CursoController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Curso entity.');
+            throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
+        }
+        if($this::existeCurso($entity)){
+            $deleteForm = $this->createDeleteForm($id);
+            $editForm = $this->createEditForm($entity);
+            $editForm->handleRequest($request);
+
+            if ($editForm->isValid()) {
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('aulas_curso_edit', array('id' => $id)));
+            }
+
+            return $this->render('CrestaAulasBundle:Curso:edit.html.twig', array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }else{
+            throw new Exception("Ya existe un Curso con ese nombre modifique e intente nuevamente");
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('aulas_curso_edit', array('id' => $id)));
         }
-
-        return $this->render('CrestaAulasBundle:Curso:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
+        
     /**
      * Deletes a Curso entity.
      *
@@ -198,7 +208,7 @@ class CursoController extends Controller
             $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Curso entity.');
+                throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
             }
 
             $em->remove($entity);
@@ -224,4 +234,26 @@ class CursoController extends Controller
             ->getForm()
         ;
     }
+
+    private function existeCurso ($entity){
+        $em = $this->getDoctrine()->getManager();
+        $nombre = $entity->getNombre();
+        $carrera = $entity->getCarrera();
+        $parameters = array('nombre' => $nombre,'carrera' =>  $carrera);
+
+        $query = $em->createQuery('SELECT c FROM CrestaAulasBundle:curso c WHERE c.nombre = :nombre and c.Carrera = :carrera ')->setParameters($parameters);
+        $curso = $query->getResult();
+        
+        if (empty($curso)) {
+            $compara = null;
+        }else{
+            $compara = $curso[0]->getNombre();
+        }
+        
+        if (strtolower($compara) != strtolower($entity->getNombre())){
+            return true;
+        }else{
+            return false;
+        }
+     }
 }
