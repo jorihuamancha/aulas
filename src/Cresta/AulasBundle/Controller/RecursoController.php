@@ -40,31 +40,15 @@ class RecursoController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
+    
 
-        $pasar = $entity->getNombre();
-        //var_dump($pasar);
-        
-        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:recurso r WHERE r.nombre = :nombre')->setParameter('nombre', $pasar);
-        $recurso = $query->getResult();
-        
-        if (empty($recurso)) {
-
-            $compara = null;
-        }else{
-
-            $compara = $recurso[0]->getNombre();
-        }
-
-        if ($compara != $entity->getNombre()){
+        if ($this::existeRecurso($entity)){
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
-
                 return $this->redirect($this->generateUrl('aulas_recurso_show', array('id' => $entity->getId())));
             }
-
             return $this->render('CrestaAulasBundle:Recurso:new.html.twig', array(
                 'entity' => $entity,
                 'form'   => $form->createView(),
@@ -188,22 +172,26 @@ class RecursoController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Recurso entity.');
         }
+        if ($this::existeRecurso($entity)){
+            $deleteForm = $this->createDeleteForm($id);
+            $editForm = $this->createEditForm($entity);
+            $editForm->handleRequest($request);
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+            if ($editForm->isValid()) {
+                $em->flush();
 
-        if ($editForm->isValid()) {
-            $em->flush();
+                return $this->redirect($this->generateUrl('aulas_recurso_edit', array('id' => $id)));
+            }
 
-            return $this->redirect($this->generateUrl('aulas_recurso_edit', array('id' => $id)));
+            return $this->render('CrestaAulasBundle:Recurso:edit.html.twig', array(
+                'entity'      => $entity,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }else{
+            throw new Exception("Ya existe un recurso con ese nombre modifique e intente nuevamente");
         }
-
-        return $this->render('CrestaAulasBundle:Recurso:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+       
     }
     /**
      * Deletes a Recurso entity.
@@ -245,4 +233,24 @@ class RecursoController extends Controller
             ->getForm()
         ;
     }
+
+    private function existeRecurso ($entity){
+        $em = $this->getDoctrine()->getManager();
+        $pasar = $entity->getNombre();
+
+        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:recurso r WHERE r.nombre = :nombre')->setParameter('nombre', $pasar);
+        $recurso = $query->getResult();
+        
+        if (empty($recurso)) {
+            $compara = null;
+        }else{
+            $compara = $recurso[0]->getNombre();
+        }
+        
+        if (strtolower($compara) != strtolower($entity->getNombre())){
+            return true;
+        }else{
+            return false;
+        }
+     }
 }
