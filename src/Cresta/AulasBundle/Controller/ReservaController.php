@@ -443,7 +443,15 @@ class ReservaController extends Controller
                 break;
 
             case 'Docente':
-                $docente = $em->getRepository('CrestaAulasBundle:Docente')->findByApellido($_POST['dato']);
+                /*$docente = $em->getRepository('CrestaAulasBundle:Docente')->findByApellido($_POST['dato']);
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($docente);
+                */
+                $docente = $em->getRepository('CrestaAulasBundle:Docente');
+                $query = $docente->createQueryBuilder('d')
+                ->where('d.nombre LIKE :dato or d.apellido LIKE :dato' )
+                ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->getQuery();
+                $docente = $query->getResult();
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($docente);
                 break;
 
@@ -453,7 +461,30 @@ class ReservaController extends Controller
                 break;
 
             case 'Tarea':
-                echo "Es Tarea";
+                /*$tarea= $em->getRepository('CrestaAulasBundle:Curso')->findByNombre($_POST['dato']);
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByCurso($tarea);
+                if (!$tarea){
+                    $tarea= $em->getRepository('CrestaAulasBundle:Actividad')->findByNombre($_POST['dato']);
+                    $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($tarea);
+                }
+                */
+                $curso = $em->getRepository('CrestaAulasBundle:Curso');
+                $query = $curso->createQueryBuilder('c')
+                ->where('c.nombre LIKE :dato' )
+                ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->getQuery();
+                $curso = $query->getResult();
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByCurso($curso);
+                if (!$entities){
+                    $actividad = $em->getRepository('CrestaAulasBundle:Actividad');
+                    $query = $actividad->createQueryBuilder('a')
+                    ->where('a.nombre LIKE :dato' )
+                    ->setParameter('dato', '%'.$_POST['dato'].'%')
+                    ->getQuery();
+                    $actividad = $query->getResult();
+                    $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($actividad);
+                }
+
                 break;
             }
 
