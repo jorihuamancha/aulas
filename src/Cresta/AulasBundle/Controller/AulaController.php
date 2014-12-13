@@ -44,14 +44,12 @@ class AulaController extends Controller
         $aula = $query->getResult();
         
         if (empty($aula)) {
-
             $compara = null;
         }else{
-
             $compara = $aula[0]->getNombre();
         }
 
-        if ($compara != $entity->getNombre()){
+        if (strtolower($compara) != strtolower($entity->getNombre())){
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
