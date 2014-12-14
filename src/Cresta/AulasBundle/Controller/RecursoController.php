@@ -172,11 +172,11 @@ class RecursoController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('No pudimos encontrar el recurso :/ intente recargar la pagina.');
         }
+        
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
         if ($this::existeRecurso($entity)){
-            $deleteForm = $this->createDeleteForm($id);
-            $editForm = $this->createEditForm($entity);
-            $editForm->handleRequest($request);
-
             if ($editForm->isValid()) {
                 $em->flush();
 

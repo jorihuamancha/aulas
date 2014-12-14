@@ -171,11 +171,11 @@ class ActividadController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('No pudimos encontrar esta Actividad :/ recarga la pagina e intenta nuevamente');
         }
+       
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
         if ($this::existeActividad($entity)) {
-            $deleteForm = $this->createDeleteForm($id);
-            $editForm = $this->createEditForm($entity);
-            $editForm->handleRequest($request);
-
             if ($editForm->isValid()) {
                 $em->flush();
 

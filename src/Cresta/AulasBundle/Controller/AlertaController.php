@@ -173,13 +173,13 @@ class AlertaController extends Controller
         }
 
         
-            $deleteForm = $this->createDeleteForm($id);
-            $editForm = $this->createEditForm($entity);
-            $editForm->handleRequest($request);
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
 
        if ($this::existeAlerta($entity)) {
         if ($editForm->isValid()) {
-                $em->flush();
+             $em->flush();
              return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
              return $this->render('CrestaAulasBundle:Alerta:edit.html.twig', array(
                 'entity'      => $entity,
@@ -188,6 +188,7 @@ class AlertaController extends Controller
             ));
        
           }
+
         }else{
             throw new Exception("Ya existe una Alerta con esa fecha revise e intente nuevamente.");
         }
