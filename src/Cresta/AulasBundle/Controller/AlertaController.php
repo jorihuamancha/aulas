@@ -172,22 +172,22 @@ class AlertaController extends Controller
             throw $this->createNotFoundException('No pudimos encontrar esta alerta, intenta recargar la pagina.');
         }
 
-        if ($this::existeAlerta($entity)) {
+        
             $deleteForm = $this->createDeleteForm($id);
             $editForm = $this->createEditForm($entity);
             $editForm->handleRequest($request);
 
-            if ($editForm->isValid()) {
+       if ($this::existeAlerta($entity)) {
+        if ($editForm->isValid()) {
                 $em->flush();
-
-                return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
-            }
-
-            return $this->render('CrestaAulasBundle:Alerta:edit.html.twig', array(
+             return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
+             return $this->render('CrestaAulasBundle:Alerta:edit.html.twig', array(
                 'entity'      => $entity,
                 'edit_form'   => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
             ));
+       
+          }
         }else{
             throw new Exception("Ya existe una Alerta con esa fecha revise e intente nuevamente.");
         }
