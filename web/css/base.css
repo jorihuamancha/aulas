@@ -14,6 +14,10 @@ body{
 	font-family:Arial,Helvetica,sans-serif;
 }
 
+body select{
+	background-color: white;
+}
+
 header{
 	border-bottom:3px solid #E3680B;
 	z-index:1;
@@ -172,11 +176,18 @@ nav ul li a:hover{
 	La clase se la pongo a los divs generales de los cruds 
 	que contienen inputs como el EDIT y el NEW */
 .formAutogenerado form input{
-	margin-left:10px;
+	margin-left:5px;
+	display:block;
+	margin-bottom:10px;
 }
 
 .formAutogenerado form select{
-	margin-left:10px;
+	margin-left:5px;
+}
+
+.formAutogenerado label{
+	display:block;
+	font-weight: bold;
 }
 
 .formAutogenerado{
@@ -184,8 +195,12 @@ nav ul li a:hover{
 	width:330px;
 }
 
+#fos_user_profile_form_administrador,#fos_user_registration_form_administrador{
+	margin-top:25px;
+}
+
 .formAutogenerado div{
-	margin-top:10px;
+	margin-top:5px;
 }
 
 /* .formAutogenerado #NuevoCurso por ejemplo, me refiero al div 
@@ -195,7 +210,7 @@ nav ul li a:hover{
 /*Nuevos*/
 .formAutogenerado #NuevoCurso div:nth-child(4),.formAutogenerado #NuevoCurso div:nth-child(5),
 .formAutogenerado #NuevaCarrera div:nth-child(3),.formAutogenerado #NuevaCarrera div:nth-child(4),
-.formAutogenerado #NuevaActividad div:nth-child(3), .formAutogenerado #NuevaActividad div:nth-child(4),
+.formAutogenerado #NuevoActividad div:nth-child(3), .formAutogenerado #NuevoActividad div:nth-child(4),
 .formAutogenerado #NuevoRecurso div:nth-child(3),.formAutogenerado #NuevoRecurso div:nth-child(4),
 .formAutogenerado #NuevaAula div:nth-child(5),.formAutogenerado #NuevaAula div:nth-child(6),
 .formAutogenerado #NuevaAlerta div:nth-child(4),.formAutogenerado #NuevaAlerta div:nth-child(5),
@@ -320,7 +335,7 @@ nav ul li a:hover{
 	width: 345px
 }
 #register label {
-	font-weight: normal;
+	font-weight: bold;
 }
 
 #register input{
@@ -329,12 +344,7 @@ nav ul li a:hover{
 
 #register #botonRegistrar{
 	display:block;
-	float:right;
 	margin:15px;
-}
-
-#cambiarClave label{
-	font-weight: normal;
 	margin-left:20px;
 }
 
@@ -365,7 +375,7 @@ nav ul li a:hover{
 }
 
 #modificarMisDatos label,#cambiarClave label{
-	font-weight: normal;
+	font-weight: bold;
 }
 
 #fos_user_registration_form{
@@ -436,4 +446,50 @@ nav ul li a:hover{
 #EnviarFiltro{
 	padding:3px;
 }
+
+/* Alineación de formularios 
+
+#NuevaAlerta div:nth-child(2), #NuevaAlerta div:nth-child(3), #EditarAlerta div{
+	width:100%;
+}
+
+#NuevaAlerta div:nth-child(1){
+	width:200px;
+}
+
+
+
+#NuevaAula label, #EditarAula label, 
+#NuevoCurso label, #EditarCurso label,
+#NuevoActividad label, #EditarActividad label,
+#NuevoRecurso label, #EditarRecurso label,
+#NuevaAlerta label, #EditarAlerta label
+{
+	display:inline-block;
+	float:left;
+	margin-bottom:15px;
+	width:100px;
+}
+#NuevaAula input, #EditarAula input,
+#NuevoCurso input, #EditarCurso input,
+#NuevoActividad input, #EditarActividad input,
+#NuevoRecurso input, #EditarRecurso input,
+#NuevaAlerta input, #EditarAlerta input
+{
+	display:inline-block;
+	float:right;
+	margin-bottom:5px;
+	width: 200px;
+}
+
+#NuevoCurso select, #EditarCurso select {
+	display: inline-block;
+	float:right;
+	margin-bottom: 10px;
+	width: 200px;
+}
+
+
+ FIN Alineación de formularios */
+
 };

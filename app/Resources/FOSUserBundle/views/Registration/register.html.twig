@@ -1,6 +1,7 @@
 {% extends '::base.html.twig' %}
 {% block title %}Registrar nuevo usuario{% endblock %}
 {% block fos_user_content %}
+<div class="formAutogenerado">
 <div id="register">
 	{% if is_granted('ROLE_ADMIN') %}
 		<h3>Nuevo usuario </h3>
@@ -8,5 +9,6 @@
 	{% else %}
 			Usted no tiene permisos para crear usuarios
 	{% endif %}
+</div>
 </div>
 {% endblock fos_user_content %}

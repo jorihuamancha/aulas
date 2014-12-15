@@ -17,7 +17,7 @@ class AulaType extends AbstractType
         $builder
             ->add('nombre','text',array('label'=>'Nombre:'))
             ->add('piso','text',array('label'=>'Piso:'))
-            ->add('capacidad','text',array('label'=>'Capac.:'))
+            ->add('capacidad','text',array('label'=>'Capacidad:'))
             ->add('activo','checkbox', array('data'=>true,'label'=>'Activo:','required'=>false))
         ;
     }
