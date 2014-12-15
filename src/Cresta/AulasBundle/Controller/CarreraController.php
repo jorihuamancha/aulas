@@ -172,11 +172,11 @@ class CarreraController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
         }
+        
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
         if ($this::existeCarrera($entity)) {
-            $deleteForm = $this->createDeleteForm($id);
-            $editForm = $this->createEditForm($entity);
-            $editForm->handleRequest($request);
-
             if ($editForm->isValid()) {
                 $em->flush();
 

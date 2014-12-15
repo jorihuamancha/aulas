@@ -147,10 +147,11 @@ class AulaController extends Controller
             throw $this->createNotFoundException('No pudimos encontrar el aula :/ intenta cargar nuevamente la pagina');
         }
 
+       
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
         if ($this::existeAula($entity)){
-            $deleteForm = $this->createDeleteForm($id);
-            $editForm = $this->createEditForm($entity);
-            $editForm->handleRequest($request);
             if ($editForm->isValid()) {
                 $em->flush();
                 return $this->redirect($this->generateUrl('aulas_aula_edit', array('id' => $id)));

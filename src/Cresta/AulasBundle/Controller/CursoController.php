@@ -172,11 +172,11 @@ class CursoController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
         }
+        
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
         if($this::existeCurso($entity)){
-            $deleteForm = $this->createDeleteForm($id);
-            $editForm = $this->createEditForm($entity);
-            $editForm->handleRequest($request);
-
             if ($editForm->isValid()) {
                 $em->flush();
 
