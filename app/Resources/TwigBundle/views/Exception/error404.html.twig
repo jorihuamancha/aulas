@@ -1,0 +1,11 @@
+{% extends 'baseError.html.twig' %}
+{% block title %} Error 404 {% endblock %}
+{% block body %}
+<center>
+<h1>ERROR {{ status_code }}</h1>
+<h3>LA PÁGINA NO FUE ENCONTRADA</h3>
+<img src="{{ asset('img/error/ERROR.jpg') }}" alt="Logo CRESTA" />
+<h5>Por favor contacte al administrador e informe de ello</h5>
+</center>
+
+{% endblock %}
