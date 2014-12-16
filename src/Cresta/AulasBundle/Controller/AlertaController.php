@@ -177,7 +177,6 @@ class AlertaController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-       if ($this::existeAlerta($entity)) {
         if ($editForm->isValid()) {
              $em->flush();
              return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
@@ -189,9 +188,7 @@ class AlertaController extends Controller
        
           }
 
-        }else{
-            throw new Exception("Ya existe una Alerta con esa fecha revise e intente nuevamente.");
-        }
+       
        
     }
     /**
