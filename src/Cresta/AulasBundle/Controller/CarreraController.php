@@ -176,21 +176,17 @@ class CarreraController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        if ($this::existeCarrera($entity)) {
-            if ($editForm->isValid()) {
-                $em->flush();
+        if ($editForm->isValid()) {
+            $em->flush();
 
-                return $this->redirect($this->generateUrl('aulas_carrera_edit', array('id' => $id)));
-            }
-
-            return $this->render('CrestaAulasBundle:Carrera:edit.html.twig', array(
-                'entity'      => $entity,
-                'edit_form'   => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            ));
-        }else{
-             throw new Exception("Ya existe una Carrera con ese nombre modifique e intente nuevamente");
+            return $this->redirect($this->generateUrl('aulas_carrera_edit', array('id' => $id)));
         }
+
+        return $this->render('CrestaAulasBundle:Carrera:edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
         
     }
     /**
