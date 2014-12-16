@@ -151,19 +151,16 @@ class AulaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        if ($this::existeAula($entity)){
-            if ($editForm->isValid()) {
-                $em->flush();
-                return $this->redirect($this->generateUrl('aulas_aula_edit', array('id' => $id)));
-            }
-            return $this->render('CrestaAulasBundle:Aula:edit.html.twig', array(
-                'entity'      => $entity,
-                'edit_form'   => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            ));
-        }else{
-            throw new Exception("Ya existe un Aula con ese nombre modifique e intente nuevamente"); 
+        if ($editForm->isValid()) {
+            $em->flush();
+            return $this->redirect($this->generateUrl('aulas_aula_edit', array('id' => $id)));
         }
+        return $this->render('CrestaAulasBundle:Aula:edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+        
     }
     /**
      * Deletes a Aula entity.
