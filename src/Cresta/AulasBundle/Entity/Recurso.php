@@ -28,14 +28,6 @@ class Recurso
      */
     private $nombre;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="activo", type="boolean")
-     */
-    private $activo;
-
-
 
     /* ----------------------------------------------Fin recurso-Recurso----------------------------------------------------------*/
 
