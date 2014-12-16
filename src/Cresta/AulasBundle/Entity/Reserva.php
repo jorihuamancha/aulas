@@ -37,11 +37,6 @@ class Reserva
     private $curso;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Carrera")
-     */
-    private $carrera;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Actividad")
      */
     private $actividad;
@@ -369,7 +364,9 @@ class Reserva
      */
     public function setFechaRegistro($fechaRegistro)//$fechaRegistro)
     {
+        //$fechaRegistro=date('Y-m-d');
         $this->fechaRegistro = $fechaRegistro;
+
         return $this;
     }
 
@@ -391,7 +388,9 @@ class Reserva
      */
     public function setHoraRegistro($horaRegistro)//$horaRegistro)
     {
+        //$horaRegistro= date('h:i:s');
         $this->horaRegistro = $horaRegistro;
+
         return $this;
     }
 
@@ -404,5 +403,7 @@ class Reserva
     {
         return $this->horaRegistro;
     }
+
+   
 
 }

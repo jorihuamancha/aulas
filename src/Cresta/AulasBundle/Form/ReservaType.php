@@ -32,7 +32,7 @@ class ReservaType extends AbstractType
                                             'attr'=>array('required'=>true,
                                                           'class'=>"chzn-select" ) ) )
             ->add('curso','entity',array(   'class'=>'CrestaAulasBundle:Curso',
-                                            'property'=>'nombre',
+                                            'property'=>'cursocarrera',
                                             'attr'=>array('required'=>true,
                                                           'class'=>"chzn-select" )))
             
