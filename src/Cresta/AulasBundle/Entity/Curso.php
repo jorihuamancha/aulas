@@ -96,4 +96,15 @@ class Curso extends Tarea
         return $this->id;
     }
 
+     /**
+     * Get CursoCarrera
+     *
+     * @return string 
+     */
+    public function getCursoCarrera()
+    {
+        $cursoCarrera=$this->getNombre().' - ('.$this->getCarrera().')';
+        return $cursoCarrera;
+    }
+
 }

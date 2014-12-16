@@ -37,6 +37,11 @@ class Reserva
     private $curso;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Carrera")
+     */
+    private $carrera;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Actividad")
      */
     private $actividad;
@@ -403,4 +408,5 @@ class Reserva
     {
         return $this->horaRegistro;
     }
+
 }

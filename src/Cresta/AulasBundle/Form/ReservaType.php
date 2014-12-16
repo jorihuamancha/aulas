@@ -26,16 +26,16 @@ class ReservaType extends AbstractType
             //->add('usuario', 'text', array('attr'=>array('class'=>'oculto')))
             ->add('estado', 'checkbox', array(  'data'=>true, 'required'=>false,
                                                 'attr'=>array('class'=>'oculto')))
-            ->add('observaciones', 'text', array('required'=>false))
+            
             ->add('docente','entity',array( 'class'=>'CrestaAulasBundle:Docente',
                                             'property'=>'apellido'.'nombre',
                                             'attr'=>array('required'=>true) ) )
             ->add('curso','entity',array(   'class'=>'CrestaAulasBundle:Curso',
-                                            'property'=>'nombre',
+                                            'property'=>'cursocarrera',
                                             'attr'=>array('required'=>true)))
-            ->add('carrera', 'entity', array(   'class'=>'CrestaAulasBundle:Curso',
-                                                'property'=>'nombre',
-                                                'attr'=>array(  'disabled'=>true)))
+            /*->add('carrera', 'entity', array(   'class'=>'CrestaAulasBundle:Carrera',
+                                                'property'=>'nombre'))*///,
+                                                //'attr'=>array(  'disabled'=>false)))
             ->add('actividad','entity',array(   'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
                                                 'attr'=>array(  'disabled'=>'true',
@@ -63,6 +63,7 @@ class ReservaType extends AbstractType
             ->add('aula','entity',array('class'=>'CrestaAulasBundle:Aula',
                                         'property'=>'nombre'.'capacidad',
                                         'attr'=>array('required'=>true)))
+            ->add('observaciones', 'text', array('required'=>false))
             ->add('fechaRegistro', 'datetime', array(   'data'=>$fechaActual, //new \DateTime("Y-m-d"),
                                                         'attr'=>array('class'=>'oculto'),
                                                         'label'=>' '))
