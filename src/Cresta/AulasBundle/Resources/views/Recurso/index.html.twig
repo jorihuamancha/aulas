@@ -13,7 +13,7 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Activo</th>
+               
                 <th>Acción</th>
             </tr>
         </thead>
@@ -21,14 +21,7 @@
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.nombre }}</td>
-                <td>
-                {% if entity.activo==1 %}
-                    SI
-                {% else %}
-                    NO                
-                {% endif %}
-
-                </td>
+               
                 <td>
                 <ul>
                     
