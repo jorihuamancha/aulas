@@ -17,12 +17,14 @@
 <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
 <script src="{{ asset('bootstrap/js/twitter-bootstrap-hover-dropdown.min.js') }}"></script>
 
-       <title>{% block title %}Titulo{% endblock %} | Gesti&oacute;n de Aulas - CRESTA</title>
+<link href="{{ asset('chosen/chosen.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
+<title>{% block title %}Titulo{% endblock %} | Gesti&oacute;n de Aulas - CRESTA</title>
 
 <!-- Ventana emergente BACKUP BASE DE DATOS -->
 <script language="JavaScript">
   function Backup() {
-  open("/aulas/web/backups/index.php","Resguardo de Base de Datos", "scrollbar=no,toolbar=no,menubar=no,status=no,resizable=no,titlebar=no,location=0,height=180px,width=500px,left="+(screen.width/3)+",top="+(screen.height/3)+"");
+  open("{{ path('_homepage') }}../backups/index.php","Resguardo de Base de Datos", "scrollbar=no,toolbar=no,menubar=no,status=no,resizable=no,titlebar=no,location=0,height=180px,width=500px,left="+(screen.width/3)+",top="+(screen.height/3)+"");
   }
 </script>
 <!-- Fin ventana emergente de backup -->

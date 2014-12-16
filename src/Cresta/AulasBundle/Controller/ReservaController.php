@@ -37,6 +37,9 @@ class ReservaController extends Controller
         if (!$entities){
             $entities=null;
         }
+        else {
+            $_SESSION['entities']=$entities;
+        }
         return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array(
             'entities' => $entities,
             'filtroActivo' => $filtroActivo,
@@ -416,7 +419,13 @@ class ReservaController extends Controller
 
     public function imprimirAction(){// http://localhost/aulas/web/app_dev.php/imprimir/listado.pdf
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
+        //$entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
+        $entities = $_SESSION['entities'];
+        if ($_SESSION['entities']){
+            die ('si');
+        }
+        else {die('no');}
+        die();
         $formato=$this->get('request')->get('_format');
         return $this->render(sprintf('CrestaAulasBundle:Reserva:imprimirlistado.pdf.twig', $formato ),  
         array( 'entities'=>$entities) );   //'nombre'=>$nombre) );
@@ -491,7 +500,12 @@ class ReservaController extends Controller
             if (!$entities){
                 $entities=null;
             }
+            else {
+                $_SESSION['entities']=$entities;
+            }
+
             $filtroActivo = 1;
+
 
     return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array(
             'entities' => $entities,
