@@ -112,7 +112,7 @@ class Reserva
         return $this->recursos;
     }
 
-    public function setRecursos(\src\Cresta\AulasBundle\Entity\Recurso $recursos){
+    public function setRecursos($recursos){
         $this->recursos []=$recursos;
     }
 

@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- Designed by Alejandro Cabane -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="{{ asset('css/base.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
+<script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
+<script src="{{ asset('bootstrap/js/twitter-bootstrap-hover-dropdown.min.js') }}"></script>
+<title>{% block title %}Titulo{% endblock %} | Gesti&oacute;n de Aulas - CRESTA</title>
+</head>
+<body>
+<div class="container">
+<header class="col-md-12 col-sm-12 col-xs-12">
+	<div id="logo" class="col-md-3 col-sm-3 col-xs-12">
+    <img src="{{ asset('img/logo.jpg') }}" alt="Logo CRESTA" />
+	</div>
+	<div class="col-md-9 col-sm-9 col-xs-12">
+
+	</div>
+</header>
+
+<div id="Contenido" class="col-md-12 col-sm-12 col-xs-12" >
+ 		{% block body %}
+    {% endblock %} 
+</div>
+	<!--fin Contenido-->
+<footer class="col-md-12 col-sm-12 col-xs-12">
+
+</footer>
+</div>
+   
+</body>
+</html>

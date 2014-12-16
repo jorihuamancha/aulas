@@ -429,16 +429,48 @@ class ReservaController extends Controller
     public function imprimirAction(){// http://localhost/aulas/web/app_dev.php/imprimir/listado.pdf
         $em = $this->getDoctrine()->getManager();
         //$entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
-        $entities = $_SESSION['entities'];
-        if ($_SESSION['entities']){
-            die ('si');
+        //$entities = $_SESSION['entities'];
+        $nombrefiltro=$_SESSION['nombrefiltro'];
+        $filtro=$_SESSION['filtro'];
+        switch ($nombrefiltro){
+            case 'Todos':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
+                break;
+
+            case 'Docente':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($filtro);
+                break;
+
+            case 'Fecha':
+                $em = $this->getDoctrine()->getManager();
+                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )
+                ->setParameter('fecha1', $_SESSION['fecha1'])
+                ->setParameter('fecha2', $_SESSION['fecha2'])
+                ->orderBy('r.fecha', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+            case 'Aula':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByAula($filtro);
+                break;
+
+            case 'Curso':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByCurso($filtro);
+                break;
+
+            case 'Actividad':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($filtro);
+                break;
         }
-        else {die('no');}
-        die();
+
         $formato=$this->get('request')->get('_format');
         return $this->render(sprintf('CrestaAulasBundle:Reserva:imprimirlistado.pdf.twig', $formato ),  
         array( 'entities'=>$entities) );   //'nombre'=>$nombre) );
     }
+
 
     public function filtroAction(){
         $filtro=$this->get('request')->get('filtro');
@@ -447,6 +479,7 @@ class ReservaController extends Controller
 
             case 'Todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
+                $_SESSION['nombrefiltro']='Todos';
                 break;
 
             case 'Fecha':
@@ -458,6 +491,9 @@ class ReservaController extends Controller
                 ->orderBy('r.fecha', 'ASC')
                 ->getQuery();
                 $entities = $query->getResult();
+                $_SESSION['nombrefiltro']='Fecha';
+                $_SESSION['fecha1']=$_POST['fecha1'];
+                $_SESSION['fecha2']=$_POST['fecha2'];
                 break;
 
             case 'Docente':
@@ -470,12 +506,16 @@ class ReservaController extends Controller
                 ->setParameter('dato', '%'.$_POST['dato'].'%')
                 ->getQuery();
                 $docente = $query->getResult();
+                $_SESSION['filtro']=$docente;
+                $_SESSION['nombrefiltro']='Docente';
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($docente);
                 break;
 
             case 'Aula':
                 $aula = $em->getRepository('CrestaAulasBundle:Aula')->findByNombre($_POST['dato']);
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByAula($aula);
+                $_SESSION['filtro']=$aula;
+                $_SESSION['nombrefiltro']='Aula';
                 break;
 
             case 'Tarea':
@@ -493,6 +533,8 @@ class ReservaController extends Controller
                 ->getQuery();
                 $curso = $query->getResult();
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByCurso($curso);
+                $_SESSION['filtro']=$curso;
+                $_SESSION['nombrefiltro']='Curso';
                 if (!$entities){
                     $actividad = $em->getRepository('CrestaAulasBundle:Actividad');
                     $query = $actividad->createQueryBuilder('a')
@@ -501,6 +543,8 @@ class ReservaController extends Controller
                     ->getQuery();
                     $actividad = $query->getResult();
                     $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($actividad);
+                    $_SESSION['filtro']=$actividad;
+                    $_SESSION['nombrefiltro']='Actividad';
                 }
 
                 break;
@@ -508,9 +552,6 @@ class ReservaController extends Controller
 
             if (!$entities){
                 $entities=null;
-            }
-            else {
-                $_SESSION['entities']=$entities;
             }
 
             $filtroActivo = 1;
