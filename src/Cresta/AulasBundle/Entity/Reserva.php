@@ -369,9 +369,7 @@ class Reserva
      */
     public function setFechaRegistro($fechaRegistro)//$fechaRegistro)
     {
-        //$fechaRegistro=date('Y-m-d');
         $this->fechaRegistro = $fechaRegistro;
-
         return $this;
     }
 
@@ -393,9 +391,7 @@ class Reserva
      */
     public function setHoraRegistro($horaRegistro)//$horaRegistro)
     {
-        //$horaRegistro= date('h:i:s');
         $this->horaRegistro = $horaRegistro;
-
         return $this;
     }
 

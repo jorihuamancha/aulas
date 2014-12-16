@@ -103,7 +103,8 @@ class Curso extends Tarea
      */
     public function getCursoCarrera()
     {
-        $cursoCarrera=$this->getNombre().' - ('.$this->getCarrera().')';
+        $carrera=$this->getCarrera()->getNombre();
+        $cursoCarrera=$this->getNombre().' - ('.$carrera.')';
         return $cursoCarrera;
     }
 

@@ -25,13 +25,12 @@ class ReservaType extends AbstractType
                                             'label'=>' '))
             //->add('usuario', 'text', array('attr'=>array('class'=>'oculto')))
             ->add('estado', 'checkbox', array(  'data'=>true, 'required'=>false,
-                                                'attr'=>array('class'=>'oculto')))
-            
+                                                'attr'=>array('class'=>'oculto')))            
             ->add('docente','entity',array( 'class'=>'CrestaAulasBundle:Docente',
                                             'property'=>'apellido'.'nombre',
                                             'attr'=>array('required'=>true) ) )
             ->add('curso','entity',array(   'class'=>'CrestaAulasBundle:Curso',
-                                            'property'=>'cursocarrera',
+                                            'property'=>'CursoCarrera',
                                             'attr'=>array('required'=>true)))
             /*->add('carrera', 'entity', array(   'class'=>'CrestaAulasBundle:Carrera',
                                                 'property'=>'nombre'))*///,
