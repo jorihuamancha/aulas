@@ -19,34 +19,5 @@ class Docente extends Persona
 
     private $personaDocente;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="activo", type="boolean")
-     */
-    private $activo;
-
-
-    /**
-     * Set activo
-     *
-     * @param boolean $activo
-     * @return Docente
-     */
-    public function setActivo($activo)
-    {
-        $this->activo = $activo;
-
-        return $this;
-    }
-
-    /**
-     * Get activo
-     *
-     * @return boolean 
-     */
-    public function getActivo()
-    {
-        return $this->activo;
-    }
+ 
 }
