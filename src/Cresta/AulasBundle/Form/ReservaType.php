@@ -29,17 +29,19 @@ class ReservaType extends AbstractType
             ->add('observaciones', 'text', array('required'=>false))
             ->add('docente','entity',array( 'class'=>'CrestaAulasBundle:Docente',
                                             'property'=>'apellido'.'nombre',
-                                            'attr'=>array('required'=>true) ) )
+                                            'attr'=>array('required'=>true,
+                                                          'class'=>"chzn-select" ) ) )
             ->add('curso','entity',array(   'class'=>'CrestaAulasBundle:Curso',
                                             'property'=>'nombre',
-                                            'attr'=>array('required'=>true)))
-            ->add('carrera', 'entity', array(   'class'=>'CrestaAulasBundle:Curso',
-                                                'property'=>'nombre',
-                                                'attr'=>array(  'disabled'=>true)))
+                                            'attr'=>array('required'=>true,
+                                                          'class'=>"chzn-select" )))
+            
             ->add('actividad','entity',array(   'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
                                                 'attr'=>array(  'disabled'=>'true',
-                                                                'required=>true') ) )
+                                                                'required'=>'true',
+                                                                'class'=>"chzn-select", 
+                                                                'style'=>"width:200px" ) ))
             ->add('fecha', 'datetime', array(   'data'=>$fechaActual,
                                                 'attr'=>array('required'=>true )))//new \DateTime()->format('Y-m-d') ) ) //("now")
             ->add('horaDesde', 'datetime', array(   'data'=>$horaActual,
