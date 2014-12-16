@@ -1,11 +1,16 @@
 {% extends 'baseError.html.twig' %}
-{% block title %} Error 404 {% endblock %}
+{% block title %} Error 500 {% endblock %}
 {% block body %}
 <center>
-<h1>ERROR {{ status_code }}</h1>
-<h3>OCURRIÓ UN ERROR INTERNO</h3>
+<h1>OCURRIÓ UN ERROR</h1>
+
+<h3>{{ exception.message|nl2br|format_file_from_text }}</h3>
+</br>
 <img src="{{ asset('img/error/ERROR.jpg') }}" alt="Logo CRESTA" />
-<h5>Por favor contacte al administrador e informe de ello</h5>
+</br>
+<a class="btn btn-default botonTabla" href="{{ app.request.headers.get('referer') }}"> Volver </a>
+<h3>ERROR {{ status_code }}</h4>
+<h5> {{ status_text }} </h5>
 </center>
 
 {% endblock %}

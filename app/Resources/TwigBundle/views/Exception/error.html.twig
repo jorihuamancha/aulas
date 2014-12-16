@@ -1,0 +1,12 @@
+{% extends 'baseError.html.twig' %}
+{% block title %} Error 500 {% endblock %}
+{% block body %}
+<center>
+<h1>ERROR {{ status_code }}</h1>
+<h3>OCURRIÓ UN ERROR</h3>
+<img src="{{ asset('img/error/ERROR.jpg') }}" alt="Logo CRESTA" />
+<h4> {{ status_text }} </h4>
+<h5>Por favor contacte al administrador e informe de ello</h5>
+</center>
+
+{% endblock %}
