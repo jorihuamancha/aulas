@@ -72,6 +72,8 @@ class ReservaController extends Controller
 
                 $fechaActual=new \DateTime('now');
                 $fechaActual->setTime(00, 00, 00);
+
+
                 if(($entity->getFecha()>=$fechaActual)&&($entity->getHoraDesde()<$entity->getHoraHasta())){
                     $gola=1; //antes solíamos ser creativos en los nombres de las variables.
                 }else{
@@ -94,7 +96,14 @@ class ReservaController extends Controller
             'form'   => $form->createView()
         ));
     }
+    private function estaEntre ($fecha, $paramDesde, $paramHasta, $aula){
+        $em = $this->getDoctrine()->getManager();
+        $parameters = array('paramDesde' => $paramDesde,'paramHasta' =>  $paramHasta);
+        $query=$em->createQuery('   SELECT r FROM CrestaAulasBundle:Reserva r 
+                                    WHERE r.aula= :aula AND r.fecha= :fecha AND 
+                                    r.horaDesde= :paramDesde AND r.horaHasta= :paramHasta')->setParameters($parameters);
 
+    }
     /*public function sePuede($fecha, $paramDesde, $paramHasta, $aula){
         die($paramHasta);
         $em = $this->getDoctrine()->getManager();//tiro todas las reservas que podrian chocar con la mia
