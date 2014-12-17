@@ -386,7 +386,6 @@ class ReservaController extends Controller
 
 
 
-
     /**
      * Deletes a Reserva entity.
      *
@@ -405,7 +404,7 @@ class ReservaController extends Controller
                 throw $this->createNotFoundException('Unable to find Reserva entity.');
             }
             
-            
+         
             $this->nuevoMovimiento($idReserva);
 
 
