@@ -105,6 +105,10 @@ class ReservaController extends Controller
             'form'   => $form->createView()
         ));
     }
+
+    private function conprobarAlerta ($fecha){
+
+    }
     private function estaEntre ($fecha, $paramDesde, $paramHasta, $aula){
        //die($paramHasta);
         //$em = $this->getDoctrine()->getManager();//tiro todas las reservas que podrian chocar con la mia
@@ -300,6 +304,23 @@ class ReservaController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            //modificado para que grabe las fechas y horas con formato
+            $fecha=$entity->getFecha();
+            $fecha->setTime(00, 00, 00);
+            $entity->setFecha($fecha);
+
+            $horaDesde=$entity->getHoraDesde();
+            $horaDesde->setDate(2000, 01, 01);
+            $entity->setHoraDesde($horaDesde);
+
+            $horaHasta=$entity->getHoraHasta();
+            $horaHasta->setDate(2000, 01, 01);
+            $entity->setHoraHasta($horaHasta);
+
+            $fechaActual=new \DateTime('now');
+            $fechaActual->setTime(00, 00, 00);
+            //fin de configuracion de las fechas y horas
+
             $em->flush();
 
             //return $this->redirect($this->generateUrl('reserva_edit', array('id' => $id)));
