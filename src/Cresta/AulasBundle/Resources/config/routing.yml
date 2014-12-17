@@ -1,6 +1,6 @@
 _homepage:
     path:     /
-    defaults: { _controller: CrestaAulasBundle:Default:index }
+    defaults: { _controller: CrestaAulasBundle:Reserva:index }
 
 _acercade:
     path:     /acercade
