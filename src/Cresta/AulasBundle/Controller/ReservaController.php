@@ -159,27 +159,7 @@ class ReservaController extends Controller
             return false;
         }
     }
-    /*public function sePuede($fecha, $paramDesde, $paramHasta, $aula){
-        die($paramHasta);
-        $em = $this->getDoctrine()->getManager();//tiro todas las reservas que podrian chocar con la mia
-        $query=$em->createQuery('   SELECT r FROM CrestaAulasBundle:Reserva r 
-                                    WHERE r.aula= :aula AND r.fecha= :fecha AND 
-                                    (r.horaDesde BETWEEN (:paramDesde AND :paramHasta) ) OR 
-                                    (r.horaHasta BETWEEN (:paramDesde AND :paramHasta) ) OR
-                                    (r.horaDesde<=:paramDesde AND r.horaHasta>=:paramHasta)                                    
-                                    ');
-        //r.horaDesde y r.horaHasta son los valores de las tuplas
-        $listado=$query->getResult();
-        $re=$listado[0]->getObservaciones();
-        die($re);
-        /*if(empty($listado)){
-            return false;
-        }else{
-            return true;
-        }
-
-    }*/
-
+    
     /**
      * Creates a form to create a Reserva entity.
      *
