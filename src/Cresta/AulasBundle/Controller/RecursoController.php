@@ -180,7 +180,8 @@ class RecursoController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_recurso_edit', array('id' => $id)));
+//            return $this->redirect($this->generateUrl('aulas_recurso_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('aulas_recurso_show', array('id' => $id)));
         }
 
         return $this->render('CrestaAulasBundle:Recurso:edit.html.twig', array(
