@@ -41,6 +41,8 @@ class ReservaController extends Controller
                 ->getQuery();
         $entities = $query->getResult();
 
+        $_SESSION['nombrefiltro']='Hoy'; //Para imprimir
+
         if (!$entities){
             $entities=null;
         }
@@ -418,9 +420,20 @@ class ReservaController extends Controller
         //$entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
         //$entities = $_SESSION['entities'];
         $nombrefiltro=$_SESSION['nombrefiltro'];
-        $filtro=$_SESSION['filtro'];
+        if (isset($_SESSION['filtro'])){
+            $filtro=$_SESSION['filtro'];
+        }
         switch ($nombrefiltro){
             case 'Hoy':
+                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                        ->where('r.fecha >= :fecha')
+                        ->setParameter('fecha', date('Y-m-d'))
+                        ->getQuery();
+                $entities = $query->getResult();
+                break;
+            
+            case 'Todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
                 break;
 
@@ -463,10 +476,9 @@ class ReservaController extends Controller
         $filtro=$this->get('request')->get('filtro');
         $em = $this->getDoctrine()->getManager();
         switch ($filtro) {
-
             case 'Todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
-                $_SESSION['nombrefiltro']='Todos';
+                $_SESSION['nombrefiltro']='Todos';//Para imprimir
                 break;
 
             case 'Fecha':
@@ -479,8 +491,8 @@ class ReservaController extends Controller
                 ->getQuery();
                 $entities = $query->getResult();
                 $_SESSION['nombrefiltro']='Fecha';
-                $_SESSION['fecha1']=$_POST['fecha1'];
-                $_SESSION['fecha2']=$_POST['fecha2'];
+                $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
+                $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir
                 break;
 
             case 'Docente':
@@ -493,16 +505,16 @@ class ReservaController extends Controller
                 ->setParameter('dato', '%'.$_POST['dato'].'%')
                 ->getQuery();
                 $docente = $query->getResult();
-                $_SESSION['filtro']=$docente;
-                $_SESSION['nombrefiltro']='Docente';
+                $_SESSION['filtro']=$docente;//Para imprimir
+                $_SESSION['nombrefiltro']='Docente';//Para imprimir
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($docente);
                 break;
 
             case 'Aula':
                 $aula = $em->getRepository('CrestaAulasBundle:Aula')->findByNombre($_POST['dato']);
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByAula($aula);
-                $_SESSION['filtro']=$aula;
-                $_SESSION['nombrefiltro']='Aula';
+                $_SESSION['filtro']=$aula;//Para imprimir
+                $_SESSION['nombrefiltro']='Aula';//Para imprimir
                 break;
 
             case 'Tarea':
@@ -530,8 +542,8 @@ class ReservaController extends Controller
                     ->getQuery();
                     $actividad = $query->getResult();
                     $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($actividad);
-                    $_SESSION['filtro']=$actividad;
-                    $_SESSION['nombrefiltro']='Actividad';
+                    $_SESSION['filtro']=$actividad;//Para imprimir
+                    $_SESSION['nombrefiltro']='Actividad';//Para imprimir
                 }
 
                 break;
