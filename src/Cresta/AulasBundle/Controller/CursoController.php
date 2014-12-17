@@ -200,17 +200,18 @@ class CursoController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-//        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
-            }
+        if (!$entity) {
+            throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
+        }elseif ($this::estaEnUso($entity)) {
+            throw new Exception("Este curso esta actualmente en una reserva, elimine la reserva y podra eliminar el curso");
+        }
 
-            $em->remove($entity);
-            $em->flush();
-  //      }
+        $em->remove($entity);
+        $em->flush();
+ 
 
         return $this->redirect($this->generateUrl('aulas_curso'));
     }
@@ -253,4 +254,17 @@ class CursoController extends Controller
             return false;
         }
      }
+
+      private function estaEnUso($entity){ 
+        $em = $this->getDoctrine()->getManager();
+        $curso = $entity->getId();
+        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.curso = :curso')->setParameter('curso', $curso);
+        $unaConsulta = $query->getResult();
+        if(empty($unaConsulta)){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }
+

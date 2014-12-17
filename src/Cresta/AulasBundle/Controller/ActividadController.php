@@ -200,17 +200,18 @@ class ActividadController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        //if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('CrestaAulasBundle:Actividad')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('CrestaAulasBundle:Actividad')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('No pudimos encontrar esta Actividad :/ recarga la pagina e intenta nuevamente');
-            }
+        if (!$entity) {
+            throw $this->createNotFoundException('No pudimos encontrar esta Actividad :/ recarga la pagina e intenta nuevamente');
+        }elseif ($this::estaEnUso($entity)) {
+            throw new Exception("Esta Actividad esta actualmente en una reserva, elimine la reserva y podra eliminar la Actividad");
+        }
 
-            $em->remove($entity);
-            $em->flush();
-       // }
+        $em->remove($entity);
+        $em->flush();
+
 
         return $this->redirect($this->generateUrl('aulas_actividad'));
     }
@@ -251,4 +252,17 @@ class ActividadController extends Controller
             return false;
         }
      }
+
+     private function estaEnUso($entity){ 
+        $em = $this->getDoctrine()->getManager();
+        $actividad = $entity->getId();
+        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.actividad = :actividad')->setParameter('actividad', $actividad);
+        $unaConsulta = $query->getResult();
+        if(empty($unaConsulta)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 }
