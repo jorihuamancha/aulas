@@ -54,7 +54,7 @@
                 </a>
         </ul>
         <ul>
-                <a href="imprimirlistado.pdf" target="_blank" class="btn btn-default botonTabla">
+                <a href="{{ path('reserva') }}imprimirlistado.pdf" target="_blank" class="btn btn-default botonTabla">
                     Imprimir
                 </a>
         </ul>
@@ -145,7 +145,7 @@
                         
                     <a href="{{ path('reserva_edit', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/editar.png') }}" class="icono" alt="Editar" /></a>
 
-                    <a href="{{ path('reserva_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" alt="Borrar" /></a>
+                    <a href="{{ path('reserva_delete', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/borrar.png') }}" class="icono" onclick="return confirmar()" alt="Borrar" /></a>
                 </ul>
                 </td>
             </tr>
@@ -153,4 +153,15 @@
         </tbody>
         {% endif %}
     </table>
+    <script>
+
+      function confirmar(){
+        if (confirm("¿Realmente desea realizar esta accion?") == true) {
+            return true;
+        }else{
+          return false;
+        }
+      }
+    
+    </script>
     {% endblock %}

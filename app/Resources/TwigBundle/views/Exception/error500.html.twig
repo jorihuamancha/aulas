@@ -1,0 +1,16 @@
+{% extends 'baseError.html.twig' %}
+{% block title %} Error 500 {% endblock %}
+{% block body %}
+<center>
+<h1>OCURRIÓ UN ERROR</h1>
+
+<h3>{{ exception.message|nl2br|format_file_from_text }}</h3>
+</br>
+<img src="{{ asset('img/error/ERROR.jpg') }}" alt="Logo CRESTA" />
+</br>
+<a class="btn btn-default botonTabla" href="{{ app.request.headers.get('referer') }}"> Volver </a>
+<h3>ERROR {{ status_code }}</h4>
+<h5> {{ status_text }} </h5>
+</center>
+
+{% endblock %}
