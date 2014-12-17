@@ -177,7 +177,8 @@ class UsuarioController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_usuario_edit', array('id' => $id)));
+            //return $this->redirect($this->generateUrl('aulas_usuario_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('aulas_usuario_show', array('id' => $id)));
         }
 
         return $this->render('CrestaAulasBundle:Usuario:edit.html.twig', array(

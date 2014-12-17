@@ -174,7 +174,8 @@ class DocenteController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_docente_edit', array('id' => $id)));
+            //return $this->redirect($this->generateUrl('aulas_docente_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('aulas_docente_show', array('id' => $id)));
         }
 
         return $this->render('CrestaAulasBundle:Docente:edit.html.twig', array(

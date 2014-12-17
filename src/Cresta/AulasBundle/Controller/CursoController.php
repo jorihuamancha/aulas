@@ -179,7 +179,8 @@ class CursoController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_curso_edit', array('id' => $id)));
+//            return $this->redirect($this->generateUrl('aulas_curso_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('aulas_curso_show', array('id' => $id)));
         }
 
         return $this->render('CrestaAulasBundle:Curso:edit.html.twig', array(

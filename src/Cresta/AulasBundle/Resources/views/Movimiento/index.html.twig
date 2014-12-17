@@ -11,7 +11,7 @@
                 <th>Aula</th>
                 <th>Fecha desde</th>
                 <th>Fecha hasta</th>
-                <th>Fecha de Movimiento</th>
+                <th>Fecha de Reserva</th>
 
 
             </tr>
@@ -20,12 +20,12 @@
         {% for entity in entities %}
             <tr>
      
-                <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if entity.fecha %}{{ entity.fecha|date('d-m-Y') }}{% endif %}</td>
                 <td>{{ entity.movimientoPersona }}</td>
                 <td>{{ entity.reservaAula }}</td>
-                <td>{{ entity.reservaHoraDesde |date('H:i') }}</td>
-                <td>{{ entity.reservaHoraHasta |date('H:i') }}</td>                       
-                <td>{% if entity.reservaParaDiaDeReserva %}{{ entity.reservaParaDiaDeReserva|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ entity.reservaHoraDesde |date('H:i') }}hs</td>
+                <td>{{ entity.reservaHoraHasta |date('H:i') }}hs</td>                       
+                <td>{% if entity.reservaParaDiaDeReserva %}{{ entity.reservaParaDiaDeReserva|date('d-m-Y') }}{% endif %}</td>
 
             </tr>
         {% endfor %}

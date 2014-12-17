@@ -153,7 +153,8 @@ class AulaController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('aulas_aula_edit', array('id' => $id)));
+            //return $this->redirect($this->generateUrl('aulas_aula_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('aulas_aula_show', array('id' => $entity->getId())));
         }
         return $this->render('CrestaAulasBundle:Aula:edit.html.twig', array(
             'entity'      => $entity,

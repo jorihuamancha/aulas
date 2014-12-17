@@ -179,7 +179,8 @@ class CarreraController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('aulas_carrera_edit', array('id' => $id)));
+            //return $this->redirect($this->generateUrl('aulas_carrera_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('aulas_carrera_show', array('id' => $id)));
         }
 
         return $this->render('CrestaAulasBundle:Carrera:edit.html.twig', array(

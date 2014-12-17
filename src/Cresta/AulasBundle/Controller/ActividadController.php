@@ -153,7 +153,8 @@ class ActividadController extends Controller
             'action' => $this->generateUrl('aulas_actividad_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('submit', 'submit', array('label' => 'Editar','attr'=>array('class'=>'btn btn-default botonTabla')));
+
+        $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
         $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../actividad','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
@@ -178,8 +179,8 @@ class ActividadController extends Controller
         
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('aulas_actividad_edit', array('id' => $id)));
+            //return $this->redirect($this->generateUrl('aulas_actividad_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('aulas_actividad_show', array('id' => $entity->getId())));
         }
 
         return $this->render('CrestaAulasBundle:Actividad:edit.html.twig', array(

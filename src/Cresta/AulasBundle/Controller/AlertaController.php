@@ -179,17 +179,16 @@ class AlertaController extends Controller
 
         if ($editForm->isValid()) {
              $em->flush();
-             return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
-             return $this->render('CrestaAulasBundle:Alerta:edit.html.twig', array(
+             //return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
+             return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));
+          }
+
+
+    return $this->render('CrestaAulasBundle:Alerta:edit.html.twig', array(
                 'entity'      => $entity,
                 'edit_form'   => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
             ));
-       
-          }
-
-       
-       
     }
     /**
      * Deletes a Alerta entity.
