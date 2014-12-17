@@ -82,17 +82,21 @@ class ReservaController extends Controller
                 $fechaActual=new \DateTime('now');
                 $fechaActual->setTime(00, 00, 00);
 
-
-                if(($entity->getFecha()>=$fechaActual)&&($entity->getHoraDesde()<$entity->getHoraHasta())){
-                    $gola=1; //antes solíamos ser creativos en los nombres de las variables.
-                }else{
-                    throw new Exception("Compruebe los campos de las fechas y las horas de la reserva.");   
+                if (!($entity->getFecha()>=$fechaActual)) {
+                    throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
                 }
+                elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
+
+                    throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
+
+                }elseif (!$this::conprobarAlerta($entity->getFecha())){
+
+                    throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
+                }
+
                 try{
-                //if(($entity->getFecha()>=$fechaActual)&&($entity->getHoraDesde()<$entity->getHoraHasta())){
                     $em->persist($entity);
                     $em->flush();
-                    
                 }catch(Exception $e){
                 //}
                     //$e->getMessage();
@@ -108,6 +112,15 @@ class ReservaController extends Controller
 
     private function conprobarAlerta ($fecha){
 
+        $em = $this->getDoctrine()->getManager();
+        $fecha = $fecha ;
+        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:Alerta a WHERE a.fecha = :fecha')->setParameter('fecha', $fecha);
+        $unaConsulta = $query->getResult();
+        if(empty($unaConsulta)){
+            return true;
+        }else{
+            return false;
+        }
     }
     private function estaEntre ($fecha, $paramDesde, $paramHasta, $aula){
        //die($paramHasta);
@@ -301,6 +314,17 @@ class ReservaController extends Controller
             $fechaActual->setTime(00, 00, 00);
             //fin de configuracion de las fechas y horas
 
+            if (!($entity->getFecha()>=$fechaActual)) {
+                    throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
+                }
+                elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
+
+                    throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
+
+                }elseif (!$this::conprobarAlerta($entity->getFecha())){
+
+                    throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
+                }
             $em->flush();
 
             //return $this->redirect($this->generateUrl('reserva_edit', array('id' => $id)));
