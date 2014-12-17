@@ -33,7 +33,14 @@ class ReservaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $filtroActivo=0;
 
-        $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
+        //$entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
+        $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+        $query = $reserva->createQueryBuilder('r')
+                ->where('r.fecha >= :fecha')
+                ->setParameter('fecha', date('Y-m-d'))
+                ->getQuery();
+        $entities = $query->getResult();
+
         if (!$entities){
             $entities=null;
         }
@@ -413,7 +420,7 @@ class ReservaController extends Controller
         $nombrefiltro=$_SESSION['nombrefiltro'];
         $filtro=$_SESSION['filtro'];
         switch ($nombrefiltro){
-            case 'Todos':
+            case 'Hoy':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
                 break;
 
