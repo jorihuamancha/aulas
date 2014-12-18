@@ -11,6 +11,14 @@
 			$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "none" );
 			$( "#cresta_aulasbundle_reserva > div:nth-child(5)" ).css( "display", "inline-block" );
 			$( "#cresta_aulasbundle_reserva > div:nth-child(6)" ).css( "display", "none" );
+
+			fechaActual=new Date();
+			anioActual=fechaActual.getFullYear();
+			mesActual=parseInt(fechaActual.getMonth())+1;
+			diaActual=fechaActual.getDate();
+			document.getElementById("cresta_aulasbundle_reserva_fecha_date_day").value=diaActual;
+			document.getElementById("cresta_aulasbundle_reserva_fecha_date_month").value=mesActual;
+			document.getElementById("cresta_aulasbundle_reserva_fecha_date_year").value=anioActual;		
 			}
 		)
 		function actividad(value){
