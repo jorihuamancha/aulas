@@ -34,20 +34,14 @@ class ReservaType extends AbstractType
             ->add('curso','entity',array(   'class'=>'CrestaAulasBundle:Curso',
                                             'property'=>'cursocarrera',
                                             'attr'=>array('required'=>true,
-                                                          'class'=>"chzn-select",
-                                                          'empty_data'  => null,
-                                                          'empty_value' => "Sin curso",
-                                                          'placeholder' => 'Choose your gender' )))
+                                                          'class'=>"chzn-select" )))
             
             ->add('actividad','entity',array(   'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
-                                                'attr'=>array(  'disabled'=>'true',
+                                                'attr'=>array( 
                                                                 'required'=>'true',
                                                                 'class'=>"chzn-select", 
-                                                                'style'=>"width:200px",
-                                                                'empty_data'  => null,
-                                                                'empty_value' => "Sin actividad",
-                                                                'placeholder' => 'Choose your gender', ) ))
+                                                                'style'=>"width:200px" ) ))
             ->add('fecha', 'datetime', array(   'data'=>$fechaActual,
                                                 'attr'=>array('required'=>true )))//new \DateTime()->format('Y-m-d') ) ) //("now")
             ->add('horaDesde', 'datetime', array(   'data'=>$horaActual,
