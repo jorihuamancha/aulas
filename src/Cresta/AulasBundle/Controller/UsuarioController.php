@@ -124,7 +124,7 @@ class UsuarioController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Usuario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
+            throw $this->createNotFoundException('No pudimos encontrar al usuario.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -167,7 +167,7 @@ class UsuarioController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Usuario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
+            throw $this->createNotFoundException('No pudimos encontrar al usuario..');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -201,7 +201,9 @@ class UsuarioController extends Controller
             $entity = $em->getRepository('CrestaAulasBundle:Usuario')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Usuario entity.');
+                throw $this->createNotFoundException('No pudimos encontrar al usuario.');
+            }elseif ($this::estaEnUso($entity)) {
+                throw new Exception("El usuario esta actualmente en una reserva, elimine la reserva e intente nuevamente.");
             }
 
             $em->remove($entity);
@@ -226,5 +228,17 @@ class UsuarioController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+     private function estaEnUso($entity){ 
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $entity->getId();
+        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.usuario = :usuario')->setParameter('usuario', $usuario);
+        $unaConsulta = $query->getResult();
+        if(empty($unaConsulta)){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

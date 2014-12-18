@@ -447,49 +447,21 @@ nav ul li a:hover{
 	padding:3px;
 }
 
-/* Alineación de formularios 
 
-#NuevaAlerta div:nth-child(2), #NuevaAlerta div:nth-child(3), #EditarAlerta div{
-	width:100%;
-}
-
-#NuevaAlerta div:nth-child(1){
-	width:200px;
-}
-
-
-
-#NuevaAula label, #EditarAula label, 
-#NuevoCurso label, #EditarCurso label,
-#NuevoActividad label, #EditarActividad label,
-#NuevoRecurso label, #EditarRecurso label,
-#NuevaAlerta label, #EditarAlerta label
-{
+/* Checkbox de reserva */
+#cresta_aulasbundle_reserva_recursos label,
+#cresta_aulasbundle_reserva_recursos input,
+#checkcurso label,
+#checkcurso input{
 	display:inline-block;
-	float:left;
-	margin-bottom:15px;
-	width:100px;
 }
-#NuevaAula input, #EditarAula input,
-#NuevoCurso input, #EditarCurso input,
-#NuevoActividad input, #EditarActividad input,
-#NuevoRecurso input, #EditarRecurso input,
-#NuevaAlerta input, #EditarAlerta input
-{
-	display:inline-block;
-	float:right;
-	margin-bottom:5px;
-	width: 200px;
+#cresta_aulasbundle_reserva_recursos label{
+	width:70%;
+	font-weight: normal;
+	margin-left:10px;
 }
-
-#NuevoCurso select, #EditarCurso select {
-	display: inline-block;
-	float:right;
-	margin-bottom: 10px;
-	width: 200px;
+#cresta_aulasbundle_reserva_recursos input{
+	margin-left:50px;
 }
-
-
- FIN Alineación de formularios */
 
 };

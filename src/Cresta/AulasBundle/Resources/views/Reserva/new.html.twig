@@ -8,6 +8,7 @@
 			document.getElementById("cresta_aulasbundle_reserva_horaDesde_date").style.display='block';
 			document.getElementById("cresta_aulasbundle_reserva_horaHasta_date").style.display='block';
 			$('select.chzn-select').chosen();
+			$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "none" );
 			$( "#cresta_aulasbundle_reserva > div:nth-child(5)" ).css( "display", "inline-block" );
 			$( "#cresta_aulasbundle_reserva > div:nth-child(6)" ).css( "display", "none" );
 			}
@@ -63,12 +64,13 @@
 
 		}
 	</script>
-
+<div class="formAutogenerado">
     <h1>Nueva Reserva</h1>
     <input type="hidden" id="idusuario" value="{{ usuario }}" disabled>
-
+    <div id="checkcurso">
 	<label>Curso : </label>
 	<input type="checkbox" onchange="actividad(this.checked);" checked>
+	</div>
 
     {{ form(form) }}
    	{#
@@ -102,11 +104,6 @@
 	{{ form_label(form.horaRegistro, {'attr':{'value':'oculto'}} ) }}
 	{{ form( form.usuario, {'data'})}}
 	<input type="hidden" id="idusuario" value="{{ usuario }}" disabled>#}
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('reserva') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+</div>
+</br>
 {% endblock %}

@@ -207,7 +207,7 @@ class ReservaController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Reserva entity.');
+            throw $this->createNotFoundException('');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -271,7 +271,7 @@ class ReservaController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Reserva entity.');
+            throw $this->createNotFoundException('No pudimos encontrar la reserva.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -386,7 +386,7 @@ class ReservaController extends Controller
             $idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
 
             if (!$idReserva) {
-                throw $this->createNotFoundException('Unable to find Reserva entity.');
+                throw $this->createNotFoundException('No pudimos encontrar la reserva.');
             }
             
                    
