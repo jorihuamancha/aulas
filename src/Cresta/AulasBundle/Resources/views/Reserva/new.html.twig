@@ -12,12 +12,20 @@
 		)
 		function actividad(value){
 			if(value!=true){
-				document.getElementById("cresta_aulasbundle_reserva_actividad").disabled=false;
-				document.getElementById("cresta_aulasbundle_reserva_curso").disabled=true;
+				$("#cresta_aulasbundle_reserva_actividad_chosen").addClass("chosen-container-active");
+				$("#cresta_aulasbundle_reserva_actividad_chosen").addClass("chosen-with-drop");
+				$("#cresta_aulasbundle_reserva_actividad_chosen").removeClass("chosen-disabled");
+				$("#cresta_aulasbundle_reserva_curso_chosen").removeClass("chosen-container-active");
+				$("#cresta_aulasbundle_reserva_curso_chosen").removeClass("chosen-with-drop");
+				$("#cresta_aulasbundle_reserva_curso_chosen").addClass("chosen-disabled");
 				}
 			else{
-				document.getElementById("cresta_aulasbundle_reserva_actividad").disabled=true;
-				document.getElementById("cresta_aulasbundle_reserva_curso").disabled=false;
+				$("#cresta_aulasbundle_reserva_actividad_chosen").removeClass("chosen-container-active");
+				$("#cresta_aulasbundle_reserva_actividad_chosen").addClass("chosen-disabled");
+				$("#cresta_aulasbundle_reserva_actividad_chosen").removeClass("chosen-with-drop");
+				$("#cresta_aulasbundle_reserva_curso_chosen").addClass("chosen-container-active");
+				$("#cresta_aulasbundle_reserva_curso_chosen").addClass("chosen-with-drop");
+				$("#cresta_aulasbundle_reserva_curso_chosen").removeClass("chosen-disabled");
 				}
 			}
 		function validar(){

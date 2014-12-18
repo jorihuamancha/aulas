@@ -381,7 +381,8 @@ class AulaController extends Controller
             $buscameEstoAhora = $meses[$mesActual];
             $pasar = $AnioActual . '-' . $asd . '-' . $seleccionadoDia;
             $parameters = array('fechitaMostri' => $pasar,'elaula' =>  $idDelAulaSeleccionada);
-            $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fecha = :fechitaMostri and r.aula = :elaula')->setParameters($parameters);
+            $query = $em->createQuery(' SELECT r FROM CrestaAulasBundle:Reserva r 
+                                        WHERE r.fecha = :fechitaMostri and r.aula = :elaula')->setParameters($parameters);
             $reservasMostrar = $query->getResult();
             $contador =0;
              foreach ($reservasMostrar as $aux) {
