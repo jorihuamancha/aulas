@@ -24,7 +24,7 @@ class Alerta
     /**
      * @var string
      *
-     * @ORM\Column(name="fecha", type="date" , unique=true)
+     * @ORM\Column(name="fecha", type="datetime" , unique=true)
      */
     private $fecha;
 

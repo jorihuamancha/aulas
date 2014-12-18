@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cresta\AulasBundle\Entity\Docente;
 use Cresta\AulasBundle\Form\DocenteType;
+use Exception;
+
 
 /**
  * Docente controller.
@@ -39,13 +41,16 @@ class DocenteController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('aulas_docente_show', array('id' => $entity->getId())));
+
         }
+        
 
         return $this->render('CrestaAulasBundle:Docente:new.html.twig', array(
             'entity' => $entity,
@@ -99,7 +104,7 @@ class DocenteController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Docente entity.');
+            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina :(');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -121,7 +126,7 @@ class DocenteController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Docente entity.');
+            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina :(');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -164,7 +169,7 @@ class DocenteController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Docente entity.');
+            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina :(');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -193,17 +198,19 @@ class DocenteController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-//        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Docente entity.');
-            }
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
-            $em->remove($entity);
-            $em->flush();
-//        }
+        if (!$entity) {
+            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina :(');
+        }elseif ($this::estaEnUso($entity)){
+            throw new Exception("Este docente esta actualmente en una reserva elimine la reserva y podra eliminar el docente");
+        }
+
+        $em->remove($entity);
+        $em->flush();
+
 
         return $this->redirect($this->generateUrl('aulas_docente'));
     }
@@ -224,4 +231,18 @@ class DocenteController extends Controller
             ->getForm()
         ;
     }
+
+    private function estaEnUso($entity){ 
+        $em = $this->getDoctrine()->getManager();
+        $docente = $entity->getId();
+        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.docente = :docente')->setParameter('docente', $docente);
+        $unaConsulta = $query->getResult();
+        if(empty($unaConsulta)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+     
 }

@@ -27,7 +27,7 @@ abstract class Persona
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=45, unique=true)
+     * @ORM\Column(name="nombre", type="string", length=45)
      */
     private $nombre;
 

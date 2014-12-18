@@ -33,7 +33,16 @@ class ReservaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $filtroActivo=0;
 
-        $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
+        //$entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
+        $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+        $query = $reserva->createQueryBuilder('r')
+                ->where('r.fecha >= :fecha')
+                ->setParameter('fecha', date('Y-m-d'))
+                ->getQuery();
+        $entities = $query->getResult();
+
+        $_SESSION['nombrefiltro']='Hoy'; //Para imprimir
+
         if (!$entities){
             $entities=null;
         }
@@ -54,7 +63,7 @@ class ReservaController extends Controller
         $entity = new Reserva();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 
@@ -73,19 +82,21 @@ class ReservaController extends Controller
                 $fechaActual=new \DateTime('now');
                 $fechaActual->setTime(00, 00, 00);
 
-                
                 if (!($entity->getFecha()>=$fechaActual)) {
                     throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
-                }elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
+                }elseif (!($entity->getHoraDesde() < $entity->getHoraHasta())) {
                     throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
                 }elseif (!$this::conprobarAlerta($entity->getFecha())){
                     throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
-                }elseif (!$this::sePuede($entity)) {
-                    throw new Exception("La consulta de Jori anda papaaa.");
+                }elseif (!($this->sePuede($entity))) {
+                    throw new Exception("Hay reservas para esa aula con esas fecha y hora");
                 }
+
                 try{
+                //if(($entity->getFecha()>=$fechaActual)&&($entity->getHoraDesde()<$entity->getHoraHasta())){
                     $em->persist($entity);
                     $em->flush();
+                    
                 }catch(Exception $e){
                 //}
                     //$e->getMessage();
@@ -100,69 +111,8 @@ class ReservaController extends Controller
         ));
     }
 
-    private function sePuede($entity){
-        $fecha=$entity->getFecha();
-        $paramDesde=$entity->getHoraDesde();
-        $paramHasta=$entity->getHoraHasta();
-        $aula=$entity->getAula();
-        //$aula=$aula->getNombre();
-
-        //die($paramHasta);
-        //$em = $this->getDoctrine()->getManager();//tiro todas las reservas que podrian chocar con la mia
-        $em = $this->getDoctrine()->getManager();
-        $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
-        //dar formato a la fecha
-        $fecha->setTime(00, 00, 00);
-        //$nombreAula=$entity->getAula();
-        //die($nombreAula);
-        $idAula=$aula->getId();
-        //print_r($aula);
-        //var_dump($aula);
-        //die();
-        /*$reserva = $em->getRepository('CrestaAulasBundle:Reserva');
-                $query = $reserva->createQueryBuilder('r')
-                ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )
-                ->setParameter('fecha1', $_POST['fecha1'])
-                ->setParameter('fecha2', $_POST['fecha2'])
-                ->orderBy('r.fecha', 'ASC')
-                ->getQuery();
-                $entities = $query->getResult();
-                $_SESSION['nombrefiltro']='Fecha';
-                $_SESSION['fecha1']=$_POST['fecha1'];
-                $_SESSION['fecha2']=$_POST['fecha2'];
-                break;*/
-        //$parameters=array('fecha'=>$fecha, 'horaDesde'=>$paramDesde, 'horaHasta'=>$paramHasta, 'aula'=>$idAula);
-        $query=$reserva->createQueryBuilder('  SELECT r FROM CrestaAulasBundle:Reserva r
-                                        WHERE fecha= :fecha AND aula_id= :aula                                   
-                                        ')->setParameter('fecha', $fecha)
-                                        //->setParameter('horaDesde', $paraDesde)
-                                        //->setParameter('horaHasta', $paramHasta)
-                                        ->setParameter('aula', $idAula)
-                                        ->getQuery();
-
-        /*
-        AND
-                                        (r.horaDesde<= :horaDesde OR r.horaDesde>:horaDesde ) OR
-                                        (r.horaHasta<= :horaDesde OR r.horaHasta>:horaDesde ) OR
-                                        (r.horaDesde<= :horaDesde AND r.horaHasta>=:horaDesde ) OR
-                                        (r.horaDesde> :horaDesde AND r.horaHasta<=:horaDesde )      
-        */
-        //->setParameters($parameters);
-        //r.horaDesde y r.horaHasta son los valores de las tuplas
-
-        $listado = $query->getResult();
-        //die('hola');
-        //$re=$listado[0]->getObservaciones();
-        //die($re);
-        if(empty($listado)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-
     private function conprobarAlerta ($fecha){
+
         $em = $this->getDoctrine()->getManager();
         $fecha = $fecha ;
         $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:Alerta a WHERE a.fecha = :fecha')->setParameter('fecha', $fecha);
@@ -173,7 +123,38 @@ class ReservaController extends Controller
             return false;
         }
     }
+    private function sePuede ($entity){
+        $em = $this->getDoctrine()->getManager();
+        
+        $fecha=$entity->getFecha();
+        $idAula=$entity->getAula();
+        $horaDesde=$entity->getHoraDesde();
+        $horaHasta=$entity->getHoraHasta();
+ 
+        $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+        $query = $reserva->createQueryBuilder('r')
+                        ->where('
+                            (r.fecha= :fecha AND r.aula= :aula) AND
+                            (r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
+                            (r.horaHasta > :horaDesde AND r.horaHasta <= :horaHasta ) OR
+                            (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
+                            (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) 
+                            ')
+                        ->setParameter('fecha', $fecha)
+                        ->setParameter('aula', $idAula)
+                        ->setParameter('horaDesde', $horaDesde)
+                        ->setParameter('horaHasta', $horaHasta)
+                        ->getQuery();
 
+        $listado = $query->getResult();
+
+        if(empty($listado)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
     /**
      * Creates a form to create a Reserva entity.
      *
@@ -248,11 +229,11 @@ class ReservaController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Reserva entity.');
+            throw $this->createNotFoundException('No pudimos encontrar el recurso :/ intente recargar la pagina.');
         }
 
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+                    $editForm = $this->createEditForm($entity);
+            $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('CrestaAulasBundle:Reserva:edit.html.twig', array(
             'entity'      => $entity,
@@ -315,6 +296,19 @@ class ReservaController extends Controller
             $fechaActual->setTime(00, 00, 00);
             //fin de configuracion de las fechas y horas
 
+            if (!($entity->getFecha()>=$fechaActual)) {
+                    throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
+                }
+                elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
+
+                    throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
+
+                }elseif (!$this::conprobarAlerta($entity->getFecha())){
+
+                    throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
+                }elseif (!($this->sePuede($entity))) {
+                    throw new Exception("Hay reservas para esa aula con esas fecha y hora");
+                }
             $em->flush();
 
             //return $this->redirect($this->generateUrl('reserva_edit', array('id' => $id)));
@@ -334,73 +328,44 @@ class ReservaController extends Controller
     protected function nuevoMovimiento($idReserva)
     {      
         
-        //Llamo al manejador de entidades
+
         $em = $this->getDoctrine()->getEntityManager();                 
-        //Creo un repositorio para, que es un objeto, para manejar los datos.
-        $reservaEliminada = $em->getRepository('CrestaAulasBundle:Reserva')->find($idReserva); //Busco pasando como parametro el id de reserva
-        
-        
-        //$em = $this->getDoctrine()->getEntityManager();                 
-        //Creo un repositorio para, que es un objeto, para manejar los datos.
-        //$reservaEliminada = $em->getRepository('CrestaAulasBundle:Reserva')->find($idReserva);
+
+        $reservaEliminada = $em->getRepository('CrestaAulasBundle:Reserva')->find($idReserva);
+
         $movimiento = new Movimiento();
-        //$MovimientoController = new MovimientoController();
-        //$form   = $MovimientoController->createCreateForm($movimiento);
-        //$fechaDeHoy = date('Y-m-d'); //Asigno la fecha del dia de la baja para pasarlo a la vista y mostrarlo
-        
-        //$movimiento->setFecha(new \Date($fechaDeHoy));
+      
         $movimiento->setFecha(new \DateTime('now'));
-        //Busco el objeto reserva a eliminar para asignarle los valores de ese objeto al movimiento
-        //$query = $em->createQuery('SELECT u FROM Cresta\AulasBundle\Entity\Reserva u WHERE u.id = :id');
-        //$query->setParameter(':id', $idReserva);
-        //$reserva = $query->getResult(); // array de objetos Reserva
-        //$asd = $reserva[0];
-        //$reservaPersona = $reservaEliminada->getReservaPersona();
-        //PREGUNTO EL NOMBRE DE USUARIO DEL USUARIO QUE EJECUTO LA ACCION DE ELIMINAR
+        
         $user = $this->container->get('security.context')->getToken()->getUser();
-        $movimientoPersona = $user->getUsername(); //ASIGNO EL NOMBRE DE USUARIO A UNA VARIABLE
-        //var_dump($movimientoPersona);
+        $movimientoPersona = $user->getUsername(); 
+
         $horaDesde = $reservaEliminada->getHoraDesde();
         $horaHasta = $reservaEliminada->getHoraHasta();
         $reservaParaElDiaDeReserva = $reservaEliminada->getFecha();
-        //var_dump($reservaParaElDiaDeReserva);
-        
-        //tomo el id del aula que esta en la reserva
+
         $idAula = $reservaEliminada->getAula();
         //busco el aula para tomar el nombre
         $em2 = $this->getDoctrine()->getEntityManager();                 
-        //Creo un repositorio para, que es un objeto, para manejar los datos.
+
         $aula = $em2->getRepository('CrestaAulasBundle:Aula')->find($idAula);
-        //asigno nombre a varialbe
+
         $aulaParaMovimiento = $aula->getNombre();
-        //var_dump($aulaParaMovimiento);
+
         $movimiento->setUsuario($movimientoPersona);
         $movimiento->setReservaAula($aulaParaMovimiento);
         
-        //$horaDesde->format('h:m:s');
-        //                                                          $horaDesde->format('H:i');
+
 
         $movimiento->setReservaHoraDesde($horaDesde);       
-        
-        //$horaHasta->format('h:m:s');
-        //                                                          $horaHasta->format('H:i');
-        //var_dump($horaHasta1);
+
         $movimiento->setReservaHoraHasta($horaHasta);
-        //                                                          $reservaParaElDiaDeReserva->format('Y-m-d');
-        //var_dump($reservaParaElDiaDeReserva1);
+
         $movimiento->setReservaParaDiaDeReserva($reservaParaElDiaDeReserva);
         $em3 = $this->getDoctrine()->getEntityManager();        
         $em3->persist($movimiento);
         $em3->flush();
-        //die('aca llego');
-        
-        /*return $this->render('CrestaAulasBundle:Movimiento:new.html.twig', array(
-            'fecha' => $fechaDeHoy, //Paso la fecha de hoy para que se muestre en la vista
-            'reservaEliminada' => $reservaEliminada, //Paso la reserva eliminada para cargar los valores en la vista
-            'entity' => $entity, //Paso la entidad movimiento para cargar los valores del movimiento
-            'form'   => $form->createView(),
-        
-        )); */
+ 
     }
 
 
@@ -416,54 +381,21 @@ class ReservaController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        //Esto no va nunca
-        //if ($form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
-
-            //$entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
-            //$idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id)->getId(); //tomo el id de la reserva para pasarlo para el alta de un movimiento
+     
             $idReserva = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
-
-            
-            //echo($idReserva);
-            
-            //esto de abajo esta comentado para para ver si en vardump me da los valores de $entity
-
-            /*if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Reserva entity.');
-            }else{
-                //Si esta todo bien, cuando elimino una reserva, creo un objeto movimiento
-                $nuevoObjetoMovimiento = new MovimientoController();
-                //Llamo al metodo del objeto moviemiento para crear un movimiento
-                
-                //El problema esta aca, en la invocacion del metodo
-                $nuevoObjetoMovimiento->newAction($id);                
-                
-            } */
 
             if (!$idReserva) {
                 throw $this->createNotFoundException('Unable to find Reserva entity.');
             }
             
-             
-            //Si esta todo bien, cuando elimino una reserva, creo un objeto movimiento
-            //$nuevoObjetoMovimiento = new MovimientoController();
-            //Llamo al metodo del objeto moviemiento para crear un movimiento                                     
-            //$nuevoObjetoMovimiento->newAction($idReserva);  
-       
-
-            //$soy_un_movimiento = $this->get('nuevo_movimiento');
-            
-            //$soy_un_movimiento->newAction($idReserva);    
-                        
+                   
             $this->nuevoMovimiento($idReserva);
 
 
             $em->remove($idReserva);
             $em->flush();
-        // } Esto no va nunca
 
         return $this->redirect($this->generateUrl('reserva'));
     }
@@ -496,12 +428,54 @@ class ReservaController extends Controller
     public function imprimirAction(){// http://localhost/aulas/web/app_dev.php/imprimir/listado.pdf
         $em = $this->getDoctrine()->getManager();
         //$entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
-        $entities = $_SESSION['entities'];
-        if ($_SESSION['entities']){
-            die ('si');
+        //$entities = $_SESSION['entities'];
+        $nombrefiltro=$_SESSION['nombrefiltro'];
+        if (isset($_SESSION['filtro'])){
+            $filtro=$_SESSION['filtro'];
         }
-        else {die('no');}
-        die();
+        switch ($nombrefiltro){
+            case 'Hoy':
+                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                        ->where('r.fecha >= :fecha')
+                        ->setParameter('fecha', date('Y-m-d'))
+                        ->getQuery();
+                $entities = $query->getResult();
+                break;
+            
+            case 'Todos':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
+                break;
+
+            case 'Docente':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($filtro);
+                break;
+
+            case 'Fecha':
+                $em = $this->getDoctrine()->getManager();
+                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )
+                ->setParameter('fecha1', $_SESSION['fecha1'])
+                ->setParameter('fecha2', $_SESSION['fecha2'])
+                ->orderBy('r.fecha', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+            case 'Aula':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByAula($filtro);
+                break;
+
+            case 'Curso':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByCurso($filtro);
+                break;
+
+            case 'Actividad':
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($filtro);
+                break;
+        }
+
         $formato=$this->get('request')->get('_format');
         return $this->render(sprintf('CrestaAulasBundle:Reserva:imprimirlistado.pdf.twig', $formato ),  
         array( 'entities'=>$entities) );   //'nombre'=>$nombre) );
@@ -515,7 +489,7 @@ class ReservaController extends Controller
 
             case 'Todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
-                $_SESSION['nombrefiltro']='Todos';
+                $_SESSION['nombrefiltro']='Todos';//Para imprimir
                 break;
 
             case 'Fecha':
@@ -528,8 +502,8 @@ class ReservaController extends Controller
                 ->getQuery();
                 $entities = $query->getResult();
                 $_SESSION['nombrefiltro']='Fecha';
-                $_SESSION['fecha1']=$_POST['fecha1'];
-                $_SESSION['fecha2']=$_POST['fecha2'];
+                $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
+                $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir
                 break;
 
             case 'Docente':
@@ -542,16 +516,16 @@ class ReservaController extends Controller
                 ->setParameter('dato', '%'.$_POST['dato'].'%')
                 ->getQuery();
                 $docente = $query->getResult();
-                $_SESSION['filtro']=$docente;
-                $_SESSION['nombrefiltro']='Docente';
+                $_SESSION['filtro']=$docente;//Para imprimir
+                $_SESSION['nombrefiltro']='Docente';//Para imprimir
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($docente);
                 break;
 
             case 'Aula':
                 $aula = $em->getRepository('CrestaAulasBundle:Aula')->findByNombre($_POST['dato']);
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByAula($aula);
-                $_SESSION['filtro']=$aula;
-                $_SESSION['nombrefiltro']='Aula';
+                $_SESSION['filtro']=$aula;//Para imprimir
+                $_SESSION['nombrefiltro']='Aula';//Para imprimir
                 break;
 
             case 'Tarea':
@@ -579,8 +553,8 @@ class ReservaController extends Controller
                     ->getQuery();
                     $actividad = $query->getResult();
                     $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($actividad);
-                    $_SESSION['filtro']=$actividad;
-                    $_SESSION['nombrefiltro']='Actividad';
+                    $_SESSION['filtro']=$actividad;//Para imprimir
+                    $_SESSION['nombrefiltro']='Actividad';//Para imprimir
                 }
 
                 break;
@@ -588,9 +562,6 @@ class ReservaController extends Controller
 
             if (!$entities){
                 $entities=null;
-            }
-            else {
-                $_SESSION['entities']=$entities;
             }
 
             $filtroActivo = 1;

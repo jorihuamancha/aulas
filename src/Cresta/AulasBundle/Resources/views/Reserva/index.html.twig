@@ -10,9 +10,18 @@
 
     function getval(sel) {
        switch (sel.value) {
-         case "Todos":
+         case "Hoy":
             location.reload();
             break;
+
+         case "Todos":
+            $("#fechas").css("display", "none");
+            $("#dato").css("display", "none");
+            $("#formFiltros").attr("action","filtro/Todos");
+            $("#EnviarFiltro").css("display", "none");
+            window.location.href = "{{ path('_homepage') }}reserva/filtro/Todos";
+            break;
+
          case "Fecha":
             $("#fechas").css("display", "inline-block");
             $("#dato").css("display", "none");
@@ -69,7 +78,8 @@
                 <ul>
                     <label>Filtrar por:</label>
                     <select onchange="getval(this);">
-                        <option selected> Todos </option>
+                        <option selected> Hoy </option>
+                        <option> Todos </option>
                         <option> Fecha </option>
                         <option> Docente </option>
                         <option> Aula </option>

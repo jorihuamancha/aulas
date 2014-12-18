@@ -201,17 +201,16 @@ class RecursoController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-//        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('CrestaAulasBundle:Recurso')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('No pudimos encontrar el recurso :/ intente recargar la pagina.');
-            }
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('CrestaAulasBundle:Recurso')->find($id);
 
-            $em->remove($entity);
-            $em->flush();
-//        }
+        if (!$entity) {
+            throw $this->createNotFoundException('No pudimos encontrar el recurso :/ intente recargar la pagina.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
 
         return $this->redirect($this->generateUrl('aulas_recurso'));
     }
@@ -252,4 +251,6 @@ class RecursoController extends Controller
             return false;
         }
      }
+
+     
 }
