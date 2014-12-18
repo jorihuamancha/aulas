@@ -215,6 +215,7 @@ nav ul li a:hover{
 .formAutogenerado #NuevaAula div:nth-child(5),.formAutogenerado #NuevaAula div:nth-child(6),
 .formAutogenerado #NuevaAlerta div:nth-child(4),.formAutogenerado #NuevaAlerta div:nth-child(5),
 .formAutogenerado #NuevoDocente div:nth-child(3),.formAutogenerado #NuevoDocente div:nth-child(4),
+.formAutogenerado #cresta_aulasbundle_reserva div:nth-child(14), .formAutogenerado #cresta_aulasbundle_reserva div:nth-child(15), 
 /*Editar*/
 .formAutogenerado #EditarCurso div:nth-child(4),.formAutogenerado #EditarCurso div:nth-child(5),
 .formAutogenerado #EditarCarrera div:nth-child(3),.formAutogenerado #EditarCarrera div:nth-child(4),

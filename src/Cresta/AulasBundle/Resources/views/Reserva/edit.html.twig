@@ -1,15 +1,84 @@
 {% extends '::base.html.twig' %}
 {% block title %}Editar reserva {% endblock %}
 {% block body %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			document.getElementById("cresta_aulasbundle_reserva_fecha_time").style.display='block';
+			document.getElementById("cresta_aulasbundle_reserva_horaDesde_date").style.display='block';
+			document.getElementById("cresta_aulasbundle_reserva_horaHasta_date").style.display='block';
+			$('select.chzn-select').chosen();
+			$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "none" );
+			$( "#cresta_aulasbundle_reserva > div:nth-child(5)" ).css( "display", "inline-block" );
+			$( "#cresta_aulasbundle_reserva > div:nth-child(6)" ).css( "display", "none" );
+
+			fechaActual=new Date();
+			anioActual=fechaActual.getFullYear();
+			mesActual=parseInt(fechaActual.getMonth())+1;
+			diaActual=fechaActual.getDate();
+			document.getElementById("cresta_aulasbundle_reserva_fecha_date_day").value=diaActual;
+			document.getElementById("cresta_aulasbundle_reserva_fecha_date_month").value=mesActual;
+			document.getElementById("cresta_aulasbundle_reserva_fecha_date_year").value=anioActual;		
+			}
+		)
+		function actividad(value){
+			if(value!=true){//es true cuando es un curso
+				$("#cresta_aulasbundle_reserva_actividad_chosen").addClass("chosen-container-active");
+			//	$("#cresta_aulasbundle_reserva_actividad_chosen").addClass("chosen-with-drop");
+				$("#cresta_aulasbundle_reserva_actividad_chosen").removeClass("chosen-disabled");
+				$("#cresta_aulasbundle_reserva_curso_chosen").removeClass("chosen-container-active");
+			//	$("#cresta_aulasbundle_reserva_curso_chosen").removeClass("chosen-with-drop");
+				$("#cresta_aulasbundle_reserva_curso_chosen").addClass("chosen-disabled");
+				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").style.display="none";
+				document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").style.display="inline-block";	
+				$( "#cresta_aulasbundle_reserva > div:nth-child(5)" ).css( "display", "none" );
+				$( "#cresta_aulasbundle_reserva > div:nth-child(6)" ).css( "display", "inline-block" );
+				document.getElementById("cresta_aulasbundle_reserva_actividad").disabled=false;
+				document.getElementById("cresta_aulasbundle_reserva_curso").disabled=true;
+				document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").disabled=false;
+				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").disabled=true;
+				//$('#mainContainer > div:nth-child(6)').style.display="none";
+				}
+			else{
+				$("#cresta_aulasbundle_reserva_actividad_chosen").removeClass("chosen-container-active");
+				$("#cresta_aulasbundle_reserva_actividad_chosen").addClass("chosen-disabled");
+			//	$("#cresta_aulasbundle_reserva_actividad_chosen").removeClass("chosen-with-drop");
+				$("#cresta_aulasbundle_reserva_curso_chosen").addClass("chosen-container-active");
+			//	$("#cresta_aulasbundle_reserva_curso_chosen").addClass("chosen-with-drop");
+				$("#cresta_aulasbundle_reserva_curso_chosen").removeClass("chosen-disabled");
+				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").style.display="inline-block";
+				document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").style.display="none";
+				$( "#cresta_aulasbundle_reserva > div:nth-child(5)" ).css( "display", "inline-block" );
+				$( "#cresta_aulasbundle_reserva > div:nth-child(6)" ).css( "display", "none" );
+				document.getElementById("cresta_aulasbundle_reserva_actividad").disabled=true;
+				document.getElementById("cresta_aulasbundle_reserva_curso").disabled=false;
+				document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").disabled=true;
+				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").disabled=false;
+				}
+			}
+		function validar(){
+			horaDesde=document.getElementById("cresta_aulasbundle_reserva_horaDesde_time_hour").value;
+			minutosDesde=document.getElementById("cresta_aulasbundle_reserva_horaDesde_time_minute").value;
+			horaHasta=document.getElementById("cresta_aulasbundle_reserva_horaHasta_time_hour").value;
+			miutosHasta=document.getElementById("cresta_aulasbundle_reserva_horaHasta_time_minute").value;
+			if(horaDesde>horaHasta){
+				alert("La hora de inicio no puede ser menor a la hora de finalizacion");
+			}
+			else{
+				if((horaDesde==horaHasta)&&(minutosDesde>=minutosHasta)){
+					alert("La hora y minutos de inicio no pueden ser iguales o mayores a la hora y minutos de finalizacion");
+				}
+			}
+
+		}
+	</script>
 	<div class='formAutogenerado'>
 		<div id='EditarReserva'>
 		    <h1>Editar Reserva</h1>
-
+		    <div id="checkcurso">
+				<label>Curso : </label>
+				<input type="checkbox" onchange="actividad(this.checked);" checked>
+			</div>
 		    {{ form(edit_form) }}
-
-			{#  No lo puedo alinear, que lo borre desde la lista
-				{{ form(delete_form) }} 
-			#}
 
 		</div>
 	</div>
