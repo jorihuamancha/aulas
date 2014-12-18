@@ -39,6 +39,9 @@ class AlertaController extends Controller
         $entity = new Alerta();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        if (!$this::hayReserva($entity)) {
+            throw new Exception("Che para hay una reserva ese dia tranquila.");
+        }
 
         if ($this::existeAlerta($entity)) {
             if ($form->isValid()) {
@@ -176,8 +179,11 @@ class AlertaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
+        
         if ($editForm->isValid()) {
+             if (!$this::hayReserva($entity)) {
+                throw new Exception("Che para hay una reserva ese dia tranquila.");
+            }
              $em->flush();
              //return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
              return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));
@@ -250,4 +256,23 @@ class AlertaController extends Controller
             return false;
         }
      }
+
+    private function hayReserva ($entity){
+        $em = $this->getDoctrine()->getManager();
+        $fecha = $entity->getFecha();
+        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fecha = :fecha ')->setParameter('fecha',$fecha);
+        $reserva = $query->getResult();
+        if (empty($reserva)) {
+            $compara = null;
+        }else{
+            $compara = $reserva[0]->getFecha();
+        }
+        
+        if ($compara != $entity->getFecha()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

@@ -311,7 +311,6 @@ class ReservaController extends Controller
                 }
             $em->flush();
 
-            //return $this->redirect($this->generateUrl('reserva_edit', array('id' => $id)));
             return $this->redirect($this->generateUrl('reserva_show', array('id' => $id)));
         }
 
@@ -572,6 +571,8 @@ class ReservaController extends Controller
             'filtroActivo' => $filtroActivo,
         ));
     }
+
+    
 
 }
 

@@ -205,6 +205,8 @@ class CarreraController extends Controller
 
             if (!$entity) {
                 throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
+            }elseif ($this::estaEnUso($entity)) {
+                throw new Exception("Esta carrera tiene cursos incluidos, borra los cursos e intenta de nuevo.");
             }
 
             $em->remove($entity);
@@ -250,4 +252,16 @@ class CarreraController extends Controller
             return false;
         }
      }
+
+      private function estaEnUso($entity){ 
+        $em = $this->getDoctrine()->getManager();
+        $carrera = $entity->getId();
+        $query = $em->createQuery('SELECT c FROM CrestaAulasBundle:Curso c WHERE c.Carrera = :carrera')->setParameter('carrera', $carrera);
+        $unaConsulta = $query->getResult();
+        if(empty($unaConsulta)){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }
