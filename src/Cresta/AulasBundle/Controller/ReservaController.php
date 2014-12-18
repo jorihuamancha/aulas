@@ -54,7 +54,7 @@ class ReservaController extends Controller
         $entity = new Reserva();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 
@@ -73,19 +73,19 @@ class ReservaController extends Controller
                 $fechaActual=new \DateTime('now');
                 $fechaActual->setTime(00, 00, 00);
 
-
-                if(($entity->getFecha()>=$fechaActual)&&($entity->getHoraDesde()<$entity->getHoraHasta())){
-                    $gola=1; //antes solíamos ser creativos en los nombres de las variables.
-                }else{
-                    throw new Exception("Compruebe los campos de las fechas y las horas de la reserva.");   
+                
+                if (!($entity->getFecha()>=$fechaActual)) {
+                    throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
+                }elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
+                    throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
+                }elseif (!$this::conprobarAlerta($entity->getFecha())){
+                    throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
+                }elseif (!$this::sePuede($entity)) {
+                    throw new Exception("La consulta de Jori anda papaaa.");
                 }
                 try{
-                    if(($this::sePuede($entity->getFecha(), $entity->getHoraDesde(), $entity->getHoraHasta(), $entity->getAula()))){
-                    //&&$entity->getFecha()>=$fechaActual)&&($entity->getHoraDesde()<$entity->getHoraHasta())){
-                        $em->persist($entity);   
-                        die($entity->getId());
-                        $em->flush();
-                        }
+                    $em->persist($entity);
+                    $em->flush();
                 }catch(Exception $e){
                 //}
                     //$e->getMessage();
@@ -99,87 +99,79 @@ class ReservaController extends Controller
             'form'   => $form->createView()
         ));
     }
-    private function estaEntre ($fecha, $paramDesde, $paramHasta, $aula){
-       //die($paramHasta);
-        //$em = $this->getDoctrine()->getManager();//tiro todas las reservas que podrian chocar con la mia
-        $em = $this->getDoctrine()->getManager();
-        $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
-        //dar formato a la fecha
-        $fecha->setTime(00, 00, 00);
-        $idAula=$aula->getId();
-        //$parameters=array('fecha'=>$fecha, 'horaDesde'=>$paramDesde, 'horaHasta'=>$paramHasta, 'aula'=>$idAula);
-        //$query=$reserva->createQuery('   SELECT r FROM CrestaAulasBundle:Reserva r
-                                       //  WHERE fecha= :fecha AND aula_id= :aula)
 
-    private function sePuede($fecha, $paramDesde, $paramHasta, $aula){
+    private function sePuede($entity){
+        $fecha=$entity->getFecha();
+        $paramDesde=$entity->getHoraDesde();
+        $paramHasta=$entity->getHoraHasta();
+        $aula=$entity->getAula();
+        //$aula=$aula->getNombre();
+
         //die($paramHasta);
         //$em = $this->getDoctrine()->getManager();//tiro todas las reservas que podrian chocar con la mia
         $em = $this->getDoctrine()->getManager();
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
         //dar formato a la fecha
         $fecha->setTime(00, 00, 00);
+        //$nombreAula=$entity->getAula();
+        //die($nombreAula);
         $idAula=$aula->getId();
+        //print_r($aula);
+        //var_dump($aula);
+        //die();
+        /*$reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )
+                ->setParameter('fecha1', $_POST['fecha1'])
+                ->setParameter('fecha2', $_POST['fecha2'])
+                ->orderBy('r.fecha', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                $_SESSION['nombrefiltro']='Fecha';
+                $_SESSION['fecha1']=$_POST['fecha1'];
+                $_SESSION['fecha2']=$_POST['fecha2'];
+                break;*/
         //$parameters=array('fecha'=>$fecha, 'horaDesde'=>$paramDesde, 'horaHasta'=>$paramHasta, 'aula'=>$idAula);
-        $query=$reserva->createQuery('   SELECT r FROM CrestaAulasBundle:Reserva r
-                                         WHERE fecha= :fecha AND aula_id= :aula)
+        $query=$reserva->createQueryBuilder('  SELECT r FROM CrestaAulasBundle:Reserva r
+                                        WHERE fecha= :fecha AND aula_id= :aula                                   
+                                        ')->setParameter('fecha', $fecha)
+                                        //->setParameter('horaDesde', $paraDesde)
+                                        //->setParameter('horaHasta', $paramHasta)
+                                        ->setParameter('aula', $idAula)
+                                        ->getQuery();
 
-        /*('   SELECT r FROM CrestaAulasBundle:Reserva r
-                                         WHERE fecha= :fecha AND aula_id= :aula AND
-                                    ( 
-                                      /*  (r.horaDesde<= :horaDesde OR r.horaDesde>:horaDesde ) OR
+        /*
+        AND
+                                        (r.horaDesde<= :horaDesde OR r.horaDesde>:horaDesde ) OR
                                         (r.horaHasta<= :horaDesde OR r.horaHasta>:horaDesde ) OR
                                         (r.horaDesde<= :horaDesde AND r.horaHasta>=:horaDesde ) OR
-                                        (r.horaDesde> :horaDesde AND r.horaHasta<=:horaDesde )*/
-                                    )
-                                    ')->setParameter('fecha', $fecha)
-                                      ->setParameter('horaDesde', $paraDesde)
-                                      ->setParameter('horaHasta', $paramHasta)
-                                      ->setParameter('aula', $idAula)
-                                      ->getQuery();
-
+                                        (r.horaDesde> :horaDesde AND r.horaHasta<=:horaDesde )      
+        */
         //->setParameters($parameters);
-        /*echo 'fecha </br>';
-        var_dump($fecha);
-        echo '</br> paramDesde </br>';
-        var_dump($paramDesde);
-         echo '</br> paramHasta </br>';
-        var_dump($paramHasta);
-         echo '</br> Aula    </br>';
-        var_dump($idAula);
-        die();*/
         //r.horaDesde y r.horaHasta son los valores de las tuplas
 
         $listado = $query->getResult();
-        die('hola');
+        //die('hola');
         //$re=$listado[0]->getObservaciones();
         //die($re);
         if(empty($listado)){
-            
-            die('hola');
             return true;
         }else{
             return false;
         }
     }
-    /*public function sePuede($fecha, $paramDesde, $paramHasta, $aula){
-        die($paramHasta);
-        $em = $this->getDoctrine()->getManager();//tiro todas las reservas que podrian chocar con la mia
-        $query=$em->createQuery('   SELECT r FROM CrestaAulasBundle:Reserva r 
-                                    WHERE r.aula= :aula AND r.fecha= :fecha AND 
-                                    (r.horaDesde BETWEEN (:paramDesde AND :paramHasta) ) OR 
-                                    (r.horaHasta BETWEEN (:paramDesde AND :paramHasta) ) OR
-                                    (r.horaDesde<=:paramDesde AND r.horaHasta>=:paramHasta)                                    
-                                    ');
-        //r.horaDesde y r.horaHasta son los valores de las tuplas
-        $listado=$query->getResult();
-        $re=$listado[0]->getObservaciones();
-        die($re);
-        /*if(empty($listado)){
-            return false;
-        }else{
-            return true;
-        }
 
+
+    private function conprobarAlerta ($fecha){
+        $em = $this->getDoctrine()->getManager();
+        $fecha = $fecha ;
+        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:Alerta a WHERE a.fecha = :fecha')->setParameter('fecha', $fecha);
+        $unaConsulta = $query->getResult();
+        if(empty($unaConsulta)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
