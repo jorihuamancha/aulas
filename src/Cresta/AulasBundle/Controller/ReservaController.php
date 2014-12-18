@@ -232,7 +232,7 @@ class ReservaController extends Controller
             throw $this->createNotFoundException('No pudimos encontrar el recurso :/ intente recargar la pagina.');
         }
 
-                    $editForm = $this->createEditForm($entity);
+            $editForm = $this->createEditForm($entity);
             $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('CrestaAulasBundle:Reserva:edit.html.twig', array(

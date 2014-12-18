@@ -16,6 +16,9 @@ class ReservaType extends AbstractType
     {
         $fechaActual=new \DateTime();
         $fechaActual->format('Y-m-d');
+        $anio=$fechaActual->format('Y');
+        $mes=$anio=$fechaActual->format('m');
+        $dia=$fechaActual->format('d');
         $horaActual=new \DateTime();
         $horaActual->format('H:i:s');
         $builder
@@ -42,15 +45,19 @@ class ReservaType extends AbstractType
                                                                 'required'=>'true',
                                                                 'class'=>"chzn-select", 
                                                                 'style'=>"width:200px" ) ))
-            ->add('fecha', 'datetime', array(   'data'=>$fechaActual,
-                                                'attr'=>array('required'=>true )))//new \DateTime()->format('Y-m-d') ) ) //("now")
-            ->add('horaDesde', 'datetime', array(   'data'=>$horaActual,
+            ->add('fecha', 'datetime', array(   //'data'=>$fechaActual,
+                                                //'days'=>$dia,
+                                                //'months'=>$mes,
+                                                //'years'=>array('data'=>$anio),
+                                                'attr'=>array(  'required'=>true)))//,
+                                                                //'min'=>$fechaActual )))//new \DateTime()->format('Y-m-d') ) ) //("now")
+            ->add('horaDesde', 'datetime', array(   //'data'=>$horaActual,
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00',
                                                                         '30'=>'30'),
                                                     'attr'=>array('required'=>true) 
                     ) )//new \DateTime('H:i:s') ) )//, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
-            ->add('horaHasta', 'datetime', array(   'data'=>$horaActual, 
+            ->add('horaHasta', 'datetime', array(   //'data'=>$horaActual, 
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00', 
                                                                         '30'=>'30' ),
