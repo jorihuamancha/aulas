@@ -170,7 +170,8 @@ class ReservaController extends Controller
         ));
         //$user = $this->container->get('security.context')->getToken()->getUser();
 
-        $form->add('submit', 'submit', array('label' => 'Registrar','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../reserva','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
@@ -256,7 +257,8 @@ class ReservaController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../reserva','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
 
         return $form;
     }
