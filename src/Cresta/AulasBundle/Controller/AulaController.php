@@ -363,7 +363,7 @@ class AulaController extends Controller
             ,'diaActual'=>$diaActual,'seleccionadoMesAhora'=>$buscameEstoAhora,'ArrayContenedor'=>$ArrayContenedor,'seleccionadoDia' => 'Dia'));
         }
         elseif (((($_GET["mes"] == 'Mes')) or (!isset($_GET["dia"]))) and (isset ($_GET["aula"]))){
-             throw $this->createNotFoundException('Para filtrar el aula, primero completa el campo mes y dia para que podamos encontrar lo que estas buscando :D');
+             throw new Exception('Para filtrar el aula, primero completa el campo mes y dia para que podamos encontrar lo que estas buscando :D');
         }
         elseif ((!empty($_GET["mes"])) and (!empty($_GET["dia"])) and (!empty($_GET["aula"]))) {
             $seleccionadoDia = $_GET["dia"];
