@@ -438,7 +438,7 @@ class ReservaController extends Controller
             case 'Hoy':
                 $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reserva->createQueryBuilder('r')
-                        ->where('r.fecha >= :fecha')
+                        ->where('r.fecha = :fecha')
                         ->setParameter('fecha', date('Y-m-d'))
                         ->getQuery();
                 $entities = $query->getResult();
