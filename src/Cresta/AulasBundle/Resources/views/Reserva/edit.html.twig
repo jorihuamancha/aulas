@@ -10,6 +10,10 @@
 			$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "none" );
 			$( "#cresta_aulasbundle_reserva > div:nth-child(5)" ).css( "display", "inline-block" );
 			$( "#cresta_aulasbundle_reserva > div:nth-child(6)" ).css( "display", "none" );
+			document.getElementById("cresta_aulasbundle_reserva_actividad").disabled=true;
+			document.getElementById("cresta_aulasbundle_reserva_curso").disabled=false;
+			document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").disabled=true;
+			document.getElementById("cresta_aulasbundle_reserva_curso_chosen").disabled=false;
 
 			fechaActual=new Date();
 			anioActual=fechaActual.getFullYear();
