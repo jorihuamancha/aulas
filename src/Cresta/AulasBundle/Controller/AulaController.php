@@ -207,14 +207,14 @@ class AulaController extends Controller
         $horarios = array(1=>'08:00 a 08:30',2=>'08:30 a 09:00',3=>'09:00 a 09:30',4=>'09:30 a 10:00',5=>'10:00 a 10:30',
         6=>'10:30 a 11:00',7=>'11:00 a 11:30 ',8=>'11:30 a 12:00',9=>'12:00 a 12:30',10=>'12:30 a 13:00',11=>'13:00 a 13:30',
         12=>'13:30 a 14:00',13=>'14:00 a 14:30',14=>'14:30 a 15:00',15=>'15:00 a 15:30',16=>'15:30 a 16:00',17=>'16:00 a 16:30',
-        18=>'16:30 a 17:00',19=>'17:00 a 17:30',20=>'17:30 a 18:00',21=>'18:00 a 18:30',22=>'18:30 a 19:00',23=>'19:00 a a19:30',
-        24=>'19:30 a 20:00',25=>'20:00 a 20:30',26=>'20:30 a 21:00',27=>'21:00 a 21:30',28=>'21:30 a 22:00');
+        18=>'16:30 a 17:00',19=>'17:00 a 17:30',20=>'17:30 a 18:00',21=>'18:00 a 18:30',22=>'18:30 a 19:00',23=>'19:00 a 19:30',
+        24=>'19:30 a 20:00',25=>'20:00 a 20:30',26=>'20:30 a 21:00',27=>'21:00 a 21:30',28=>'21:30 a 22:00',29=>'22:00 a 22:30',30=>'22:30 a 23:00');
         //Arreglar
         $arrayDeTranformacion  = array('08:00 a 08:30'=>1,'08:30 a 09:00'=>2,'09:00 a 09:30'=>3,'09:30 a 10:00'=>4,'10:00 a 10:30'=>5,
         '10:30 a 11:00'=>6,'11:00 a 11:30'=>7,'11:30 a 12:00'=>8,'12:00 a 12:30'=>9,'12:30 a 13:00'=>10,'13:00 a 13:30'=>11,
         '13:30 a 14:00'=>12,'14:00 a 14:30'=>13,'14:30 a 15:00'=>14,'15:00 a 15:30'=>15,'15:30 a 16:00'=>16,'16:00 a 16:30'=>17,
         '16:30 a 17:00'=>18,'17:00 a 17:30'=>19,'17:30 a 18:00'=>20,'18:00 a 18:30'=>21,'18:30 a 19:00'=>22,'19:00 a 19:30'=>23,'19:30 a 20:00'=>24,
-        '20:00 a 20:30'=>25,'20:30 a 21:00'=>26,'21:00 a 21:30'=>27,'21:30 a 22:00'=>28); 
+        '20:00 a 20:30'=>25,'20:30 a 21:00'=>26,'21:00 a 21:30'=>27,'21:30 a 22:00'=>28,'22:00 a 22:30'=>29,'22:30 a 23:00'=>30); 
         $elmesEnNumero= array('Enero'=>1,'Febrero'=>2,'Marzo'=>3,'Abril'=>4,'Mayo'=>5,'Junio'=>6,'Julio'=>7,
         'Agosto'=>8,'Septiembre'=>9,'Octubre'=>10,'Noviembre'=>11,'Diciembre'=>12);
         $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',
@@ -363,7 +363,7 @@ class AulaController extends Controller
             ,'diaActual'=>$diaActual,'seleccionadoMesAhora'=>$buscameEstoAhora,'ArrayContenedor'=>$ArrayContenedor,'seleccionadoDia' => 'Dia'));
         }
         elseif (((($_GET["mes"] == 'Mes')) or (!isset($_GET["dia"]))) and (isset ($_GET["aula"]))){
-             throw $this->createNotFoundException('Para filtrar el aula, primero completa el campo mes y dia para que podamos encontrar lo que estas buscando :D');
+             throw new Exception('Para filtrar el aula, primero completa el campo mes y dia para que podamos encontrar lo que estas buscando :D');
         }
         elseif ((!empty($_GET["mes"])) and (!empty($_GET["dia"])) and (!empty($_GET["aula"]))) {
             $seleccionadoDia = $_GET["dia"];

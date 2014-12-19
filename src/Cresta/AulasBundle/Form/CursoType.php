@@ -17,7 +17,10 @@ class CursoType extends AbstractType
         $builder
             ->add('nombre','text',array('label'=>'Nombre:'))
             ->add('anio','text',array('label'=>'Año:'))
-            ->add('Carrera','entity',array('class'=>'CrestaAulasBundle:Carrera','property'=>'nombre','label'=>'Carrera:'))
+            ->add('Carrera','entity',array('class'=>'CrestaAulasBundle:Carrera',
+                                            'property'=>'nombre','label'=>'Carrera:',
+                                            'attr'=>array('required'=>true,
+                                                          'class'=>"chzn-select" )))
         ;
     }
     
