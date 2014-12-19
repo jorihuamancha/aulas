@@ -104,7 +104,7 @@ class DocenteController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina :(');
+            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -126,7 +126,7 @@ class DocenteController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina :(');
+            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -169,7 +169,7 @@ class DocenteController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina :(');
+            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -203,9 +203,9 @@ class DocenteController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Docente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina :(');
+            throw $this->createNotFoundException('No se pudo encontrar el docente, intente recargar la pagina');
         }elseif ($this::estaEnUso($entity)){
-            throw new Exception("Este docente esta actualmente en una reserva elimine la reserva y podra eliminar el docente");
+            throw new Exception("Este docente esta actualmente en una reserva, elimine la reserva y podra eliminar el docente");
         }
 
         $em->remove($entity);

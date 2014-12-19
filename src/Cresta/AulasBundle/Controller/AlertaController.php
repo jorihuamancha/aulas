@@ -182,7 +182,7 @@ class AlertaController extends Controller
         
         if ($editForm->isValid()) {
              if (!$this::hayReserva($entity)) {
-                throw new Exception("Che para hay una reserva ese dia tranquila.");
+                throw new Exception("No puede editar la alerta, hay una o más reservas ese día.");
             }
              $em->flush();
              //return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));

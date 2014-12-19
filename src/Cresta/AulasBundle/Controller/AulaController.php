@@ -107,7 +107,7 @@ class AulaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('CrestaAulasBundle:Aula')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Aula entity.');
+            throw $this->createNotFoundException('No se puede encontrar la entidad Aula.');
         }
         
         $editForm = $this->createEditForm($entity);
@@ -177,7 +177,7 @@ class AulaController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('No pudimos encontrar el aula :/ intenta cargar nuevamente la pagina');
             }elseif ($this::estaEnUso($entity)) {
-                throw new Exception("El aula esta ucupada con una reserva, elimina la reserva y luego borra el aula."); 
+                throw new Exception("El aula esta ocupada con una reserva, elimine la reserva y luego podrá borrar el aula."); 
             }
             $em->remove($entity);
             $em->flush();
@@ -363,7 +363,7 @@ class AulaController extends Controller
             ,'diaActual'=>$diaActual,'seleccionadoMesAhora'=>$buscameEstoAhora,'ArrayContenedor'=>$ArrayContenedor,'seleccionadoDia' => 'Dia'));
         }
         elseif (((($_GET["mes"] == 'Mes')) or (!isset($_GET["dia"]))) and (isset ($_GET["aula"]))){
-             throw new Exception('Para filtrar el aula, primero completa el campo mes y dia para que podamos encontrar lo que estas buscando :D');
+             throw new Exception('Para filtrar el aula, primero completa el campo mes y dia para que podamos encontrar lo que estas buscando.');
         }
         elseif ((!empty($_GET["mes"])) and (!empty($_GET["dia"])) and (!empty($_GET["aula"]))) {
             $seleccionadoDia = $_GET["dia"];

@@ -206,7 +206,7 @@ class CarreraController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
             }elseif ($this::estaEnUso($entity)) {
-                throw new Exception("Esta carrera tiene cursos incluidos, borra los cursos e intenta de nuevo.");
+                throw new Exception("Esta carrera tiene cursos incluidos, borre los cursos e intente de nuevo.");
             }
 
             $em->remove($entity);

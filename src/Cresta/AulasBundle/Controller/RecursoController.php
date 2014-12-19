@@ -54,7 +54,7 @@ class RecursoController extends Controller
                 'form'   => $form->createView(),
             ));
         }else{
-           throw new Exception("Ya existe un recurso con ese nombre modifique e intente nuevamente"); 
+           throw new Exception("Ya existe un recurso con ese nombre, modifique e intente nuevamente"); 
         }
     }
 
@@ -105,7 +105,7 @@ class RecursoController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Recurso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Recurso entity.');
+            throw $this->createNotFoundException('No se puede encontrar la entidad Recurso.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
