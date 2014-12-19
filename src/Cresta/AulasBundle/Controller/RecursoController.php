@@ -207,8 +207,6 @@ class RecursoController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('No pudimos encontrar el recurso :/ intente recargar la pagina.');
-        }elseif ($this::estaEnUso($entity)) {
-             throw new Exception("Che nope"); 
         }
 
         $em->remove($entity);
@@ -253,18 +251,6 @@ class RecursoController extends Controller
             return false;
         }
      }
-
-     private function estaEnUso($entity){ 
-        $em = $this->getDoctrine()->getManager();
-        $recurso = $entity->getId();
-        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:reservas_recursos r WHERE r.recurso = :recurso')->setParameter('recurso', $recurso);
-        $unaConsulta = $query->getResult();
-        if(empty($unaConsulta)){
-            return false;
-        }else{
-            return true;
-        }
-    }
 
      
 }
