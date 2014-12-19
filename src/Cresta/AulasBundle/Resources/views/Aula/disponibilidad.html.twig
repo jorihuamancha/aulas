@@ -47,6 +47,7 @@
                     <th>{{aula.nombre}}</th>
                 {% endfor %}
                     {% for horario in horarios %}
+                    {% if horario != '22:30 a 23:00'%}
                        <tr> 
                            {% set valorIndexHora = loop.index %}
                             <td>{{horario}}</td>
@@ -82,10 +83,13 @@
                                             document.getElementById("{{horario}}{{nombreActual}}")classList.add('HorarioOcupado');
                                         </script>
                                 {% endif %}
+
                             {% endfor %}
+
                            {% endfor %}
 
                        </tr>
+                       {% endif %}
                     {% endfor %}
            
                 
@@ -97,6 +101,7 @@
                     <th>{{aula.nombre}}</th>
                 {% endfor %}
                     {% for horario in horarios %}
+                        {% if horario != '22:30 a 23:00'%}
                        <tr> 
                            {% set valorIndexHora = loop.index %}
                             <td>{{horario}}</td>
@@ -136,6 +141,7 @@
                            {% endfor %}
 
                        </tr>
+                       {% endif %}
                     {% endfor %}
            
                 
