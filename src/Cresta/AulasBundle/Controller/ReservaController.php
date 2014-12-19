@@ -135,10 +135,10 @@ class ReservaController extends Controller
         $query = $reserva->createQueryBuilder('r')
                         ->where('
                             (r.fecha= :fecha AND r.aula= :aula) AND
-                            (r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
+                            ((r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
                             (r.horaHasta > :horaDesde AND r.horaHasta <= :horaHasta ) OR
                             (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
-                            (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) 
+                            (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
                             ')
                         ->setParameter('fecha', $fecha)
                         ->setParameter('aula', $idAula)
