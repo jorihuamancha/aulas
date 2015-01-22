@@ -665,6 +665,7 @@ class AulaController extends Controller
 
 
             case 'nombre':
+   
                 $reserva = $em->getRepository('CrestaAulasBundle:Aula');
                 $query = $reserva->createQueryBuilder('r')
                 ->where('r.nombre = :nombre')
