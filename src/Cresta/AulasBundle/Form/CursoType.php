@@ -16,7 +16,7 @@ class CursoType extends AbstractType
     {
         $builder
             ->add('nombre','text',array('label'=>'Nombre:'))
-            ->add('anio','text',array('label'=>'Año:'))
+            ->add('anio','text',array('label'=>'Año:', 'pattern'=>"[0-9]+"))
             ->add('Carrera','entity',array('class'=>'CrestaAulasBundle:Carrera',
                                             'property'=>'nombre','label'=>'Carrera:',
                                             'attr'=>array('required'=>true,

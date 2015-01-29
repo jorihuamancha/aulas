@@ -357,7 +357,14 @@ class AulaController extends Controller
             }
             $mesSelect = array();
             $buscameEsto='Mes';
+            
+            //Arreglo de last moment, con los meses del 1 al 9, como lo tomamos de la fecha actual
+            //lo toma como 01 al 09, y se rompe!!!
+
+            
+            $mesActual=intval($mesActual);
             $buscameEstoAhora = $meses[$mesActual];
+
             return $this->render('CrestaAulasBundle:Aula:disponibilidad.html.twig',array('mesSelect'=>$mesSelect,
             'seleccionadoMes'=>$buscameEsto,'meses'=>$meses,'horarios'=>$horarios,'aulasMostrar'=>$aulasMostrar,'mesActual'=>$mesActual
             ,'diaActual'=>$diaActual,'seleccionadoMesAhora'=>$buscameEstoAhora,'ArrayContenedor'=>$ArrayContenedor,'seleccionadoDia' => 'Dia'));
@@ -380,6 +387,7 @@ class AulaController extends Controller
             echo "</PRE>";*/
             $mesSelect = $unArray[$buscameEsto];
             //$aulasMostrar[]['nombre'] = $seleccionadoAula;
+            $mesActual=intval($mesActual);
             $buscameEstoAhora = $meses[$mesActual];
             $pasar = $AnioActual . '-' . $asd . '-' . $seleccionadoDia;
             $parameters = array('fechitaMostri' => $pasar,'elaula' =>  $idDelAulaSeleccionada);
