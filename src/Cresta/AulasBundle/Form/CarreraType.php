@@ -16,7 +16,7 @@ class CarreraType extends AbstractType
     {
         $builder
             ->add('nombre', 'text', array('label'=>'Nombre:'))
-            ->add('observaciones', 'text', array('label'=>'Observaciones:'))
+            ->add('observaciones', 'text', array('label'=>'Observaciones:','required'=>false))
           
         ;
     }

@@ -17,7 +17,7 @@ class AlertaType extends AbstractType
         $builder
             ->add('fecha','date',array('format'=>'dd MM yyyy','label'=>'Fecha: '))
             ->add('descripcion','text',array('label'=>'Descripción: '))
-            ->add('observaciones','text',array('label'=>'Observaciones: '))
+            ->add('observaciones','text',array('label'=>'Observaciones: ','required'=>false))
         ;
     }
     
