@@ -15,7 +15,11 @@
             </tr>
             <tr>
                 <th>Observaciones</th>
-                <td>{{ entity.observaciones }}</td>
+                {% if entity.observaciones is null %}
+                    <td>N/A</td>
+                {% else %}
+                    <td>{{ entity.observaciones }}</td>
+                {% endif %}
             </tr>
         </tbody>
     </table>

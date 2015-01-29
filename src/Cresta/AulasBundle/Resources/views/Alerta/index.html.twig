@@ -21,7 +21,12 @@
             <tr>
                 <td>{% if entity.fecha %}{{ entity.fecha|date('d/m/Y') }}{% endif %}</td>
                 <td>{{ entity.descripcion }}</td>
-                <td>{{ entity.observaciones }}</td>
+
+                {% if entity.observaciones is null %}
+                    <td>N/A</td>
+                {% else %}
+                    <td>{{ entity.observaciones }}</td>
+                {% endif %}
                 <td>
                 <ul>
                     
