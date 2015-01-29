@@ -646,4 +646,58 @@ class AulaController extends Controller
         }
     }
 
+    public function filtroAction(){
+        $filtro=$this->get('request')->get('filtro');
+        $em = $this->getDoctrine()->getManager();
+        switch ($filtro) {
+
+            case 'todos':
+                $entities = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
+                break;
+
+
+            case 'nombre':
+                $reserva = $em->getRepository('CrestaAulasBundle:Aula');
+                $query = $reserva->createQueryBuilder('r')
+                ->where('r.nombre = :nombre')
+                ->setParameter('nombre', $_POST['dato'])
+                ->orderBy('r.nombre', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+            case 'piso':
+                $reserva = $em->getRepository('CrestaAulasBundle:Aula');
+                $query = $reserva->createQueryBuilder('r')
+                ->where('r.piso = :piso')
+                ->setParameter('piso', $_POST['dato'])
+                ->orderBy('r.piso', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+             case 'capacidad':
+                $reserva = $em->getRepository('CrestaAulasBundle:Aula');
+                $query = $reserva->createQueryBuilder('r')
+                ->where('r.capacidad = :capacidad')
+                ->setParameter('capacidad', $_POST['dato'])
+                ->orderBy('r.capacidad', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+            
+        }
+        if (!$entities){
+            $entities=null;
+        }
+
+        $filtroActivo = 1;
+
+        return $this->render('CrestaAulasBundle:Aula:index.html.twig', array(
+            'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
+        ));
+
+    }
+
 }
