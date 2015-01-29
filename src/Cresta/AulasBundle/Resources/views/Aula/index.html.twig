@@ -78,6 +78,7 @@
                 </form>
             </div>
         {% endif %}
+       
     </div>    
     
 
@@ -92,6 +93,13 @@
             </tr>
         </thead>
         <tbody>
+         {% if entities is null %}
+            <tr>
+                <td colspan="5">
+                    No se encontraron Aulas.
+                </td>
+            </tr>
+        {% endif %}
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.nombre }}</td>

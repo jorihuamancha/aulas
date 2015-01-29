@@ -568,6 +568,7 @@ class ReservaController extends Controller
             $filtroActivo = 1;
 
 
+    
     return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array(
             'entities' => $entities,
             'filtroActivo' => $filtroActivo,
