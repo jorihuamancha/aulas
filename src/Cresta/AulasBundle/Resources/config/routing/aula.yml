@@ -32,3 +32,8 @@ aulas_aula_delete:
 aulas_aula_disponibilidad:
     path:     /disponibilidad
     defaults: { _controller: "CrestaAulasBundle:Aula:disponibilidad" }
+
+aulas_aula_filtro:
+    path:     /filtro/{filtro}
+    defaults: { _controller: "CrestaAulasBundle:Aula:filtro" }
+    
