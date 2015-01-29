@@ -15,7 +15,7 @@ class RecursoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre','text',array('label'=>'Nombre:','pattern'=>"[a-zA-ZÑñ ]+"))
+            ->add('nombre','text',array('label'=>'Nombre:','pattern'=>"[a-zA-ZÑñá-úÁ-Ú ]+"))
             
         ;
     }
