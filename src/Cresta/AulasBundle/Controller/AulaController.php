@@ -19,9 +19,17 @@ class AulaController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $filtroActivo=0;
         $entities = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
+        if (!$entities){
+            $entities=null;
+        }
+        else {
+            $_SESSION['entities']=$entities;
+        }
         return $this->render('CrestaAulasBundle:Aula:index.html.twig', array(
             'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
         ));
     }
     /**
