@@ -344,6 +344,28 @@ class ReservaController extends Controller
         $horaDesde = $reservaEliminada->getHoraDesde();
         $horaHasta = $reservaEliminada->getHoraHasta();
         $reservaParaElDiaDeReserva = $reservaEliminada->getFecha();
+        //jori
+        $idDocente= $reservaEliminada->getDocente();//->getId();
+        $docente= $em->getRepository('CrestaAulasBundle:Docente')->find($idDocente);
+        $nombreDocente=$docente->getNombre();
+        $apellidoDocente=$docente->getApellido();
+        if ($reservaEliminada->getActividad()==null){
+            //cargo curso
+            $idCurso = $reservaEliminada->getCurso();
+            $curso = $em->getRepository('CrestaAulasBundle:Curso')->find($idCurso);
+            $nombreCurso = $curso->getNombre();
+            $nombreActividad = null;
+        }else{
+            //cargo actividad
+            $idActividad = $reservaEliminada->getActividad();
+            $actividad = $em->getRepository('CrestaAulasBundle:Actividad')->find($idActividad);
+            $nombreActividad = $actividad->getNombre();
+            $nombreCurso = null;
+        }
+
+
+
+        //end jori
 
         $idAula = $reservaEliminada->getAula();
         //busco el aula para tomar el nombre
@@ -355,8 +377,16 @@ class ReservaController extends Controller
 
         $movimiento->setUsuario($movimientoPersona);
         $movimiento->setReservaAula($aulaParaMovimiento);
-        
-
+        //jori
+        $movimiento->setApellidoDocente($apellidoDocente);
+        $movimiento->setNombreDocente($nombreDocente);
+        if (!($nombreCurso)==null){
+            $movimiento->setTarea($nombreCurso . ' (Curso)');
+        }
+        else{
+            $movimiento->setTarea($nombreActividad . ' (Actividad)');
+        }
+        //end jori
 
         $movimiento->setReservaHoraDesde($horaDesde);       
 
