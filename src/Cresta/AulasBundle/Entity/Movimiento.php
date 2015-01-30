@@ -60,17 +60,35 @@ class Movimiento
      */
     private $reservaParaDiaDeReserva; //esta es la fecha para la cual iba a estar hecha la reserva
 
-
-
     /**
      * @var string
      *
      * @ORM\Column(name="movimientoPersona", type="string")
      */
     private $movimientoPersona;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellidoDocente", type="string")
+     */
+    private $apellidoDocente;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombreDocente", type="string")
+     */
 
-
-
+    private $nombreDocente;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tarea", type="string")
+     */
+    private $tarea;
+    
     /**
      * Get id
      *
@@ -222,8 +240,6 @@ class Movimiento
         return $this;
     }
 
-
-
     /**
      * Get movimientoPersona
      *
@@ -234,5 +250,73 @@ class Movimiento
         return $this->movimientoPersona;
     }
     
+    /**
+     * Set apellidoDocente
+     *
+     * @param string $apellidoDocente
+     * @return Movimiento
+     */
+    public function setApellidoDocente($apellidoDocente)
+    {
+		$this->apellidoDocente=$apellidoDocente;
+		
+		return $this;
+	}
+    
+    /**
+     * Get apellidoDocente
+     *
+     * @return string 
+     */
+    public function getApellidoDocente()
+    {
+		return $this->apellidoDocente;
+	}
+	
+    /**
+     * Set nombreDocente
+     *
+     * @param string $nombreDocente
+     * @return Movimiento
+     */
+    public function setNombreDocente($nombreDocente)
+    {
+		$this->nombreDocente=$nombreDocente;
+		
+		return $this;
+	}
+    
+    /**
+     * Get nombreDocente
+     *
+     * @return string 
+     */
+    public function getNombreDocente()
+    {
+		return $this->nombreDocente;
+	}
+	
+    /**
+     * Set tarea
+     *
+     * @param string $tarea
+     * @return Movimiento
+     */
+    public function setTarea($tarea)
+    {
+		$this->tarea=$tarea;
+		
+		return $this;
+	}
+    
+    /**
+     * Get tarea
+     *
+     * @return string 
+     */
+    public function getTarea()
+    {
+		return $this->tarea;
+	}
 
 }
