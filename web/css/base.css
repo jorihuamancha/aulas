@@ -177,7 +177,7 @@ nav ul li a:hover{
 	que contienen inputs como el EDIT y el NEW */
 .formAutogenerado form input{
 	margin-left:5px;
-	display:block;
+
 	margin-bottom:10px;
 }
 
