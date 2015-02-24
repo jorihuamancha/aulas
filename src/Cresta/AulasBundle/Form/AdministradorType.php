@@ -17,6 +17,7 @@ class AdministradorType extends AbstractType
         $builder
             ->add('nombre','text',array('label'=>'Nombre: '))
             ->add('apellido','text',array('label'=>'Apellido: '))
+            ->add('activo', 'checkbox',array('data'=>true, 'attr'=>array('class'=>'oculto')))
         ;
     }
     
