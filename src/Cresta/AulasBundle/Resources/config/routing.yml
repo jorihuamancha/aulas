@@ -60,3 +60,6 @@ _imprimir:
 #    param:    { module: listado, action: imprimir}
     requirements:
         _format: html|pdf
+_dump:
+    path:     /dump
+    defaults: { _controller: CrestaAulasBundle:Default:dump }
