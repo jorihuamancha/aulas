@@ -67,6 +67,9 @@ class ReservaController extends Controller
         if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 
+                
+                $entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
+
                 $fecha=$entity->getFecha();
                 $fecha->setTime(00, 00, 00);
                 $entity->setFecha($fecha);
@@ -168,7 +171,7 @@ class ReservaController extends Controller
             'action' => $this->generateUrl('reserva_create'),
             'method' => 'POST',
         ));
-        //$user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->container->get('security.context')->getToken()->getUser();
 
         $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
         $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../reserva','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
@@ -187,8 +190,11 @@ class ReservaController extends Controller
         //$user='1';
         $em = $this->getDoctrine()->getManager();
 
+        //$entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
+
         $usuario = $em->getRepository('CrestaAulasBundle:Usuario')->find($this->container->get('security.context')->getToken()->getUser());
         $idUsuario=$usuario->getId();
+
         
         return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
             'usuario'=> $idUsuario,
@@ -362,9 +368,6 @@ class ReservaController extends Controller
             $nombreActividad = $actividad->getNombre();
             $nombreCurso = null;
         }
-
-
-
         //end jori
 
         $idAula = $reservaEliminada->getAula();
@@ -463,7 +466,13 @@ class ReservaController extends Controller
         $nombrefiltro=$_SESSION['nombrefiltro'];
         if (isset($_SESSION['filtro'])){
             $filtro=$_SESSION['filtro'];
+            if ($_SESSION['fecha1'] == $_SESSION['fecha2'])
+                $nombrefiltro = 'Hoy';
+            
         }
+        $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+        
+        
         switch ($nombrefiltro){
             case 'Hoy':
                 $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
@@ -483,7 +492,7 @@ class ReservaController extends Controller
                 break;
 
             case 'Fecha':
-                $em = $this->getDoctrine()->getManager();
+              
                 $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reserva->createQueryBuilder('r')
                 ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )

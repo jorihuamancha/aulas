@@ -118,6 +118,7 @@
                 <th>Materia/Actividad</th>
                 <th>Carrera</th>
                 <th>Aula</th>
+                <th>Creador</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -149,6 +150,7 @@
                     {% endif %}
                 </td>
                 <td>{{ entity.aula.nombre }}</td>
+                <td>{{ entity.diosReserva }}</td>
                 <td>
                 <ul>
                      <a href="{{ path('reserva_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>
