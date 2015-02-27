@@ -22,9 +22,6 @@ class Curso extends Tarea
      */
     private $id;
 
-    
-    
-    
     /* ---------------------------------------------- Reserva-Curso-----------------------------------------------------------*/
     /**
      * @ORM\ManyToOne(targetEntity="Carrera")
@@ -40,7 +37,6 @@ class Curso extends Tarea
      */
     private $anio;
 
-
     /**
      * @var string
      *
@@ -54,9 +50,6 @@ class Curso extends Tarea
      * @ORM\Column(name="semestre", type="string", length=20)
      */
     private $Semestre;
-
-
-
 
     /**
      * Set anio

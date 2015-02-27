@@ -63,9 +63,6 @@ class Carrera
      */
     private $observaciones;
 
- 
-
-
     /**
      * Get id
      *
