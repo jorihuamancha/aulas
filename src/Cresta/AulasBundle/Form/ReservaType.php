@@ -38,7 +38,6 @@ class ReservaType extends AbstractType
                                             'property'=>'cursocarrera',
                                             'attr'=>array('required'=>true,
                                                           'class'=>"chzn-select" )))
-            
             ->add('actividad','entity',array(   'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
                                                 'attr'=>array( 

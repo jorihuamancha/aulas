@@ -25,14 +25,22 @@ class DefaultController extends Controller
     //funcion agregada para dump de bbdd
     public function dumpAction()
     {
-        $dbhost = 'localhost';
-        $dbname = 'symfony';
-        $dbuser = 'root';
-        $dbpass = 'root';
+        //$dbhost = 'localhost';
+        //$dbname = 'symfony';
+        //$dbuser = 'root';
+        //$dbpass = 'root';
+        $dbhost=$this->container->getParameter('database_host');
+        $dbname=$this->container->getParameter('database_name');
+        $dbuser=$this->container->getParameter('database_user');
+        $dbpass=$this->container->getParameter('database_password');
+        $fecha=new \DateTime('now');
+        $fecha->format('c');
+        $fechaString=string($fecha);
+
         $pathActual = getcwd() . '/'; //trae el path actual 
          
-        $backup_file = $pathActual . 'Gestion-Aulas' . date("H-i-s-d-m-Ys") . '.sql';
-        $NombreBackup =  'Gestion-Aulas ' . date("H-i-s-d-m-Y") . '.sql';
+        $backup_file = $pathActual . 'Gestion-Aulas -' . $fecha . '.sql';
+        $NombreBackup =  'Gestion-Aulas -' . $fecha . '.sql';
 
         //Comando a ejecutar
         $command = "mysqldump --user=$dbuser --password=$dbpass $dbname > $backup_file";
