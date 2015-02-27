@@ -19,6 +19,8 @@ class AppKernel extends Kernel
             new Cresta\AulasBundle\CrestaAulasBundle(),
             new FOS\UserBundle\FOSUserBundle(),
 			new Ps\PdfBundle\PsPdfBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

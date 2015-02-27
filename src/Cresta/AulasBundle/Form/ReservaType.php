@@ -29,41 +29,43 @@ class ReservaType extends AbstractType
             //->add('usuario', 'text', array('attr'=>array('class'=>'oculto')))
             ->add('estado', 'checkbox', array(  'data'=>true, 'required'=>false,
                                                 'attr'=>array('class'=>'oculto')))
-            ->add('observaciones', 'text', array('required'=>false))
-            ->add('docente','entity',array( 'class'=>'CrestaAulasBundle:Docente',
+            ->add('docente','entity',array( 'label'=>'Docente: ',
+                                            'class'=>'CrestaAulasBundle:Docente',
                                             'property'=>'apellido'.'nombre',
                                             'attr'=>array('required'=>true,
                                                           'class'=>"chzn-select" ) ) )
-            ->add('curso','entity',array(   'class'=>'CrestaAulasBundle:Curso',
+            ->add('curso','entity',array(   'label'=>'Materia: ',
+                                            'class'=>'CrestaAulasBundle:Curso',
                                             'property'=>'cursocarrera',
                                             'attr'=>array('required'=>true,
-                                                          'class'=>"chzn-select" )))
-            ->add('actividad','entity',array(   'class'=>'CrestaAulasBundle:Actividad',
+                                                          'class'=>"chzn-select")))
+            ->add('actividad','entity',array(   'label'=>'Actividad: ',
+                                                'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
                                                 'attr'=>array( 
                                                                 'required'=>'true',
-                                                                'class'=>"chzn-select", 
-                                                                'style'=>"width:200px" ) ))
-            ->add('fecha', 'datetime', array(   //'data'=>$fechaActual,
+                                                                'class'=>"chzn-select") ))
+            ->add('fecha', 'datetime', array(   'label'=>'Fecha: ',//'data'=>$fechaActual,
                                                 //'days'=>$dia,
                                                 //'months'=>$mes,
                                                 //'years'=>array('data'=>$anio),
                                                 'attr'=>array(  'required'=>true)))//,
                                                                 //'min'=>$fechaActual )))//new \DateTime()->format('Y-m-d') ) ) //("now")
-            ->add('horaDesde', 'datetime', array(   //'data'=>$horaActual,
+            ->add('horaDesde', 'datetime', array(   'label'=>'Hora desde: ',
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00',
                                                                         '30'=>'30'),
                                                     'attr'=>array('required'=>true) 
                     ) )//new \DateTime('H:i:s') ) )//, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
-            ->add('horaHasta', 'datetime', array(   //'data'=>$horaActual, 
+            ->add('horaHasta', 'datetime', array(   'label'=>'Hora hasta: ' ,
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00', 
                                                                         '30'=>'30' ),
                                                     'attr'=>array('required'=>true)
                                                 ) 
                     )//new \DateTime("H:i:s") ) ) //, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
-            ->add('recursos','entity',array('class'=>'CrestaAulasBundle:Recurso',
+            ->add('recursos','entity',array( 'label'=>'Recursos: ',
+                                            'class'=>'CrestaAulasBundle:Recurso',
                                             'property'=>'nombre',
                                             'multiple'=>true,
                                             'expanded'=>true,
@@ -71,7 +73,8 @@ class ReservaType extends AbstractType
             ->add('aula','entity',array('class'=>'CrestaAulasBundle:Aula',
                                         'property'=>'nombre'.'capacidad',
                                         'attr'=>array('required'=>true)))
-            ->add('observaciones', 'text', array('required'=>false))
+            ->add('observaciones', 'text', array('label'=>'Observaciones: ',
+                                                 'required'=>false))
             ->add('fechaRegistro', 'datetime', array(   'data'=>$fechaActual, //new \DateTime("Y-m-d"),
                                                         'attr'=>array('class'=>'oculto'),
                                                         'label'=>' '))

@@ -7,7 +7,7 @@
         <tbody>            
             <tr>
                 <th>Nombre</th>
-                <td>{{ entity.nombre }}</td>
+                <td style="color:{{ entity.color }}"> <b> {{ entity.nombre }} </b></td>
             </tr>
             <tr>
                 <th>Universidad</th>
@@ -17,14 +17,12 @@
                 <th>Facultad</th>
                 <td>{{ entity.facultad }}</td>
             </tr>
+
             <tr>
-                <th>Semestre</th>
-                <td>{{ entity.Semestre }}</td>
+                <th>Plan</th>
+                <td>{{ entity.plan }}</td>
             </tr>
-            <tr>
-                <th>Color</th>
-                <td>{{ entity.color }}</td>
-            </tr>
+
             <tr>
                 <th>Observaciones</th>
                 {% if entity.observaciones is null %}

@@ -208,8 +208,8 @@ nav ul li a:hover{
 	voy a poner un ID a cada uno (Los EDITS y NEWS de cada CRUD) */
 
 /*Nuevos*/
-.formAutogenerado #NuevoCurso div:nth-child(4),.formAutogenerado #NuevoCurso div:nth-child(5),
-.formAutogenerado #NuevaCarrera div:nth-child(3),.formAutogenerado #NuevaCarrera div:nth-child(4),
+.formAutogenerado #NuevoCurso div:nth-child(6),.formAutogenerado #NuevoCurso div:nth-child(7),
+.formAutogenerado #NuevaCarrera div:nth-child(7),.formAutogenerado #NuevaCarrera div:nth-child(8),
 .formAutogenerado #NuevoActividad div:nth-child(3), .formAutogenerado #NuevoActividad div:nth-child(4),
 .formAutogenerado #NuevoRecurso div:nth-child(2),.formAutogenerado #NuevoRecurso div:nth-child(3),
 .formAutogenerado #NuevaAula div:nth-child(5),.formAutogenerado #NuevaAula div:nth-child(6),
@@ -217,8 +217,8 @@ nav ul li a:hover{
 .formAutogenerado #NuevoDocente div:nth-child(3),.formAutogenerado #NuevoDocente div:nth-child(4),
 .formAutogenerado #cresta_aulasbundle_reserva div:nth-child(14), .formAutogenerado #cresta_aulasbundle_reserva div:nth-child(15), 
 /*Editar*/
-.formAutogenerado #EditarCurso div:nth-child(4),.formAutogenerado #EditarCurso div:nth-child(5),
-.formAutogenerado #EditarCarrera div:nth-child(3),.formAutogenerado #EditarCarrera div:nth-child(4),
+.formAutogenerado #EditarCurso div:nth-child(6),.formAutogenerado #EditarCurso div:nth-child(7),
+.formAutogenerado #EditarCarrera div:nth-child(7),.formAutogenerado #EditarCarrera div:nth-child(8),
 .formAutogenerado #EditarActividad div:nth-child(3),.formAutogenerado #EditarActividad div:nth-child(4),
 .formAutogenerado #EditarRecurso div:nth-child(2),.formAutogenerado #EditarRecurso div:nth-child(3),
 .formAutogenerado #EditarAula div:nth-child(5),.formAutogenerado #EditarAula div:nth-child(6),

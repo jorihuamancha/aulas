@@ -1,11 +1,11 @@
 {% extends '::base.html.twig' %}
-{% block title %}Cursos {% endblock %}
+{% block title %}Materias {% endblock %}
 {% block body -%}
-    <h1 name='top'>Listado de Cursos</h1>
+    <h1 name='top'>Listado de materias</h1>
 
     <ul>
             <a href="{{ path('aulas_curso_new') }}" class="btn btn-default botonTabla">
-                Nuevo curso
+                Nueva materia
             </a>
     </ul>
     <table class="records_list tabla">
@@ -14,6 +14,8 @@
             	<th>Nombre</th>
                 <th>Carrera</th>
                 <th>Año</th>
+                <th>Semestre</th>
+                <th>Ciclo</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -29,6 +31,12 @@
                     </td>
                 {% endif %}
 				<td>{{ entity.anio }}</td>
+                {% if entity.semestre == 1 %}
+                    <td>Primero</td>
+                {% else %}
+                    <td>Segundo</td>
+                {% endif %}
+                <td>{{ entity.ciclo }}</td>
                 <td>
                 <ul>
                         <a href="{{ path('aulas_curso_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>

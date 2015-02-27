@@ -43,18 +43,18 @@ class Carrera
     private $facultad;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="semestre", type="integer", length=1)
-     */
-    private $semestre;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="color", type="string", length=20)
      */
     private $color;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="plan", type="string", length=20)
+     */
+    private $plan;
 
     /**
      * @var string
@@ -146,30 +146,6 @@ class Carrera
         return $this->facultad;
     }
 
-
-    /**
-     * Set semestre
-     *
-     * @param string $semestre
-     * @return Carrera
-     */
-    public function setSemestre($semestre)
-    {
-        $this->semestre = $semestre;
-
-        return $this;
-    }
-
-    /**
-     * Get semestre
-     *
-     * @return string 
-     */
-    public function getSemestre()
-    {
-        return $this->semestre;
-    }
-
     /**
      * Set color
      *
@@ -178,7 +154,7 @@ class Carrera
      */
     public function setColor($color)
     {
-        $this->color = $color;
+        $this->color = '#' . $color;
 
         return $this;
     }
@@ -192,6 +168,30 @@ class Carrera
     {
         return $this->color;
     }
+
+        /**
+     * Set plan
+     *
+     * @param string $plan
+     * @return Carrera
+     */
+    public function setPlan($plan)
+    {
+        $this->plan = $plan;
+
+        return $this;
+    }
+
+    /**
+     * Get plan
+     *
+     * @return string 
+     */
+    public function getPlan()
+    {
+        return $this->plan;
+    }
+
 
     /**
      * Set observaciones

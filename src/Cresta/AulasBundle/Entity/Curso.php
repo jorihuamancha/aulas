@@ -40,6 +40,24 @@ class Curso extends Tarea
      */
     private $anio;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ciclo", type="string", length=20)
+     */
+    private $Ciclo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="semestre", type="string", length=20)
+     */
+    private $Semestre;
+
+
+
+
     /**
      * Set anio
      *
@@ -67,6 +85,32 @@ class Curso extends Tarea
     }
 
     /**
+     * Set Ciclo
+     *
+     * @param string $anio
+     * @return Curso
+     */
+    public function setCiclo($Ciclo)
+    {
+        $this->Ciclo = $Ciclo;
+
+        return $this;
+    }
+
+    /**
+     * Set Semestre
+     *
+     * @param string $anio
+     * @return Curso
+     */
+    public function setSemestre($Semestre)
+    {
+        $this->Semestre = $Semestre;
+
+        return $this;
+    }
+
+    /**
      * Get anio
      *
      * @return string 
@@ -85,6 +129,28 @@ class Curso extends Tarea
     {
         return $this->Carrera;
     }
+
+    /**
+     * Get Ciclo
+     *
+     * @return string 
+     */
+    public function getCiclo()
+    {
+        return $this->Ciclo;
+    }
+
+    /**
+     * Get Semestre
+     *
+     * @return string 
+     */
+    public function getSemestre()
+    {
+        return $this->Semestre;
+    }
+
+
 
     /**
      * Get id
