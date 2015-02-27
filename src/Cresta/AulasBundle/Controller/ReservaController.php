@@ -38,6 +38,7 @@ class ReservaController extends Controller
         $query = $reserva->createQueryBuilder('r')
                 ->where('r.fecha = :fecha')
                 ->setParameter('fecha', date('Y-m-d'))
+                ->orderBy('r.horaDesde', 'ASC')
                 ->getQuery();
         $entities = $query->getResult();
 
@@ -423,19 +424,14 @@ class ReservaController extends Controller
             if (!$idReserva) {
                 throw $this->createNotFoundException('No pudimos encontrar la reserva.');
             }
-            
                    
             $this->nuevoMovimiento($idReserva);
-
 
             $em->remove($idReserva);
             $em->flush();
 
         return $this->redirect($this->generateUrl('reserva'));
     }
-
-
-
 
     /**
      * Creates a form to delete a Reserva entity by id.
@@ -471,7 +467,6 @@ class ReservaController extends Controller
             
         }
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
-        
         
         switch ($nombrefiltro){
             case 'Hoy':
@@ -539,6 +534,7 @@ class ReservaController extends Controller
                 ->setParameter('fecha1', $_POST['fecha1'])
                 ->setParameter('fecha2', $_POST['fecha2'])
                 ->orderBy('r.fecha', 'ASC')
+                ->orderBy('r.horaDesde', 'ASC')
                 ->getQuery();
                 $entities = $query->getResult();
                 $_SESSION['nombrefiltro']='Fecha';
@@ -554,6 +550,8 @@ class ReservaController extends Controller
                 $query = $docente->createQueryBuilder('d')
                 ->where('d.nombre LIKE :dato or d.apellido LIKE :dato' )
                 ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->orderBy('d.apellido', 'ASC')
+                ->orderBy('d.nombre', 'ASC')
                 ->getQuery();
                 $docente = $query->getResult();
                 $_SESSION['filtro']=$docente;//Para imprimir
@@ -590,6 +588,7 @@ class ReservaController extends Controller
                     $query = $actividad->createQueryBuilder('a')
                     ->where('a.nombre LIKE :dato' )
                     ->setParameter('dato', '%'.$_POST['dato'].'%')
+                    ->orderBy('c.nombre', 'ASC')
                     ->getQuery();
                     $actividad = $query->getResult();
                     $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($actividad);
