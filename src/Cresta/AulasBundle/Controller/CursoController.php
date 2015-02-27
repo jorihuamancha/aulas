@@ -54,9 +54,7 @@ class CursoController extends Controller
                 'entity' => $entity,
                 'form'   => $form->createView(),
             ));
-        }else{
-            throw new Exception("Ya existe un Curso con ese nombre modifique e intente nuevamente");
-        }
+        }/*else{throw new Exception("Ya existe una Materia con ese nombre.");}*/
     }
 
     /**
@@ -105,7 +103,7 @@ class CursoController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
+            throw $this->createNotFoundException('No pudimos encontrar la Materia :/');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -127,7 +125,7 @@ class CursoController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
+            throw $this->createNotFoundException('No pudimos encontrar la Materia :/');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -170,7 +168,7 @@ class CursoController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
+            throw $this->createNotFoundException('No pudimos encontrar la Materia :/');
         }
         
         $deleteForm = $this->createDeleteForm($id);
@@ -204,9 +202,9 @@ class CursoController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Curso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No pudimos encontrar el curso :/ intenta recargando la pagina');
+            throw $this->createNotFoundException('No pudimos encontrar la Materia :/');
         }elseif ($this::estaEnUso($entity)) {
-            throw new Exception("Este curso esta actualmente en una reserva, elimine la reserva y podra eliminar el curso");
+            throw new Exception("Esta Materia esta actualmente en una reserva, elimine la Reserva y podra eliminar la Materia");
         }
 
         $em->remove($entity);
@@ -267,4 +265,3 @@ class CursoController extends Controller
         }
     }
 }
-

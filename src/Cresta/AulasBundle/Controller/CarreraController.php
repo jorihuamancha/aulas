@@ -104,7 +104,7 @@ class CarreraController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Carrera')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
+            throw $this->createNotFoundException('No pudimos encontrar la carrera :/');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -126,7 +126,7 @@ class CarreraController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Carrera')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
+            throw $this->createNotFoundException('No pudimos encontrar la carrera :/');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -170,7 +170,7 @@ class CarreraController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Carrera')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
+            throw $this->createNotFoundException('No pudimos encontrar la carrera :/');
         }
         
         $deleteForm = $this->createDeleteForm($id);
@@ -204,9 +204,9 @@ class CarreraController extends Controller
             $entity = $em->getRepository('CrestaAulasBundle:Carrera')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('No pudimos encontrar la carrera :/ intenta recargar la pagina.');
+                throw $this->createNotFoundException('No pudimos encontrar la carrera :/');
             }elseif ($this::estaEnUso($entity)) {
-                throw new Exception("Esta carrera tiene cursos incluidos, borre los cursos e intente de nuevo.");
+                throw new Exception("Esta Carrera tiene Materias asignadas. Borre las Materias e intente de nuevo.");
             }
 
             $em->remove($entity);

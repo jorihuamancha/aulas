@@ -38,6 +38,7 @@ class ReservaController extends Controller
         $query = $reserva->createQueryBuilder('r')
                 ->where('r.fecha = :fecha')
                 ->setParameter('fecha', date('Y-m-d'))
+                ->orderBy('r.horaDesde', 'ASC')
                 ->getQuery();
         $entities = $query->getResult();
 
@@ -239,7 +240,10 @@ class ReservaController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
 
         if (!$entity) {
+
             throw $this->createNotFoundException('No pudimos encontrar el recurso, vuelva atras');
+
+            throw $this->createNotFoundException('No pudimos encontrar el recurso :/');
         }
 
             $editForm = $this->createEditForm($entity);
@@ -285,7 +289,7 @@ class ReservaController extends Controller
         $entity = $em->getRepository('CrestaAulasBundle:Reserva')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('No pudimos encontrar la reserva.');
+            throw $this->createNotFoundException('No pudimos encontrar la Reserva.');
         }
 
         //entidad auxiliar por deus
@@ -316,28 +320,30 @@ class ReservaController extends Controller
             $fechaActual=new \DateTime('now');
             $fechaActual->setTime(00, 00, 00);
 
-           // if (($fechaHastaAux == $entity->getHoraHasta()) and ($fechaDesdeAux == $entity->getHoraDesde()) and ($fechaAux == $entity->getFecha())) {
-           //     $tieneCambios = false;
-           // }else{
-                //aca taer el horario de la tupla
-           //     if(){
+            if (!($entity->getFecha()>=$fechaActual)) {
+                throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
+            }elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
+                throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
+            }elseif (!$this::conprobarAlerta($entity->getFecha())){
+                throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
+            }elseif (!($this->sePuede($entity))) {
+                throw new Exception("Hay reservas para esa aula con esas fecha y hora");
+            }
+      
+            if (!($entity->getFecha()>=$fechaActual)) {
+                    throw new Exception("La fecha para reservar deberia ser más grande que la fecha actual.");  
+                }
+                elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
 
-            //    }
-            //    $tieneCambios = true;
-           // }
+                    throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
 
-            // if($tieneCambios){
-               if (!($entity->getFecha()>=$fechaActual)) {
-                        throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
-                    }elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
-                        throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
-                    }elseif (!$this::conprobarAlerta($entity->getFecha())){
-                        throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
-                    }elseif (!($this->sePuede($entity))) {
-                        throw new Exception("Hay reservas para esa aula con esas fecha y hora");
-                    }
-             //}              
-            //fin de configuracion de las fechas y horas
+                }elseif (!$this::conprobarAlerta($entity->getFecha())){
+
+                    throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
+                }elseif (!($this->sePuede($entity))) {
+                    throw new Exception("Hay reservas para esa aula con esas fecha y hora");
+                }
+
             $em->flush();
            
             return $this->redirect($this->generateUrl('reserva_show', array('id' => $id)));
@@ -444,19 +450,14 @@ class ReservaController extends Controller
             if (!$idReserva) {
                 throw $this->createNotFoundException('No pudimos encontrar la reserva.');
             }
-            
                    
             $this->nuevoMovimiento($idReserva);
-
 
             $em->remove($idReserva);
             $em->flush();
 
         return $this->redirect($this->generateUrl('reserva'));
     }
-
-
-
 
     /**
      * Creates a form to delete a Reserva entity by id.
@@ -492,7 +493,6 @@ class ReservaController extends Controller
             
         }
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
-        
         
         switch ($nombrefiltro){
             case 'Hoy':
@@ -560,6 +560,7 @@ class ReservaController extends Controller
                 ->setParameter('fecha1', $_POST['fecha1'])
                 ->setParameter('fecha2', $_POST['fecha2'])
                 ->orderBy('r.fecha', 'ASC')
+                ->orderBy('r.horaDesde', 'ASC')
                 ->getQuery();
                 $entities = $query->getResult();
                 $_SESSION['nombrefiltro']='Fecha';
@@ -575,6 +576,8 @@ class ReservaController extends Controller
                 $query = $docente->createQueryBuilder('d')
                 ->where('d.nombre LIKE :dato or d.apellido LIKE :dato' )
                 ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->orderBy('d.apellido', 'ASC')
+                ->orderBy('d.nombre', 'ASC')
                 ->getQuery();
                 $docente = $query->getResult();
                 $_SESSION['filtro']=$docente;//Para imprimir
@@ -611,6 +614,7 @@ class ReservaController extends Controller
                     $query = $actividad->createQueryBuilder('a')
                     ->where('a.nombre LIKE :dato' )
                     ->setParameter('dato', '%'.$_POST['dato'].'%')
+                    ->orderBy('c.nombre', 'ASC')
                     ->getQuery();
                     $actividad = $query->getResult();
                     $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($actividad);

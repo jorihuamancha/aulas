@@ -23,9 +23,11 @@ class CursoType extends AbstractType
                                               'required'  => true))
 
             ->add('ciclo','text',array('label'=>'Ciclo lectivo:'))
-            ->add('Carrera','entity',array('class'=>'CrestaAulasBundle:Carrera',
-                                            'property'=>'nombre','label'=>'Carrera:',
+            ->add('Carrera','entity',array( 'class'=>'CrestaAulasBundle:Carrera',
+                                            'property'=>'nombre',
+                                            'label'=>'Carrera:',
                                             'attr'=>array('required'=>true,
+                                                          'style'=>'min-width:100px',
                                                           'class'=>"chzn-select" )))
         ;
     }
