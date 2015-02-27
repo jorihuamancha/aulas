@@ -16,6 +16,7 @@ body{
 
 body select{
 	background-color: white;
+	min-width: 100px;
 }
 
 header{
