@@ -330,19 +330,7 @@ class ReservaController extends Controller
                 throw new Exception("Hay reservas para esa aula con esas fecha y hora");
             }
       
-            if (!($entity->getFecha()>=$fechaActual)) {
-                    throw new Exception("La fecha para reservar deberia ser más grande que la fecha actual.");  
-                }
-                elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
-
-                    throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
-
-                }elseif (!$this::conprobarAlerta($entity->getFecha())){
-
-                    throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
-                }elseif (!($this->sePuede($entity))) {
-                    throw new Exception("Hay reservas para esa aula con esas fecha y hora");
-                }
+           
 
             $em->flush();
            
