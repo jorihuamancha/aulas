@@ -18,10 +18,9 @@ class CarreraType extends AbstractType
             ->add('nombre', 'text', array('label'=>'Nombre:'))
             ->add('universidad', 'text', array('label'=>'Universidad:'))
             ->add('facultad', 'text', array('label'=>'Facultad:'))
-            ->add('semestre', 'text', array('label'=>'Semestre:'))
-            ->add('color', 'text', array('label'=>'Color:'))
-            ->add('observaciones', 'text', array('label'=>'Observaciones:','required'=>false))
-          
+            ->add('plan', 'text', array('label'=>'Plan:'))
+            ->add('color', 'text', array('label'=>'Color:', 'attr'=>array('style'=>'width:60px')))
+            ->add('observaciones', 'text', array('label'=>'Observaciones:','required'=>false))          
         ;
     }
     

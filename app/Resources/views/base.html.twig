@@ -4,13 +4,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--<link href="bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="css/base.css">
-<script src="bootstrap/js/jquery.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="bootstrap/js/twitter-bootstrap-hover-dropdown.min.js"></script>-->
-
-
 <link href="{{ asset('css/base.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
 <script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
@@ -19,6 +12,11 @@
 
 <link href="{{ asset('chosen/chosen.css') }}" rel="stylesheet" type="text/css" />
 <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
+
+{% block stylesheets %}{% endblock %}
+{% block javascripts %}{% endblock %}
+
+
 <title>{% block title %}Titulo{% endblock %} | Gesti&oacute;n de Aulas - CRESTA</title>
 
 <!-- Ventana emergente BACKUP BASE DE DATOS -->
@@ -85,9 +83,9 @@
       				Tareas <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
-    				<li role= "presentation" class= "dropdown-header" >Cursos </li>
-                                  <li><a href="{{ path('aulas_curso') }}">Listado de cursos</a></li>
-      	                          <li><a href="{{ path('aulas_curso_new') }}">Nuevo curso</a></li>
+    				<li role= "presentation" class= "dropdown-header" >Materia </li>
+                                  <li><a href="{{ path('aulas_curso') }}">Listado de materias</a></li>
+      	                          <li><a href="{{ path('aulas_curso_new') }}">Nueva materia</a></li>
                     <li role= "presentation" class= "dropdown-header" >Actividad </li>
                                   <li><a href="{{ path('aulas_actividad') }}">Listado de actividades</a></li>
                                 	<li><a href="{{ path('aulas_actividad_new') }}">Nueva actividad</a></li>

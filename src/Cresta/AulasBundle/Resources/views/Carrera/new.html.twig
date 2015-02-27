@@ -1,5 +1,44 @@
 {% extends '::base.html.twig' %}
 {% block title %}Nueva carrera {% endblock %}
+
+
+{% block stylesheets %}
+    <link href="{{ asset('bundles/genemuform/css/colorpicker.css') }}" rel="stylesheet" />
+    <!--<link href="{{ asset('bundles/genemuform/css/layout.css') }}" rel="stylesheet" />-->
+
+    
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/genemuform/js/colorpicker.js') }}"></script>
+    <script src="{{ asset('bundles/genemuform/js/eye.js') }}"></script>
+   <!-- <script src="{{ asset('bundles/genemuform/js/jquery.js') }}"></script>-->
+    <script src="{{ asset('bundles/genemuform/js/layout.js?ver=1.0.2') }}"></script>
+    <script src="{{ asset('bundles/genemuform/js/utils.js') }}"></script>
+
+<script>
+
+$(document).ready(function(){
+	$('#cresta_aulasbundle_carrera_color').ColorPicker({
+		onSubmit: function(hsb, hex, rgb, el) {
+			$(el).val(hex);
+			$(el).ColorPickerHide();
+		},
+		onBeforeShow: function () {
+			$(this).ColorPickerSetColor(this.value);
+		}
+	})
+	.bind('keyup', function(){
+		$(this).ColorPickerSetColor(this.value);
+	});
+}
+</script>
+
+
+{% endblock %}
+
+
 {% block body -%}
     <h1>Nueva Carrera</h1>
     <div class="formAutogenerado">

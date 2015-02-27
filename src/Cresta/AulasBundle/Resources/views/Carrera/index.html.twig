@@ -17,8 +17,7 @@
                 <th>Nombre</th>
                 <th>Universidad</th>
                 <th>Facultad</th>
-                <th>Semestre</th>
-                <th>Color</th>
+                <th>Plan</th>
                 <th>Observaciones</th>
                 <th>Acción</th>
             </tr>
@@ -26,11 +25,10 @@
         <tbody>
         {% for entity in entities %}
             <tr>                
-                <td>{{ entity.nombre }}</td>
+                <td style="color:{{ entity.color }}"> <b> {{ entity.nombre }} </b></td>
                 <td>{{ entity.universidad }}</td>
                 <td>{{ entity.facultad }}</td>
-                <td>{{ entity.semestre }}</td>
-                <td>{{ entity.color }}</td>
+                <td>{{ entity.plan }}</td>
                 {% if entity.observaciones is null %}
                     <td>N/A</td>
                 {% else %}
