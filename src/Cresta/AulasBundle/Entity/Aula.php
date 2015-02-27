@@ -50,6 +50,13 @@ class Aula
     private $activo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="recursosFijos", type="string", length=255)
+     */
+    private $recursosFijos;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -161,4 +168,28 @@ class Aula
     {
         return $this->activo;
     }
+
+    /**
+     * Set recursosFijos
+     *
+     * @param string $recursosFijos
+     * @return Aula
+     */
+    public function setRecursosFijos($recursosFijos)
+    {
+        $this->recursosFijos = $recursosFijos;
+
+        return $this;
+    }
+
+    /**
+     * Get recursosFijos
+     *
+     * @return string 
+     */
+    public function getRecursosFijos()
+    {
+        return $this->recursosFijos;
+    }
+
 }
