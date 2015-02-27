@@ -82,6 +82,13 @@ class Reserva
     private $observaciones;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="diosReserva", type="string", length=255, nullable=false)
+     */
+    private $diosReserva;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechaRegistro", type="datetime")
@@ -124,6 +131,29 @@ class Reserva
     public function getId()
     {
         return $this->id;
+    }
+
+     /**
+     * Set diosReserva
+     *
+     * @param string $diosReserva
+     * @return Reserva
+     */
+    public function setdiosReserva($diosReserva)
+    {
+        $this->diosReserva = $diosReserva;
+
+        return $this;
+    }
+
+    /**
+     * Get diosReserva
+     *
+     * @return string 
+     */
+    public function getdiosReserva()
+    {
+        return $this->diosReserva;
     }
 
     /**
