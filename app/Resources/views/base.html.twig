@@ -22,11 +22,11 @@
 <title>{% block title %}Titulo{% endblock %} | Gesti&oacute;n de Aulas - CRESTA</title>
 
 <!-- Ventana emergente BACKUP BASE DE DATOS -->
-<script language="JavaScript">
+<!--<script language="JavaScript">
   function Backup() {
-  open("{{ path('_homepage') }}../backups/index.php","Resguardo de Base de Datos", "scrollbar=no,toolbar=no,menubar=no,status=no,resizable=no,titlebar=no,location=0,height=180px,width=500px,left="+(screen.width/3)+",top="+(screen.height/3)+"");
+  open("{{ path('_dump') }}","Resguardo de Base de Datos", "scrollbar=no,toolbar=no,menubar=no,status=no,resizable=no,titlebar=no,location=0,height=180px,width=500px,left="+(screen.width/3)+",top="+(screen.height/3)+"");
   }
-</script>
+</script>-->
 <!-- Fin ventana emergente de backup -->
 </head>
 <body>
@@ -150,7 +150,7 @@
       				M&aacute;s <span  class= "caret" ></span> 
     			</a> 
     			<ul  class= "dropdown-menu"  role= "menu" >
-                                <li><a href="javascript:Backup()">Resguardar base de datos</a></li>
+                                <li><a href="{{ path('_dump') }}" target:"_self" >Resguardar base de datos</a></li>
                                 <li><a href="{{ path('aulas_movimiento') }}">Movimientos</a></li>
                                 <li><a href="{{ path('_ayuda') }}">Ayuda</a></li>
                                 <li><a href="{{ path('_acercade') }}">Acerca de..</a></li>

@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Dump exitoso!{% endblock %}
+{% block body %}
+            <!-- Designed by Alejandro Cabane -->
+	<div id='mensaje' class='alert alert-success' style='margin-top:auto; margin-bottom:auto'>
+    	<h3>La base de datos fue exportada con &eacute;xito</h3> </br> <b>Ruta:</b> " . $pathActual . "</br>
+    	<center>
+    		<input type='button' class='btn btn-default botonTabla' value='Aceptar' onclick='window.close()'/>
+    	</center>
+    </div>
+{% endblock %}
+
+
+

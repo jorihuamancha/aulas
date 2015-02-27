@@ -141,11 +141,11 @@
                         {{ entity.actividad.nombre }}
                     {% endif %}
                 </td>
-                <td>
+                <td style="Color:{{entity.curso.Carrera.color}}">
                     {% if entity.curso == null %}
                         N/A
                     {% else %}
-                        {{ entity.curso.Carrera.nombre }}
+                        <b>{{ entity.curso.Carrera.nombre }}</b>
                     {% endif %}
                 </td>
                 <td>{{ entity.aula.nombre }}</td>
