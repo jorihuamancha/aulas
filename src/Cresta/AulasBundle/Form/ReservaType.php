@@ -43,28 +43,25 @@ class ReservaType extends AbstractType
             ->add('actividad','entity',array(   'label'=>'Actividad: ',
                                                 'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
-                                                'attr'=>array( 
-                                                                'required'=>'true',
-                                                                'class'=>"chzn-select") ))
-            ->add('fecha', 'datetime', array(   'label'=>'Fecha: ',//'data'=>$fechaActual,
-                                                //'days'=>$dia,
-                                                //'months'=>$mes,
-                                                //'years'=>array('data'=>$anio),
-                                                'attr'=>array(  'required'=>true)))//,
-                                                                //'min'=>$fechaActual )))//new \DateTime()->format('Y-m-d') ) ) //("now")
+                                                'attr'=>array( 'required'=>'true','class'=>"chzn-select") ))
+            ->add('fecha', 'datetime', array(   'label'=>'Fecha: ','attr'=>array(  'required'=>true)))
+
             ->add('horaDesde', 'datetime', array(   'label'=>'Hora desde: ',
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00',
                                                                         '30'=>'30'),
-                                                    'attr'=>array('required'=>true) 
-                    ) )//new \DateTime('H:i:s') ) )//, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
+                                                    'attr'=>array('required'=>true)))
             ->add('horaHasta', 'datetime', array(   'label'=>'Hora hasta: ' ,
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00', 
                                                                         '30'=>'30' ),
                                                     'attr'=>array('required'=>true)
                                                 ) 
-                    )//new \DateTime("H:i:s") ) ) //, 'hours'=>range(8,22), 'minutes'=>array('00'=>'00', '30'=>'30') ) )
+                    )
+            ->add('rangoDesde', 'datetime', array( 'label'=>'Reservar Desde: ','attr'=>array('required'=>false)))
+            ->add('rangoHasta', 'datetime', array( 'label'=>'Reservar Hasta: ','attr'=>array('required'=>false)))
+            ->add('rango', 'integer', array( 'label'=>'Rango: ','attr'=>array('required'=>false)))
+
             ->add('recursos','entity',array( 'label'=>'Recursos: ',
                                             'class'=>'CrestaAulasBundle:Recurso',
                                             'property'=>'nombre',

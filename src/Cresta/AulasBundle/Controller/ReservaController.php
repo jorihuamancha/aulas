@@ -70,7 +70,7 @@ class ReservaController extends Controller
                 
                 
                 $entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
-
+                
                 $fecha=$entity->getFecha();
                 $fecha->setTime(00, 00, 00);
                 $entity->setFecha($fecha);
@@ -127,6 +127,7 @@ class ReservaController extends Controller
             return false;
         }
     }
+    
     private function sePuede ($entity){
 
         $em = $this->getDoctrine()->getManager();
@@ -146,7 +147,7 @@ class ReservaController extends Controller
                             (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
                             (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
                             ')
-                       ->setParameter('id', $id)
+                        ->setParameter('id', $id)
                         ->setParameter('fecha', $fecha)
                         ->setParameter('aula', $idAula)
                         ->setParameter('horaDesde', $horaDesde)

@@ -102,6 +102,30 @@ class Reserva
      */
     private $horaRegistro;
 
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="rangoDesde", type="datetime")
+     */
+    private $rangoDesde;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="rangoHasta", type="datetime")
+     */
+
+    private $rangoHasta;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rango", type="integer")
+     */
+
+    private $rango;
+
+
     /**
     * @ORM\ManyToMany(targetEntity="Recurso")
     * @ORM\JoinTable(name="Reservas_Recursos",
@@ -109,18 +133,11 @@ class Reserva
     *      inverseJoinColumns={@ORM\JoinColumn(name="idRecurso", referencedColumnName="id")}
     *      )
     */
+
     private $recursos;
 
     public function __construct(){
         $this->recursos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    public function getRecursos(){
-        return $this->recursos;
-    }
-
-    public function setRecursos($recursos){
-        $this->recursos []=$recursos;
     }
 
     /**
@@ -131,6 +148,86 @@ class Reserva
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set rangoDesde
+     *
+     * @param \DateTime $rangoDesde
+     * @return Reserva
+     */
+    public function setrangoDesde($rangoDesde)
+    {
+        $this->rangoDesde = $rangoDesde;
+
+        return $this;
+    }
+
+    /**
+     * Get rangoDesde
+     *
+     * @return \DateTime
+     */
+    public function getrangoDesde()
+    {
+        return $this->rangoDesde;
+    }
+
+     /**
+     * Set rangoHasta
+     *
+     * @param \DateTime $rangoHasta
+     * @return Reserva
+     */
+    public function setrangoHasta($rangoHasta)
+    {
+        $this->rangoHasta = $rangoHasta;
+
+        return $this;
+    }
+
+    /**
+     * Get rangoHasta
+     *
+     * @return \DateTime
+     */
+    public function getrangoHasta()
+    {
+        return $this->rangoHasta;
+    }
+
+
+
+    /**
+     * Get rango
+     *
+     * @return integer 
+     */
+    public function getRango()
+    {
+        return $this->rango;
+    }
+
+     /**
+     * Set rango
+     *
+     * @param integer $rango
+     * @return Reserva
+     */
+    public function setrango($rango)
+    {
+        $this->rango = $rango;
+
+        return $this;
+    }
+
+
+    public function getRecursos(){
+        return $this->recursos;
+    }
+
+    public function setRecursos($recursos){
+        $this->recursos []=$recursos;
     }
 
      /**
