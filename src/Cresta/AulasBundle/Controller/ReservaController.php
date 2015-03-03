@@ -55,6 +55,7 @@ class ReservaController extends Controller
             'filtroActivo' => $filtroActivo,
         ));
     }
+
     /**
      * Creates a new Reserva entity.
      *
@@ -68,9 +69,8 @@ class ReservaController extends Controller
         if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 
-                
                 $entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
-                
+
                 $fecha=$entity->getFecha();
                 $fecha->setTime(00, 00, 00);
                 $entity->setFecha($fecha);
@@ -85,6 +85,9 @@ class ReservaController extends Controller
 
                 $fechaActual=new \DateTime('now');
                 $fechaActual->setTime(00, 00, 00);
+
+
+                if ()
 
                 if (!($entity->getFecha()>=$fechaActual)) {
                     throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
@@ -127,7 +130,7 @@ class ReservaController extends Controller
             return false;
         }
     }
-    
+
     private function sePuede ($entity){
 
         $em = $this->getDoctrine()->getManager();
