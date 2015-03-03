@@ -23,11 +23,13 @@ class CursoController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $filtroActivo=0;
 
         $entities = $em->getRepository('CrestaAulasBundle:Curso')->findAll();
 
         return $this->render('CrestaAulasBundle:Curso:index.html.twig', array(
             'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
         ));
     }
     /**
@@ -264,4 +266,51 @@ class CursoController extends Controller
             return true;
         }
     }
+
+    public function filtroAction(){
+        $filtro=$this->get('request')->get('filtro');
+        $em = $this->getDoctrine()->getManager();
+        switch ($filtro) {
+
+            case 'Nombre':
+                $entities = $em->getRepository('CrestaAulasBundle:Curso')->findAll();
+                break;
+
+            case 'Carrera':
+                $carrera = $em->getRepository('CrestaAulasBundle:Carrera');
+                $query = $carrera->createQueryBuilder('c')
+                ->where('c.nombre LIKE :dato' )
+                ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->getQuery();
+                $carrera = $query->getResult();
+                $entities = $em->getRepository('CrestaAulasBundle:Curso')->findByCarrera($carrera);
+                break;
+
+            case 'Anio':
+                $docente = $em->getRepository('CrestaAulasBundle:Docente');
+                $query = $docente->createQueryBuilder('d')
+                ->where('d.nombre LIKE :dato or d.apellido LIKE :dato' )
+                ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->getQuery();
+                $docente = $query->getResult();
+                $_SESSION['filtro']=$docente;//Para imprimir
+                $_SESSION['nombrefiltro']='Docente';//Para imprimir
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($docente);
+            }
+
+            if (!$entities){
+                $entities=null;
+            }
+
+            $filtroActivo = 1;
+
+
+    
+    return $this->render('CrestaAulasBundle:Curso:index.html.twig', array(
+            'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
+        ));
+    }
+
+
 }

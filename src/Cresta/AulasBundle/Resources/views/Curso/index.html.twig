@@ -1,13 +1,115 @@
 {% extends '::base.html.twig' %}
 {% block title %}Materias {% endblock %}
 {% block body -%}
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+            $("#dato").css("display", "none");
+            $("#EnviarFiltro").css("display", "none");
+            $("#semestre").css("display", "none");
+        });
+
+    function getval(sel) {
+       switch (sel.value) {
+         case "Sin filtro":
+            location.reload();
+            break;
+
+         case "Nombre":
+            $("#dato").css("display", "inline-block");
+            $("#datoTexto").attr("placeholder","Materia");
+            $("#formFiltros").attr("action","filtro/Nombre");
+            $("#semestre").css("display", "none");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+
+        case "Carrera":
+            $("#dato").css("display", "inline-block");
+            $("#datoTexto").attr("placeholder","Carrera");
+            $("#formFiltros").attr("action","filtro/Carrera");
+            $("#semestre").css("display", "none");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+
+        case "Año":
+            $("#dato").css("display", "inline-block");
+            $("#datoTexto").attr("placeholder","Año de carrera");
+            $("#formFiltros").attr("action","filtro/Anio");
+            $("#semestre").css("display", "none");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+
+        case "Semestre":
+            $("#dato").css("display", "none");
+            $("#formFiltros").attr("action","filtro/Semestre");
+            $("#semestre").css("display", "inline-block");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+
+        case "Ciclo":
+            $("#dato").css("display", "inline-block");
+            $("#datoTexto").attr("placeholder","Ciclo");
+            $("#formFiltros").attr("action","filtro/Ciclo");
+            $("#semestre").css("display", "none");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+
+       }
+    }
+</script>
+
+
     <h1 name='top'>Listado de materias</h1>
 
-    <ul>
+
+    <div class="herramientasTop">
+        <ul>
             <a href="{{ path('aulas_curso_new') }}" class="btn btn-default botonTabla">
                 Nueva materia
             </a>
-    </ul>
+        </ul>
+
+        {% if filtroActivo == 1 %}
+                <a href="{{ path('aulas_curso') }}" class="btn btn-default botonTabla">
+                    Quitar filtro
+                </a>
+        {% else %}
+            <div class="filtros">
+                <form method="POST" id="formFiltros">
+                <ul>
+                    <label>Filtrar por:</label>
+                    <select onchange="getval(this);">
+                        <option selected> Sin filtro </option>
+                        <option> Nombre </option>
+                        <option> Carrera </option>
+                        <option> Año </option>
+                        <option> Semestre </option>
+                        <option> Ciclo </option>
+                    </select>
+                </ul>
+                <div id="dato">
+                    <ul>
+                        <input id="datoTexto" pattern="[a-zA-Z0-9ñÑá-úÁ-Úä-üÄ-Ü ]+" type="text" name="dato">
+                    </ul>
+                </div>
+                <div id="semestre">
+                    <ul>
+                        <select onchange="getval(this);">
+                            <option selected> Primer semestre </option>
+                            <option> Segundo semestre </option>ç
+                        </select>
+                    </ul>
+                </div>
+                <ul>
+                <button id="EnviarFiltro" class="btn btn-default">Enviar</button>
+                </ul>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+
+
     <table class="records_list tabla">
         <thead>
             <tr>
