@@ -1,13 +1,37 @@
 {% extends '::base.html.twig' %}
 {% block title %} Nueva Actividad {% endblock %}
 {% block body -%}
-    <h1>Nueva Actividad</h1>
+    {{ form_start(form, {'attr': {'class': 'form-horizontal style-form formAutogenerado', 'role': 'form'}}) }}
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Nueva Actividad</h3>
+			</div>
+			<div class="panel-body">
 
-    <div class="formAutogenerado">
-	    <div id="NuevoActividad">
-	    	{{ form(form) }}	
-	    </div>  
-			
-    </div>
+			    <div class="form-group">
+			        {{ form_label(form.nombre, 'Nombre:', {'label_attr': {'class': 'col-md-2 control-label'}}) }}
+			        <div class="col-md-6">
+			            {{ form_widget(form.nombre, {'attr': {'class':'form-control'}}) }}
+			            {{ form_errors(form.nombre) }}
+			        </div>	        
+			    </div>
+
+				<div class="form-group">
+			        {{ form_label(form.tipo, 'Tipo:', {'label_attr': {'class': 'col-md-2 control-label'}}) }}
+			        <div class="col-md-6">
+			            {{ form_widget(form.tipo, {'attr': {'class':'form-control'}}) }}
+			            {{ form_errors(form.tipo) }}
+			        </div>	        
+			    </div>  
+
+	{{ form_end(form) }}
+
+	    	</div>
+		</div>
+
 
 {% endblock %}
+
+
+	

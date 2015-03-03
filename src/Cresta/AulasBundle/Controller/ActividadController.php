@@ -72,8 +72,8 @@ class ActividadController extends Controller
         ));
 
        // $form->add('submit', 'submit', array('label' => 'Create'));
-        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../actividad','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default col-md-1 col-md-offset-1')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../actividad','formnovalidate'=>'formnovalidate','class'=>'btn btn-default col-md-2 col-md-offset-1')));
 
         return $form;
     }
@@ -154,8 +154,8 @@ class ActividadController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../actividad','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default col-md-1 col-md-offset-1')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../actividad','formnovalidate'=>'formnovalidate','class'=>'btn btn-default col-md-2 col-md-offset-1')));
 
         return $form;
     }
