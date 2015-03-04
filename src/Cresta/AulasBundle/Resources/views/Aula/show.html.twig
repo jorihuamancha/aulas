@@ -1,36 +1,41 @@
 {% extends '::base.html.twig' %}
 {% block title %} Ver Aula {% endblock %}
 {% block body -%}
-    <h1>Aula</h1>
 
-    <table class="record_properties tabla verItem">
-        <tbody>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ entity.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Piso</th>
-                <td>{{ entity.piso }}</td>
-            </tr>
-            <tr>
-                <th>Capacidad</th>
-                <td>{{ entity.capacidad }}</td>
-            </tr>
-            <tr>
-                <th>Recursos fijos</th>
-                <td>{{ entity.recursosFijos }}</td>
-            </tr>
-        </tbody>
-    </table>
-       <ul class="record_actions tablaAcciones">
-            <a class="btn btn-default botonTabla" href="{{ path('aulas_aula_edit', { 'id': entity.id }) }}">
-                Editar
-            </a>                    
-            <a class="btn btn-default botonTabla" href="{{ path('aulas_aula') }}">
-                Volver a la lista
-            </a>
-        </ul>
-
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Aula</h3>
+            </div>
+            <div class="panel-body">
+                <table class="record_properties tabla verItem">
+                    <tbody>
+                        <tr>
+                            <th>Nombre</th>
+                            <td>{{ entity.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <th>Piso</th>
+                            <td>{{ entity.piso }}</td>
+                        </tr>
+                        <tr>
+                            <th>Capacidad</th>
+                            <td>{{ entity.capacidad }}</td>
+                        </tr>
+                        <tr>
+                            <th>Recursos fijos</th>
+                            <td>{{ entity.recursosFijos }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                   <ul class="record_actions tablaAcciones">
+                        <a class="btn btn-default botonTabla" href="{{ path('aulas_aula_edit', { 'id': entity.id }) }}">
+                            Editar
+                        </a>                    
+                        <a class="btn btn-default botonTabla" href="{{ path('aulas_aula') }}">
+                            Volver a la lista
+                        </a>
+                    </ul>
+            </div>
+        </div>
         
 {% endblock %}
