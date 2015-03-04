@@ -469,8 +469,36 @@ nav ul li a:hover{
 #cresta_aulasbundle_reserva_rangoDesde_time_minute,
 #cresta_aulasbundle_reserva_rangoHasta_time_hour,
 #cresta_aulasbundle_reserva_rangoDesde_time,
+#cresta_aulasbundle_alerta_fecha_time,
 #cresta_aulasbundle_reserva_rangoHasta_time{
 	display: none;
 }
+#cresta_aulasbundle_reserva div{
+	padding-top: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	clear: both;
+	/*float: left;*/
+}
+#cresta_aulasbundle_reserva_recursos{
+	min-height: 20px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	clear: both;
+}
+#cresta_aulasbundle_reserva_recursos input{
+	width: 20px;
+	/*float: left;*/
+}
+#cresta_aulasbundle_reserva_recursos label{
+	width: 40px;
+	margin-left: 0px;
+	margin-right: 0px;
+	/*float: left;*/
+}
+.form-group:last-child{
+	display: none;
+}
 
-};
+}
