@@ -28,6 +28,12 @@ class Recurso
      */
     private $nombre;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
+     */
+    private $observaciones;
 
     /* ----------------------------------------------Fin recurso-Recurso----------------------------------------------------------*/
 
@@ -64,7 +70,28 @@ class Recurso
         return $this->nombre;
     }
 
-  
+      /**
+     * Set observaciones
+     *
+     * @param string $observaciones
+     * @return Recurso
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get observaciones
+     *
+     * @return string 
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
 
     
 }

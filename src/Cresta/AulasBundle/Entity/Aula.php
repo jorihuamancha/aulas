@@ -42,6 +42,13 @@ class Aula
      */
     private $capacidad;
 
+        /**
+     * @var string
+     *
+     * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
+     */
+    private $observaciones;
+
     /**
      * @var boolean
      *
@@ -168,6 +175,30 @@ class Aula
     {
         return $this->activo;
     }
+
+        /**
+     * Set observaciones
+     *
+     * @param string $observaciones
+     * @return Aula
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get observaciones
+     *
+     * @return string 
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
+
 
     /**
      * Set recursosFijos
