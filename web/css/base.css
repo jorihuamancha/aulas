@@ -464,5 +464,13 @@ nav ul li a:hover{
 #cresta_aulasbundle_reserva_recursos input{
 	margin-left:50px;
 }
+#cresta_aulasbundle_reserva_rangoHasta_time_minute,
+#cresta_aulasbundle_reserva_rangoDesde_time_hour,
+#cresta_aulasbundle_reserva_rangoDesde_time_minute,
+#cresta_aulasbundle_reserva_rangoHasta_time_hour,
+#cresta_aulasbundle_reserva_rangoDesde_time,
+#cresta_aulasbundle_reserva_rangoHasta_time{
+	display: none;
+}
 
 };
