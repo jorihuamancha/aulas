@@ -72,8 +72,8 @@ class AulaController extends Controller
             'action' => $this->generateUrl('aulas_aula_create'),
             'method' => 'POST',
         ));
-        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../aula','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-default col-md-1 col-md-offset-1')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../aula','formnovalidate'=>'formnovalidate','class'=>'btn btn-default col-md-2 col-md-offset-1')));
         return $form;
     }
     /**
@@ -139,8 +139,8 @@ class AulaController extends Controller
             'action' => $this->generateUrl('aulas_aula_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default botonTabla')));
-        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../aula','formnovalidate'=>'formnovalidate','class'=>'btn btn-default botonTabla')));
+        $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-default col-md-1 col-md-offset-1')));
+        $form->add('button', 'submit', array('label' => 'Volver a la lista','attr'=>array('formaction'=>'../../aula','formnovalidate'=>'formnovalidate','class'=>'btn btn-default col-md-2 col-md-offset-1')));
         return $form;
     }
     /**
