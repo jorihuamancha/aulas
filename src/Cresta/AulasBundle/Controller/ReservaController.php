@@ -56,57 +56,51 @@ class ReservaController extends Controller
         ));
     }
 
-    private function agregarEnCascada ($entity) {
-       
-        $em = $this->getDoctrine()->getManager();
-        
-        $fecha=$entity->getFecha();
-     
-        $fecha->modify('+1 day');
-
-        $entity->setFecha($fecha);
-
-       // $this->createAction();
-        
-
-        //Por las dudas.
-        return $entity;
-        
-    }
-
     /**
      * Creates a new Reserva entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request){
+
         $entity = new Reserva();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
+        if ($entity->getRango > 1){
+            $hayVariasCargas = true;
+        }else{
+            $hayVariasCargas = false;
+        }
         if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                
-                $entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
-
+            //generico de las dos formas.
+            $em = $this->getDoctrine()->getManager();
+            //Aca se almacena el nombre de usuario.
+            $entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
+            //Hora desde
+            $horaDesde=$entity->getHoraDesde();
+            $horaDesde->setDate(2000, 01, 01);
+            $entity->setHoraDesde($horaDesde);
+            //Hora hasta
+            $horaHasta=$entity->getHoraHasta();
+            $horaHasta->setDate(2000, 01, 01);
+            $entity->setHoraHasta($horaHasta);
+            //Fecha actual
+            $fechaActual=new \DateTime('now');
+            $fechaActual->setTime(00, 00, 00);
+            //rangoDesde
+            $rangoDesde =$entity->getRangoDesde();
+            $rangoDesde->setTime(00, 00, 00);
+            $entity->setRangoDesdes($rangoDesde);
+            //RangoHasta
+            $rangoHasta = $entity->getrangoHasta();
+            $rangoHasta->setTime(00, 00, 00);
+            $entity->setRangoHasta($rangoHasta);
+            //Es una reserva unica
+            if(!$hayVariasCargas){
+                //Fecha para realizar la reserva
                 $fecha=$entity->getFecha();
                 $fecha->setTime(00, 00, 00);
                 $entity->setFecha($fecha);
-
-                $horaDesde=$entity->getHoraDesde();
-                $horaDesde->setDate(2000, 01, 01);
-                $entity->setHoraDesde($horaDesde);
-
-                $horaHasta=$entity->getHoraHasta();
-                $horaHasta->setDate(2000, 01, 01);
-                $entity->setHoraHasta($horaHasta);
-
-                $fechaActual=new \DateTime('now');
-                $fechaActual->setTime(00, 00, 00);
-
-                if ($entity->getRango() > 1){
-                    $hayVariasCargas = true;
-                }
 
                 if (!($entity->getFecha()>=$fechaActual)) {
                     throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
@@ -117,23 +111,26 @@ class ReservaController extends Controller
                 }elseif (!($this->sePuede($entity))) {
                     throw new Exception("Hay reservas para esa aula con esas fecha y hora");
                 }  
-
-
-                if ($hayVariasCargas)
-                    while ($entity->getrangoHasta() >= $entity->getFecha()) 
-                        $this->agregarEnCascada($entity);
-
                 try{
                     $em->persist($entity);
                     $em->flush();
-                    
                 }catch(Exception $e){
-               
+                   
                 }
-              
+                return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
 
-            return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
+            }//Son varias reservas.
+            else{
+                $entityAux = $entity;
+                $fechaDeReservaActual = $entity->getFecha();
+                $fechaMax = $entity->getrangoHasta();
+                $em->flush();
+                while ( $fechaMax >= $fechaDeReservaActual ) {
+                   $entityNuevo = new Reserva();
+
+                }
             }
+        }
        return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
            'entity' => $entity,
            'form'   => $form->createView()
