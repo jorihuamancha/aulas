@@ -25,9 +25,9 @@ class Curso extends Tarea
     /* ---------------------------------------------- Reserva-Curso-----------------------------------------------------------*/
     /**
      * @ORM\ManyToOne(targetEntity="Carrera")
-     * @ORM\JoinColumn(name="Carrera_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="carrera_id", referencedColumnName="id", onDelete="CASCADE")
     */
-    private $Carrera;
+    private $carrera;
 
         /* ---------------------------------------------- Reserva-Actividad-----------------------------------------------------------*/
     /**
@@ -67,12 +67,12 @@ class Curso extends Tarea
     /**
      * Set Carrera
      *
-     * @param string $anio
+     * @param string $carrera
      * @return Curso
      */
-    public function setCarrera($Carrera)
+    public function setCarrera($carrera)
     {
-        $this->Carrera = $Carrera;
+        $this->carrera = $carrera;
 
         return $this;
     }
@@ -80,7 +80,7 @@ class Curso extends Tarea
     /**
      * Set Ciclo
      *
-     * @param string $anio
+     * @param string $Ciclo
      * @return Curso
      */
     public function setCiclo($Ciclo)
@@ -93,7 +93,7 @@ class Curso extends Tarea
     /**
      * Set Semestre
      *
-     * @param string $anio
+     * @param string $Semestre
      * @return Curso
      */
     public function setSemestre($Semestre)
@@ -120,7 +120,7 @@ class Curso extends Tarea
      */
     public function getCarrera()
     {
-        return $this->Carrera;
+        return $this->carrera;
     }
 
     /**
@@ -162,8 +162,8 @@ class Curso extends Tarea
      */
     public function getCursoCarrera()
     {
-        $carrera=$this->getCarrera()->getNombre();
-        $cursoCarrera=$this->getNombre().' - ( '.$carrera.' )';
+        $Carrera=$this->getCarrera()->getNombre();
+        $cursoCarrera=$this->getNombre().' - ( '.$Carrera.' )';
         return $cursoCarrera;
     }
 

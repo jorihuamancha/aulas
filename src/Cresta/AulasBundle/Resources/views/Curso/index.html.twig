@@ -94,9 +94,10 @@
                 </div>
                 <div id="semestre">
                     <ul>
-                        <select onchange="getval(this);">
-                            <option selected> Primer semestre </option>
-                            <option> Segundo semestre </option>ç
+                        <select name="datoSemestre" onchange="getval(this);">
+                            <option value="1" selected> Primero </option>
+                            <option value="2"> Segundo </option>
+                            <option value="3"> Anual </option>
                         </select>
                     </ul>
                 </div>
@@ -135,8 +136,10 @@
 				<td>{{ entity.anio }}</td>
                 {% if entity.semestre == 1 %}
                     <td>Primero</td>
-                {% else %}
+                {% elseif entity.semestre == 2 %}
                     <td>Segundo</td>
+                {% else %}
+                    <td>Anual</td>
                 {% endif %}
                 <td>{{ entity.ciclo }}</td>
                 <td>

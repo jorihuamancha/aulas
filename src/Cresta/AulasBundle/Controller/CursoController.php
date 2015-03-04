@@ -239,7 +239,7 @@ class CursoController extends Controller
         $carrera = $entity->getCarrera();
         $parameters = array('nombre' => $nombre,'carrera' =>  $carrera);
 
-        $query = $em->createQuery('SELECT c FROM CrestaAulasBundle:curso c WHERE c.nombre = :nombre and c.Carrera = :carrera ')->setParameters($parameters);
+        $query = $em->createQuery('SELECT c FROM CrestaAulasBundle:curso c WHERE c.nombre = :nombre and c.carrera = :carrera ')->setParameters($parameters);
         $curso = $query->getResult();
         
         if (empty($curso)) {
@@ -273,7 +273,12 @@ class CursoController extends Controller
         switch ($filtro) {
 
             case 'Nombre':
-                $entities = $em->getRepository('CrestaAulasBundle:Curso')->findAll();
+                $curso = $em->getRepository('CrestaAulasBundle:Curso');
+                $query = $curso->createQueryBuilder('c')
+                ->where('c.nombre LIKE :dato' )
+                ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->getQuery();
+                $entities = $query->getResult();
                 break;
 
             case 'Carrera':
@@ -287,15 +292,31 @@ class CursoController extends Controller
                 break;
 
             case 'Anio':
-                $docente = $em->getRepository('CrestaAulasBundle:Docente');
-                $query = $docente->createQueryBuilder('d')
-                ->where('d.nombre LIKE :dato or d.apellido LIKE :dato' )
-                ->setParameter('dato', '%'.$_POST['dato'].'%')
+                $curso = $em->getRepository('CrestaAulasBundle:Curso');
+                $query = $curso->createQueryBuilder('c')
+                ->where('c.anio = :dato' )
+                ->setParameter('dato', $_POST['dato'])
                 ->getQuery();
-                $docente = $query->getResult();
-                $_SESSION['filtro']=$docente;//Para imprimir
-                $_SESSION['nombrefiltro']='Docente';//Para imprimir
-                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($docente);
+                $entities = $query->getResult();
+                break;
+
+            case 'Semestre':
+                $curso = $em->getRepository('CrestaAulasBundle:Curso');
+                $query = $curso->createQueryBuilder('c')
+                ->where('c.Semestre = :dato' )
+                ->setParameter('dato', $_POST['datoSemestre'])
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+        
+            case 'Ciclo':
+                $curso = $em->getRepository('CrestaAulasBundle:Curso');
+                $query = $curso->createQueryBuilder('c')
+                ->where('c.Ciclo = :dato' )
+                ->setParameter('dato', $_POST['dato'])
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
             }
 
             if (!$entities){
