@@ -23,11 +23,13 @@ class CursoController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $filtroActivo=0;
 
         $entities = $em->getRepository('CrestaAulasBundle:Curso')->findAll();
 
         return $this->render('CrestaAulasBundle:Curso:index.html.twig', array(
             'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
         ));
     }
     /**
@@ -237,7 +239,7 @@ class CursoController extends Controller
         $carrera = $entity->getCarrera();
         $parameters = array('nombre' => $nombre,'carrera' =>  $carrera);
 
-        $query = $em->createQuery('SELECT c FROM CrestaAulasBundle:curso c WHERE c.nombre = :nombre and c.Carrera = :carrera ')->setParameters($parameters);
+        $query = $em->createQuery('SELECT c FROM CrestaAulasBundle:curso c WHERE c.nombre = :nombre and c.carrera = :carrera ')->setParameters($parameters);
         $curso = $query->getResult();
         
         if (empty($curso)) {
@@ -264,4 +266,72 @@ class CursoController extends Controller
             return true;
         }
     }
+
+    public function filtroAction(){
+        $filtro=$this->get('request')->get('filtro');
+        $em = $this->getDoctrine()->getManager();
+        switch ($filtro) {
+
+            case 'Nombre':
+                $curso = $em->getRepository('CrestaAulasBundle:Curso');
+                $query = $curso->createQueryBuilder('c')
+                ->where('c.nombre LIKE :dato' )
+                ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+            case 'Carrera':
+                $carrera = $em->getRepository('CrestaAulasBundle:Carrera');
+                $query = $carrera->createQueryBuilder('c')
+                ->where('c.nombre LIKE :dato' )
+                ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->getQuery();
+                $carrera = $query->getResult();
+                $entities = $em->getRepository('CrestaAulasBundle:Curso')->findByCarrera($carrera);
+                break;
+
+            case 'Anio':
+                $curso = $em->getRepository('CrestaAulasBundle:Curso');
+                $query = $curso->createQueryBuilder('c')
+                ->where('c.anio = :dato' )
+                ->setParameter('dato', $_POST['dato'])
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+            case 'Semestre':
+                $curso = $em->getRepository('CrestaAulasBundle:Curso');
+                $query = $curso->createQueryBuilder('c')
+                ->where('c.Semestre = :dato' )
+                ->setParameter('dato', $_POST['datoSemestre'])
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+        
+            case 'Ciclo':
+                $curso = $em->getRepository('CrestaAulasBundle:Curso');
+                $query = $curso->createQueryBuilder('c')
+                ->where('c.Ciclo = :dato' )
+                ->setParameter('dato', $_POST['dato'])
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+            }
+
+            if (!$entities){
+                $entities=null;
+            }
+
+            $filtroActivo = 1;
+
+
+    
+    return $this->render('CrestaAulasBundle:Curso:index.html.twig', array(
+            'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
+        ));
+    }
+
+
 }
