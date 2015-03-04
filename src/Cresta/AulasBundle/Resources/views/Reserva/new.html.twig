@@ -19,17 +19,18 @@
 			anioActual=fechaActual.getFullYear();
 			mesActual=parseInt(fechaActual.getMonth())+1;
 			diaActual=fechaActual.getDate();
+			
 			document.getElementById("cresta_aulasbundle_reserva_fecha_date_day").value=diaActual;
 			document.getElementById("cresta_aulasbundle_reserva_fecha_date_month").value=mesActual;
 			document.getElementById("cresta_aulasbundle_reserva_fecha_date_year").value=anioActual;
 
-			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_day").value=diaActual;
-			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_month").value=mesActual;
-			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_year").value=anioActual;
-
 			document.getElementById("cresta_aulasbundle_reserva_rangoHasta_date_day").value=diaActual;
 			document.getElementById("cresta_aulasbundle_reserva_rangoHasta_date_month").value=mesActual;
 			document.getElementById("cresta_aulasbundle_reserva_rangoHasta_date_year").value=anioActual;
+
+			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_day").value=diaActual;
+			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_month").value=mesActual;
+			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_year").value=anioActual;
 
 			}
 		)

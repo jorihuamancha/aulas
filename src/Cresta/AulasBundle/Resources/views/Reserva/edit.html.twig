@@ -21,7 +21,15 @@
 			diaActual=fechaActual.getDate();
 			document.getElementById("cresta_aulasbundle_reserva_fecha_date_day").value=diaActual;
 			document.getElementById("cresta_aulasbundle_reserva_fecha_date_month").value=mesActual;
-			document.getElementById("cresta_aulasbundle_reserva_fecha_date_year").value=anioActual;		
+			document.getElementById("cresta_aulasbundle_reserva_fecha_date_year").value=anioActual;
+
+			document.getElementById("cresta_aulasbundle_reserva_rangoHasta_date_day").value=diaActual;
+			document.getElementById("cresta_aulasbundle_reserva_rangoHasta_date_month").value=mesActual;
+			document.getElementById("cresta_aulasbundle_reserva_rangoHasta_date_year").value=anioActual;
+
+			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_day").value=diaActual;
+			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_month").value=mesActual;
+			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_year").value=anioActual;
 			}
 		)
 		function actividad(value){
@@ -59,19 +67,19 @@
 				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").disabled=false;
 				}
 			}
-		function validar(){
+		/*function validar(){
 			horaDesde=document.getElementById("cresta_aulasbundle_reserva_horaDesde_time_hour").value;
 			minutosDesde=document.getElementById("cresta_aulasbundle_reserva_horaDesde_time_minute").value;
 			horaHasta=document.getElementById("cresta_aulasbundle_reserva_horaHasta_time_hour").value;
 			miutosHasta=document.getElementById("cresta_aulasbundle_reserva_horaHasta_time_minute").value;
 			if(horaDesde>horaHasta){
 				alert("La hora de inicio no puede ser menor a la hora de finalizacion");
-			}
+				}
 			else{
 				if((horaDesde==horaHasta)&&(minutosDesde>=minutosHasta)){
 					alert("La hora y minutos de inicio no pueden ser iguales o mayores a la hora y minutos de finalizacion");
 				}
-			}
+			}*/
 
 		}
 	</script>
