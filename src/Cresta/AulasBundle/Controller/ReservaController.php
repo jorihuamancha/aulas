@@ -55,6 +55,25 @@ class ReservaController extends Controller
             'filtroActivo' => $filtroActivo,
         ));
     }
+
+    private function agregarEnCascada ($entity) {
+       
+        $em = $this->getDoctrine()->getManager();
+        
+        $fecha=$entity->getFecha();
+     
+        $fecha->modify('+1 day');
+
+        $entity->setFecha($fecha);
+
+       // $this->createAction();
+        
+
+        //Por las dudas.
+        return $entity;
+        
+    }
+
     /**
      * Creates a new Reserva entity.
      *
@@ -68,9 +87,8 @@ class ReservaController extends Controller
         if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 
-                
                 $entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
-                
+
                 $fecha=$entity->getFecha();
                 $fecha->setTime(00, 00, 00);
                 $entity->setFecha($fecha);
@@ -86,6 +104,10 @@ class ReservaController extends Controller
                 $fechaActual=new \DateTime('now');
                 $fechaActual->setTime(00, 00, 00);
 
+                if ($entity->getRango() > 1){
+                    $hayVariasCargas = true;
+                }
+
                 if (!($entity->getFecha()>=$fechaActual)) {
                     throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
                 }elseif (!($entity->getHoraDesde() < $entity->getHoraHasta())) {
@@ -94,25 +116,28 @@ class ReservaController extends Controller
                     throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
                 }elseif (!($this->sePuede($entity))) {
                     throw new Exception("Hay reservas para esa aula con esas fecha y hora");
-                }
+                }  
+
+
+                if ($hayVariasCargas)
+                    while ($entity->getrangoHasta() >= $entity->getFecha()) 
+                        $this->agregarEnCascada($entity);
 
                 try{
-                //if(($entity->getFecha()>=$fechaActual)&&($entity->getHoraDesde()<$entity->getHoraHasta())){
                     $em->persist($entity);
                     $em->flush();
                     
                 }catch(Exception $e){
-                //}
-                    //$e->getMessage();
-                //throw new Exception("Compruebe los campos de las fechas y las horas de la reserva.");
+               
                 }
+              
 
             return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
             }
-        return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        ));
+       return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
+           'entity' => $entity,
+           'form'   => $form->createView()
+      ));
     }
 
     private function conprobarAlerta ($fecha){
@@ -127,7 +152,7 @@ class ReservaController extends Controller
             return false;
         }
     }
-    
+
     private function sePuede ($entity){
 
         $em = $this->getDoctrine()->getManager();
