@@ -58,10 +58,12 @@ class ReservaType extends AbstractType
                                                     'attr'=>array('required'=>true)
                                                 ) 
                     )
-            ->add('rangoDesde', 'datetime', array( 'label'=>'Reservar Desde: ','attr'=>array('required'=>false)))
+            ->add('rangoDesde', 'datetime', array( 'label'=>'Reservar Desde: ','attr'=>array('required'=>true)))
             ->add('rangoHasta', 'datetime', array( 'label'=>'Reservar Hasta: ','attr'=>array('required'=>false)))
-            ->add('rango', 'integer', array( 'label'=>'Rango: ','attr'=>array('required'=>false)))
-
+            ->add('rango', 'choice', array( 'label'=>'Frecuencia: ','choices'=>array(   1=>'1',
+                                                                                        7=>'7',
+                                                                                        14=>'14')
+                                                                                    ))
             ->add('recursos','entity',array( 'label'=>'Recursos: ',
                                             'class'=>'CrestaAulasBundle:Recurso',
                                             'property'=>'nombre',
