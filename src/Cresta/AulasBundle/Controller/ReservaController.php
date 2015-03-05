@@ -13,17 +13,18 @@ use Ps\PdfBundle\Annotation\Pdf;
 use Exception;
 
 
-
 use Cresta\AulasBundle\Entity\Movimiento;
+
+
 
 require_once 'ReservaController.php';
 /**
  * Reserva controller.
  *
  */
+$count = 0; 
 class ReservaController extends Controller
 {
-
     /**
      * Lists all Reserva entities.
      *
@@ -43,6 +44,7 @@ class ReservaController extends Controller
         $entities = $query->getResult();
 
         $_SESSION['nombrefiltro']='Hoy'; //Para imprimir
+        $_SESSION['count']= 0;
 
         if (!$entities){
             $entities=null;
@@ -56,52 +58,45 @@ class ReservaController extends Controller
         ));
     }
 
+   
+
     /**
      * Creates a new Reserva entity.
      *
      */
-    public function createAction(Request $request){
 
+
+    public function createAction(Request $request)
+    {
         $entity = new Reserva();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($entity->getRango > 1){
-            $hayVariasCargas = true;
-        }else{
-            $hayVariasCargas = false;
-        }
         if ($form->isValid()) {
-            //generico de las dos formas.
-            $em = $this->getDoctrine()->getManager();
-            //Aca se almacena el nombre de usuario.
-            $entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
-            //Hora desde
-            $horaDesde=$entity->getHoraDesde();
-            $horaDesde->setDate(2000, 01, 01);
-            $entity->setHoraDesde($horaDesde);
-            //Hora hasta
-            $horaHasta=$entity->getHoraHasta();
-            $horaHasta->setDate(2000, 01, 01);
-            $entity->setHoraHasta($horaHasta);
-            //Fecha actual
-            $fechaActual=new \DateTime('now');
-            $fechaActual->setTime(00, 00, 00);
-            //rangoDesde
-            $rangoDesde =$entity->getRangoDesde();
-            $rangoDesde->setTime(00, 00, 00);
-            $entity->setRangoDesdes($rangoDesde);
-            //RangoHasta
-            $rangoHasta = $entity->getrangoHasta();
-            $rangoHasta->setTime(00, 00, 00);
-            $entity->setRangoHasta($rangoHasta);
-            //Es una reserva unica
-            if(!$hayVariasCargas){
-                //Fecha para realizar la reserva
+                $em = $this->getDoctrine()->getManager();
+                //Nombre del usuario creador de la reserva (No es relacion).
+                $entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
+                //Fecha de la reserva (fecha desde).
                 $fecha=$entity->getFecha();
                 $fecha->setTime(00, 00, 00);
                 $entity->setFecha($fecha);
+                //Hora de incio de la reserva.
+                $horaDesde=$entity->getHoraDesde();
+                $horaDesde->setDate(2000, 01, 01);
+                $entity->setHoraDesde($horaDesde);
+                //Hora de fin de la reserva.
+                $horaHasta=$entity->getHoraHasta();
+                $horaHasta->setDate(2000, 01, 01);
+                $entity->setHoraHasta($horaHasta);
+                //Fecha actual.
+                $fechaActual=new \DateTime('now');
+                $fechaActual->setTime(00, 00, 00);
+                //Rango final de las reservas.
+                $rangoHasta = $entity->getrangoHasta();
+                $rangoHasta->setTime(00, 00, 00);
+                $entity->setrangoHasta($rangoHasta);
 
+                
                 if (!($entity->getFecha()>=$fechaActual)) {
                     throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
                 }elseif (!($entity->getHoraDesde() < $entity->getHoraHasta())) {
@@ -110,33 +105,41 @@ class ReservaController extends Controller
                     throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
                 }elseif (!($this->sePuede($entity))) {
                     throw new Exception("Hay reservas para esa aula con esas fecha y hora");
-                }  
+                }
+
                 try{
-                    $em->persist($entity);
-                    $em->flush();
+                    $fechaReservaActual = $entity->getFecha();
+                    while ($entity->getrangoHasta() >= $fechaReservaActual) {
+                        $this->crearReservaOP($entity,$fechaReservaActual); 
+                        $fechaReservaActual->modify('+7 day');
+                    }
+                   /* for ($i=0; $i < 2; $i++) { 
+                        $this->crearReservaOP($entity,$fechaReservaActual); 
+                        $fechaReservaActual->modify('+7 day');    
+                    }*/
                 }catch(Exception $e){
-                   
+               
                 }
-                return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
+                
+            //return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
 
-            }//Son varias reservas.
-            else{
-                $entityAux = $entity;
-                $fechaDeReservaActual = $entity->getFecha();
-                $fechaMax = $entity->getrangoHasta();
-                $em->flush();
-                while ( $fechaMax >= $fechaDeReservaActual ) {
-                   $entityNuevo = new Reserva();
-
-                }
+                //  return $this->redirect($this->generateUrl('reserva', array()));
             }
-        }
-       return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
-           'entity' => $entity,
-           'form'   => $form->createView()
-      ));
+       return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array('entity' => $entity,'form'=> $form->createView()));
     }
 
+    private function crearReservaOP(Reserva $entity,\DateTime $fechaReservaActual){
+
+        $entityAux = new Reserva();
+        $em = $this->getDoctrine()->getManager();
+        $entityAux = $entity;
+        $entityAux->setFecha($fechaReservaActual);
+        $em->merge($entityAux);
+        $em->flush();
+        $em->clear();
+
+
+    }
     private function conprobarAlerta ($fecha){
 
         $em = $this->getDoctrine()->getManager();
@@ -348,7 +351,7 @@ class ReservaController extends Controller
             }elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
                 throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
             }elseif (!$this::conprobarAlerta($entity->getFecha())){
-                throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
+                throw new Exception("Hay una feriado activo para el dia que desea agregar una reserva.");
             }elseif (!($this->sePuede($entity))) {
                 throw new Exception("Hay reservas para esa aula con esas fecha y hora");
             }
