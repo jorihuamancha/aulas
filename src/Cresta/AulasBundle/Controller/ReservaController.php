@@ -150,12 +150,12 @@ class ReservaController extends Controller
         $entityAux = $entity;
         $entityAux->setFecha($fechaReservaActual);
         //$fechaComoDate = date(($datetime($entityAux->getFecha())));
-        if ((date("D",$fechaComoDate)) <> 'Sun' ){
+        /*if ((date("D",$fechaComoDate)) <> 'Sun' ){
             //No es domingo
             $cancelarCarga = true;
         }else{
             $cancelarCarga = false;
-        }
+        }*/
         if($this->sePuede($entityAux)){
             $canceloPiso = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
@@ -170,12 +170,15 @@ class ReservaController extends Controller
             $cancelarAlerta = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
-        if($this->freeWilly()){
-           // $cancelarCursada = 
+        if($this->freeWilly($entityAux)){
+            $cancelarCursada = true;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
+        }else{
+            $cancelarCursada = false;
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
         }
       
-        if  ((!$canceloPiso) and (!$cancelarAlerta)){
+        if  ((!$canceloPiso) and (!$cancelarAlerta) and ($cancelarCursada)){
             $em->merge($entityAux);
             $em->flush();
             $em->clear();
@@ -230,8 +233,9 @@ class ReservaController extends Controller
         }
     }
     //By Neg.-
-    private function freeWilly(){
+    private function freeWilly($entity){
         $em = $this->getDoctrine()->getManager();
+       
         $fecha=$entity->getFecha();
         $horaDesde=$entity->getHoraDesde();
         $horaHasta=$entity->getHoraHasta();
