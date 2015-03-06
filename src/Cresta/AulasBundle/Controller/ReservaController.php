@@ -107,10 +107,15 @@ class ReservaController extends Controller
                 }
                 try{
                     if ($entity->getRango() == 0){
+                         if($this->freeWilly($entityAux)){
+                            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
+                         }else{
+                            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
+                        }
                         $em->persist($entity);
                         $em->flush();
-
                     }
+                    //Arreglar la vista aca y testear los de carrera y anio de curso
                     //return $this->redirect($this->generateUrl('reserva_show', array('id' => $id)));
                 }catch(Exception $e){}
                 if ($entity->getRango() > 0) {
@@ -156,6 +161,12 @@ class ReservaController extends Controller
         }else{
             $cancelarCarga = false;
         }*/
+        if($this->freeWilly($entityAux) and ($record)){
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
+        }else{
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
+            $record = false;
+        }
         if($this->sePuede($entityAux) and ($record)){
             $canceloPiso = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
@@ -172,12 +183,7 @@ class ReservaController extends Controller
             $cancelarAlerta = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
-        if($this->freeWilly($entityAux) and ($record)){
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
-        }else{
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
-            $record = false;
-        }
+       
       
         if  ((!$canceloPiso) and (!$cancelarAlerta)){
             $em->merge($entityAux);
