@@ -218,7 +218,6 @@ class ReservaController extends Controller
                             (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
                             (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
                             ')
-                        
                         ->setParameter('fecha', $fecha)
                         ->setParameter('aula', $idAula)
                         ->setParameter('horaDesde', $horaDesde)
@@ -233,6 +232,7 @@ class ReservaController extends Controller
             return false;
         }
     }
+
     //By Neg.-
     private function freeWilly($entity){
         $em = $this->getDoctrine()->getManager();
@@ -240,30 +240,32 @@ class ReservaController extends Controller
         $fecha=$entity->getFecha();
         $horaDesde=$entity->getHoraDesde();
         $horaHasta=$entity->getHoraHasta();
-        $curso=$entity->getCurso();
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
 
         $query = $reserva->createQueryBuilder('r')
                 ->where('
-                (r.fecha= :fecha AND r.curso= :curso ) AND
+                (r.fecha= :fecha) AND
                 ((r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
                 (r.horaHasta > :horaDesde AND r.horaHasta <= :horaHasta ) OR
                 (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
                 (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
                 ')
                 ->setParameter('fecha', $fecha)
-                ->setParameter('curso', $curso)
                 ->setParameter('horaDesde', $horaDesde)
                 ->setParameter('horaHasta', $horaHasta)
                 ->getQuery();
 
         $listado = $query->getResult();
-        
         if(empty($listado)){
             return true;
-        }else{
-            return false;
         }
+
+        for ($i=0; $i <= count($listado); $i++) { 
+            if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
+                return false;
+            }
+        }
+        return true; 
 
     }
     //By Neg.-
