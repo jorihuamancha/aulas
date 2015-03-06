@@ -23,7 +23,7 @@ class DefaultController extends Controller
     }
 
     //funcion agregada para dump de bbdd
-    public function dumpAction()
+    public void function dumpAction()
     {
         $dbhost=$this->container->getParameter('database_host');
         $dbname=$this->container->getParameter('database_name');
@@ -41,19 +41,23 @@ class DefaultController extends Controller
 
         if (($output =='0')){  //Si se creó con exito el BackUp
             //return $this->render('CrestaAulasBundle:Default:exitodump.html.twig', array());            
-                echo "<script type='text/javascript'>
+            echo "<script type='text/javascript'>
                   alert('El resguardo de la base de datos se realizo correctamente! El backup se encuentra en la carpeta Web de symfony');
-                </script>";            
-            return $this->render('CrestaAulasBundle:Default:acercade.html.twig', array());
+                </script>";
+            //header("Location:{{ path('_homepage') }}");
+            //return true;
+            //return $this->render('CrestaAulasBundle:Default:index.html.twig', array());
             //return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array());
+            
             }                         
         else { //Si no se creó el BackUp
             //return $this->render('CrestaAulasBundle:Default:errordump.html.twig', array());
-              echo "<script type='text/javascript'>
+              echo "<script type='text/javascript'
                   alert('El resguardo de la base de datos NO se realizo correctamente!');
                 </script>";
-            
-            return $this->render('CrestaAulasBundle:Default:acercade.html.twig', array());
+            //header("Location:{{ path('_homepage') }}");
+            //return true;
+            //return $this->render('CrestaAulasBundle:Default:index.html.twig', array());
             //return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array());
             }                         
     }

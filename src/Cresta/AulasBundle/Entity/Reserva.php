@@ -531,6 +531,4 @@ class Reserva
         return $this->horaRegistro;
     }
 
-   
-
 }
