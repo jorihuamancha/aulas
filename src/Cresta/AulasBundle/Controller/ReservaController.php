@@ -149,7 +149,7 @@ class ReservaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entityAux = $entity;
         $entityAux->setFecha($fechaReservaActual);
-        $fechaComoDate = date(($datetime($entityAux->getFecha())));
+        //$fechaComoDate = date(($datetime($entityAux->getFecha())));
         if ((date("D",$fechaComoDate)) <> 'Sun' ){
             //No es domingo
             $cancelarCarga = true;
@@ -171,7 +171,8 @@ class ReservaController extends Controller
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
         if($this->freeWilly()){
-
+            $cancelarCursada = 
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
       
         if  ((!$canceloPiso) and (!$cancelarAlerta)){
@@ -252,6 +253,7 @@ class ReservaController extends Controller
                 ->getQuery();
 
         $listado = $query->getResult();
+        
         if(empty($listado)){
             return true;
         }else{
