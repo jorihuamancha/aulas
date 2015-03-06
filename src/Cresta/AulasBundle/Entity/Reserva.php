@@ -102,13 +102,6 @@ class Reserva
      */
     private $horaRegistro;
 
-     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="rangoDesde", type="datetime")
-     */
-    private $rangoDesde;
-
     /**
      * @var \DateTime
      *
@@ -148,29 +141,6 @@ class Reserva
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set rangoDesde
-     *
-     * @param \DateTime $rangoDesde
-     * @return Reserva
-     */
-    public function setrangoDesde($rangoDesde)
-    {
-        $this->rangoDesde = $rangoDesde;
-
-        return $this;
-    }
-
-    /**
-     * Get rangoDesde
-     *
-     * @return \DateTime
-     */
-    public function getrangoDesde()
-    {
-        return $this->rangoDesde;
     }
 
      /**

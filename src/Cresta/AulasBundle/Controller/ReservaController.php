@@ -112,6 +112,7 @@ class ReservaController extends Controller
                     }
                 }catch(Exception $e){}
                 if ($entity->getRango() > 0) {
+                    $fechaReservaActual = $entity->getFecha();
                     $reservasCargadas = array();
                     $index = 0;
                     while ($entity->getrangoHasta() >= $fechaReservaActual) {
@@ -128,7 +129,8 @@ class ReservaController extends Controller
                             $fechaReservaActual->modify('+1 day');
                             $index++;
                         }
-                    }    
+                    }  
+                   
                 }
             //return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
                 //aca va show de las reservas hechas y los avisos de las reservas q no se pudieron cargar.
@@ -138,28 +140,34 @@ class ReservaController extends Controller
     }
 
     private function crearReservaOP($entity, $fechaReservaActual, $reservasCargadas,$index,$fechaActual){
-        
-
+        $cancelarAlerta = true;
+        $canceloPiso = true;
         $entityAux = new Reserva();
         $em = $this->getDoctrine()->getManager();
         $entityAux = $entity;
         $entityAux->setFecha($fechaReservaActual);
-        $fechaComoDate = $entityAux->getFecha()->format('Y-m-d');
-
+        /*$fechaComoDate = $entityAux->getFecha()->format('Y-m-d');
         if ((date("D",$fechaComoDate)) <> 'Sun' ){
             //No es domingo
             $cancelarCarga = true;
         }else{
             $cancelarCarga = false;
-        }
-        if (!$this::conprobarAlerta($entityAux->getFecha())){
-            $cancelarCarga = true;
+        }*/
+        if($this->sePuede($entityAux)){
+            $canceloPiso = false;
+            $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente'));
+        }elseif (!$this->sePuede($entityAux)){ 
+            $canceloPiso = true;
+            $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.'));
+        }elseif (!$this::conprobarAlerta($entityAux->getFecha())){
+            $cancelarAlerta = true;
             $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha'));
-        }else{
-            $cancelarCarga = false;
+        }elseif ($this::conprobarAlerta($entityAux->getFecha())){
+            $cancelarAlerta = false;
             $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente'));
         }
-        if (!$cancelarCarga) {
+      
+        if  ((!$canceloPiso) and (!$cancelarAlerta)) {
             $em->merge($entityAux);
             $em->flush();
             $em->clear();
@@ -188,7 +196,7 @@ class ReservaController extends Controller
         $idAula=$entity->getAula();
         $horaDesde=$entity->getHoraDesde();
         $horaHasta=$entity->getHoraHasta();
-        $id = $entity->getId();
+       
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
 
         $query = $reserva->createQueryBuilder('r')
@@ -209,8 +217,10 @@ class ReservaController extends Controller
         $listado = $query->getResult();
 
         if(empty($listado)){
+          
             return true;
         }else{
+           
             return false;
         }
     }
