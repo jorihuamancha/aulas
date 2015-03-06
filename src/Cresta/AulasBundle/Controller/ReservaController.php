@@ -116,18 +116,19 @@ class ReservaController extends Controller
                 if ($entity->getRango() > 0) {
                     $fechaReservaActual = $entity->getFecha();
                     $reservasCargadas = array();
+                    $arrayReservasConcatenadas = array();
                     $index = 0;
                     while ($entity->getrangoHasta() >= $fechaReservaActual) {
                         if($entity->getRango() == 7){
-                            $arrayReservasConcatenadas = $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
+                            $arrayReservasConcatenadas[$index] = $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
                             $fechaReservaActual->modify('+7 day');
                             $index++;
                         }elseif ($entity->getRango() == 14) {
-                            $arrayReservasConcatenadas = $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
+                            $arrayReservasConcatenadas[$index] = $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
                             $fechaReservaActual->modify('+14 day');
                             $index++;
                         }elseif ($entity->getRango() == 1) {
-                            $arrayReservasConcatenadas = $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
+                            $arrayReservasConcatenadas[$index] = $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
                             $fechaReservaActual->modify('+1 day');
                             $index++;
                         }
@@ -183,8 +184,9 @@ class ReservaController extends Controller
             $em->merge($entityAux);
             $em->flush();
             $em->clear();
-        }   
-            
+        }
+
+        return $reservasCargadas;    
 
     }
     //By Neg.-
