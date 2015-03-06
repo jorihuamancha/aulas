@@ -44,7 +44,8 @@ class ReservaType extends AbstractType
                                                 'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
                                                 'attr'=>array( 'required'=>'true','class'=>"chzn-select") ))
-            ->add('rango', 'choice', array( 'label'=>'Frecuencia: ','choices'=>array(   1=>'Unica',
+            ->add('rango', 'choice', array( 'label'=>'Frecuencia: ','choices'=>array(   0=>'Reserva única',
+                                                                                        1=>'Cada un día',
                                                                                         7=>'Cada Una Semana',
                                                                                         14=>'Cada Dos Semanas')
                                                                                     ))
@@ -63,7 +64,7 @@ class ReservaType extends AbstractType
                                                 ) 
                     )
             //->add('rangoDesde', 'datetime', array( 'label'=>'Reservar Desde: ','attr'=>array('required'=>true)))
-            ->add('rangoHasta', 'datetime', array( 'label'=>'Fecha Hasta: ','attr'=>array('required'=>true)))
+            //->add('rangoHasta', 'datetime', array( 'label'=>'Fecha Hasta: ','attr'=>array('required'=>true)))
             
             ->add('recursos','entity',array( 'label'=>'Recursos: ',
                                             'class'=>'CrestaAulasBundle:Recurso',
