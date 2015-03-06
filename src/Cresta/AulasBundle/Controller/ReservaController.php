@@ -132,7 +132,7 @@ class ReservaController extends Controller
                     }  
                    
                 }
-            //return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId())));
+           //return $this->redirect($this->generateUrl('reserva_show_Array', array('reservasCargadas' => $reservasCargadas)));
                 //aca va show de las reservas hechas y los avisos de las reservas q no se pudieron cargar.
             return $this->redirect($this->generateUrl('reserva', array()));
             }
@@ -268,6 +268,21 @@ class ReservaController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
+    }
+
+
+    /**
+     * Finds and displays a Reserva entity.
+     *
+     */
+    public function showArrayAction($array){
+    
+        if (!$entity) {
+            throw $this->createNotFoundException('');
+        }
+
+        return $this->render('CrestaAulasBundle:Reserva:show.html.twig', array(
+            'array'  => $array));
     }
 
     /**
