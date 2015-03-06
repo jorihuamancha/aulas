@@ -109,6 +109,7 @@ class ReservaController extends Controller
                     if ($entity->getRango() == 0){
                         $em->persist($entity);
                         $em->flush();
+                        return $this->redirect($this->generateUrl('reserva_show', array('id' => $id)));
                     }
                 }catch(Exception $e){}
                 if ($entity->getRango() > 0) {
