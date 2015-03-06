@@ -135,6 +135,7 @@ class ReservaController extends Controller
                 }
            //return $this->redirect($this->generateUrl('reserva_show_Array', array('reservasCargadas' => $reservasCargadas)));
            return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array('array' => $reservasCargadas));
+
                 //aca va show de las reservas hechas y los avisos de las reservas q no se pudieron cargar.
            // return $this->redirect($this->generateUrl('reserva', array()));
             }
@@ -157,13 +158,14 @@ class ReservaController extends Controller
         if($this->sePuede($entityAux)){
             $canceloPiso = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
-        }elseif (!$this->sePuede($entityAux)){ 
+        }else{ 
             $canceloPiso = true;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.');
-        }elseif (!$this::conprobarAlerta($entityAux->getFecha())){
+        }
+        if (!$this::conprobarAlerta($entityAux->getFecha())){
             $cancelarAlerta = true;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha');
-        }elseif ($this::conprobarAlerta($entityAux->getFecha())){
+        }else{
             $cancelarAlerta = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }

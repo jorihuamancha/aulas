@@ -10,11 +10,13 @@
                 {% if array is null %}
                     NO ANDA FLAQUITO
                 {% else %}
-                    {% for reserva in array %}
+                    {% for arrayreserva in array %}
+                        {% for reserva in arrayreserva%}
                         <tr>
-                            <td>{{ reserva.entidad.actividad.nombre }} hs</td>
-                            <td>{{ reserva.motivo}}</td>
+                            <td>{{ reserva.entidad.aula.nombre }}</td>
+                            <td>{{ reserva.motivo }}</td>
                         </tr>
+                        {% endfor %}
                     {% endfor %}
                 {% endif %}
             </tr>
