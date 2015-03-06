@@ -27,7 +27,7 @@ CREATE TABLE `Actividad` (
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `tipo` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `Actividad` (
 
 LOCK TABLES `Actividad` WRITE;
 /*!40000 ALTER TABLE `Actividad` DISABLE KEYS */;
+INSERT INTO `Actividad` VALUES (1,'Facebook','unica'),(2,'Gimnasia','Semanal'),(3,'A','a');
 /*!40000 ALTER TABLE `Actividad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +55,7 @@ CREATE TABLE `Administrador` (
   `personaAdministrador_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_F787EED4402A0DD7` (`personaAdministrador_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +64,6 @@ CREATE TABLE `Administrador` (
 
 LOCK TABLES `Administrador` WRITE;
 /*!40000 ALTER TABLE `Administrador` DISABLE KEYS */;
-INSERT INTO `Administrador` VALUES (1,'Virginia Mabel','May Landa',1,NULL);
 /*!40000 ALTER TABLE `Administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +81,7 @@ CREATE TABLE `Alerta` (
   `observaciones` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_36FB4151A8B7D9` (`fecha`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +90,6 @@ CREATE TABLE `Alerta` (
 
 LOCK TABLES `Alerta` WRITE;
 /*!40000 ALTER TABLE `Alerta` DISABLE KEYS */;
-INSERT INTO `Alerta` VALUES (1,'2015-03-23 00:00:00','Feriado puente',NULL);
 /*!40000 ALTER TABLE `Alerta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,7 +109,7 @@ CREATE TABLE `Aula` (
   `recursosFijos` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_A32B3F9A3A909126` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +118,7 @@ CREATE TABLE `Aula` (
 
 LOCK TABLES `Aula` WRITE;
 /*!40000 ALTER TABLE `Aula` DISABLE KEYS */;
-INSERT INTO `Aula` VALUES (1,'Magna','0',100,1,''),(2,'101','1',30,1,''),(3,'202','2',35,1,''),(4,'Sin aula','0',0,1,''),(5,'Manteca power','2',111,1,'');
+INSERT INTO `Aula` VALUES (1,'a','5',5,1,''),(2,'101','1',40,1,'Cañon, 40 bancos, pizarra, computadora, televisor'),(3,'alalla','2',50,1,'lalala');
 /*!40000 ALTER TABLE `Aula` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,14 +132,14 @@ DROP TABLE IF EXISTS `Carrera`;
 CREATE TABLE `Carrera` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `observaciones` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `universidad` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `facultad` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `color` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `observaciones` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `plan` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_A3F4AC3A909126` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +148,7 @@ CREATE TABLE `Carrera` (
 
 LOCK TABLES `Carrera` WRITE;
 /*!40000 ALTER TABLE `Carrera` DISABLE KEYS */;
-INSERT INTO `Carrera` VALUES (1,'Analista Programador Universitario',NULL,'Universidad Nacional de La Plata','Informatica','#003399','2007'),(2,'Arquitectura',NULL,'Universidad Nacional de Mar del Plata','Arquitectura','#FF0000',''),(3,'Perito en grano',NULL,'Universidad Nacional de Balcarce','Ingeniería','#22ff00',''),(4,'Economía',NULL,'Mar del Plata','Ciencias Económicas','#ff00ff',''),(5,'Virginia',NULL,'ASD','ASD','#35c5de','90');
+INSERT INTO `Carrera` VALUES (4,'a','a','a','#ff0000',NULL,'a'),(5,'aa','aa','aa','#5900ff',NULL,'aa'),(6,'llala','UNLP','Informatica','#d93cd9','sadas','2007');
 /*!40000 ALTER TABLE `Carrera` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +169,7 @@ CREATE TABLE `Curso` (
   PRIMARY KEY (`id`),
   KEY `IDX_BFA6FE8892CB7DF` (`Carrera_id`),
   CONSTRAINT `FK_BFA6FE8892CB7DF` FOREIGN KEY (`Carrera_id`) REFERENCES `Carrera` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,7 +178,7 @@ CREATE TABLE `Curso` (
 
 LOCK TABLES `Curso` WRITE;
 /*!40000 ALTER TABLE `Curso` DISABLE KEYS */;
-INSERT INTO `Curso` VALUES (1,'Orientación a objetos I','2',1,'2015','1'),(2,'Organización de Computadoras','1',1,'2015','1'),(3,'Supervisación de granos','2',3,'2015','2'),(4,'Fisica Aplicada','1',2,'2015','1'),(5,'Matemática 1','1',4,'2015','1'),(6,'Beia Primavera','2',3,'2015','2');
+INSERT INTO `Curso` VALUES (4,'a','1',4,'a','1'),(5,'a','2',5,'1','1'),(6,'b','2016',5,'2016','2'),(7,'j','2',4,'2','1'),(8,'c','5',4,'5','1'),(9,'f','11',4,'2015','1'),(10,'b','154',4,'45','1');
 /*!40000 ALTER TABLE `Curso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +196,7 @@ CREATE TABLE `Docente` (
   `personaDocente_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_3222F638971875FA` (`personaDocente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +205,7 @@ CREATE TABLE `Docente` (
 
 LOCK TABLES `Docente` WRITE;
 /*!40000 ALTER TABLE `Docente` DISABLE KEYS */;
-INSERT INTO `Docente` VALUES (1,'Jorge','Runco',NULL);
+INSERT INTO `Docente` VALUES (1,'J','a',NULL),(2,'b','h',NULL);
 /*!40000 ALTER TABLE `Docente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,7 +228,7 @@ CREATE TABLE `Movimiento` (
   `nombreDocente` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `tarea` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +237,7 @@ CREATE TABLE `Movimiento` (
 
 LOCK TABLES `Movimiento` WRITE;
 /*!40000 ALTER TABLE `Movimiento` DISABLE KEYS */;
-INSERT INTO `Movimiento` VALUES (1,'2015-02-24 08:15:18','Magna','2000-01-01 08:00:00','2000-01-01 09:00:00','2015-02-24 00:00:00','admin','Lanzarini','Laura','Matemática 3 (Curso)'),(2,'2015-02-25 14:04:39','Magna','2000-01-01 08:00:00','2000-01-01 10:00:00','2015-02-25 00:00:00','admin','Runco','Jorge','Orientación a objetos I (Curso)'),(3,'2015-02-26 03:33:31','Magna','2000-01-01 08:00:00','2000-01-01 09:30:00','2015-02-25 00:00:00','admin','Runco','Jorge','Organización de Computadoras (Curso)');
+INSERT INTO `Movimiento` VALUES (1,'2015-02-27 04:41:27','a','2000-01-01 08:00:00','2000-01-01 08:30:00','2015-02-27 00:00:00','admin','a','J','a (Curso)'),(2,'2015-03-04 05:05:18','a','2000-01-01 18:00:00','2000-01-01 20:00:00','2015-02-27 00:00:00','admin','h','b','a (Curso)');
 /*!40000 ALTER TABLE `Movimiento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +253,7 @@ CREATE TABLE `Recurso` (
   `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_7D060EF83A909126` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,7 +262,7 @@ CREATE TABLE `Recurso` (
 
 LOCK TABLES `Recurso` WRITE;
 /*!40000 ALTER TABLE `Recurso` DISABLE KEYS */;
-INSERT INTO `Recurso` VALUES (2,'Cañon'),(1,'Recurso móvil');
+INSERT INTO `Recurso` VALUES (4,'a'),(5,'b'),(6,'c'),(1,'Cañon'),(7,'d'),(8,'e'),(9,'f'),(10,'g'),(11,'h'),(3,'Silla'),(2,'VC');
 /*!40000 ALTER TABLE `Recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -289,6 +288,9 @@ CREATE TABLE `Reserva` (
   `fechaRegistro` datetime NOT NULL,
   `horaRegistro` datetime NOT NULL,
   `diosReserva` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `rangoDesde` datetime NOT NULL,
+  `rangoHasta` datetime NOT NULL,
+  `rango` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_D73017A794E27525` (`docente_id`),
   KEY `IDX_D73017A7AD1A1255` (`aula_id`),
@@ -300,7 +302,7 @@ CREATE TABLE `Reserva` (
   CONSTRAINT `FK_D73017A794E27525` FOREIGN KEY (`docente_id`) REFERENCES `Docente` (`id`),
   CONSTRAINT `FK_D73017A7AD1A1255` FOREIGN KEY (`aula_id`) REFERENCES `Aula` (`id`),
   CONSTRAINT `FK_D73017A7DB38439E` FOREIGN KEY (`usuario_id`) REFERENCES `Usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,36 +311,8 @@ CREATE TABLE `Reserva` (
 
 LOCK TABLES `Reserva` WRITE;
 /*!40000 ALTER TABLE `Reserva` DISABLE KEYS */;
-INSERT INTO `Reserva` VALUES (2,1,2,1,NULL,1,'2015-02-25 00:00:00','2000-01-01 12:00:00','2000-01-01 14:00:00',1,'Saludos, JR','2015-02-25 14:06:00','2015-02-25 14:06:00',''),(4,1,1,3,NULL,1,'2015-02-26 00:00:00','2000-01-01 08:00:00','2000-01-01 08:30:00',1,NULL,'2015-02-26 03:29:00','2015-02-26 03:29:00',''),(5,1,2,4,NULL,1,'2015-02-26 00:00:00','2000-01-01 11:00:00','2000-01-01 13:00:00',1,NULL,'2015-02-26 03:32:00','2015-02-26 03:32:00',''),(6,1,3,2,NULL,1,'2015-02-27 00:00:00','2000-01-01 08:00:00','2000-01-01 08:30:00',1,NULL,'2015-02-27 02:44:00','2015-02-27 02:44:00',''),(7,1,1,1,NULL,1,'2015-02-27 00:00:00','2000-01-01 15:00:00','2000-01-01 22:30:00',1,NULL,'2015-02-27 04:37:00','2015-02-27 04:37:00',''),(8,1,1,1,NULL,1,'2015-02-28 00:00:00','2000-01-01 08:00:00','2000-01-01 08:30:00',1,NULL,'2015-02-27 02:53:00','2015-02-27 02:53:00',''),(9,1,1,4,NULL,1,'2015-03-27 00:00:00','2000-01-01 08:00:00','2000-01-01 16:00:00',1,NULL,'2015-02-27 10:13:00','2015-02-27 10:13:00','admin'),(10,1,3,5,NULL,1,'2015-04-27 00:00:00','2000-01-01 08:00:00','2000-01-01 08:30:00',1,NULL,'2015-02-27 10:14:00','2015-02-27 10:14:00','admin'),(11,1,3,1,NULL,1,'2015-02-28 00:00:00','2000-01-01 08:00:00','2000-01-01 11:00:00',1,NULL,'2015-02-27 10:20:00','2015-02-27 10:20:00','admin'),(12,1,1,1,NULL,1,'2015-02-27 00:00:00','2000-01-01 08:00:00','2000-01-01 08:30:00',1,NULL,'2015-02-27 10:27:00','2015-02-27 10:27:00','admin');
+INSERT INTO `Reserva` VALUES (2,1,2,4,NULL,1,'2015-02-27 00:00:00','2000-01-01 08:00:00','2000-01-01 09:00:00',1,NULL,'2015-02-27 06:45:00','2015-02-27 06:45:00','admin','0000-00-00 00:00:00','0000-00-00 00:00:00',0),(3,1,2,4,NULL,1,'2015-02-27 00:00:00','2000-01-01 09:00:00','2000-01-01 10:00:00',1,NULL,'2015-02-27 06:48:00','2015-02-27 06:48:00','admin','0000-00-00 00:00:00','0000-00-00 00:00:00',0),(4,1,2,4,NULL,1,'2015-02-27 00:00:00','2000-01-01 20:00:00','2000-01-01 22:00:00',1,NULL,'2015-02-27 06:48:00','2015-02-27 06:48:00','admin','0000-00-00 00:00:00','0000-00-00 00:00:00',0),(5,1,1,4,NULL,1,'2015-02-27 00:00:00','2000-01-01 13:00:00','2000-01-01 14:00:00',1,NULL,'2015-02-27 06:49:00','2015-02-27 06:49:00','admin','0000-00-00 00:00:00','0000-00-00 00:00:00',0),(6,1,1,4,NULL,1,'2015-02-28 00:00:00','2000-01-01 08:00:00','2000-01-01 09:00:00',1,NULL,'2015-02-27 06:49:00','2015-02-27 06:49:00','admin','0000-00-00 00:00:00','0000-00-00 00:00:00',0),(7,1,1,4,NULL,1,'2015-03-01 00:00:00','2000-01-01 08:00:00','2000-01-01 09:00:00',1,NULL,'2015-02-27 06:57:00','2015-02-27 06:57:00','admin','0000-00-00 00:00:00','0000-00-00 00:00:00',0),(8,1,1,4,NULL,1,'2015-03-03 00:00:00','2000-01-01 14:00:00','2000-01-01 18:00:00',1,NULL,'2015-02-27 06:58:00','2015-02-27 06:58:00','admin','0000-00-00 00:00:00','0000-00-00 00:00:00',0),(9,1,1,4,NULL,1,'2015-03-03 00:00:00','2000-01-01 08:00:00','2000-01-01 12:00:00',1,NULL,'2015-02-27 06:59:00','2015-02-27 06:59:00','admin','0000-00-00 00:00:00','0000-00-00 00:00:00',0);
 /*!40000 ALTER TABLE `Reserva` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ReservaRecurso`
---
-
-DROP TABLE IF EXISTS `ReservaRecurso`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ReservaRecurso` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idReserva` int(11) DEFAULT NULL,
-  `idRecurso` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_FB7BE89D83445C9` (`idReserva`),
-  KEY `IDX_FB7BE89DA2025C96` (`idRecurso`),
-  CONSTRAINT `FK_FB7BE89D83445C9` FOREIGN KEY (`idReserva`) REFERENCES `ReservaRecurso` (`id`),
-  CONSTRAINT `FK_FB7BE89DA2025C96` FOREIGN KEY (`idRecurso`) REFERENCES `ReservaRecurso` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ReservaRecurso`
---
-
-LOCK TABLES `ReservaRecurso` WRITE;
-/*!40000 ALTER TABLE `ReservaRecurso` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ReservaRecurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -365,7 +339,7 @@ CREATE TABLE `Reservas_Recursos` (
 
 LOCK TABLES `Reservas_Recursos` WRITE;
 /*!40000 ALTER TABLE `Reservas_Recursos` DISABLE KEYS */;
-INSERT INTO `Reservas_Recursos` VALUES (2,1),(4,1),(5,1),(6,1);
+INSERT INTO `Reservas_Recursos` VALUES (2,1);
 /*!40000 ALTER TABLE `Reservas_Recursos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,7 +377,7 @@ CREATE TABLE `Usuario` (
   UNIQUE KEY `UNIQ_EDD889C148DFEBB7` (`administrador_id`),
   CONSTRAINT `FK_EDD889C148DFEBB7` FOREIGN KEY (`administrador_id`) REFERENCES `Administrador` (`id`),
   CONSTRAINT `FK_EDD889C194E27525` FOREIGN KEY (`docente_id`) REFERENCES `Docente` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -412,7 +386,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,NULL,NULL,'admin','admin','admin@admin.com','admin@admin.com',1,'in32vzcn480ggcowwws0wo80w0s44ww','jPtuBvfYujs+XfMAyCVp0R5qlF7crrM5OsANE3GJqc68pVpAShiaJeCuzawUruhfkQGf3BexjjmS0fZHBW9LCA==','2015-02-27 10:27:05',0,0,NULL,NULL,NULL,'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}',0,NULL),(2,NULL,1,'virginia','virginia','virginia@virginia.com','virginia@virginia.com',1,'p83g2zod7i84c80os040c0soc0s88s0','xADOqvfZ+I5pRPCmzrQoKx5AAxHWWXGQNgaq8tvHSbfvTlikcx1iJUgkv4SaDj6Lit5P+wAfv/IQvMi00FcqEA==','2015-02-25 14:41:16',0,0,NULL,NULL,NULL,'a:0:{}',0,NULL);
+INSERT INTO `Usuario` VALUES (1,NULL,NULL,'admin','admin','a@a.com','a@a.com',1,'cm3hgr2wpy8k44ks04co8gk8swg0skw','ajmeeepFSVr6ZahZvUBu/bovvgIYbllDvIyXrWxjQiYb9s7si40p/vq7eZMu7G29ekrpzQR/OJFjXPXPlZqd1Q==','2015-03-04 04:54:35',0,0,NULL,NULL,NULL,'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}',0,NULL);
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -425,4 +399,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-27 10:30:18
+-- Dump completed on 2015-03-04 16:39:43

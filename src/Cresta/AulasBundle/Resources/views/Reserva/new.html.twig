@@ -68,6 +68,16 @@
 				document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").disabled=true;
 				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").disabled=false;
 				}
+			function rango(value){
+				if(value=0){
+					alert('hola');
+					$("#cresta_aulasbundle_reserva > div:nth-child(8)").css("display", "none"); //octavo div
+					}
+				else{
+					alert('hola');
+					$("#cresta_aulasbundle_reserva > div:nth-child(8)").css("display", "inline-block");
+					}
+				}
 			}
 	</script>
 <div class="formAutogenerado">
@@ -77,8 +87,17 @@
 	<label>Materia : </label>
 	<input type="checkbox" onchange="actividad(this.checked);" checked>
 	</div>
-
+	{# trato de ponerle una función para que si elige una carga unica se borre la fecha hasta #}
     {{ form(form) }}
+    {{ form_widget(form.rango,{'onchange':'rango(this.selected);'})}}
+
+    {#
+       {{ form_widget(personalFilterForm.personaFiltrarMail,
+    }
+    }
+    { 'empty_value': 'Todos',
+    'attr': {'selected': personaFiltrarMail,
+    'onChange': 'javascript:document.filtrado.submit()' }})}}
    	{#
 	{{ form_widget(form.usuario, {'attr': {'display': 'none' } } ) }}
 	{{ form_widget(form.fechaRegistro, {'attr': { 'display':'none' } } ) }}
