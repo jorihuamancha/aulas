@@ -171,7 +171,7 @@ class ReservaController extends Controller
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
         if($this->freeWilly()){
-            $cancelarCursada = 
+           // $cancelarCursada = 
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
       
