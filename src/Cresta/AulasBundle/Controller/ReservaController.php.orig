@@ -135,7 +135,6 @@ class ReservaController extends Controller
                 }
            //return $this->redirect($this->generateUrl('reserva_show_Array', array('reservasCargadas' => $reservasCargadas)));
            return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array('array' => $reservasCargadas));
-
                 //aca va show de las reservas hechas y los avisos de las reservas q no se pudieron cargar.
            // return $this->redirect($this->generateUrl('reserva', array()));
             }
@@ -157,15 +156,26 @@ class ReservaController extends Controller
         }*/
         if($this->sePuede($entityAux)){
             $canceloPiso = false;
+<<<<<<< HEAD
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
-        }else{ 
+        }elseif (!$this->sePuede($entityAux)){ 
             $canceloPiso = true;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.');
+        }elseif (!$this::conprobarAlerta($entityAux->getFecha())){
+            $cancelarAlerta = true;
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha');
+        }elseif ($this::conprobarAlerta($entityAux->getFecha())){
+=======
+            $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente'));
+        }else{ 
+            $canceloPiso = true;
+            $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.'));
         }
         if (!$this::conprobarAlerta($entityAux->getFecha())){
             $cancelarAlerta = true;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha');
+            $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha'));
         }else{
+>>>>>>> 443d87bb76053d10b52bffe70a9d611ea1e71651
             $cancelarAlerta = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
@@ -176,7 +186,7 @@ class ReservaController extends Controller
             $em->clear();
         }   
             
-
+        return $reservasCargadas;
     }
 
     private function conprobarAlerta ($fecha){

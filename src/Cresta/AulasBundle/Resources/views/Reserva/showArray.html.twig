@@ -7,9 +7,18 @@
         <tbody>
             <tr>
                 <th>Fecha</th>
-                {% for reserva in array %}
-                    <td>{{ reserva.entidad.fecha|date('d-m-Y') }} hs</td>
-                {% endfor %}
+                {% if array is null %}
+                    NO ANDA FLAQUITO
+                {% else %}
+                    {% for arrayreserva in array %}
+                        {% for reserva in arrayreserva%}
+                        <tr>
+                            <td>{{ reserva.entidad.aula.nombre }}</td>
+                            <td>{{ reserva.motivo }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
             </tr>
         </tbody>
     </table>
