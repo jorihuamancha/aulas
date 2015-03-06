@@ -282,7 +282,7 @@ class ReservaController extends Controller
             throw $this->createNotFoundException('');
         }
 
-        return $this->render('CrestaAulasBundle:Reserva:show.html.twig', array(
+        return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array(
             'array'  => $array));
     }
 
