@@ -156,16 +156,16 @@ class ReservaController extends Controller
         }*/
         if($this->sePuede($entityAux)){
             $canceloPiso = false;
-            $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente'));
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }elseif (!$this->sePuede($entityAux)){ 
             $canceloPiso = true;
-            $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.'));
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.');
         }elseif (!$this::conprobarAlerta($entityAux->getFecha())){
             $cancelarAlerta = true;
-            $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha'));
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha');
         }elseif ($this::conprobarAlerta($entityAux->getFecha())){
             $cancelarAlerta = false;
-            $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente'));
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
       
         if  ((!$canceloPiso)) {
@@ -174,7 +174,7 @@ class ReservaController extends Controller
             $em->clear();
         }   
             
-
+        return $reservasCargadas;
     }
 
     private function conprobarAlerta ($fecha){
