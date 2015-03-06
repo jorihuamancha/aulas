@@ -25,6 +25,15 @@
                             <th>Recursos fijos</th>
                             <td>{{ entity.recursosFijos }}</td>
                         </tr>
+                        <tr>
+                            <th>Observaciones</th>
+                            {% if entity.observaciones == null %}
+                                <td> N/A </td>
+                            {% else %}
+                                <td>{{ entity.observaciones }}</td>
+                            {% endif %}
+                        </tr>
+
                     </tbody>
                 </table>
                    <ul class="record_actions tablaAcciones">
