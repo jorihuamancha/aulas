@@ -107,10 +107,16 @@ class ReservaController extends Controller
                 }
                 try{
                     if ($entity->getRango() == 0){
+                         if($this->freeWilly($entityAux)){
+                            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
+                         }else{
+                            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
+                        }
                         $em->persist($entity);
                         $em->flush();
 
                     }
+                    //Arreglar la vista aca y testear los de carrera y anio de curso
                     //return $this->redirect($this->generateUrl('reserva_show', array('id' => $id)));
                 }catch(Exception $e){}
                 if ($entity->getRango() > 0) {
@@ -157,6 +163,12 @@ class ReservaController extends Controller
         }else{
             $cancelarCarga = false;
         }*/
+        if($this->freeWilly($entityAux) and ($record)){
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
+        }else{
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
+            $record = false;
+        }
         if($this->sePuede($entityAux) and ($record)){
             $canceloPiso = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
@@ -173,12 +185,7 @@ class ReservaController extends Controller
             $cancelarAlerta = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
-        if($this->freeWilly($entityAux) and ($record)){
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
-        }else{
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
-            $record = false;
-        }
+       
       
         if  ((!$canceloPiso) and (!$cancelarAlerta)){
             $em->merge($entityAux);
@@ -235,6 +242,7 @@ class ReservaController extends Controller
             return false;
         }
     }
+
     //By Neg.-
     private function freeWilly($entity){
         $em = $this->getDoctrine()->getManager();
@@ -242,30 +250,32 @@ class ReservaController extends Controller
         $fecha=$entity->getFecha();
         $horaDesde=$entity->getHoraDesde();
         $horaHasta=$entity->getHoraHasta();
-        $curso=$entity->getCurso();
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
 
         $query = $reserva->createQueryBuilder('r')
                 ->where('
-                (r.fecha= :fecha AND r.curso= :curso ) AND
+                (r.fecha= :fecha) AND
                 ((r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
                 (r.horaHasta > :horaDesde AND r.horaHasta <= :horaHasta ) OR
                 (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
                 (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
                 ')
                 ->setParameter('fecha', $fecha)
-                ->setParameter('curso', $curso)
                 ->setParameter('horaDesde', $horaDesde)
                 ->setParameter('horaHasta', $horaHasta)
                 ->getQuery();
 
         $listado = $query->getResult();
-        
         if(empty($listado)){
             return true;
-        }else{
-            return false;
         }
+
+        for ($i=0; $i <= count($listado); $i++) { 
+            if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
+                return false;
+            }
+        }
+        return true; 
 
     }
     //By Neg.-
