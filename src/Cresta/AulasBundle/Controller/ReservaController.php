@@ -91,11 +91,11 @@ class ReservaController extends Controller
                 //No tocar por nada del mundo
                 if ($entity->getRango() == 0){
                     if (!($entity->getFecha()>=$fechaActual)) {
-                        throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
+                        throw new Exception("La fecha para reservar deberia ser igual o mayor a la fecha actual.");  
                     }elseif (!($entity->getHoraDesde() < $entity->getHoraHasta())) {
                         throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
                     }elseif (!$this::conprobarAlerta($entity->getFecha())){
-                        throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
+                        throw new Exception("Hay una alerta activa para la fecha que desea agregar una reserva.");
                     }elseif (!($this->sePuede($entity))) {
                         throw new Exception("Hay reservas para esa aula con esas fecha y hora");
                     } 
@@ -133,11 +133,10 @@ class ReservaController extends Controller
                     }  
                    
                 }
-           //return $this->redirect($this->generateUrl('reserva_show_Array', array('reservasCargadas' => $reservasCargadas)));
-           return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array('array' => $reservasCargadas));
-
-                //aca va show de las reservas hechas y los avisos de las reservas q no se pudieron cargar.
-           // return $this->redirect($this->generateUrl('reserva', array()));
+            //return $this->redirect($this->generateUrl('reserva_show_Array', array('reservasCargadas' => $reservasCargadas)));
+            return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array('array' => $reservasCargadas));
+            //aca va show de las reservas hechas y los avisos de las reservas q no se pudieron cargar.
+            // return $this->redirect($this->generateUrl('reserva', array()));
             }
        return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array('entity' => $entity,'form'=> $form->createView()));
     }
@@ -160,23 +159,20 @@ class ReservaController extends Controller
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }else{ 
             $canceloPiso = true;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.');
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese día.');
         }
         if (!$this::conprobarAlerta($entityAux->getFecha())){
             $cancelarAlerta = true;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha');
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esa fecha');
         }else{
             $cancelarAlerta = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
-      
         if  ((!$canceloPiso) and (!$cancelarAlerta)){
             $em->merge($entityAux);
             $em->flush();
             $em->clear();
         }   
-            
-
     }
 
     private function conprobarAlerta ($fecha){
@@ -192,15 +188,12 @@ class ReservaController extends Controller
     }
 
     private function sePuede ($entity){
-
         $em = $this->getDoctrine()->getManager();
-        
         $fecha=$entity->getFecha();
         $idAula=$entity->getAula();
         $horaDesde=$entity->getHoraDesde();
         $horaHasta=$entity->getHoraHasta();
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
-
         $query = $reserva->createQueryBuilder('r')
                         ->where('
                             (r.fecha= :fecha AND r.aula= :aula) AND
@@ -209,15 +202,12 @@ class ReservaController extends Controller
                             (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
                             (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
                             ')
-                        
                         ->setParameter('fecha', $fecha)
                         ->setParameter('aula', $idAula)
                         ->setParameter('horaDesde', $horaDesde)
                         ->setParameter('horaHasta', $horaHasta)
                         ->getQuery();
-
         $listado = $query->getResult();
-
         if(empty($listado)){
             return true;
         }else{
@@ -290,22 +280,16 @@ class ReservaController extends Controller
     {
         $entity = new Reserva();
         $form   = $this->createCreateForm($entity);
-        //$user='1';
         $em = $this->getDoctrine()->getManager();
-
         //$entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
-
         $usuario = $em->getRepository('CrestaAulasBundle:Usuario')->find($this->container->get('security.context')->getToken()->getUser());
         $idUsuario=$usuario->getId();
-
-        
         return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
             'usuario'=> $idUsuario,
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
-
 
     /**
      * Finds and displays a Reserva entity.
@@ -355,9 +339,9 @@ class ReservaController extends Controller
 
         if (!$entity) {
 
-            throw $this->createNotFoundException('No pudimos encontrar el recurso, vuelva atras');
+            throw $this->createNotFoundException('No pudimos encontrar la reserva, vuelva atras');
 
-            throw $this->createNotFoundException('No pudimos encontrar el recurso :/');
+            throw $this->createNotFoundException('No pudimos encontrar la reserva :/');
         }
 
             $editForm = $this->createEditForm($entity);
@@ -443,8 +427,6 @@ class ReservaController extends Controller
             }elseif (!($this->sePuedeEdit($entity))) {
                 throw new Exception("Hay reservas para esa aula con esas fecha y hora");
             }
-      
-           
 
             $em->flush();
            
@@ -458,12 +440,8 @@ class ReservaController extends Controller
         ));
     }
 
-
-    
-
     protected function nuevoMovimiento($idReserva)
     {      
-        
 
         $em = $this->getDoctrine()->getEntityManager();                 
 
@@ -531,10 +509,6 @@ class ReservaController extends Controller
  
     }
 
-
-
-
-
     /**
      * Deletes a Reserva entity.
      *
@@ -578,11 +552,9 @@ class ReservaController extends Controller
         ;
     }
 
-
     /**
     * @Pdf()
     */
-
     public function imprimirAction(){// http://localhost/aulas/web/app_dev.php/imprimir/listado.pdf
         $em = $this->getDoctrine()->getManager();
         //$entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();                
@@ -643,7 +615,6 @@ class ReservaController extends Controller
         return $this->render(sprintf('CrestaAulasBundle:Reserva:imprimirlistado.pdf.twig', $formato ),  
         array( 'entities'=>$entities) );   //'nombre'=>$nombre) );
     }
-
 
     public function filtroAction(){
         $filtro=$this->get('request')->get('filtro');
@@ -732,8 +703,6 @@ class ReservaController extends Controller
             }
 
             $filtroActivo = 1;
-
-
     
     return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array(
             'entities' => $entities,
@@ -741,7 +710,4 @@ class ReservaController extends Controller
         ));
     }
 
-    
-
 }
-

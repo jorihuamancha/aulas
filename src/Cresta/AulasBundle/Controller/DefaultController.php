@@ -23,7 +23,7 @@ class DefaultController extends Controller
     }
 
     //funcion agregada para dump de bbdd
-    public void function dumpAction()
+    public function dumpAction()
     {
         $dbhost=$this->container->getParameter('database_host');
         $dbname=$this->container->getParameter('database_name');

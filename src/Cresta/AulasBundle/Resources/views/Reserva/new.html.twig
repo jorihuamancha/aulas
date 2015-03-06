@@ -3,14 +3,14 @@
 {% block body %}
 	<script type="text/javascript">
 		$(document).ready(function(){
-			document.getElementById("cresta_aulasbundle_reserva_usuario").value = document.getElementById("idusuario").value;
+			//document.getElementById("cresta_aulasbundle_reserva_usuario").value = document.getElementById("idusuario").value;
 			document.getElementById("cresta_aulasbundle_reserva_fecha_time").style.display='block';
 			document.getElementById("cresta_aulasbundle_reserva_horaDesde_date").style.display='block';
 			document.getElementById("cresta_aulasbundle_reserva_horaHasta_date").style.display='block';
 			$('select.chzn-select').chosen();
-			$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "none" );
-			$( "#cresta_aulasbundle_reserva > div:nth-child(4)" ).css( "display", "inline-block" );
-			$( "#cresta_aulasbundle_reserva > div:nth-child(5)" ).css( "display", "none" );
+			//$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "none" );
+			$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "inline-block" );
+			$( "#cresta_aulasbundle_reserva > div:nth-child(3)" ).css( "display", "none" );
 			document.getElementById("cresta_aulasbundle_reserva_actividad").disabled=true;
 			document.getElementById("cresta_aulasbundle_reserva_curso").disabled=false;
 			document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").disabled=true;
@@ -44,8 +44,8 @@
 				$("#cresta_aulasbundle_reserva_curso_chosen").addClass("chosen-disabled");
 				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").style.display="none";
 				document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").style.display="inline-block";	
-				$( "#cresta_aulasbundle_reserva > div:nth-child(4)" ).css( "display", "none" );
-				$( "#cresta_aulasbundle_reserva > div:nth-child(5)" ).css( "display", "inline-block" );
+				$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "none" );
+				$( "#cresta_aulasbundle_reserva > div:nth-child(3)" ).css( "display", "inline-block" );
 				document.getElementById("cresta_aulasbundle_reserva_actividad").disabled=false;
 				document.getElementById("cresta_aulasbundle_reserva_curso").disabled=true;
 				document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").disabled=false;
@@ -61,8 +61,8 @@
 				$("#cresta_aulasbundle_reserva_curso_chosen").removeClass("chosen-disabled");
 				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").style.display="inline-block";
 				document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").style.display="none";
-				$( "#cresta_aulasbundle_reserva > div:nth-child(4)" ).css( "display", "inline-block" );
-				$( "#cresta_aulasbundle_reserva > div:nth-child(5)" ).css( "display", "none" );
+				$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "inline-block" );
+				$( "#cresta_aulasbundle_reserva > div:nth-child(3)" ).css( "display", "none" );
 				document.getElementById("cresta_aulasbundle_reserva_actividad").disabled=true;
 				document.getElementById("cresta_aulasbundle_reserva_curso").disabled=false;
 				document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").disabled=true;
@@ -71,25 +71,30 @@
 			function rango(value){
 				if(value=0){
 					alert('hola');
-					$("#cresta_aulasbundle_reserva > div:nth-child(8)").css("display", "none"); //octavo div
+					$("#cresta_aulasbundle_reserva > div:nth-child(5)").css("display", "none"); //octavo div
 					}
 				else{
 					alert('hola');
-					$("#cresta_aulasbundle_reserva > div:nth-child(8)").css("display", "inline-block");
+					$("#cresta_aulasbundle_reserva > div:nth-child(5)").css("display", "inline-block");
 					}
 				}
 			}
 	</script>
-<div class="formAutogenerado">
-    <h1>Nueva Reserva</h1>
-    <input type="hidden" id="idusuario" value="{{ usuario }}" disabled>
-    <div id="checkcurso">
-	<label>Materia : </label>
-	<input type="checkbox" onchange="actividad(this.checked);" checked>
+	<div class="formAutogenerado">
+		<div id="NuevaReserva">
+	    	<h1>Nueva Reserva</h1>
+	    	<input type="hidden" id="idusuario" value="{{ usuario }}" disabled>
+	    	<div id="checkcurso">
+				<label>Materia : </label>
+				<input type="checkbox" onchange="actividad(this.checked);" checked>
+			</div>
+		{# trato de ponerle una función para que si elige una carga unica se borre la fecha hasta #}
+	    {{ form(form) }}
+	    {#{{ form_widget(form.rango,{'onchange':'rango(this.selected);'})}}#}
+
+		</div>
 	</div>
-	{# trato de ponerle una función para que si elige una carga unica se borre la fecha hasta #}
-    {{ form(form) }}
-    {{ form_widget(form.rango,{'onchange':'rango(this.selected);'})}}
+	</br>
 
     {#
        {{ form_widget(personalFilterForm.personaFiltrarMail,
@@ -129,6 +134,4 @@
 	{{ form_label(form.horaRegistro, {'attr':{'value':'oculto'}} ) }}
 	{{ form( form.usuario, {'data'})}}
 	<input type="hidden" id="idusuario" value="{{ usuario }}" disabled>#}
-</div>
-</br>
 {% endblock %}

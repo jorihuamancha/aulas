@@ -26,15 +26,8 @@ class ReservaType extends AbstractType
                                             'property'=>'username',
                                             'attr'=>array('class'=>'oculto'),
                                             'label'=>' '))
-            //->add('usuario', 'text', array('attr'=>array('class'=>'oculto')))
-            ->add('estado', 'checkbox', array(  'data'=>true, 'required'=>false,
-                                                'attr'=>array('class'=>'oculto')))
-            ->add('docente','entity',array( 'label'=>'Docente: ',
-                                            'class'=>'CrestaAulasBundle:Docente',
-                                            'property'=>'apellido'.'nombre',
-                                            'attr'=>array('required'=>true,
-                                                          'class'=>"chzn-select",
-                                                          'style'=>'min-width:150px' ) ) )
+            /*->add('estado', 'checkbox', array(  'data'=>true, 'required'=>false,
+                                                'attr'=>array('class'=>'oculto')))*/
             ->add('curso','entity',array(   'label'=>'Materia: ',
                                             'class'=>'CrestaAulasBundle:Curso',
                                             'property'=>'cursocarrera',
@@ -44,11 +37,16 @@ class ReservaType extends AbstractType
                                                 'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
                                                 'attr'=>array( 'required'=>'true','class'=>"chzn-select") ))
+            ->add('docente','entity',array( 'label'=>'Docente: ',
+                                            'class'=>'CrestaAulasBundle:Docente',
+                                            'property'=>'apellido'.'nombre',
+                                            'attr'=>array('required'=>true,
+                                                          'class'=>"chzn-select",
+                                                          'style'=>'min-width:150px' ) ) )
             ->add('rango', 'choice', array( 'label'=>'Frecuencia: ','choices'=>array(   0=>'Reserva única',
                                                                                         1=>'Cada un día',
                                                                                         7=>'Cada Una Semana',
-                                                                                        14=>'Cada Dos Semanas')
-                                                                                    ))
+                                                                                        14=>'Cada Dos Semanas')))
             ->add('fecha', 'datetime', array(   'label'=>'Fecha desde: ','attr'=>array(  'required'=>true)))
             ->add('rangoHasta', 'datetime', array( 'label'=>'Fecha Hasta: ','attr'=>array('required'=>true)))
             ->add('horaDesde', 'datetime', array(   'label'=>'Hora desde: ',
@@ -60,12 +58,7 @@ class ReservaType extends AbstractType
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00', 
                                                                         '30'=>'30' ),
-                                                    'attr'=>array('required'=>true)
-                                                ) 
-                    )
-            //->add('rangoDesde', 'datetime', array( 'label'=>'Reservar Desde: ','attr'=>array('required'=>true)))
-            //->add('rangoHasta', 'datetime', array( 'label'=>'Fecha Hasta: ','attr'=>array('required'=>true)))
-            
+                                                    'attr'=>array('required'=>true)))            
             ->add('recursos','entity',array( 'label'=>'Recursos: ',
                                             'class'=>'CrestaAulasBundle:Recurso',
                                             'property'=>'nombre',
@@ -83,6 +76,9 @@ class ReservaType extends AbstractType
             ->add('horaRegistro', 'datetime', array(    'data'=>$horaActual, //new \DateTime("H:i:s"),
                                                         'attr'=>array('class'=>'oculto'),
                                                         'label'=>' ') )
+            //->add('usuario', 'text', array('attr'=>array('class'=>'oculto')))
+            //->add('rangoDesde', 'datetime', array( 'label'=>'Reservar Desde: ','attr'=>array('required'=>true)))
+            //->add('rangoHasta', 'datetime', array( 'label'=>'Fecha Hasta: ','attr'=>array('required'=>true)))
         ;
     }
     
