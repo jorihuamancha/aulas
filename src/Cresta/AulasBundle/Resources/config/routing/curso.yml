@@ -33,3 +33,9 @@ aulas_curso_delete:
     path:     /{id}/delete
     defaults: { _controller: "CrestaAulasBundle:Curso:delete" }
     #requirements: { _method: get|delete }
+
+
+aulas_curso_filtro:
+    path:     /filtro/{filtro}
+    defaults: { _controller: "CrestaAulasBundle:Curso:filtro" }
+    #requirements: { _method: get | post }

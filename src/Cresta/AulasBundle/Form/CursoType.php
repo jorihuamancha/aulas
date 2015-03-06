@@ -19,11 +19,12 @@ class CursoType extends AbstractType
             ->add('anio','text',array('label'=>'Año de la carrera:', 'pattern'=>"[0-9]+"))
             ->add('semestre', 'choice', array('label'=>'Semestre:',
                                               'choices'=> array(1 => 'Primer semestre',
-                                                                2 => 'Segundo semestre'),
+                                                                2 => 'Segundo semestre',
+                                                                3 => 'Anual'),
                                               'required'  => true))
 
             ->add('ciclo','text',array('label'=>'Ciclo lectivo:'))
-            ->add('Carrera','entity',array( 'class'=>'CrestaAulasBundle:Carrera',
+            ->add('carrera','entity',array( 'class'=>'CrestaAulasBundle:Carrera',
                                             'property'=>'nombre',
                                             'label'=>'Carrera:',
                                             'attr'=>array('required'=>true,

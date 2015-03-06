@@ -89,7 +89,7 @@
                 <th>Piso</th>
                 <th>Capacidad</th>
                 <th>Recursos fijos</th>
-                <th>Activo</th>
+                <th>Observaciones</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -107,13 +107,11 @@
                 <td>{{ entity.piso }}</td>
                 <td>{{ entity.capacidad }}</td>
                 <td>{{ entity.recursosFijos }}</td>
-                <td>
-                    {% if entity.activo==1 %}
-                        Si
-                    {% else %}
-                        No                
-                    {% endif %}
-                </td>
+                {% if entity.observaciones == null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.observaciones }}</td>
+                {% endif %}
                 <td>
                     <ul>
                         <a href="{{ path('aulas_aula_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>

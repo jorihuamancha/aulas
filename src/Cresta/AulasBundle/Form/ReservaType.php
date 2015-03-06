@@ -44,8 +44,12 @@ class ReservaType extends AbstractType
                                                 'class'=>'CrestaAulasBundle:Actividad',
                                                 'property'=>'nombre',
                                                 'attr'=>array( 'required'=>'true','class'=>"chzn-select") ))
-            ->add('fecha', 'datetime', array(   'label'=>'Fecha: ','attr'=>array(  'required'=>true)))
-
+            ->add('rango', 'choice', array( 'label'=>'Frecuencia: ','choices'=>array(   1=>'Unica',
+                                                                                        7=>'Cada Una Semana',
+                                                                                        14=>'Cada Dos Semanas')
+                                                                                    ))
+            ->add('fecha', 'datetime', array(   'label'=>'Fecha desde: ','attr'=>array(  'required'=>true)))
+            ->add('rangoHasta', 'datetime', array( 'label'=>'Fecha Hasta: ','attr'=>array('required'=>true)))
             ->add('horaDesde', 'datetime', array(   'label'=>'Hora desde: ',
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00',
@@ -58,12 +62,9 @@ class ReservaType extends AbstractType
                                                     'attr'=>array('required'=>true)
                                                 ) 
                     )
-            ->add('rangoDesde', 'datetime', array( 'label'=>'Reservar Desde: ','attr'=>array('required'=>true)))
-            ->add('rangoHasta', 'datetime', array( 'label'=>'Reservar Hasta: ','attr'=>array('required'=>false)))
-            ->add('rango', 'choice', array( 'label'=>'Frecuencia: ','choices'=>array(   1=>'1',
-                                                                                        7=>'7',
-                                                                                        14=>'14')
-                                                                                    ))
+            //->add('rangoDesde', 'datetime', array( 'label'=>'Reservar Desde: ','attr'=>array('required'=>true)))
+            ->add('rangoHasta', 'datetime', array( 'label'=>'Fecha Hasta: ','attr'=>array('required'=>true)))
+            
             ->add('recursos','entity',array( 'label'=>'Recursos: ',
                                             'class'=>'CrestaAulasBundle:Recurso',
                                             'property'=>'nombre',
