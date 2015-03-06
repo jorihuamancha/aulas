@@ -88,6 +88,7 @@ class ReservaController extends Controller
                 $rangoHasta = $entity->getrangoHasta();
                 $rangoHasta->setTime(00, 00, 00);
                 $entity->setrangoHasta($rangoHasta);
+                //By Neg.-
                 //No tocar por nada del mundo
                 if ($entity->getRango() == 0){
                     if (!($entity->getFecha()>=$fechaActual)) {
@@ -118,15 +119,15 @@ class ReservaController extends Controller
                     $index = 0;
                     while ($entity->getrangoHasta() >= $fechaReservaActual) {
                         if($entity->getRango() == 7){
-                            $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
+                            $arrayReservasConcatenadas = $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
                             $fechaReservaActual->modify('+7 day');
                             $index++;
                         }elseif ($entity->getRango() == 14) {
-                            $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
+                            $arrayReservasConcatenadas = $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
                             $fechaReservaActual->modify('+14 day');
                             $index++;
                         }elseif ($entity->getRango() == 1) {
-                            $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
+                            $arrayReservasConcatenadas = $this->crearReservaOP($entity,$fechaReservaActual,$reservasCargadas,$index,$fechaActual); 
                             $fechaReservaActual->modify('+1 day');
                             $index++;
                         }
@@ -134,27 +135,27 @@ class ReservaController extends Controller
                    
                 }
            //return $this->redirect($this->generateUrl('reserva_show_Array', array('reservasCargadas' => $reservasCargadas)));
-           return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array('array' => $reservasCargadas));
+           return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array('array' => $arrayReservasConcatenadas));
 
                 //aca va show de las reservas hechas y los avisos de las reservas q no se pudieron cargar.
            // return $this->redirect($this->generateUrl('reserva', array()));
             }
        return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array('entity' => $entity,'form'=> $form->createView()));
     }
-
+    //By Neg.-
     private function crearReservaOP($entity, $fechaReservaActual, $reservasCargadas,$index,$fechaActual){
         
         $entityAux = new Reserva();
         $em = $this->getDoctrine()->getManager();
         $entityAux = $entity;
         $entityAux->setFecha($fechaReservaActual);
-        /*$fechaComoDate = $entityAux->getFecha()->format('Y-m-d');
+        $fechaComoDate = date(($datetime($entityAux->getFecha())));
         if ((date("D",$fechaComoDate)) <> 'Sun' ){
             //No es domingo
             $cancelarCarga = true;
         }else{
             $cancelarCarga = false;
-        }*/
+        }
         if($this->sePuede($entityAux)){
             $canceloPiso = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
@@ -169,6 +170,9 @@ class ReservaController extends Controller
             $cancelarAlerta = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
+        if($this->freeWilly()){
+
+        }
       
         if  ((!$canceloPiso) and (!$cancelarAlerta)){
             $em->merge($entityAux);
@@ -178,7 +182,7 @@ class ReservaController extends Controller
             
 
     }
-
+    //By Neg.-
     private function conprobarAlerta ($fecha){
         $em = $this->getDoctrine()->getManager();
         $fecha = $fecha ;
@@ -224,7 +228,38 @@ class ReservaController extends Controller
             return false;
         }
     }
+    //By Neg.-
+    private function freeWilly(){
+        $em = $this->getDoctrine()->getManager();
+        $fecha=$entity->getFecha();
+        $horaDesde=$entity->getHoraDesde();
+        $horaHasta=$entity->getHoraHasta();
+        $curso=$entity->getCurso();
+        $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
 
+        $query = $reserva->createQueryBuilder('r')
+                ->where('
+                (r.fecha= :fecha AND r.curso= :curso ) AND
+                ((r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
+                (r.horaHasta > :horaDesde AND r.horaHasta <= :horaHasta ) OR
+                (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
+                (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
+                ')
+                ->setParameter('fecha', $fecha)
+                ->setParameter('curso', $curso)
+                ->setParameter('horaDesde', $horaDesde)
+                ->setParameter('horaHasta', $horaHasta)
+                ->getQuery();
+
+        $listado = $query->getResult();
+        if(empty($listado)){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+    //By Neg.-
     private function sePuedeEdit ($entity){
 
         $em = $this->getDoctrine()->getManager();
@@ -259,7 +294,7 @@ class ReservaController extends Controller
             return false;
         }
     
-    }
+     }
     /**
      * Creates a form to create a Reserva entity.
      *
@@ -530,11 +565,6 @@ class ReservaController extends Controller
         $em3->flush();
  
     }
-
-
-
-
-
     /**
      * Deletes a Reserva entity.
      *
