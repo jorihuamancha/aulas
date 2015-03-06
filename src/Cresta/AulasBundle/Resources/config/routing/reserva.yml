@@ -6,6 +6,10 @@ reserva_show:
     path:     /{id}/show
     defaults: { _controller: "CrestaAulasBundle:Reserva:show" }
 
+reserva_show_Array:
+    path:     /show
+    defaults: { _controller: "CrestaAulasBundle:Reserva:showArray" }
+
 reserva_new:
     path:     /new
     defaults: { _controller: "CrestaAulasBundle:Reserva:new" }
