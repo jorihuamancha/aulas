@@ -105,12 +105,12 @@ class ReservaController extends Controller
                     }
                 }
                 try{
-                    $fechaReservaActual = $entity->getFecha();
                     if ($entity->getRango() == 0){
                         $em->persist($entity);
                         $em->flush();
-                        return $this->redirect($this->generateUrl('reserva_show', array('id' => $id)));
+
                     }
+                    //return $this->redirect($this->generateUrl('reserva_show', array('id' => $id)));
                 }catch(Exception $e){}
                 if ($entity->getRango() > 0) {
                     $fechaReservaActual = $entity->getFecha();
@@ -218,10 +218,8 @@ class ReservaController extends Controller
         $listado = $query->getResult();
 
         if(empty($listado)){
-          
             return true;
         }else{
-           
             return false;
         }
     }
