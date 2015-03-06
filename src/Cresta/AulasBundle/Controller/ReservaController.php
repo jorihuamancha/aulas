@@ -144,7 +144,7 @@ class ReservaController extends Controller
     }
     //By Neg.-
     private function crearReservaOP($entity, $fechaReservaActual, $reservasCargadas,$index,$fechaActual){
-        
+        $record = true;
         $entityAux = new Reserva();
         $em = $this->getDoctrine()->getManager();
         $entityAux = $entity;
@@ -156,29 +156,30 @@ class ReservaController extends Controller
         }else{
             $cancelarCarga = false;
         }*/
-        if($this->sePuede($entityAux)){
+        if($this->sePuede($entityAux) and ($record)){
             $canceloPiso = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }else{ 
             $canceloPiso = true;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.');
+            $record = false;
         }
-        if (!$this::conprobarAlerta($entityAux->getFecha())){
+        if (!$this::conprobarAlerta($entityAux->getFecha()) and ($record)){
             $cancelarAlerta = true;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha');
+            $record = false;
         }else{
             $cancelarAlerta = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }
-        if($this->freeWilly($entityAux)){
-            $cancelarCursada = true;
+        if($this->freeWilly($entityAux) and ($record)){
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
         }else{
-            $cancelarCursada = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
+            $record = false;
         }
       
-        if  ((!$canceloPiso) and (!$cancelarAlerta) and ($cancelarCursada)){
+        if  ((!$canceloPiso) and (!$cancelarAlerta)){
             $em->merge($entityAux);
             $em->flush();
             $em->clear();
