@@ -145,7 +145,7 @@ class ReservaController extends Controller
         $entityAux = $entity;
         $entityAux->setFecha($fechaReservaActual);
         $fechaComoDate = $entityAux->getFecha()->format('Y-m-d');
-        strtodate($fechaComoDate)
+
         if ((date("D",$fechaComoDate)) <> 'Sun' ){
             //No es domingo
             $cancelarCarga = true;
