@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+{% block title %}Ver Reserva {% endblock %}
+{% block body -%}
+    <h1>Reservas</h1>
+
+    <table class="record_properties tabla">
+        <tbody>
+            <tr>
+                <th>Fecha</th>
+                {% for reserva in array %}
+                    <td>{{ reserva.entidad.fecha|date('d-m-Y') }} hs</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+            <a class="btn btn-default botonTabla" href="{{ path('reserva') }}">
+                Volver a la lista
+            </a>
+        </ul>
+{% endblock %}
