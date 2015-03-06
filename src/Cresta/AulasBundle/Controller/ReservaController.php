@@ -144,8 +144,8 @@ class ReservaController extends Controller
            //return $this->redirect($this->generateUrl('reserva_show_Array', array('reservasCargadas' => $reservasCargadas)));
            return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array('array' => $arrayReservasConcatenadas));
 
-                //aca va show de las reservas hechas y los avisos de las reservas q no se pudieron cargar.
-           // return $this->redirect($this->generateUrl('reserva', array()));
+            //aca va show de las reservas hechas y los avisos de las reservas q no se pudieron cargar.
+            // return $this->redirect($this->generateUrl('reserva', array()));
             }
        return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array('entity' => $entity,'form'=> $form->createView()));
     }

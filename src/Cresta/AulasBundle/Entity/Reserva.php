@@ -65,7 +65,7 @@ class Reserva
     /**
      * @var boolean
      *
-     * @ORM\Column(name="estado", type="boolean")
+     * @ORM\Column(name="estado", type="boolean", nullable=true)
      */
     private $estado;
 
