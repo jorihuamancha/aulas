@@ -142,8 +142,7 @@ class ReservaController extends Controller
     }
 
     private function crearReservaOP($entity, $fechaReservaActual, $reservasCargadas,$index,$fechaActual){
-        $cancelarAlerta = true;
-        $canceloPiso = true;
+        
         $entityAux = new Reserva();
         $em = $this->getDoctrine()->getManager();
         $entityAux = $entity;
@@ -169,7 +168,7 @@ class ReservaController extends Controller
             $reservasCargadas[ $index ] = ($info = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente'));
         }
       
-        if  ((!$canceloPiso) and (!$cancelarAlerta)) {
+        if  ((!$canceloPiso)) {
             $em->merge($entityAux);
             $em->flush();
             $em->clear();
@@ -198,7 +197,6 @@ class ReservaController extends Controller
         $idAula=$entity->getAula();
         $horaDesde=$entity->getHoraDesde();
         $horaHasta=$entity->getHoraHasta();
-       
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
 
         $query = $reserva->createQueryBuilder('r')
