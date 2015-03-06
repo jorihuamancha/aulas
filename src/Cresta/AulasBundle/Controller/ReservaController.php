@@ -107,11 +107,11 @@ class ReservaController extends Controller
                 }
                 try{
                     if ($entity->getRango() == 0){
-                         if($this->freeWilly($entityAux)){
-                            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
+                       /*  if($this->freeWilly($entity)){
+                            $reservasCargadas[ $index ] = array('entidad'=>$entity,'motivo'=> 'Se agrego correctamente');
                          }else{
-                            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
-                        }
+                            $reservasCargadas[ $index ] = array('entidad'=>$entity,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
+                        }*/
                         $em->persist($entity);
                         $em->flush();
 
@@ -121,7 +121,7 @@ class ReservaController extends Controller
                 }catch(Exception $e){}
                 if ($entity->getRango() > 0) {
                     $fechaReservaActual = $entity->getFecha();
-                    $reservasCargadas = array();
+                    $reservasCargadas = array();   
                     $arrayReservasConcatenadas = array();
                     $index = 0;
                     while ($entity->getrangoHasta() >= $fechaReservaActual) {
@@ -273,6 +273,7 @@ class ReservaController extends Controller
         for ($i=0; $i <= count($listado); $i++) { 
             if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
                 return false;
+                die();  
             }
         }
         return true; 
