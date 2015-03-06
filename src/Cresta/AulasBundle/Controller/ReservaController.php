@@ -224,7 +224,42 @@ class ReservaController extends Controller
             return false;
         }
     }
-  
+
+    private function sePuedeEdit ($entity){
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $fecha=$entity->getFecha();
+        $idAula=$entity->getAula();
+        $horaDesde=$entity->getHoraDesde();
+        $horaHasta=$entity->getHoraHasta();
+        $id = $entity->getId();
+        $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+
+        $query = $reserva->createQueryBuilder('r')
+                        ->where('(r.id <> :id) AND
+                            (r.fecha= :fecha AND r.aula= :aula)) AND
+                            ((r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
+                            (r.horaHasta > :horaDesde AND r.horaHasta <= :horaHasta ) OR
+                            (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
+                            (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
+                            ')
+                        ->setParameter('id', $id)
+                        ->setParameter('fecha', $fecha)
+                        ->setParameter('aula', $idAula)
+                        ->setParameter('horaDesde', $horaDesde)
+                        ->setParameter('horaHasta', $horaHasta)
+                        ->getQuery();
+
+        $listado = $query->getResult();
+
+        if(empty($listado)){
+            return true;
+        }else{
+            return false;
+        }
+    
+    }
     /**
      * Creates a form to create a Reserva entity.
      *
@@ -232,6 +267,7 @@ class ReservaController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
+
     private function createCreateForm(Reserva $entity)
     {
         $form = $this->createForm(new ReservaType(), $entity, array(
@@ -404,7 +440,7 @@ class ReservaController extends Controller
                 throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
             }elseif (!$this::conprobarAlerta($entity->getFecha())){
                 throw new Exception("Hay una feriado activo para el dia que desea agregar una reserva.");
-            }elseif (!($this->sePuede($entity))) {
+            }elseif (!($this->sePuedeEdit($entity))) {
                 throw new Exception("Hay reservas para esa aula con esas fecha y hora");
             }
       
