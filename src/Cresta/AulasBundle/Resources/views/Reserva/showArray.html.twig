@@ -3,22 +3,91 @@
 {% block body -%}
     <h1>Reservas</h1>
 
-    <table class="record_properties tabla">
+        <table class="record_properties tabla">
         <tbody>
             <tr>
-                <th>Fecha</th>
-                {% if array is null %}
-                    NO ANDA FLAQUITO
-                {% else %}
+                <th rowspan="{{array | length +1}}">Fechas de Reserva</th>
                     {% for arrayreserva in array %}
-                        {% for reserva in arrayreserva%}
-                        <tr>
-                            <td>{{ reserva.entidad.aula.nombre }}</td>
-                            <td>{{ reserva.motivo }}</td>
-                        </tr>
+                        {% for reserva in arrayreserva %}
+                            <tr>
+                                <td>{{reserva.entidad.fecha|date('d-m-Y') }}</td>
+                                {% if reserva.motivo == 'Se agrego correctamente' %}
+                                    <td class="bg-success" style="color:green">{{reserva.motivo}}</td>
+                                {% else %}
+                                    <td class="bg-danger" style="color:red">{{reserva.motivo}}</td>
+                                {% endif%}
+                            </tr>
                         {% endfor %}
+                    {% endfor %}                 
+            </tr>
+
+                <th>Hora desde</th>
+                <td colspan="2">{{ array[0][0].entidad.horaDesde|date('H:i') }} hs</td>
+            </tr>
+            <tr>
+                <th>Hora hasta</th>
+                <td colspan="2">{{ array[0][0].entidad.horaHasta|date('H:i') }} hs</td>
+            </tr>
+            <tr>
+                <th>Docente</th>
+                <td colspan="2">{{ array[0][0].entidad.docente.apellido }}, {{ array[0][0].entidad.docente.nombre }}</td>
+            </tr>
+            <tr>
+                    {% if array[0][0].entidad.actividad == null %}
+                        <th>Curso</th>
+                        <td colspan="2">{{ array[0][0].entidad.curso.nombre }}</td>
+                    {% else %}
+                        <th>Actividad</th>
+                        <td colspan="2">{{ array[0][0].entidad.actividad.nombre }}</td>
+                    {% endif %}
+            </tr>
+            {% if array[0][0].entidad.curso == null %}
+
+            {% else %}
+                <tr>
+                    <th>Carrera</th>
+                    <td colspan="2" style="Color:{{array[0][0].entidad.curso.Carrera.color}}">
+                       <b> {{ array[0][0].entidad.curso.Carrera.nombre }} </b>
+                    </td>
+                </tr>
+            {% endif %}                    
+            <tr>
+                <th>Aula <i>(Capacidad)</i></th>
+                <td colspan="2">{{ array[0][0].entidad.aula.nombre }} <i>({{ array[0][0].entidad.aula.capacidad }})</i></td>
+            </tr>
+            <tr>
+                <th>Recursos</th>
+                {% if array[0][0].entidad.recursos == null %}
+                    <td colspan="2"> N/A </td>
+                {% else %}
+                    <td colspan="2">
+                    {% for recurso in array[0][0].entidad.recursos %}
+                        {{ recurso.nombre }} </br>
                     {% endfor %}
+                    </td>
                 {% endif %}
+            </tr>
+            </tr>
+
+            <tr>
+                <th>Observaciones</th>
+                {% if array[0][0].entidad.observaciones == null %}
+                    <td  colspan="2"> N/A </td>
+                {% else %}
+                    <td  colspan="2">{{ array[0][0].entidad.observaciones }}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Fecha de registro</th>
+                <td  colspan="2">{{ array[0][0].entidad.fechaRegistro|date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th>Hora de registro</th>
+                <td  colspan="2">{{ array[0][0].entidad.horaRegistro|date('H:i') }} hs</td>
+            </tr>
+            <tr>
+                <th>Editor</th>
+                <td colspan="2">{{ array[0][0].entidad.usuario }}</td>
             </tr>
         </tbody>
     </table>
