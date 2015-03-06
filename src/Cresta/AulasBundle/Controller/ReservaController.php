@@ -190,7 +190,7 @@ class ReservaController extends Controller
             $em->flush();
             $em->clear();
         }   
-            
+    return $reservasCargadas;
 
     }
     //By Neg.-
