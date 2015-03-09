@@ -7,6 +7,9 @@
             $("#dato").css("display", "none");
             $("#EnviarFiltro").css("display", "none");
             $("#tipoTarea").css("display", "none");
+            $("#fechaMateria").css("display", "none");
+            $("#fechaActividad").css("display", "none");
+            
         });
 
     function getval(sel) {
@@ -25,6 +28,8 @@
             $("#formFiltros").attr("action","filtro/Todos");
             $("#EnviarFiltro").css("display", "none");
             $("#tipoTarea").css("display", "none");
+            $("#fechaMateria").css("display", "none");
+            $("#fechaActividad").css("display", "none");
             window.location.href = "{{ path('_homepage') }}reserva/filtro/Todos";
             break;
 
@@ -32,32 +37,40 @@
             $("#fechas").css("display", "inline-block");
             $("#tipoTarea").css("display", "none");
             $("#dato").css("display", "none");
-            $("#formFiltros").attr("action","filtro/Fecha");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/Fecha");
             $("#EnviarFiltro").css("display", "inline-block");
+            $("#fechaMateria").css("display", "none");
+            $("#fechaActividad").css("display", "none");
             break;
          case "Docente":
             $("#fechas").css("display", "none");
             $("#tipoTarea").css("display", "none");
             $("#dato").css("display", "inline-block");
             $("#datoTexto").attr("placeholder","Docente");
-            $("#formFiltros").attr("action","filtro/Docente");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/Docente");
             $("#EnviarFiltro").css("display", "inline-block");
+            $("#fechaMateria").css("display", "none");
+            $("#fechaActividad").css("display", "none");
             break;
          case "Aula":
             $("#fechas").css("display", "none");
             $("#tipoTarea").css("display", "none");
             $("#dato").css("display", "inline-block");
             $("#datoTexto").attr("placeholder","Aula");
-            $("#formFiltros").attr("action","filtro/Aula");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/Aula");
             $("#EnviarFiltro").css("display", "inline-block");
+            $("#fechaMateria").css("display", "none");
+            $("#fechaActividad").css("display", "none");
             break;
         case "Tarea":
             $("#fechas").css("display", "none");
             $("#tipoTarea").css("display", "inline-block");
             $("#dato").css("display", "inline-block");
             $("#datoTexto").attr("placeholder","Tarea");
-            $("#formFiltros").attr("action","filtro/Tarea");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/Tarea");
             $("#EnviarFiltro").css("display", "inline-block");
+            $("#fechaMateria").css("display", "none");
+            $("#fechaActividad").css("display", "none");
             break;
        }
     }
@@ -65,21 +78,25 @@
     function tipoTarea(sel) {
        switch (sel.value) {
         case "Todas":
-            $("#fechas").css("display", "display");
+            $("#fechas").css("display", "none");
             $("#tipoTarea").css("display", "inline-block");
             $("#dato").css("display", "inline-block");
             $("#datoTexto").attr("placeholder","Tarea");
-            $("#formFiltros").attr("action","filtro/Tarea");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/Tarea");
             $("#EnviarFiltro").css("display", "inline-block");
+            $("#fechaMateria").css("display", "none");
+            $("#fechaActividad").css("display", "none");
             break;
 
         case "Materia":
-            $("#fechas").css("display", "display");
+            $("#fechas").css("display", "none");
             $("#tipoTarea").css("display", "inline-block");
             $("#dato").css("display", "none");
             $("#datoTexto").attr("placeholder","Tarea");
-            $("#formFiltros").attr("action","filtro/Tarea");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/TodasMaterias");
             $("#EnviarFiltro").css("display", "inline-block");
+            $("#fechaMateria").css("display", "inline-block");
+            $("#fechaActividad").css("display", "none");
             break;
 
         case "Actividad":
@@ -87,8 +104,58 @@
             $("#tipoTarea").css("display", "inline-block");
             $("#dato").css("display", "none");
             $("#datoTexto").attr("placeholder","Tarea");
-            $("#formFiltros").attr("action","filtro/Tarea");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/TodasActividades");
             $("#EnviarFiltro").css("display", "inline-block");
+            $("#fechaMateria").css("display", "none");
+            $("#fechaActividad").css("display", "inline-block");
+            break;
+       }
+    }
+
+    function fechaMateria(sel) {
+       switch (sel.value) {
+        case "Todas":
+            $("#fechas").css("display", "none");
+            $("#tipoTarea").css("display", "inline-block");
+            $("#dato").css("display", "none");
+            $("#EnviarFiltro").css("display", "inline-block");
+            $("#fechaMateria").css("display", "inline-block");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/TodasMaterias");
+            $("#fechaActividad").css("display", "none");
+            break;
+
+        case "Por fecha":
+            $("#fechas").css("display", "inline-block");
+            $("#tipoTarea").css("display", "inline-block");
+            $("#dato").css("display", "none");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/fechaMateria");
+            $("#EnviarFiltro").css("display", "inline-block");
+            $("#fechaMateria").css("display", "inline-block");
+            $("#fechaActividad").css("display", "none");
+            break;
+       }
+    }
+
+    function fechaActividad(sel) {
+       switch (sel.value) {
+        case "Todas":
+            $("#fechas").css("display", "none");
+            $("#tipoTarea").css("display", "inline-block");
+            $("#dato").css("display", "none");
+            $("#EnviarFiltro").css("display", "inline-block");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/TodasActividades");
+            $("#fechaMateria").css("display", "none");
+            $("#fechaActividad").css("display", "inline-block");
+            break;
+
+        case "Por fecha":
+            $("#fechas").css("display", "inline-block");
+            $("#tipoTarea").css("display", "inline-block");
+            $("#dato").css("display", "none");
+            $("#formFiltros").attr("action","{{ path('_homepage') }}reserva/filtro/fechaActividad");
+            $("#EnviarFiltro").css("display", "inline-block");
+            $("#fechaMateria").css("display", "none");
+            $("#fechaActividad").css("display", "inline-block");
             break;
        }
     }
@@ -135,6 +202,24 @@
                             <option selected> Todas </option>
                             <option> Materia </option>
                             <option> Actividad </option>
+                        </select>
+                    </ul>
+                </div>
+
+                <div id="fechaMateria">
+                    <ul>
+                        <select onchange="fechaMateria(this);">
+                            <option selected> Todas </option>
+                            <option> Por fecha </option>
+                        </select>
+                    </ul>
+                </div>
+
+                <div id="fechaActividad">
+                    <ul>
+                        <select onchange="fechaActividad(this);">
+                            <option selected> Todas </option>
+                            <option> Por fecha </option>
                         </select>
                     </ul>
                 </div>
@@ -196,13 +281,13 @@
                         {{ entity.actividad.nombre }}
                     {% endif %}
                 </td>
-                <td style="Color:{{entity.curso.Carrera.color}}">
-                    {% if entity.curso == null %}
-                        N/A
-                    {% else %}
+                {% if entity.curso == null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td style="Color:{{entity.curso.Carrera.color}}">
                         <b>{{ entity.curso.Carrera.nombre }}</b>
+                    </td>
                     {% endif %}
-                </td>
                 <td>{{ entity.aula.nombre }}</td>
                 <td>{{ entity.diosReserva }}</td>
                 <td>

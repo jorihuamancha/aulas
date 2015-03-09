@@ -95,7 +95,6 @@ class Reserva
      *
      * @ORM\Column(name="rangoHasta", type="datetime")
      */
-
     private $rangoHasta;
 
     /**
@@ -103,7 +102,6 @@ class Reserva
      *
      * @ORM\Column(name="rango", type="integer")
      */
-
     private $rango;
 
     /**
@@ -113,7 +111,6 @@ class Reserva
     *      inverseJoinColumns={@ORM\JoinColumn(name="idRecurso", referencedColumnName="id")}
     *      )
     */
-
     private $recursos;
 
     public function __construct(){
