@@ -164,7 +164,7 @@ class ReservaController extends Controller
             $cancelarCarga = false;
         }
         if($this->freeWilly($entityAux) and ($record)){
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$entityAux->);
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$entityAux->getFecha());
         }else{
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
             $record = false;
