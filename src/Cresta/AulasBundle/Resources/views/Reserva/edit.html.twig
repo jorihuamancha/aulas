@@ -3,7 +3,7 @@
 {% block body %}
 	<script type="text/javascript">
 		$(document).ready(function(){
-			//alert('hola');
+			
 			//document.getElementById("cresta_aulasbundle_reserva_usuario").value = document.getElementById("idusuario").value;
 			document.getElementById("cresta_aulasbundle_reserva_fecha_time").style.display='block';
 			document.getElementById("cresta_aulasbundle_reserva_horaDesde_date").style.display='block';
@@ -70,16 +70,6 @@
 				document.getElementById("cresta_aulasbundle_reserva_curso").disabled=false;
 				document.getElementById("cresta_aulasbundle_reserva_actividad_chosen").disabled=true;
 				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").disabled=false;
-				}
-			function rango(value){
-				if(value=="0"){
-					//alert('hola');
-					$("#cresta_aulasbundle_reserva > div:nth-child(7)").css("display", "none"); //octavo div
-					}
-				else{
-					//alert('hola');
-					$("#cresta_aulasbundle_reserva > div:nth-child(7)").css("display", "inline-block");
-					}
 				}
 			}
 	</script>
