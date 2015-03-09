@@ -100,26 +100,25 @@ class ReservaController extends Controller
                     }elseif (!($this->sePuede($entity))) {
                         throw new Exception("Hay reservas para esa aula con esas fecha y hora");
                     } 
+                    try{
+                        if($this->freeWilly($entity)){
+                            $motivo = 'Se agrego correctamente';
+                        }else{
+                            $motivo = 'Existen reservas para esa misma carrera y año';
+                        }    
+                        $em->persist($entity);
+                        $em->flush();
+
+                        //return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId(),'motivo'=>$motivo)));
+                        return $this->render('CrestaAulasBundle:Reserva:show.html.twig', array('id' => $entity->getId(),'motivo'=>$motivo));
+                    }catch(Exception $e){}
+                    
+
                 }else{
                     if (($entity->getFecha() >= $entity->getrangoHasta())) {
                         throw new Exception("La fecha final de las reservas debe ser mayor a la fecha inicial");  
                     }
-                }
-                try{
-                    if ($entity->getRango() == 0){
-                       /*  if($this->freeWilly($entity)){
-                            $reservasCargadas[ $index ] = array('entidad'=>$entity,'motivo'=> 'Se agrego correctamente');
-                         }else{
-                            $reservasCargadas[ $index ] = array('entidad'=>$entity,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
-                        }*/
-                        $em->persist($entity);
-                        $em->flush();
-
-                    }
-                    //Arreglar la vista aca y testear los de carrera y anio de curso
-                    //return $this->redirect($this->generateUrl('reserva_show', array('id' => $id)));
-                }catch(Exception $e){}
-                if ($entity->getRango() > 0) {
+                    if ($entity->getRango() > 0) {
                     $fechaReservaActual = $entity->getFecha();
                     $reservasCargadas = array();   
                     $arrayReservasConcatenadas = array();
@@ -140,15 +139,13 @@ class ReservaController extends Controller
                         }
                     }  
                    
-                }
-           //return $this->redirect($this->generateUrl('reserva_show_Array', array('reservasCargadas' => $reservasCargadas)));
-           return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array('array' => $arrayReservasConcatenadas));
-
-            //aca va show de las reservas hechas y los avisos de las reservas q no se pudieron cargar.
-            // return $this->redirect($this->generateUrl('reserva', array()));
-            }
+                    }
+                    return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array('array' => $arrayReservasConcatenadas));
+                } 
+            }    
        return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array('entity' => $entity,'form'=> $form->createView()));
     }
+
     //By Neg.-
     private function crearReservaOP($entity, $fechaReservaActual, $reservasCargadas,$index,$fechaActual){
         $record = true;
@@ -156,7 +153,7 @@ class ReservaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entityAux = $entity;
         $entityAux->setFecha($fechaReservaActual);
-       /* $fechaComoDate = date(($datetime($entityAux->getFecha())));
+        /* $fechaComoDate = date(($datetime($entityAux->getFecha())));
         if ((date("D",$fechaComoDate)) <> 'Sun' ){
             //No es domingo
             $cancelarCarga = true;
@@ -185,7 +182,6 @@ class ReservaController extends Controller
             $cancelarAlerta = false;
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$entityAux->getFecha());
         }
-       
       
         if  ((!$canceloPiso) and (!$cancelarAlerta)){
             $em->merge($entityAux);
@@ -251,7 +247,7 @@ class ReservaController extends Controller
         $horaDesde=$entity->getHoraDesde();
         $horaHasta=$entity->getHoraHasta();
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
-
+        //trae la lista de reservas dentro del rango q el user quiere cargar.
         $query = $reserva->createQueryBuilder('r')
                 ->where('
                 (r.fecha= :fecha) AND
@@ -269,7 +265,7 @@ class ReservaController extends Controller
         if(empty($listado)){
             return true;
         }
-
+        //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
         for ($i=0; $i <= count($listado); $i++) { 
             if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
                 return false;
@@ -380,7 +376,7 @@ class ReservaController extends Controller
      * Finds and displays a Reserva entity.
      *
      */
-    public function showAction($id)
+    public function showAction($id,$motivo)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -394,6 +390,7 @@ class ReservaController extends Controller
 
         return $this->render('CrestaAulasBundle:Reserva:show.html.twig', array(
             'entity'      => $entity,
+            'motivo'      => $motivo,
             'delete_form' => $deleteForm->createView(),
         ));
     }

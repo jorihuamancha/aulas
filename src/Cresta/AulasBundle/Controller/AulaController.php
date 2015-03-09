@@ -708,4 +708,8 @@ class AulaController extends Controller
 
     }
 
+    public function ocupacionAction(){
+        
+    }
+
 }
