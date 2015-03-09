@@ -730,8 +730,11 @@ class ReservaController extends Controller
                 ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )
                 ->setParameter('fecha1', $_POST['fecha1'])
                 ->setParameter('fecha2', $_POST['fecha2'])
-                ->orderBy('r.fecha', 'ASC')
-                ->orderBy('r.horaDesde', 'ASC')
+                //
+                //->addOrderBy('r.fecha', 'ASC')
+                //->addOrderBy('r.horaDesde', 'ASC')
+                ->add('orderBy', 'r.fecha ASC','r.horaDesde ASC' )
+                //->orderBy('r.fecha', 'ASC', 'r.horaDesde', 'ASC')
                 ->getQuery();
                 $entities = $query->getResult();
                 $_SESSION['nombrefiltro']='Fecha';
@@ -747,8 +750,11 @@ class ReservaController extends Controller
                 $query = $docente->createQueryBuilder('d')
                 ->where('d.nombre LIKE :dato or d.apellido LIKE :dato' )
                 ->setParameter('dato', '%'.$_POST['dato'].'%')
-                ->orderBy('d.apellido', 'ASC')
-                ->orderBy('d.nombre', 'ASC')
+                //agrego esto para ver si anda
+                ->addOrderBy('d.apellido', 'ASC')
+                ->addOrderBy('d.nombre', 'ASC')
+                //
+                //->orderBy('d.apellido', 'ASC', 'd.nombre', 'ASC')
                 ->getQuery();
                 $docente = $query->getResult();
                 $_SESSION['filtro']=$docente;//Para imprimir
@@ -802,15 +808,9 @@ class ReservaController extends Controller
 
             $filtroActivo = 1;
 
-
-    
     return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array(
             'entities' => $entities,
             'filtroActivo' => $filtroActivo,
         ));
     }
-
-    
-
 }
-
