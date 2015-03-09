@@ -156,15 +156,15 @@ class ReservaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entityAux = $entity;
         $entityAux->setFecha($fechaReservaActual);
-        //$fechaComoDate = date(($datetime($entityAux->getFecha())));
-        /*if ((date("D",$fechaComoDate)) <> 'Sun' ){
+        $fechaComoDate = date(($datetime($entityAux->getFecha())));
+        if ((date("D",$fechaComoDate)) <> 'Sun' ){
             //No es domingo
             $cancelarCarga = true;
         }else{
             $cancelarCarga = false;
-        }*/
+        }
         if($this->freeWilly($entityAux) and ($record)){
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$entityAux->);
         }else{
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
             $record = false;
@@ -655,16 +655,6 @@ class ReservaController extends Controller
                         ->getQuery();
                 $entities = $query->getResult();
                 break;
-
-            case 'DiaSiguiente':
-                $fechaHoy= date_create(date('Y-m-d'));
-                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
-                $query = $reserva->createQueryBuilder('r')
-                        ->where('r.fecha = :fecha')
-                        ->setParameter('fecha', $fechaHoy->modify('+1 day'))
-                        ->getQuery();
-                $entities = $query->getResult();
-                break;
             
             case 'Todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
@@ -713,17 +703,6 @@ class ReservaController extends Controller
             case 'Todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
                 $_SESSION['nombrefiltro']='Todos';//Para imprimir
-                break;
-
-            case 'DiaSiguiente':
-                $fechaHoy= date_create(date('Y-m-d'));
-                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
-                $query = $reserva->createQueryBuilder('r')
-                        ->where('r.fecha = :fecha')
-                        ->setParameter('fecha', $fechaHoy->modify('+1 day'))
-                        ->getQuery();
-                $entities = $query->getResult();
-                $_SESSION['nombrefiltro']='DiaSiguiente';
                 break;
 
             case 'Fecha':
