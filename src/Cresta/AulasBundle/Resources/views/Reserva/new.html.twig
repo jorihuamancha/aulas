@@ -3,10 +3,13 @@
 {% block body %}
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
 			//document.getElementById("cresta_aulasbundle_reserva_usuario").value = document.getElementById("idusuario").value;
 			document.getElementById("cresta_aulasbundle_reserva_fecha_time").style.display='block';
 			document.getElementById("cresta_aulasbundle_reserva_horaDesde_date").style.display='block';
 			document.getElementById("cresta_aulasbundle_reserva_horaHasta_date").style.display='block';
+			//borro el div que tiene la fecha hasta porque esta seleccionada la carga unica
+			$( "#cresta_aulasbundle_reserva > div:nth-child(7)" ).css( "display", "none" );
 			$('select.chzn-select').chosen();
 			//$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "none" );
 			$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "inline-block" );
@@ -31,19 +34,12 @@
 			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_day").value=diaActual;
 			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_month").value=mesActual;
 			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_year").value=anioActual;
+
 			}
 		)
 		function actividad(value){
 			if(value!=true){//es true cuando es un curso
 				$("#cresta_aulasbundle_reserva_actividad_chosen").addClass("chosen-container-active");
-				$("#cresta_aulasbundle_reserva_rango").change(rango(value){
-					if(value==0){
-					$("#cresta_aulasbundle_reserva > div:nth-child(5)").css("display", "none"); //octavo div
-					}
-				else{
-					$("#cresta_aulasbundle_reserva > div:nth-child(5)").css("display", "inline-block");
-					}
-				})
 			//	$("#cresta_aulasbundle_reserva_actividad_chosen").addClass("chosen-with-drop");
 				$("#cresta_aulasbundle_reserva_actividad_chosen").removeClass("chosen-disabled");
 				$("#cresta_aulasbundle_reserva_curso_chosen").removeClass("chosen-container-active");
@@ -87,7 +83,7 @@
 			</div>
 		{# trato de ponerle una función para que si elige una carga unica se borre la fecha hasta #}
 	    {{ form(form) }}
-	    {{ form_widget(form.rango,{'onchange':'rango(this.selected);'} ) }}
+	    {#{{ form_widget(form.rango,{'onchange':'rango(this.selected);'} ) }}#}
 
 		</div>
 	</div>
