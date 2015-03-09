@@ -153,37 +153,37 @@ class ReservaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entityAux = $entity;
         $entityAux->setFecha($fechaReservaActual);
-        /* $fechaComoDate = date(($datetime($entityAux->getFecha())));
-        if ((date("D",$fechaComoDate)) <> 'Sun' ){
+        $asd = $entityAux->getFecha()->format("d-m-Y");
+        /*if ((date("D",$asd)) <> 'Sun' ){
             //No es domingo
-            $cancelarCarga = true;
+            $cancelaDomingo = true;
         }else{
-            $cancelarCarga = false;
+            $cancelaDomingo = false;
         }*/
-        if($this->freeWilly($entityAux) and ($record)){
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$entityAux->getFecha());
-        }else{
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.','fechaReserva'=>$entityAux->getFecha());
-            $record = false;
-        }
         if($this->sePuede($entityAux) and ($record)){
             $canceloPiso = false;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$entityAux->getFecha());
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=> $asd ,'pizaCarrera'=> '');
         }else{ 
             $canceloPiso = true;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.','fechaReserva'=>$entityAux->getFecha());
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.','fechaReserva'=> $asd ,'pizaCarrera'=> '');
             $record = false;
         }
         if (!$this::conprobarAlerta($entityAux->getFecha()) and ($record)){
             $cancelarAlerta = true;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha','fechaReserva'=>$entityAux->getFecha());
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha','fechaReserva'=>$asd ,'pizaCarrera'=> '');
             $record = false;
         }else{
             $cancelarAlerta = false;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$entityAux->getFecha());
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$asd ,'pizaCarrera'=> '');
+        }
+        if($this->freeWilly($entityAux) and ($record)){
+
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'pizzareserva','fechaReserva'=> $asd ,'pizaCarrera'=> 'N/A');
+        }else{
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'pizzareserva','fechaReserva'=> $asd ,'pizaCarrera'=> 'Existen reservas para esa misma carrera y año');
         }
       
-        if  ((!$canceloPiso) and (!$cancelarAlerta)){
+        if  ((!$canceloPiso) and (!$cancelarAlerta) ){
             $em->merge($entityAux);
             $em->flush();
             $em->clear();
@@ -223,7 +223,6 @@ class ReservaController extends Controller
                             (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
                             (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
                             ')
-                        
                         ->setParameter('fecha', $fecha)
                         ->setParameter('aula', $idAula)
                         ->setParameter('horaDesde', $horaDesde)
@@ -266,10 +265,10 @@ class ReservaController extends Controller
             return true;
         }
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
-        for ($i=0; $i <= count($listado); $i++) { 
+        for ($i=0; $i < count($listado); $i++) { 
             if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
                 return false;
-                die();  
+                die(); 
             }
         }
         return true; 
@@ -341,17 +340,10 @@ class ReservaController extends Controller
     {
         $entity = new Reserva();
         $form   = $this->createCreateForm($entity);
-        //$user='1';
         $em = $this->getDoctrine()->getManager();
 
-        //$entity->setdiosReserva($this->container->get('security.context')->getToken()->getUser());
-
-        $usuario = $em->getRepository('CrestaAulasBundle:Usuario')->find($this->container->get('security.context')->getToken()->getUser());
-        $idUsuario=$usuario->getId();
-
-        
         return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
-            'usuario'=> $idUsuario,
+                
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
