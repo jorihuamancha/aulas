@@ -22,7 +22,7 @@ class ReservaType extends AbstractType
         $horaActual=new \DateTime();
         $horaActual->format('H:i:s');
         $builder
-            ->add('usuario','entity',array( 'class'=>'CrestaAulasBundle:Usuario',
+            /*->add('usuario','entity',array( 'class'=>'CrestaAulasBundle:Usuario',
                                             'property'=>'username',
                                             'attr'=>array('class'=>'oculto'),
                                             'label'=>' '))
@@ -47,8 +47,8 @@ class ReservaType extends AbstractType
                                                                                         1=>'Cada un día',
                                                                                         7=>'Cada Una Semana',
                                                                                         14=>'Cada Dos Semanas')))
-            ->add('fecha', 'datetime', array(   'label'=>'Fecha desde: ','attr'=>array(  'required'=>true)))
-            ->add('rangoHasta', 'datetime', array( 'label'=>'Fecha Hasta: ','attr'=>array('required'=>true)))
+            ->add('fecha', 'datetime', array(   'label'=>'Fecha desde: ','attr'=>array(     'required'=>true)))
+            ->add('rangoHasta', 'datetime', array( 'label'=>'Fecha Hasta: ','attr'=>array(  'required'=>true)))
             ->add('horaDesde', 'datetime', array(   'label'=>'Hora desde: ',
                                                     'hours'=>range(8,22), 
                                                     'minutes'=>array(   '00'=>'00',
