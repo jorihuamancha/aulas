@@ -2,7 +2,7 @@
     <dynamic-page page-size="letter-landscape">
 
     <h1 text-align="center" text-decoration="underline" float="left">Listado de Reservas</h1>
-    <h1 text-align="center" float="right">{{"now"|date('d/m/Y')}} </h1>
+    <h1 text-align="center" float="right">Fecha de impresión: {{"now"|date('d/m/Y')}} </h1>
 
     <table text-align="center" margin-top="10px">
             <tr background.color="#E3680B" color="white">
@@ -25,13 +25,14 @@
                         {{ entity.actividad.nombre }}
                     {% endif %}
                 </td>
-                <td padding="8px" color="{{entity.curso.Carrera.color}}">
-                    {% if entity.curso == null %}
-                        N/A
-                    {% else %}
+                {% if entity.curso == null %}
+                     <td>   N/A  </td>
+                {% else %}
+                    <td padding="8px" color="{{entity.curso.Carrera.color}}">
                         <b> {{ entity.curso.Carrera.nombre }} </b>
-                    {% endif %}
-                </td>
+                    </td>
+                {% endif %}
+
                 <td padding="8px">{{ entity.aula.nombre }}</td>
             </tr>
         {% endfor %}
