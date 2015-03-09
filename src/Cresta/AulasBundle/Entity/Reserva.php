@@ -106,7 +106,6 @@ class Reserva
 
     private $rango;
 
-
     /**
     * @ORM\ManyToMany(targetEntity="Recurso")
     * @ORM\JoinTable(name="Reservas_Recursos",
@@ -153,8 +152,6 @@ class Reserva
     {
         return $this->rangoHasta;
     }
-
-
 
     /**
      * Get rango
