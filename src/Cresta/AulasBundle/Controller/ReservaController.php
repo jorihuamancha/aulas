@@ -156,34 +156,34 @@ class ReservaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entityAux = $entity;
         $entityAux->setFecha($fechaReservaActual);
-        $fechaComoDate = date(($datetime($entityAux->getFecha())));
+       /* $fechaComoDate = date(($datetime($entityAux->getFecha())));
         if ((date("D",$fechaComoDate)) <> 'Sun' ){
             //No es domingo
             $cancelarCarga = true;
         }else{
             $cancelarCarga = false;
-        }
+        }*/
         if($this->freeWilly($entityAux) and ($record)){
             $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$entityAux->getFecha());
         }else{
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.');
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Existen reservas para este curso en el mismo rango.','fechaReserva'=>$entityAux->getFecha());
             $record = false;
         }
         if($this->sePuede($entityAux) and ($record)){
             $canceloPiso = false;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$entityAux->getFecha());
         }else{ 
             $canceloPiso = true;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.');
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.','fechaReserva'=>$entityAux->getFecha());
             $record = false;
         }
         if (!$this::conprobarAlerta($entityAux->getFecha()) and ($record)){
             $cancelarAlerta = true;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha');
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha','fechaReserva'=>$entityAux->getFecha());
             $record = false;
         }else{
             $cancelarAlerta = false;
-            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente');
+            $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$entityAux->getFecha());
         }
        
       
@@ -656,6 +656,16 @@ class ReservaController extends Controller
                 $entities = $query->getResult();
                 break;
             
+            case 'DiaSiguiente':
+                $fechaHoy= date_create(date('Y-m-d'));
+                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                        ->where('r.fecha = :fecha')
+                        ->setParameter('fecha', $fechaHoy->modify('+1 day'))
+                        ->getQuery();
+                $entities = $query->getResult();
+                break;
+
             case 'Todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
                 break;
@@ -704,6 +714,18 @@ class ReservaController extends Controller
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
                 $_SESSION['nombrefiltro']='Todos';//Para imprimir
                 break;
+
+            case 'DiaSiguiente':
+                $fechaHoy= date_create(date('Y-m-d'));
+                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                        ->where('r.fecha = :fecha')
+                        ->setParameter('fecha', $fechaHoy->modify('+1 day'))
+                        ->getQuery();
+                $entities = $query->getResult();
+                $_SESSION['nombrefiltro']='DiaSiguiente';
+                break;
+
 
             case 'Fecha':
                 $reserva = $em->getRepository('CrestaAulasBundle:Reserva');

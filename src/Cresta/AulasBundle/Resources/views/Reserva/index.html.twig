@@ -6,6 +6,7 @@
             $("#fechas").css("display", "none");
             $("#dato").css("display", "none");
             $("#EnviarFiltro").css("display", "none");
+            $("#tipoTarea").css("display", "none");
         });
 
     function getval(sel) {
@@ -23,17 +24,20 @@
             $("#dato").css("display", "none");
             $("#formFiltros").attr("action","filtro/Todos");
             $("#EnviarFiltro").css("display", "none");
+            $("#tipoTarea").css("display", "none");
             window.location.href = "{{ path('_homepage') }}reserva/filtro/Todos";
             break;
 
          case "Fecha":
             $("#fechas").css("display", "inline-block");
+            $("#tipoTarea").css("display", "none");
             $("#dato").css("display", "none");
             $("#formFiltros").attr("action","filtro/Fecha");
             $("#EnviarFiltro").css("display", "inline-block");
             break;
          case "Docente":
             $("#fechas").css("display", "none");
+            $("#tipoTarea").css("display", "none");
             $("#dato").css("display", "inline-block");
             $("#datoTexto").attr("placeholder","Docente");
             $("#formFiltros").attr("action","filtro/Docente");
@@ -41,6 +45,7 @@
             break;
          case "Aula":
             $("#fechas").css("display", "none");
+            $("#tipoTarea").css("display", "none");
             $("#dato").css("display", "inline-block");
             $("#datoTexto").attr("placeholder","Aula");
             $("#formFiltros").attr("action","filtro/Aula");
@@ -48,7 +53,39 @@
             break;
         case "Tarea":
             $("#fechas").css("display", "none");
+            $("#tipoTarea").css("display", "inline-block");
             $("#dato").css("display", "inline-block");
+            $("#datoTexto").attr("placeholder","Tarea");
+            $("#formFiltros").attr("action","filtro/Tarea");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+       }
+    }
+
+    function tipoTarea(sel) {
+       switch (sel.value) {
+        case "Todas":
+            $("#fechas").css("display", "display");
+            $("#tipoTarea").css("display", "inline-block");
+            $("#dato").css("display", "inline-block");
+            $("#datoTexto").attr("placeholder","Tarea");
+            $("#formFiltros").attr("action","filtro/Tarea");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+
+        case "Materia":
+            $("#fechas").css("display", "display");
+            $("#tipoTarea").css("display", "inline-block");
+            $("#dato").css("display", "none");
+            $("#datoTexto").attr("placeholder","Tarea");
+            $("#formFiltros").attr("action","filtro/Tarea");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+
+        case "Actividad":
+            $("#fechas").css("display", "none");
+            $("#tipoTarea").css("display", "inline-block");
+            $("#dato").css("display", "none");
             $("#datoTexto").attr("placeholder","Tarea");
             $("#formFiltros").attr("action","filtro/Tarea");
             $("#EnviarFiltro").css("display", "inline-block");
@@ -91,11 +128,23 @@
                         <option> Tarea </option>
                     </select>
                 </ul>
+
+                <div id="tipoTarea">
+                    <ul>
+                        <select onchange="tipoTarea(this);">
+                            <option selected> Todas </option>
+                            <option> Materia </option>
+                            <option> Actividad </option>
+                        </select>
+                    </ul>
+                </div>
+
                 <div id="dato">
                     <ul>
                         <input id="datoTexto" pattern="[a-zA-Z0-9ñÑá-úÁ-Úä-üÄ-Ü ]+" type="text" name="dato">
                     </ul>
                 </div>
+
                 <div id="fechas">
                     <ul>
                         <label> Fecha desde: </label>
