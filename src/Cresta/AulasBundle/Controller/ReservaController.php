@@ -710,8 +710,7 @@ class ReservaController extends Controller
                 ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )
                 ->setParameter('fecha1', $_POST['fecha1'])
                 ->setParameter('fecha2', $_POST['fecha2'])
-                ->orderBy('r.fecha', 'ASC')
-                ->orderBy('r.horaDesde', 'ASC')
+                ->orderBy('r.fecha', 'ASC', 'r.horaDesde', 'ASC')
                 ->getQuery();
                 $entities = $query->getResult();
                 $_SESSION['nombrefiltro']='Fecha';
@@ -782,15 +781,9 @@ class ReservaController extends Controller
 
             $filtroActivo = 1;
 
-
-    
     return $this->render('CrestaAulasBundle:Reserva:index.html.twig', array(
             'entities' => $entities,
             'filtroActivo' => $filtroActivo,
         ));
     }
-
-    
-
 }
-

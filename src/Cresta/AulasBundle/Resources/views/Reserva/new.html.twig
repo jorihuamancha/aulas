@@ -31,7 +31,6 @@
 			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_day").value=diaActual;
 			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_month").value=mesActual;
 			document.getElementById("cresta_aulasbundle_reserva_rangoDesde_date_year").value=anioActual;
-
 			}
 		)
 		function actividad(value){
@@ -69,7 +68,7 @@
 				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").disabled=false;
 				}
 			function rango(value){
-				if(value=0){
+				if(value==0){
 					alert('hola');
 					$("#cresta_aulasbundle_reserva > div:nth-child(5)").css("display", "none"); //octavo div
 					}
