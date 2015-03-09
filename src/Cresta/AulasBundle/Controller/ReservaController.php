@@ -697,6 +697,40 @@ class ReservaController extends Controller
             case 'Actividad':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($filtro);
                 break;
+
+            case 'TodasActividades':
+                $actividad = $em->getRepository('CrestaAulasBundle:Actividad')->findAll();
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($actividad);
+                break;
+
+            case 'TodasMaterias':
+                $materia = $em->getRepository('CrestaAulasBundle:Curso')->findAll();
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByCurso($materia);
+                break;
+
+            case 'fechaMateria':
+                $reservas = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reservas->createQueryBuilder('r')
+                    ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2 and r.curso IS NOT NULL')
+                    ->setParameter('fecha1', $_SESSION['fecha1'])
+                    ->setParameter('fecha2', $_SESSION['fecha2'])
+                    ->orderBy('r.fecha', 'ASC')
+                    ->orderBy('r.horaDesde', 'ASC')
+                    ->getQuery();
+                $entities = $query->getResult();
+                break;
+            
+            case 'fechaActividad':
+                $reservas = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reservas->createQueryBuilder('r')
+                    ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2 and r.actividad IS NOT NULL')
+                    ->setParameter('fecha1', $_SESSION['fecha1'])
+                    ->setParameter('fecha2', $_SESSION['fecha2'])
+                    ->orderBy('r.fecha', 'ASC')
+                    ->orderBy('r.horaDesde', 'ASC')
+                    ->getQuery();
+                $entities = $query->getResult();
+                break;
         }
 
         $formato=$this->get('request')->get('_format');
@@ -771,6 +805,53 @@ class ReservaController extends Controller
                 $_SESSION['filtro']=$aula;//Para imprimir
                 $_SESSION['nombrefiltro']='Aula';//Para imprimir
                 break;
+
+            case 'TodasActividades':
+                $actividad = $em->getRepository('CrestaAulasBundle:Actividad')->findAll();
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($actividad);
+                $_SESSION['filtro']=$actividad;//Para imprimir
+                $_SESSION['nombrefiltro']='TodasActividades';//Para imprimir
+                break;
+
+            case 'TodasMaterias':
+                $materia = $em->getRepository('CrestaAulasBundle:Curso')->findAll();
+                $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByCurso($materia);
+                $_SESSION['filtro']=$materia;//Para imprimir
+                $_SESSION['nombrefiltro']='TodasMaterias';//Para imprimir
+                break;
+
+            case 'fechaMateria':
+                $reservas = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reservas->createQueryBuilder('r')
+                    ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2 and r.curso IS NOT NULL')
+                    ->setParameter('fecha1', $_POST['fecha1'])
+                    ->setParameter('fecha2', $_POST['fecha2'])
+                    ->orderBy('r.fecha', 'ASC')
+                    ->orderBy('r.horaDesde', 'ASC')
+                    ->getQuery();
+                $entities = $query->getResult();
+
+                $_SESSION['nombrefiltro']='fechaMateria';
+                $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
+                $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir
+                break;
+            
+            case 'fechaActividad':
+                $reservas = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reservas->createQueryBuilder('r')
+                    ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2 and r.actividad IS NOT NULL')
+                    ->setParameter('fecha1', $_POST['fecha1'])
+                    ->setParameter('fecha2', $_POST['fecha2'])
+                    ->orderBy('r.fecha', 'ASC')
+                    ->orderBy('r.horaDesde', 'ASC')
+                    ->getQuery();
+                $entities = $query->getResult();
+
+                $_SESSION['nombrefiltro']='fechaActividad';
+                $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
+                $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir
+                break;
+            
 
             case 'Tarea':
                 /*$tarea= $em->getRepository('CrestaAulasBundle:Curso')->findByNombre($_POST['dato']);
