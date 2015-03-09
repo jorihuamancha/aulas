@@ -25,11 +25,11 @@
                         {{ entity.actividad.nombre }}
                     {% endif %}
                 </td>
-                <td padding="8px">
+                <td padding="8px" color="{{entity.curso.Carrera.color}}">
                     {% if entity.curso == null %}
                         N/A
                     {% else %}
-                        {{ entity.curso.Carrera.nombre }}
+                        <b> {{ entity.curso.Carrera.nombre }} </b>
                     {% endif %}
                 </td>
                 <td padding="8px">{{ entity.aula.nombre }}</td>
