@@ -656,6 +656,16 @@ class ReservaController extends Controller
                 $entities = $query->getResult();
                 break;
             
+            case 'DiaSiguiente':
+                $fechaHoy= date_create(date('Y-m-d'));
+                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                        ->where('r.fecha = :fecha')
+                        ->setParameter('fecha', $fechaHoy->modify('+1 day'))
+                        ->getQuery();
+                $entities = $query->getResult();
+                break;
+
             case 'Todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
                 break;
@@ -704,6 +714,18 @@ class ReservaController extends Controller
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
                 $_SESSION['nombrefiltro']='Todos';//Para imprimir
                 break;
+
+            case 'DiaSiguiente':
+                $fechaHoy= date_create(date('Y-m-d'));
+                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                        ->where('r.fecha = :fecha')
+                        ->setParameter('fecha', $fechaHoy->modify('+1 day'))
+                        ->getQuery();
+                $entities = $query->getResult();
+                $_SESSION['nombrefiltro']='DiaSiguiente';
+                break;
+
 
             case 'Fecha':
                 $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
