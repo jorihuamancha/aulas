@@ -22,7 +22,7 @@ class ReservaType extends AbstractType
         $horaActual=new \DateTime();
         $horaActual->format('H:i:s');
         $builder
-            ->add('usuario','entity',array( 'class'=>'CrestaAulasBundle:Usuario',
+            /*->add('usuario','entity',array( 'class'=>'CrestaAulasBundle:Usuario',
                                             'property'=>'username',
                                             'attr'=>array('class'=>'oculto'),
                                             'label'=>' '))

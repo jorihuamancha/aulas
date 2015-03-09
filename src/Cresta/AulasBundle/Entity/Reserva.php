@@ -63,18 +63,6 @@ class Reserva
     private $horaHasta;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="estado", type="boolean", nullable=true)
-     */
-    private $estado;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
-     */
-    private $usuario;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
@@ -117,7 +105,6 @@ class Reserva
      */
 
     private $rango;
-
 
     /**
     * @ORM\ManyToMany(targetEntity="Recurso")
@@ -165,8 +152,6 @@ class Reserva
     {
         return $this->rangoHasta;
     }
-
-
 
     /**
      * Get rango
@@ -382,52 +367,6 @@ class Reserva
     public function getHoraHasta()
     {
         return $this->horaHasta;
-    }
-
-    /**
-     * Set estado
-     *
-     * @param boolean $estado
-     * @return Reserva
-     */
-    public function setEstado($estado)
-    {
-        $this->estado = $estado;
-
-        return $this;
-    }
-
-    /**
-     * Get estado
-     *
-     * @return boolean 
-     */
-    public function getEstado()
-    {
-        return $this->estado;
-    }
-
-    /**
-     * Set usuario
-     *
-     * @param integer $usuario
-     * @return Reserva
-     */
-    public function setUsuario($usuario)
-    {
-        $this->usuario = $usuario;
-
-        return $this;
-    }
-
-    /**
-     * Get usuario
-     *
-     * @return integer 
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
     }
 
     /**
