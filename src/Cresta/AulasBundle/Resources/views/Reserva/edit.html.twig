@@ -3,10 +3,13 @@
 {% block body %}
 	<script type="text/javascript">
 		$(document).ready(function(){
+			//alert('hola');
 			//document.getElementById("cresta_aulasbundle_reserva_usuario").value = document.getElementById("idusuario").value;
 			document.getElementById("cresta_aulasbundle_reserva_fecha_time").style.display='block';
 			document.getElementById("cresta_aulasbundle_reserva_horaDesde_date").style.display='block';
 			document.getElementById("cresta_aulasbundle_reserva_horaHasta_date").style.display='block';
+			//borro el div que tiene la fecha hasta porque esta seleccionada la carga unica
+			$( "#cresta_aulasbundle_reserva > div:nth-child(7)" ).css( "display", "none" );
 			$('select.chzn-select').chosen();
 			//$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "none" );
 			$( "#cresta_aulasbundle_reserva > div:nth-child(2)" ).css( "display", "inline-block" );
@@ -69,13 +72,13 @@
 				document.getElementById("cresta_aulasbundle_reserva_curso_chosen").disabled=false;
 				}
 			function rango(value){
-				if(value=0){
-					alert('hola');
-					$("#cresta_aulasbundle_reserva > div:nth-child(5)").css("display", "none"); //octavo div
+				if(value=="0"){
+					//alert('hola');
+					$("#cresta_aulasbundle_reserva > div:nth-child(7)").css("display", "none"); //octavo div
 					}
 				else{
-					alert('hola');
-					$("#cresta_aulasbundle_reserva > div:nth-child(5)").css("display", "inline-block");
+					//alert('hola');
+					$("#cresta_aulasbundle_reserva > div:nth-child(7)").css("display", "inline-block");
 					}
 				}
 			}
