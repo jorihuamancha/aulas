@@ -14,6 +14,10 @@
             location.reload();
             break;
 
+         case "Siguiente día":
+            window.location.href = "{{ path('_homepage') }}reserva/filtro/DiaSiguiente";
+            break;
+
          case "Todos":
             $("#fechas").css("display", "none");
             $("#dato").css("display", "none");
@@ -79,6 +83,7 @@
                     <label>Filtrar por:</label>
                     <select onchange="getval(this);">
                         <option selected> Hoy </option>
+                        <option> Siguiente día </option>
                         <option> Todos </option>
                         <option> Fecha </option>
                         <option> Docente </option>
