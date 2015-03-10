@@ -815,10 +815,14 @@ class ReservaController extends Controller
                 /*$docente = $em->getRepository('CrestaAulasBundle:Docente')->findByApellido($_POST['dato']);
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($docente);
                 */
+                if ((isset($_POST['dato'])) ){
+                    $_SESSION['dato']=$_POST['dato'];
+                }
+
                 $docente = $em->getRepository('CrestaAulasBundle:Docente');
                 $query = $docente->createQueryBuilder('d')
                 ->where('d.nombre LIKE :dato or d.apellido LIKE :dato' )
-                ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->setParameter('dato', '%'.$_SESSION['dato'].'%')
                 //agrego esto para ver si anda
                 ->addOrderBy('d.apellido', 'ASC')
                 ->addOrderBy('d.nombre', 'ASC')
@@ -832,7 +836,11 @@ class ReservaController extends Controller
                 break;
 
             case 'Aula':
-                $aula = $em->getRepository('CrestaAulasBundle:Aula')->findByNombre($_POST['dato']);
+                if ((isset($_POST['dato'])) ){
+                    $_SESSION['dato']=$_POST['dato'];
+                }
+
+                $aula = $em->getRepository('CrestaAulasBundle:Aula')->findByNombre($_SESSION['dato']);
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByAula($aula);
                 $_SESSION['filtro']=$aula;//Para imprimir
                 $_SESSION['nombrefiltro']='Aula';//Para imprimir
@@ -906,10 +914,15 @@ class ReservaController extends Controller
                     $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($tarea);
                 }
                 */
+
+                if ((isset($_POST['dato'])) ){
+                    $_SESSION['dato']=$_POST['dato'];
+                }
+
                 $curso = $em->getRepository('CrestaAulasBundle:Curso');
                 $query = $curso->createQueryBuilder('c')
                 ->where('c.nombre LIKE :dato' )
-                ->setParameter('dato', '%'.$_POST['dato'].'%')
+                ->setParameter('dato', '%'.$_SESSION['dato'].'%')
                 ->getQuery();
                 $curso = $query->getResult();
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByCurso($curso);
@@ -919,7 +932,7 @@ class ReservaController extends Controller
                     $actividad = $em->getRepository('CrestaAulasBundle:Actividad');
                     $query = $actividad->createQueryBuilder('a')
                     ->where('a.nombre LIKE :dato' )
-                    ->setParameter('dato', '%'.$_POST['dato'].'%')
+                    ->setParameter('dato', '%'.$_SESSION['dato'].'%')
                     ->orderBy('c.nombre', 'ASC')
                     ->getQuery();
                     $actividad = $query->getResult();
