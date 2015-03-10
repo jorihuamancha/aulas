@@ -357,7 +357,7 @@ class AulaController extends Controller
                     throw $this->createNotFoundException('Lo sentimos se rompieron las reservas :/ los horarios deberian ser en minutos 00 o 30.');
                 }
                 $ArrayContenedor[$contador] = array(1=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[1]],
-                2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3]);
+                2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3],4=>$reservasMostrar[$contador]);
                 $contador = $contador + 1;
             }
             if ((count($reservasMostrar)) == 0){
@@ -491,7 +491,7 @@ class AulaController extends Controller
                     throw $this->createNotFoundException('Lo sentimos se rompieron las reservas :/ los horarios deberian ser en minutos 00 o 30.');
                 }
                 $ArrayContenedor[$contador] = array(1=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[1]],
-                2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3]);
+                2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3],4=>$reservasMostrar[$contador]);
                 $contador = $contador + 1;
             }
             if ((count($reservasMostrar)) == 0){
@@ -601,7 +601,7 @@ class AulaController extends Controller
                     throw $this->createNotFoundException('Lo sentimos se rompieron las reservas :/ los horarios deberian ser en minutos 00 o 30.');
                 }
                 $ArrayContenedor[$contador] = array(1=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[1]],
-                2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3]);
+                2=>$arrayDeTranformacion[$arrayCargadoConHorariosConcat[2]],3=>$arrayCargadoConHorariosConcat[3],4=>$reservasMostrar[$contador]);
                 $contador = $contador + 1;
             }
             if ((count($reservasMostrar)) == 0){
