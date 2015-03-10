@@ -26,7 +26,7 @@ class DocenteType extends AbstractType
                                         'required'=>false))
 
             ->add('email','text',array('label'=>'Email: ',
-                                        'pattern'=>"[a-zA-ZÑñá-úÁ-Ú0-9 ]+",
+                                        'pattern'=>"[a-zA-Z0-9@.- ]+",
                                         'required'=>false))
            
         ;

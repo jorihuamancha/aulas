@@ -24,11 +24,19 @@ class DocenteController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $filtroActivo=0;
         $entities = $em->getRepository('CrestaAulasBundle:Docente')->findAll();
+
+        if (!$entities){
+            $entities=null;
+        }
+        else {
+            $_SESSION['entities']=$entities;
+        }
 
         return $this->render('CrestaAulasBundle:Docente:index.html.twig', array(
             'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
         ));
     }
     /**
@@ -242,6 +250,58 @@ class DocenteController extends Controller
         }else{
             return true;
         }
+    }
+
+        public function filtroAction(){
+        $filtro=$this->get('request')->get('filtro');
+        $em = $this->getDoctrine()->getManager();
+        switch ($filtro) {
+
+            case 'todos':
+                $entities = $em->getRepository('CrestaAulasBundle:Docente')->findAll();
+                break;
+
+
+            case 'apellido':
+                $reserva = $em->getRepository('CrestaAulasBundle:Docente');
+                $query = $reserva->createQueryBuilder('r')
+                ->where('r.apellido LIKE :apellido')
+                ->setParameter('apellido', '%'.$_POST['dato'].'%')
+                ->orderBy('r.apellido', 'ASC')
+                ->orderBy('r.nombre', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+            case 'email':
+                $reserva = $em->getRepository('CrestaAulasBundle:Docente');
+                $query = $reserva->createQueryBuilder('r')
+                ->where('r.email LIKE :email')
+                ->setParameter('email', '%'.$_POST['dato'].'%')
+                ->orderBy('r.email', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+             case 'telefono':
+                $reserva = $em->getRepository('CrestaAulasBundle:Docente');
+                $query = $reserva->createQueryBuilder('r')
+                ->where('r.telefono LIKE :telefono')
+                ->setParameter('telefono', '%'.$_POST['dato'].'%')
+                ->orderBy('r.telefono', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+            
+        }
+        if (!$entities){
+            $entities=null;
+        }
+
+        $filtroActivo = 1;
+
+        return $this->render('CrestaAulasBundle:Docente:index.html.twig', array('entities' => $entities,'filtroActivo' => $filtroActivo));
+
     }
 
      
