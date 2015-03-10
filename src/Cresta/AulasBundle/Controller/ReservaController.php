@@ -608,7 +608,8 @@ class ReservaController extends Controller
             $em->remove($idReserva);
             $em->flush();
 
-        return $this->redirect($this->generateUrl('reserva'));
+        //return $this->redirect($this->generateUrl('reserva'));
+            return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 
     /**
