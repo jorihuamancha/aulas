@@ -235,7 +235,8 @@ class DocenteController extends Controller
     private function estaEnUso($entity){ 
         $em = $this->getDoctrine()->getManager();
         $docente = $entity->getId();
-        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.docente = :docente')->setParameter('docente', $docente);
+        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.docente = :docente')
+                    ->setParameter('docente', $docente);
         $unaConsulta = $query->getResult();
         if(empty($unaConsulta)){
             return false;

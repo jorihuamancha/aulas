@@ -661,6 +661,13 @@ class AulaController extends Controller
 
             case 'todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
+                //$reserva = $em->getRepository('CrestaAulasBundle:Aula');
+                //$query = $reserva->createQueryBuilder('r')
+                //->where('r.nombre = :nombre')
+                //->setParameter('nombre', $_POST['dato'])
+                //->orderBy('r.piso', 'ASC')
+                //->getQuery();
+                //$entities = $query->getResult();
                 break;
 
 
