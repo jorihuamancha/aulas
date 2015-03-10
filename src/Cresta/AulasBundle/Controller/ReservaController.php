@@ -799,8 +799,8 @@ class ReservaController extends Controller
                 $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reserva->createQueryBuilder('r')
                 ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )
-                ->setParameter('fecha1', $_POST['fecha1'])
-                ->setParameter('fecha2', $_POST['fecha2'])
+                ->setParameter('fecha1', $_SESSION['fecha1'])
+                ->setParameter('fecha2', $_SESSION['fecha2'])
                 //
                 //->addOrderBy('r.fecha', 'ASC')
                 //->addOrderBy('r.horaDesde', 'ASC')
