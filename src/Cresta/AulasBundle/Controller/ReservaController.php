@@ -166,17 +166,6 @@ class ReservaController extends Controller
             $reservasCargadas[$index]['pizaCarrera'] = 'Existen reservas para esa misma carrera y año';
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=> $asd ,'pizaCarrera'=> 'Existen reservas para esa misma carrera y año');
         }
-        if($this->sePuede($entityAux) and ($record)){
-            $canceloPiso = false;
-            $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente';
-            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> ,'fechaReserva'=> $asd ,'pizaCarrera'=> '');
-            
-        }else{ 
-            $canceloPiso = true;
-            $reservasCargadas[$index]['motivo'] = 'Ya hay una reserva para esa hora en ese dia.';
-            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.','fechaReserva'=> $asd ,'pizaCarrera'=> '');
-            $record = false;
-        }
         if (!$this::conprobarAlerta($entityAux->getFecha()) and ($record)){
             $cancelarAlerta = true;
             $reservasCargadas[$index]['motivo'] = 'Hay un feriado en esta fecha'; 
@@ -187,6 +176,17 @@ class ReservaController extends Controller
             $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente'; 
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$asd ,'pizaCarrera'=>'N/A' );
         }
+        if($this->sePuede($entityAux) and ($record)){
+            $canceloPiso = false;
+            $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente';
+            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> ,'fechaReserva'=> $asd ,'pizaCarrera'=> '');
+        }else{ 
+            $canceloPiso = true;
+            $reservasCargadas[$index]['motivo'] = 'Ya hay una reserva para esa hora en ese dia.';
+            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.','fechaReserva'=> $asd ,'pizaCarrera'=> '');
+            $record = false;
+        }
+        
         
         if  ((!$canceloPiso) and (!$cancelarAlerta) ){
             $em->merge($entityAux);
@@ -270,19 +270,17 @@ class ReservaController extends Controller
         
       
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
-        for ($i=0; $i <= count($listado) - 1; $i++) { 
-            if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
-                return false;
-            }else{
-                return true;    
+        if ($entity->getCurso() != null){
+            for ($i=0; $i <= count($listado) - 1; $i++) { 
+                if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
+                    return false;
+                }else{
+                    return true;    
+                }
             }
-        }
-        /*if($siChoca){
-            return true; 
         }else{
-            return false;
-        }*/
-        
+            return true; 
+        }
 
     }
     //By Neg.-
@@ -298,8 +296,8 @@ class ReservaController extends Controller
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
 
         $query = $reserva->createQueryBuilder('r')
-                        ->where('(r.id <> :id) AND
-                            (r.fecha= :fecha AND r.aula= :aula) AND
+                        ->where('((r.id <> :id) AND
+                            (r.fecha= :fecha AND r.aula= :aula)) AND
                             ((r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
                             (r.horaHasta > :horaDesde AND r.horaHasta <= :horaHasta ) OR
                             (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
@@ -509,6 +507,8 @@ class ReservaController extends Controller
                 throw new Exception("Hay una feriado activo para el dia que desea agregar una reserva.");
             }elseif (!($this->sePuedeEdit($entity))) {
                 throw new Exception("Hay reservas para esa aula con esas fecha y hora");
+            }elseif ($entity->getHoraDesde() > $entity->getHoraHasta()) {
+                throw new Exception("La hora desde es posterior a la hora hasta.");
             }
       
            

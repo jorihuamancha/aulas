@@ -8,8 +8,8 @@
     <table class="records_list tabla">
         <thead>
             <tr>
-                <th>Tipo</th>
                 <th>Nombre</th>
+                <th>Tipo</th>
                 <th>Disertantes</th>
                 <th>Acción</th>
             </tr>
@@ -17,8 +17,8 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{{ entity.tipo }}</td>
                 <td>{{ entity.nombre }}</td>
+                <td>{{ entity.tipo }}</td>
                 {% if entity.disertantes is null %}
                     <td> N/A </td>
                 {% else %}

@@ -36,8 +36,5 @@ aulas_aula_disponibilidad:
 aulas_aula_filtro:
     path:     /filtro/{filtro}
     defaults: { _controller: "CrestaAulasBundle:Aula:filtro" }
-    
-aulas_aula_ocupacion:
-    path:     /ocupacion
-    defaults: { _controller: "CrestaAulasBundle:Aula:ocupacion" }
+
 

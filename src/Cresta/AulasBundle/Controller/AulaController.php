@@ -712,21 +712,5 @@ class AulaController extends Controller
 
     }
 
-    public function cargadorDeFechas($fecha){
-        $index = 0;
-        while ( $index < 6 ) {
-            $fecha->modify('+1 day');
-            $fechasArray[$index] = $fecha;
-            $index++;
-        }
-        return $fechasArray;
-    }
-
-    public function ocupacionAction(){
-        
-        $cargadorDeFechas = $this->cargadorDeFechas($fecha);
-        return $this->render('CrestaAulasBundle:Aula:ocupacion.html.twig', array('cargadorDeFechas' => $cargadorDeFechas));
-        
-    }
 
 }
