@@ -6,16 +6,18 @@
 			$( "#cresta_aulasbundle_reserva > div:nth-child(6)" ).css( "display", "none" );
 			$( "#cresta_aulasbundle_reserva_rango" ).change(
 				function ocultar(){
-					if($("#cresta_aulasbundle_reserva_rango").val==0){
+					if($("#cresta_aulasbundle_reserva_rango").val()==0){
 						//6º div oculto
-						//alert("valor 0");
-						$("#cresta_aulasbundle_reserva_rango").css("color", "red");
+						//alert($("#cresta_aulasbundle_reserva_rango").val());
+						//$("#cresta_aulasbundle_reserva_rango").css("color", "red");
 						$( "#cresta_aulasbundle_reserva > div:nth-child(6)" ).css( "display", "none" );
+						//$( "#cresta_aulasbundle_reserva > div:nth-child(6) >label" ).text("Fecha: ");
 						}
 					else{
-						//alert("valor mayor a 0");
-						$("#cresta_aulasbundle_reserva_rango").css("color", "blue");
+						//alert($("#cresta_aulasbundle_reserva_rango").val());
+						//$("#cresta_aulasbundle_reserva_rango").css("color", "blue");
 						$( "#cresta_aulasbundle_reserva > div:nth-child(6)" ).css( "display", "inline-block" );
+						//$( "#cresta_aulasbundle_reserva > div:nth-child(6) >label" ).text("Fecha desde: ");
 						}
 					}
 				)

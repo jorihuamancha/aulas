@@ -35,7 +35,7 @@
             {% endfor %}
         </select>  
         <a class="btn btn-default botonTabla" href = "disponibilidad">Quitar Filtros</a>
-
+        <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia+1}}">Siguente Dia</a>
     </form>
    
      <table class="records_list tabla" >
@@ -116,26 +116,38 @@
                                 {% set valor = (disponible.2-(disponible.1)) %}  
                                 {% if ((disponible.1 == valorIndexHora) and (disponible.3 == nombreActual)) %}                            
                                         <script>
-                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "Ocupado";
+                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = 
+                                                 "{{disponible.4.curso.anio}} </br>" +
+                                                 "{{disponible.4.curso.nombre}} </br> "+
+                                                 "{{disponible.4.docente.apellido}},{{disponible.4.docente.nombre}} ";
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
                                             document.getElementById("{{horario}}{{nombreActual}}").setAttribute('rowspan','{{valor}}');
-                                        </script>                                            
+                                        </script>
+                                                                                   
                                 {% endif %}
                                  {% if ((disponible.2 > valorIndexHora) and (disponible.1 < valorIndexHora) and (disponible.3 == nombreActual)) %}                              
                                        <script>
-                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "Ocupado";
+                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = 
+                                                 "{{disponible.4.curso.anio}} </br>" +
+                                                 "{{disponible.4.curso.nombre}} </br> "+
+                                                 "{{disponible.4.docente.apellido}},{{disponible.4.docente.nombre}} ";
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
                                             document.getElementById("{{horario}}{{nombreActual}}").remove();
-                                        </script>                                          
+                                        </script> 
+                                                                              
                                 {% endif %}
                                  {% if ((disponible.2 == valorIndexHora) and (disponible.3 == nombreActual)) %}                              
                                          <script>
-                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = "Ocupado";
+                                            document.getElementById("{{horario}}{{nombreActual}}").innerHTML = 
+                                                 "{{disponible.4.curso.anio}} </br>" +
+                                                 "{{disponible.4.curso.nombre}} </br> "+
+                                                 "{{disponible.4.docente.apellido}},{{disponible.4.docente.nombre}} ";
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
                                             document.getElementById("{{horario}}{{nombreActual}}")classList.add('HorarioOcupado');
                                         </script>
+
                                 {% endif %}
                             {% endfor %}
                            {% endfor %}
