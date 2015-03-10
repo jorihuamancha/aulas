@@ -231,7 +231,6 @@ class ReservaController extends Controller
                             (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
                             (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
                             ')
-                        
                         ->setParameter('fecha', $fecha)
                         ->setParameter('aula', $idAula)
                         ->setParameter('horaDesde', $horaDesde)
@@ -350,7 +349,8 @@ class ReservaController extends Controller
     {
         $entity = new Reserva();
         $form   = $this->createCreateForm($entity);
-        $em = $this->getDoctrine()->getManager();  
+        $em = $this->getDoctrine()->getManager();
+
         return $this->render('CrestaAulasBundle:Reserva:new.html.twig', array(
                 
             'entity' => $entity,
@@ -606,8 +606,13 @@ class ReservaController extends Controller
             $em->remove($idReserva);
             $em->flush();
 
+          
+        return $this->redirect($this->generateUrl('reserva'));
+
+
         //return $this->redirect($this->generateUrl('reserva'));
             return $this->redirect($_SERVER['HTTP_REFERER']);
+            
     }
 
     /**
