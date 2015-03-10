@@ -10,6 +10,7 @@
             <tr>
                 <th>Tipo</th>
                 <th>Nombre</th>
+                <th>Disertantes</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -18,6 +19,11 @@
             <tr>
                 <td>{{ entity.tipo }}</td>
                 <td>{{ entity.nombre }}</td>
+                {% if entity.disertantes is null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.disertantes }}</td>
+                {% endif %}
                 <td>
                 <ul>
                     <a href="{{ path('aulas_actividad_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>

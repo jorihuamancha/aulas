@@ -16,6 +16,8 @@
             <tr>
                 <th>Nombre</th>
                 <th>Apellido</th>
+                <th>Email</th>
+                <th>Teléfono</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -24,6 +26,17 @@
             <tr>
                 <td>{{ entity.nombre }}</td>
                 <td>{{ entity.apellido }}</td>
+                {% if entity.email == null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.email }}</td>
+                {% endif %}
+
+                {% if entity.telefono == null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.telefono }}</td>
+                {% endif %}
                 <td>
                 <ul>
                     

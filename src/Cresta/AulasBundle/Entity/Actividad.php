@@ -30,6 +30,14 @@ class Actividad extends Tarea
     private $tipo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="disertantes", type="string", length=255, nullable=true)
+     */
+    private $disertantes;
+
+
+    /**
      * Set tipo
      *
      * @param string $tipo
@@ -51,6 +59,30 @@ class Actividad extends Tarea
     public function getTipo()
     {
         return $this->tipo;
+    }
+
+    /**
+     * Set disertantes
+     *
+     * @param string $disertantes
+     * @return Actividad
+     */
+
+    public function setDisertantes($disertantes)
+    {
+        $this->disertantes = $disertantes;
+
+        return $this;
+    }
+
+    /**
+     * Get disertantes
+     *
+     * @return string 
+     */
+    public function getDisertantes()
+    {
+        return $this->disertantes;
     }
 
     /**

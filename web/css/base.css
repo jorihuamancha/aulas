@@ -218,20 +218,20 @@ nav ul li a:hover{
 /*Nuevos*/
 .formAutogenerado #NuevoCurso div:nth-child(6),.formAutogenerado #NuevoCurso div:nth-child(7),
 .formAutogenerado #NuevaCarrera div:nth-child(7),.formAutogenerado #NuevaCarrera div:nth-child(8),
-.formAutogenerado #NuevoActividad div:nth-child(3), .formAutogenerado #NuevoActividad div:nth-child(4),
+.formAutogenerado #NuevoActividad div:nth-child(4), .formAutogenerado #NuevoActividad div:nth-child(5),
 .formAutogenerado #NuevoRecurso div:nth-child(2),.formAutogenerado #NuevoRecurso div:nth-child(3),
 .formAutogenerado #NuevaAula div:nth-child(7),.formAutogenerado #NuevaAula div:nth-child(8),
 .formAutogenerado #NuevaAlerta div:nth-child(4),.formAutogenerado #NuevaAlerta div:nth-child(5),
-.formAutogenerado #NuevoDocente div:nth-child(3),.formAutogenerado #NuevoDocente div:nth-child(4),
+.formAutogenerado #NuevoDocente div:nth-child(5),.formAutogenerado #NuevoDocente div:nth-child(6),
 .formAutogenerado #cresta_aulasbundle_reserva div:nth-child(14), .formAutogenerado #cresta_aulasbundle_reserva div:nth-child(15), 
 /*Editar*/
 .formAutogenerado #EditarCurso div:nth-child(6),.formAutogenerado #EditarCurso div:nth-child(7),
 .formAutogenerado #EditarCarrera div:nth-child(7),.formAutogenerado #EditarCarrera div:nth-child(8),
-.formAutogenerado #EditarActividad div:nth-child(3),.formAutogenerado #EditarActividad div:nth-child(4),
+.formAutogenerado #EditarActividad div:nth-child(4),.formAutogenerado #EditarActividad div:nth-child(5),
 .formAutogenerado #EditarRecurso div:nth-child(2),.formAutogenerado #EditarRecurso div:nth-child(3),
 .formAutogenerado #EditarAula div:nth-child(7),.formAutogenerado #EditarAula div:nth-child(8),
 .formAutogenerado #EditarAlerta div:nth-child(4),.formAutogenerado #EditarAlerta div:nth-child(5),
-.formAutogenerado #EditarDocente div:nth-child(3),.formAutogenerado #EditarDocente div:nth-child(4),
+.formAutogenerado #EditarDocente div:nth-child(5),.formAutogenerado #EditarDocente div:nth-child(6),
 .formAutogenerado #EditarUsuario div:nth-child(5),.formAutogenerado #EditarUsuario div:nth-child(6){
 
 
@@ -458,6 +458,7 @@ nav ul li a:hover{
 
 
 /* Checkbox de reserva */
+
 #cresta_aulasbundle_reserva_recursos label,
 #cresta_aulasbundle_reserva_recursos input,
 #checkcurso label,
