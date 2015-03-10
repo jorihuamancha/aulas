@@ -11,13 +11,9 @@
                         {% for reserva in arrayreserva %}
                             <tr>
                                 <td>{{reserva.fechaReserva }}</td>
-                                {% if reserva.motivo == 'Se agrego correctamente' and reserva.pizaCarrera == 'N/A' %}
-                                    <td class="bg-success" style="color:green">{{reserva.motivo}}</td>
-                                {% elseif reserva.motivo != 'Se agrego correctamente' and reserva.pizaCarrera == 'N/A' %}
-                                    <td class="bg-danger" style="color:red">{{reserva.motivo}}</td>
-                                {% else %}
+                                
                                     <td class="bg-danger" style="color:red">{{reserva.pizaCarrera}}</td>
-                                {% endif%}
+                               
                             </tr>
                         {% endfor %}
                     {% endfor %}                 
