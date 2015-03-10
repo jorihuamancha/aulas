@@ -188,7 +188,6 @@ class ReservaController extends Controller
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$asd ,'pizaCarrera'=>'N/A' );
         }
         
-      
         if  ((!$canceloPiso) and (!$cancelarAlerta) ){
             $em->merge($entityAux);
             $em->flush();
@@ -273,13 +272,17 @@ class ReservaController extends Controller
         }
       
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
-        for ($i=0; $i < count($listado); $i++) { 
+        for ($i=0; $i <= count($listado) - 1; $i++) { 
             if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
-                return false;
-                
+                $siChoca = false;
             }
         }
-        return true; 
+        if($siChoca){
+            return true; 
+        }else{
+            return false;
+        }
+        
 
     }
     //By Neg.-
