@@ -1,3 +1,10 @@
+input{
+	border-radius:5px;
+}
+select{
+	border-radius:5px;
+}
+
 #userLogueado{
 	text-align:right;
 }
@@ -191,7 +198,8 @@ nav ul li a:hover{
 }
 
 .formAutogenerado{
-	margin-top:10px;
+	margin-top:20px;
+	margin-left:20px;
 
 }
 
