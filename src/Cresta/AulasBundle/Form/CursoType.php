@@ -16,7 +16,15 @@ class CursoType extends AbstractType
     {
         $builder
             ->add('nombre','text',array('label'=>'Nombre:'))
-            ->add('anio','text',array('label'=>'Año de la carrera:', 'pattern'=>"[0-9]+"))
+            ->add('anio','choice',array('label'=>'Año de la carrera:',
+                                              'choices'=> array(1 => 'Primer año',
+                                                                2 => 'Segundo año',
+                                                                3 => 'Tercer año',
+                                                                4 => 'Cuarto año',
+                                                                5 => 'Quinto año',
+                                                                6 => 'Sexto año',
+                                                                7 => 'Séptimo año'),
+                                              'required'  => true))
             ->add('semestre', 'choice', array('label'=>'Semestre:',
                                               'choices'=> array(1 => 'Primer semestre',
                                                                 2 => 'Segundo semestre',

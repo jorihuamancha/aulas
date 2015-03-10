@@ -2,56 +2,10 @@
 {% block title %} Nueva Aula {% endblock %}
 {% block body -%}
 	
-	{{ form_start(form, {'attr': {'class': 'form-horizontal style-form formAutogenerado', 'role': 'form'}}) }}
-		
-		<div class="panel panel-default">
-			<h1>Nueva Aula</h1>
-			<div class="panel-body">
-
-			    <div class="form-group">
-			        {{ form_label(form.nombre, 'Nombre: ', {'label_attr': {'class': 'col-md-2 control-label'}}) }}
-			        <div class="col-md-6">
-			            {{ form_widget(form.nombre, {'attr': {'class':'form-control'}}) }}
-			            {{ form_errors(form.nombre) }}
-			        </div>	        
-			    </div>
-
-				<div class="form-group">
-			        {{ form_label(form.piso, 'Piso: ', {'label_attr': {'class': 'col-md-2 control-label'}}) }}
-			        <div class="col-md-6">
-			            {{ form_widget(form.piso, {'attr': {'class':'form-control'}}) }}
-			            {{ form_errors(form.piso) }}
-			        </div>	        
-			    </div>  
-
-			    <div class="form-group">
-			        {{ form_label(form.recursosFijos, 'Recursos fijos: ', {'label_attr': {'class': 'col-md-2 control-label'}}) }}
-			        <div class="col-md-6">
-			            {{ form_widget(form.recursosFijos, {'attr': {'class':'form-control'}}) }}
-			            {{ form_errors(form.recursosFijos) }}
-			        </div>	        
-			    </div>
-
-			    <div class="form-group">
-			        {{ form_label(form.capacidad, 'Capacidad: ', {'label_attr': {'class': 'col-md-2 control-label'}}) }}
-			        <div class="col-md-6">
-			            {{ form_widget(form.capacidad, {'attr': {'class':'form-control'}}) }}
-			            {{ form_errors(form.capacidad) }}
-			        </div>	        
-			    </div>
-
-			    <div class="form-group">
-			        {{ form_label(form.observaciones, 'Observaciones: ', {'label_attr': {'class': 'col-md-2 control-label'}}) }}
-			        <div class="col-md-6">
-			            {{ form_widget(form.observaciones, {'attr': {'class':'form-control'}}) }}
-			            {{ form_errors(form.observaciones) }}
-			        </div>	        
-			    </div>
-
-	{{ form_end(form) }}
-
-	    	</div>
-		</div>
-
-
+	<h1>Nueva Aula</h1>
+    <div class="formAutogenerado">
+	    <div id="NuevaAula">
+	    	{{ form(form) }}	
+	    </div>
+    </div>
 {% endblock %}
