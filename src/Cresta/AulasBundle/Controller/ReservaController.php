@@ -92,7 +92,7 @@ class ReservaController extends Controller
                 //No tocar por nada del mundo
                 if ($entity->getRango() == 0){
                     if (!($entity->getFecha()>=$fechaActual)) {
-                        throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
+                        throw new Exception("La fecha para reservar deberia ser igual o psoterior a la fecha actual.");  
                     }elseif (!($entity->getHoraDesde() < $entity->getHoraHasta())) {
                         throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
                     }elseif (!$this::conprobarAlerta($entity->getFecha())){
@@ -114,7 +114,7 @@ class ReservaController extends Controller
                     
                 }else{
                     if (($entity->getFecha() >= $entity->getrangoHasta())) {
-                        throw new Exception("La fecha final de las reservas debe ser mayor a la fecha inicial");  
+                        throw new Exception("La fecha final de las reservas debe ser posterior a la fecha actual");  
                     }
                     if ($entity->getRango() > 0) {
                     $fechaReservaActual = $entity->getFecha();
@@ -502,7 +502,7 @@ class ReservaController extends Controller
             $fechaActual->setTime(00, 00, 00);
 
             if (!($entity->getFecha()>=$fechaActual)) {
-                throw new Exception("La fecha para reservar deberia ser mas grande que la fecha actual.");  
+                throw new Exception("La fecha para reservar deberia ser igual o psoterior a la fecha actual.");  
             }elseif (!($entity->getHoraDesde() != $entity->getHoraHasta())) {
                 throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
             }elseif (!$this::conprobarAlerta($entity->getFecha())){
