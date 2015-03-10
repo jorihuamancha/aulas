@@ -507,6 +507,8 @@ class ReservaController extends Controller
                 throw new Exception("Hay una feriado activo para el dia que desea agregar una reserva.");
             }elseif (!($this->sePuedeEdit($entity))) {
                 throw new Exception("Hay reservas para esa aula con esas fecha y hora");
+            }elseif ($entity->getHoraDesde() > $entity->getHoraHasta()) {
+                throw new Exception("La hora desde es posterior a la hora hasta.");
             }
       
            
