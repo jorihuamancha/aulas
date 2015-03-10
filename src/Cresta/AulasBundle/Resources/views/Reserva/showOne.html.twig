@@ -78,6 +78,14 @@
                 <th>Editor</th>
                 <td>{{ entity.diosReserva }}</td>
             </tr>
+            <tr>
+                <th>Aviso</th>
+                {% if motivo %}
+                    <td>Se agrego correctamente</td>
+                {% else %}
+                    <td>Existen reservas para esa misma carrera y año</td>
+                {% endif %}
+            </tr>
         </tbody>
     </table>
 
