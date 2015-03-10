@@ -256,7 +256,8 @@ class CarreraController extends Controller
       private function estaEnUso($entity){ 
         $em = $this->getDoctrine()->getManager();
         $carrera = $entity->getId();
-        $query = $em->createQuery('SELECT c FROM CrestaAulasBundle:Curso c WHERE c.Carrera = :carrera')->setParameter('carrera', $carrera);
+        $query = $em->createQuery('SELECT c FROM CrestaAulasBundle:Curso c WHERE c.carrera = :carrera')
+                    ->setParameter('carrera', $carrera);
         $unaConsulta = $query->getResult();
         if(empty($unaConsulta)){
             return false;

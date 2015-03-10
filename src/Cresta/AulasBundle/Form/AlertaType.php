@@ -14,9 +14,12 @@ class AlertaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {   
-
+        $fechaActual=new \DateTime();
+        $fechaActual->format('Y-m-d');
         $builder
             ->add('fecha', 'datetime', array('attr'=>array('required'=>true) ) )
+            ->add('fecha', 'datetime', array(   'data'=>$fechaActual,
+                                                'attr'=>array(  'require'=>true)))
             //'format'=>'dd MM yyyy','label'=>'Fecha: '))
             ->add('descripcion','text',array('label'=>'Descripción: '))
             ->add('observaciones','text',array('label'=>'Observaciones: ','required'=>false))

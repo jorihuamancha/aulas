@@ -40,10 +40,10 @@ class AlertaController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if (!$this::hayReserva($entity)) {
-            throw new Exception("Che para hay una reserva ese dia tranquila.");
+            throw new Exception("Hay una reserva para ese día.");
         }
 
-        if ($this::existeAlerta($entity)) {
+        if (!$this::existeAlerta($entity)) {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
@@ -57,7 +57,7 @@ class AlertaController extends Controller
                 'form'   => $form->createView(),
             ));
         }else{
-            throw new Exception("Ya existe una Alerta con esa fecha revise e intente nuevamente.");
+            throw new Exception("Ya existe una Alerta con esa fecha.");
         }
     }
 
@@ -241,7 +241,8 @@ class AlertaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $fecha = $entity->getFecha();
 
-        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:alerta a WHERE a.fecha = :fecha ')->setParameter('fecha',$fecha);
+        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:alerta a WHERE a.fecha = :fecha ')
+                    ->setParameter('fecha',$fecha);
         $actividad = $query->getResult();
         
         if (empty($actividad)) {
@@ -260,7 +261,8 @@ class AlertaController extends Controller
     private function hayReserva ($entity){
         $em = $this->getDoctrine()->getManager();
         $fecha = $entity->getFecha();
-        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fecha = :fecha ')->setParameter('fecha',$fecha);
+        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fecha = :fecha ')
+                    ->setParameter('fecha',$fecha);
         $reserva = $query->getResult();
         if (empty($reserva)) {
             $compara = null;

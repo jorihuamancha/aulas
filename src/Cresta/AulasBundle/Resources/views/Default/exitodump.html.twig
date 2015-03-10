@@ -4,9 +4,9 @@
 {% block body %}
             <!-- Designed by Alejandro Cabane -->
 	<div id='mensaje' class='alert alert-success' style='margin-top:auto; margin-bottom:auto'>
-    	<h3>La base de datos fue exportada con &eacute;xito</h3> </br> <b>Ruta:</b> " . $pathActual . "</br>
+    	<h3>La base de datos fue exportada con &eacute;xito</h3> </br> <b>Ruta:</b> {{ pathactual }} </br>
     	<center>
-    		<input type='button' class='btn btn-default botonTabla' value='Aceptar' onclick='window.close()'/>
+    		<a class='btn btn-default botonTabla' href="{{ path('reserva') }}">Aceptar</a>
     	</center>
     </div>
 {% endblock %}
