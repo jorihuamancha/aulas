@@ -270,6 +270,7 @@ class ReservaController extends Controller
         if(empty($listado)){
             return true;
         }
+        $siChoca = true;
       
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
         for ($i=0; $i <= count($listado) - 1; $i++) { 
@@ -392,7 +393,7 @@ class ReservaController extends Controller
      * Finds and displays a Reserva entity.
      *
      */
-    public function showAction($id,$motivo)
+    public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -406,7 +407,6 @@ class ReservaController extends Controller
 
         return $this->render('CrestaAulasBundle:Reserva:show.html.twig', array(
             'entity'      => $entity,
-            'motivo'      => $motivo,
             'delete_form' => $deleteForm->createView(),
         ));
     }
