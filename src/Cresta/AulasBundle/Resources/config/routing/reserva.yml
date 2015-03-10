@@ -36,4 +36,7 @@ reserva_delete:
 reserva_filtro:
     path:     /filtro/{filtro}
     defaults: { _controller: "CrestaAulasBundle:Reserva:filtro" }
-    #requirements: { _method: get | post }
+
+reserva_show_one:
+    path:     /show
+    defaults: { _controller: "CrestaAulasBundle:Reserva:showOne" }

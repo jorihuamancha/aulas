@@ -102,17 +102,15 @@ class ReservaController extends Controller
                     } 
                     try{
                         if($this->freeWilly($entity)){
-                            $motivo = 'Se agrego correctamente';
+                            $motivo = true;
                         }else{
-                            $motivo = 'Existen reservas para esa misma carrera y año';
+                            $motivo = false;
                         }    
                         $em->persist($entity);
-                        $em->flush();
-
-                        //return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId(),'motivo'=>$motivo)));
-                        return $this->render('CrestaAulasBundle:Reserva:show.html.twig', array('id' => $entity->getId(),'motivo'=>$motivo));
+                        $em->flush();              
 
                     }catch(Exception $e){}
+                    return $this->render('CrestaAulasBundle:Reserva:showOne.html.twig', array('entity' => $entity,'motivo'=>$motivo));
                     
                 }else{
                     if (($entity->getFecha() >= $entity->getrangoHasta())) {
@@ -273,7 +271,7 @@ class ReservaController extends Controller
         if(empty($listado)){
             return true;
         }
-        die();
+      
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
         for ($i=0; $i < count($listado); $i++) { 
             if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
@@ -356,6 +354,20 @@ class ReservaController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
+    }
+
+    /**
+     * Finds and displays a Reserva entity.
+     *
+     */
+    public function showOneAction($array){
+    
+        if (!$entity) {
+            throw $this->createNotFoundException('');
+        }
+
+        return $this->render('CrestaAulasBundle:Reserva:showOne.html.twig', array(
+            'array'  => $array));
     }
 
 
