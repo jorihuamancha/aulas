@@ -267,9 +267,6 @@ class ReservaController extends Controller
                 ->getQuery();
 
         $listado = $query->getResult();
-        if(empty($listado)){
-            return true;
-        }
         $siChoca = true;
       
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
