@@ -154,38 +154,73 @@
                             
                             {% for disponible in ArrayContenedor %}
                                 {% set valor = (disponible.2-(disponible.1)) %}  
-                                {% if ((disponible.1 == valorIndexHora) and (disponible.3 == nombreActual)) %}                            
+
+
+                              {# Si hay curso entonces cargo y guardo los datos en variables #}
+                                {% if disponible.4.curso is not null %}
+                                    {% if disponible.4.curso.anio == 1 %}
+                                        {% set anio='Primer año' %}
+                                    {% elseif disponible.4.curso.anio == 2 %}            
+                                        {% set anio='Segundo año' %}
+                                    {% elseif disponible.4.curso.anio == 3 %}            
+                                        {% set anio='Tercer año' %}
+                                    {% elseif disponible.4.curso.anio == 4 %}            
+                                        {% set anio='Cuarto año' %}
+                                    {% elseif disponible.4.curso.anio == 5 %}            
+                                        {% set anio='Quinto año' %}
+                                    {% elseif disponible.4.curso.anio == 6 %}            
+                                        {% set anio='Sexto año' %}
+                                    {% elseif disponible.4.curso.anio == 7 %}            
+                                        {% set anio='Séptimo año' %}
+                                    {% endif %}
+
+                                    {% set nombreCursoAct= disponible.4.curso.nombre %}
+                                    {% set color= disponible.4.curso.carrera.color %}
+                                {% else %}
+
+                                {# si no es curso, es actividad, entonces cargo las variables para actividad #}
+
+                                    {% set anio='N/A' %}
+                                    {% set nombreCursoAct= disponible.4.actividad.nombre %}
+                                    {% set color= '#a05000' %}
+                                {% endif %}
+
+
+                                {% if ((disponible.1 == valorIndexHora) and (disponible.3 == nombreActual)) %}
                                         <script>
                                             document.getElementById("{{horario}}{{nombreActual}}").innerHTML = 
-                                                 "{{disponible.4.curso.anio}} </br>" +
-                                                 "{{disponible.4.curso.nombre}} </br> "+
+                                                 "{{anio}}</br>" +
+                                                 "{{nombreCursoAct}} </br> "+
                                                  "{{disponible.4.docente.apellido}},{{disponible.4.docente.nombre}} ";
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
                                             document.getElementById("{{horario}}{{nombreActual}}").setAttribute('rowspan','{{valor}}');
+                                            document.getElementById("{{horario}}{{nombreActual}}").setAttribute('style','border-color:{{color}};color:{{color}}');
                                         </script>
                                                                                    
                                 {% endif %}
                                  {% if ((disponible.2 > valorIndexHora) and (disponible.1 < valorIndexHora) and (disponible.3 == nombreActual)) %}                              
                                        <script>
                                             document.getElementById("{{horario}}{{nombreActual}}").innerHTML = 
-                                                 "{{disponible.4.curso.anio}} </br>" +
-                                                 "{{disponible.4.curso.nombre}} </br> "+
+                                                 "{{anio}}</br>" +
+                                                 "{{nombreCursoAct}} </br> "+
                                                  "{{disponible.4.docente.apellido}},{{disponible.4.docente.nombre}} ";
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
                                             document.getElementById("{{horario}}{{nombreActual}}").remove();
+                                            document.getElementById("{{horario}}{{nombreActual}}").setAttribute('style','border-color:{{color}};color:{{color}}');
                                         </script> 
                                                                               
                                 {% endif %}
                                  {% if ((disponible.2 == valorIndexHora) and (disponible.3 == nombreActual)) %}                              
                                          <script>
                                             document.getElementById("{{horario}}{{nombreActual}}").innerHTML = 
-                                                 "{{disponible.4.curso.anio}} </br>" +
-                                                 "{{disponible.4.curso.nombre}} </br> "+
+                                                 "{{anio}}</br>" +
+                                                 "{{nombreCursoAct}} </br> "+
                                                  "{{disponible.4.docente.apellido}},{{disponible.4.docente.nombre}} ";
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
                                             document.getElementById("{{horario}}{{nombreActual}}")classList.add('HorarioOcupado');
+                                            document.getElementById("{{horario}}{{nombreActual}}").setAttribute('style','border-color:{{color}};color:{{color}}');
                                         </script>
 
                                 {% endif %}

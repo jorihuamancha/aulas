@@ -258,7 +258,11 @@ nav ul li a:hover{
 }
 
 .records_list .HorarioOcupado{
-	background-color:#EE4545;
+	/* 
+	border-color:#EE4545;	
+	*/
+	border-width: 3px;
+	border-style: solid;
 	color: #FFF;
 	font-size:10px;
 	font-weight: bold;
