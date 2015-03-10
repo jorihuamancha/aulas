@@ -13,6 +13,22 @@
                 <th>Apellido</th>
                 <td>{{ entity.apellido }}</td>
             </tr>
+            <tr>
+                <th>Email</th>
+                {% if entity.email is null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.email }}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Teléfono</th>
+                {% if entity.telefono is null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.telefono }}</td>
+                {% endif %}
+            </tr>
         </tbody>
     </table>
 

@@ -19,6 +19,20 @@ class Docente extends Persona
 
     private $personaDocente;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefono", type="string", length=30, nullable=true)
+     */
+    private $telefono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50, nullable=true)
+     */
+    private $email;
+
  	/**
      * @var string
      *
@@ -47,6 +61,52 @@ class Docente extends Persona
     public function getObservaciones()
     {
         return $this->observaciones;
+    }
+
+     /**
+     * Set email
+     *
+     * @param string $email
+     * @return Docente
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+     /**
+     * Set telefono
+     *
+     * @param string $telefono
+     * @return Docente
+     */
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return string 
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
     }
 
 }
