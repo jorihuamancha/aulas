@@ -28,3 +28,7 @@ aulas_docente_delete:
     path:     /{id}/delete
     defaults: { _controller: "CrestaAulasBundle:Docente:delete" }
 #    requirements: { _method: post|delete }
+
+aulas_docente_filtro:
+    path:     /filtro/{filtro}
+    defaults: { _controller: "CrestaAulasBundle:Docente:filtro" }

@@ -1,16 +1,84 @@
 {% extends '::base.html.twig' %}
 {% block title %} Docentes {% endblock %}
 {% block body -%}
+<script type="text/javascript">
+    $( document ).ready(function() {
+            $("#dato").css("display", "none");
+            $("#EnviarFiltro").css("display", "none");
+        });
+
+    function getval(sel) {
+       switch (sel.value) {
+         case "Hoy":
+            location.reload();
+            break;
+
+         case "Todos":
+            $("#dato").css("display", "none");
+            $("#formFiltros").attr("action","filtro/todos");
+            $("#EnviarFiltro").css("display", "none");
+            window.location.href = "{{ path('_homepage') }}docente/filtro/todos";
+            break;
+
+         case "Apellido":
+            $("#dato").css("display", "inline-block");
+            $("#formFiltros").attr("action","filtro/apellido");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+        
+        case "Email":
+            $("#dato").css("display", "inline-block");
+            $("#formFiltros").attr("action","filtro/email");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+        
+        case "Telefono":
+            $("#dato").css("display", "inline-block");
+            $("#formFiltros").attr("action","filtro/telefono");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+        }
+    }
+</script>
+
     <h1>Listado de Docentes</h1>
-
-    <ul>
-
+    <div class="herramientasTop">
+        <ul>
             <a href="{{ path('aulas_docente_new') }}" class="btn btn-default botonTabla">
-                Nueva Docente
+                Nuevo Docente
             </a>
+        </ul>
 
-    </ul>
-
+        {% if filtroActivo == 1 %}
+                <a href="{{ path('aulas_docente') }}" class="btn btn-default botonTabla">
+                    Quitar filtro
+                </a>
+        {% else %}
+            <div class="filtros">
+                <form method="POST" id="formFiltros">
+                <ul>
+                    <label>Filtrar por:</label>
+                    <select onchange="getval(this);">
+                        <option selected> Todos </option>
+                        <option> Apellido </option>
+                        <option> Email </option>
+                        <option> Telefono </option>                   
+                    </select>
+                </ul>
+                <div id="dato">
+                    <ul>
+                        <input id="datoTexto" pattern="[a-zA-Z0-9ñÑá-úÁ-Úä-üÄ-Ü@.- ]+" type="text" name="dato">
+                    </ul>
+                </div>
+                
+                <ul>
+                <button id="EnviarFiltro" class="btn btn-default">Enviar</button>
+                </ul>
+                </form>
+            </div>
+        {% endif %}
+       
+    </div>    
     <table class="records_list tabla">
         <thead>
             <tr>
