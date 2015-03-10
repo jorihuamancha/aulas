@@ -674,7 +674,15 @@ class ReservaController extends Controller
                 break;
 
             case 'Fecha':
-              
+                if ((!isset($_SESSION['fecha1'])) AND (isset($_POST['fecha1'])) ){
+                    $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
+                    $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir                    
+                }
+                else if ((!isset($_SESSION['fecha1'])) AND (!isset($_POST['fecha1']))){
+                    $_POST['fecha1'] = date('now');
+                    $_POST['fecha2'] = date('now');
+                }
+                
                 $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reserva->createQueryBuilder('r')
                 ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )
@@ -708,6 +716,15 @@ class ReservaController extends Controller
                 break;
 
             case 'fechaMateria':
+                if ((!isset($_SESSION['fecha1'])) AND (isset($_POST['fecha1'])) ){
+                    $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
+                    $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir                    
+                }
+                else if ((!isset($_SESSION['fecha1'])) AND (!isset($_POST['fecha1']))){
+                    $_POST['fecha1'] = date('now');
+                    $_POST['fecha2'] = date('now');
+                }
+
                 $reservas = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reservas->createQueryBuilder('r')
                     ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2 and r.curso IS NOT NULL')
@@ -720,6 +737,15 @@ class ReservaController extends Controller
                 break;
             
             case 'fechaActividad':
+                if ((!isset($_SESSION['fecha1'])) AND (isset($_POST['fecha1'])) ){
+                    $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
+                    $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir                    
+                }
+                else if ((!isset($_SESSION['fecha1'])) AND (!isset($_POST['fecha1']))){
+                    $_POST['fecha1'] = date('now');
+                    $_POST['fecha2'] = date('now');
+                }
+
                 $reservas = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reservas->createQueryBuilder('r')
                     ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2 and r.actividad IS NOT NULL')
@@ -761,6 +787,15 @@ class ReservaController extends Controller
 
 
             case 'Fecha':
+                if ((!isset($_SESSION['fecha1'])) AND (isset($_POST['fecha1'])) ){
+                    $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
+                    $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir                    
+                }
+                else if ((!isset($_SESSION['fecha1'])) AND (!isset($_POST['fecha1']))){
+                    $_POST['fecha1'] = date('now');
+                    $_POST['fecha2'] = date('now');
+                }
+
                 $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reserva->createQueryBuilder('r')
                 ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2' )
@@ -774,8 +809,6 @@ class ReservaController extends Controller
                 ->getQuery();
                 $entities = $query->getResult();
                 $_SESSION['nombrefiltro']='Fecha';
-                $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
-                $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir
                 break;
 
             case 'Docente':
@@ -820,35 +853,48 @@ class ReservaController extends Controller
                 break;
 
             case 'fechaMateria':
+                if ((!isset($_SESSION['fecha1'])) AND (isset($_POST['fecha1'])) ){
+                    $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
+                    $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir                    
+                }
+                else if ((!isset($_SESSION['fecha1'])) AND (!isset($_POST['fecha1']))){
+                    $_POST['fecha1'] = date('now');
+                    $_POST['fecha2'] = date('now');
+                }
+
                 $reservas = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reservas->createQueryBuilder('r')
                     ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2 and r.curso IS NOT NULL')
-                    ->setParameter('fecha1', $_POST['fecha1'])
-                    ->setParameter('fecha2', $_POST['fecha2'])
+                    ->setParameter('fecha1', $_SESSION['fecha1'])
+                    ->setParameter('fecha2', $_SESSION['fecha2'])
                     ->orderBy('r.fecha', 'ASC')
                     ->orderBy('r.horaDesde', 'ASC')
                     ->getQuery();
                 $entities = $query->getResult();
-
                 $_SESSION['nombrefiltro']='fechaMateria';
-                $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
-                $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir
                 break;
             
             case 'fechaActividad':
+                if ((!isset($_SESSION['fecha1'])) AND (isset($_POST['fecha1'])) ){
+                    $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
+                    $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir                    
+                }
+                else if ((!isset($_SESSION['fecha1'])) AND (!isset($_POST['fecha1']))){
+                    $_POST['fecha1'] = date('now');
+                    $_POST['fecha2'] = date('now');
+                }
+
                 $reservas = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reservas->createQueryBuilder('r')
                     ->where('r.fecha >= :fecha1 and r.fecha <= :fecha2 and r.actividad IS NOT NULL')
-                    ->setParameter('fecha1', $_POST['fecha1'])
-                    ->setParameter('fecha2', $_POST['fecha2'])
+                    ->setParameter('fecha1', $_SESSION['fecha1'])
+                    ->setParameter('fecha2', $_SESSION['fecha2'])
                     ->orderBy('r.fecha', 'ASC')
                     ->orderBy('r.horaDesde', 'ASC')
                     ->getQuery();
                 $entities = $query->getResult();
-
+                
                 $_SESSION['nombrefiltro']='fechaActividad';
-                $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
-                $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir
                 break;
             
 
