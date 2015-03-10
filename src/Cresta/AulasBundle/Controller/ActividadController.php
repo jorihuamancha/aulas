@@ -22,11 +22,19 @@ class ActividadController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $filtroActivo=0;
         $entities = $em->getRepository('CrestaAulasBundle:Actividad')->findAll();
+
+        if (!$entities){
+            $entities=null;
+        }
+        else {
+            $_SESSION['entities']=$entities;
+        }
 
         return $this->render('CrestaAulasBundle:Actividad:index.html.twig', array(
             'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
         ));
     }
     /**
@@ -263,6 +271,57 @@ class ActividadController extends Controller
         }else{
             return true;
         }
+    }
+
+    public function filtroAction(){
+        $filtro=$this->get('request')->get('filtro');
+        $em = $this->getDoctrine()->getManager();
+        switch ($filtro) {
+
+            case 'todos':
+                $entities = $em->getRepository('CrestaAulasBundle:Actividad')->findAll();
+                break;
+
+
+            case 'nombre':
+                $actividad = $em->getRepository('CrestaAulasBundle:Actividad');
+                $query = $actividad->createQueryBuilder('r')
+                ->where('r.nombre LIKE :nombre')
+                ->setParameter('nombre', '%'.$_POST['dato'].'%')
+                ->orderBy('r.nombre', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+            case 'tipo':
+                $actividad = $em->getRepository('CrestaAulasBundle:Actividad');
+                $query = $actividad->createQueryBuilder('r')
+                ->where('r.tipo LIKE :tipo')
+                ->setParameter('tipo', '%'.$_POST['dato'].'%')
+                ->orderBy('r.nombre', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+             case 'disertantes':
+                $actividad = $em->getRepository('CrestaAulasBundle:Actividad');
+                $query = $actividad->createQueryBuilder('r')
+                ->where('r.disertantes LIKE :disertantes')
+                ->setParameter('disertantes', '%'.$_POST['dato'].'%')
+                ->orderBy('r.nombre', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+            
+        }
+        if (!$entities){
+            $entities=null;
+        }
+
+        $filtroActivo = 1;
+
+        return $this->render('CrestaAulasBundle:Actividad:index.html.twig', array('entities' => $entities,'filtroActivo' => $filtroActivo));
+
     }
 
 }

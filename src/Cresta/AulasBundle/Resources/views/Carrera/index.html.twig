@@ -1,7 +1,48 @@
 {% extends '::base.html.twig' %}
 {% block title %}Carrera {% endblock %}
 {% block body -%}
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+            $("#dato").css("display", "none");
+            $("#EnviarFiltro").css("display", "none");
+        });
+
+    function getval(sel) {
+       switch (sel.value) {
+         case "Todos":
+            location.reload();
+            break;
+
+         case "Nombre":
+            $("#dato").css("display", "inline-block");
+            $("#formFiltros").attr("action","filtro/nombre");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+
+         case "Universidad":
+            $("#dato").css("display", "inline-block");
+            $("#formFiltros").attr("action","filtro/universidad");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+        
+        case "Facultad":
+            $("#dato").css("display", "inline-block");
+            $("#formFiltros").attr("action","filtro/facultad");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+
+        case "Plan":
+            $("#dato").css("display", "inline-block");
+            $("#formFiltros").attr("action","filtro/plan");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+        }
+    }
+</script>
+
     <h1>Listado de Carreras</h1>
+    <div class="herramientasTop">
 
     <ul>
 
@@ -10,6 +51,38 @@
             </a>
 
     </ul>
+
+    {% if filtroActivo == 1 %}
+                <a href="{{ path('aulas_carrera') }}" class="btn btn-default botonTabla">
+                    Quitar filtro
+                </a>
+        {% else %}
+            <div class="filtros">
+                <form method="POST" id="formFiltros">
+                <ul>
+                    <label>Filtrar por:</label>
+                    <select onchange="getval(this);">
+                        <option selected> Todos </option>
+                        <option> Nombre </option>
+                        <option> Universidad </option>
+                        <option> Facultad </option>
+                        <option> Plan </option>
+                    </select>
+                </ul>
+                <div id="dato">
+                    <ul>
+                        <input id="datoTexto" pattern="[a-zA-Z0-9ñÑá-úÁ-Úä-üÄ-Ü ]+" type="text" name="dato">
+                    </ul>
+                </div>
+                
+                <ul>
+                <button id="EnviarFiltro" class="btn btn-default">Enviar</button>
+                </ul>
+                </form>
+            </div>
+        {% endif %}
+       
+    </div>    
 
     <table class="records_list tabla">
         <thead>

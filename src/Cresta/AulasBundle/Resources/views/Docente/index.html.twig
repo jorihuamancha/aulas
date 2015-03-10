@@ -9,10 +9,6 @@
 
     function getval(sel) {
        switch (sel.value) {
-         case "Hoy":
-            location.reload();
-            break;
-
          case "Todos":
             $("#dato").css("display", "none");
             $("#formFiltros").attr("action","filtro/todos");

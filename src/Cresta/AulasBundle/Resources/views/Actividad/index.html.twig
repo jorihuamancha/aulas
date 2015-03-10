@@ -1,10 +1,77 @@
 {% extends '::base.html.twig' %}
 {% block title %}Actividades {% endblock %}
 {% block body -%}
+<script type="text/javascript">
+    $( document ).ready(function() {
+            $("#dato").css("display", "none");
+            $("#EnviarFiltro").css("display", "none");
+        });
+
+    function getval(sel) {
+       switch (sel.value) {
+         case "Todos":
+            location.reload();
+            break;
+
+         case "Nombre":
+            $("#dato").css("display", "inline-block");
+            $("#formFiltros").attr("action","filtro/nombre");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+
+         case "Tipo":
+            $("#dato").css("display", "inline-block");
+            $("#formFiltros").attr("action","filtro/tipo");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+        
+        case "Disertantes":
+            $("#dato").css("display", "inline-block");
+            $("#formFiltros").attr("action","filtro/disertantes");
+            $("#EnviarFiltro").css("display", "inline-block");
+            break;
+        }
+    }
+</script>
+
+
     <h1>Listado de Actividades</h1>
+    <div class="herramientasTop">
     <ul>
         <a href="{{ path('aulas_actividad_new') }} "class="btn btn-default botonTabla">Nueva Actividad</a>
     </ul>
+
+    {% if filtroActivo == 1 %}
+                <a href="{{ path('aulas_actividad') }}" class="btn btn-default botonTabla">
+                    Quitar filtro
+                </a>
+        {% else %}
+            <div class="filtros">
+                <form method="POST" id="formFiltros">
+                <ul>
+                    <label>Filtrar por:</label>
+                    <select onchange="getval(this);">
+                        <option selected> Todos </option>
+                        <option> Nombre </option>
+                        <option> Tipo </option>
+                        <option> Disertantes </option>
+                    </select>
+                </ul>
+                <div id="dato">
+                    <ul>
+                        <input id="datoTexto" pattern="[a-zA-Z0-9ñÑá-úÁ-Úä-üÄ-Ü ]+" type="text" name="dato">
+                    </ul>
+                </div>
+                
+                <ul>
+                <button id="EnviarFiltro" class="btn btn-default">Enviar</button>
+                </ul>
+                </form>
+            </div>
+        {% endif %}
+       
+    </div>    
+
     <table class="records_list tabla">
         <thead>
             <tr>
