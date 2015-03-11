@@ -145,6 +145,10 @@
         {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Diciembre'))) %}
           href = "?mes=Noviembre&dia=30">Dia Anterior</a>
 
+        {# Si no selecciono ninguna fecha y presiona Anterior dia #}
+        {% elseif (seleccionadoMes == 'Mes') %}
+          href = "?mes={{mesActuLetras}}&dia={{diaActual}}">Dia Anterior</a>
+
         {# febrero controlado #}  
         {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Febrero'))) %}
           href = "?mes=Enero&dia=30">Dia Anterior</a>
