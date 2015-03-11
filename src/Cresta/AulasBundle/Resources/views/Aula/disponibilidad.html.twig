@@ -34,7 +34,34 @@
                 <option value="?mes={{seleccionadoMes}}&dia={{seleccionadoDia}}&aula={{a.id}}">{{a.nombre}}</option>
             {% endfor %}
         </select> 
-        {% set anioActual = "now"|date("Y") %} 
+        {% set anioActual = "now"|date("Y") %}
+        {% set mesActuNum = "now"|date("m") %}
+        {% set diaActual = "now"|date("d") %}
+        {% if mesActuNum == '01' %}
+          {%set mesActuLetras = 'Enero'%}
+        {% elseif mesActuNum == '02' %}
+          {%set mesActuLetras = 'Febrero'%}
+        {% elseif mesActuNum == '03' %}
+          {%set mesActuLetras = 'Marzo'%}
+        {% elseif mesActuNum == '04' %}
+          {%set mesActuLetras = 'Abril'%}
+        {% elseif mesActuNum == '05' %}
+          {%set mesActuLetras = 'Mayo'%}
+        {% elseif mesActuNum == '06' %}
+          {%set mesActuLetras = 'Junio'%}
+        {% elseif mesActuNum == '07' %}
+          {%set mesActuLetras = 'Julio'%}
+        {% elseif mesActuNum == '08' %}
+          {%set mesActuLetras = 'Agosto'%}
+        {% elseif mesActuNum == '09' %}
+          {%set mesActuLetras = 'Septiembre'%}
+        {% elseif mesActuNum == '10' %}
+          {%set mesActuLetras = 'Octubre'%}
+        {% elseif mesActuNum == '11' %}
+          {%set mesActuLetras = 'Noviembre'%}
+        {% elseif mesActuNum == '12' %}
+          {%set mesActuLetras = 'Diciembre'%}
+        {% endif %}
         <a class="btn btn-default botonTabla" href = "disponibilidad">Quitar Filtros</a>
         
         {#  Boton Sumar un dia #}
@@ -75,13 +102,18 @@
         {% elseif ((seleccionadoDia == 28) and ((seleccionadoMes == 'Febrero'))) %}
           href = "?mes=Marzo&dia=1">Dia Siguente</a>
 
+        {# Si no selecciono ninguna fecha y presiona siguente dia #}
+        {% elseif (seleccionadoMes == 'Mes') %}
+          href = "?mes={{mesActuLetras}}&dia={{diaActual}}">Dia Siguente</a>
+
         {# Cualquier dia no especial #}
         {% else %}
           href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia+1}}">Dia Siguente</a> 
         {% endif %}
 
 
-        {# Boton restar un dia #}                                   
+        {# Boton restar un dia #} 
+
         <a class="btn btn-default botonTabla"
 
         {# Cada uno de los meses y su anterior #}
@@ -113,6 +145,9 @@
         {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Diciembre'))) %}
           href = "?mes=Noviembre&dia=30">Dia Anterior</a>
 
+        {# febrero controlado #}  
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Febrero'))) %}
+          href = "?mes=Enero&dia=30">Dia Anterior</a>
 
         {% else %}
           href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia-1}}">Dia Anterior</a>

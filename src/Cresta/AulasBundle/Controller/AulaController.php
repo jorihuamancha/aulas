@@ -209,8 +209,19 @@ class AulaController extends Controller
             ->getForm()
         ;
     }
-      public function disponibilidadAction()
-        {  
+      public function disponibilidadAction(){  
+        /* $w = 01;
+        $x = 11;
+        $z = 2015;
+        $dfg = new \DateTime('2000-01-01');
+        $dfg->setDate($z,$x,$w);
+        var_dump($dfg);
+        $dfg = getdate();
+        print_r($dfg);
+        die();*/ 
+        if (isset($_REQUEST['asd'])) {
+            header('Location:disponibilidad?mes=Marzo&dia=11');
+        }  
         //Aca empieza lo generico
         $horarios = array(1=>'08:00 a 08:30',2=>'08:30 a 09:00',3=>'09:00 a 09:30',4=>'09:30 a 10:00',5=>'10:00 a 10:30',
         6=>'10:30 a 11:00',7=>'11:00 a 11:30 ',8=>'11:30 a 12:00',9=>'12:00 a 12:30',10=>'12:30 a 13:00',11=>'13:00 a 13:30',
