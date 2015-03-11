@@ -37,10 +37,11 @@
         {% set anioActual = "now"|date("Y") %} 
         <a class="btn btn-default botonTabla" href = "disponibilidad">Quitar Filtros</a>
         
+        {#  Boton Sumar un dia #}
         <a class="btn btn-default botonTabla" 
+
         {# Cada uno de los meses y su siguente #}  
         {# Controlo los meses con 31  dias #}  
-
         {% if ((seleccionadoDia == 31) and ((seleccionadoMes == 'Enero'))) %}
           href = "?mes=Febrero&dia=1">Dia Siguente</a>
         {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Marzo'))) %}
@@ -65,11 +66,57 @@
           href = "?mes=Diciembre&dia=1">Dia Siguente</a>
         {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Diciembre'))) %}
           href = "?mes=Diciembre&dia=31">Dia Siguente</a>
-        
-         
+
+        {# Febrero Biciesto #}
+        {% elseif (((anioActual % 4 == 0) and (anioActual % 100 != 0) or (anioActual % 400 == 0)) and ((seleccionadoMes == 'Febrero') and (seleccionadoDia == 29))) %}
+          href = "?mes=Marzo&dia=1">Dia Siguente</a>
+
+        {# Febrero tranquilo en tres arroyos #}
+        {% elseif ((seleccionadoDia == 28) and ((seleccionadoMes == 'Febrero'))) %}
+          href = "?mes=Marzo&dia=1">Dia Siguente</a>
+
+        {# Cualquier dia no especial #}
+        {% else %}
+          href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia+1}}">Dia Siguente</a> 
         {% endif %}
-                                            
-        <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia-1}}">Dia Anterior</a>
+
+
+        {# Boton restar un dia #}                                   
+        <a class="btn btn-default botonTabla"
+
+        {# Cada uno de los meses y su anterior #}
+        {# Controlo los meses con 31  dias #}    
+        {% if ((seleccionadoDia == 1) and ((seleccionadoMes == 'Enero'))) %}
+          href = "?mes=Enero&dia=1">Dia Anterior</a>
+        {% elseif ((anioActual % 4 == 0) and (anioActual % 100 != 0) or (anioActual % 400 == 0)) and ((seleccionadoDia == 1) and ((seleccionadoMes == 'Marzo'))) %} 
+          href = "?mes=Febrero&dia=29">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Marzo'))) %}
+          href = "?mes=Febrero&dia=28">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Mayo'))) %}
+          href = "?mes=Abril&dia=30">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Julio'))) %}
+          href = "?mes=Junio&dia=30">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Agosto'))) %}
+          href = "?mes=Julio&dia=31">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Octubre'))) %}
+          href = "?mes=Septiembre&dia=30">Dia Siguente</a>
+
+        {# Controlo meses con 30 dias #}
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Abril'))) %}
+          href = "?mes=Marzo&dia=31">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Junio'))) %}
+          href = "?mes=Mayo&dia=31">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Septiembre'))) %}
+          href = "?mes=Agosto&dia=31">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Noviembre'))) %}
+          href = "?mes=Octubre&dia=31">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Diciembre'))) %}
+          href = "?mes=Noviembre&dia=30">Dia Anterior</a>
+
+
+        {% else %}
+          href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia-1}}">Dia Anterior</a>
+        {% endif %}
         <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia+7}}">Semana Siguente</a>
         <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia-7}}">Semama Anterior</a>
         <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes+1}}&dia={{seleccionadoDia}}">Mes Siguente</a>
