@@ -296,6 +296,8 @@ class ReservaController extends Controller
                     }else{
                         return true;       
                     }
+                }else{
+                    return true;    
                 }   
             }
         }else{
