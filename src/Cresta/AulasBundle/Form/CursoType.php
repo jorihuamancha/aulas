@@ -28,7 +28,8 @@ class CursoType extends AbstractType
             ->add('semestre', 'choice', array('label'=>'Semestre:',
                                               'choices'=> array(1 => 'Primer semestre',
                                                                 2 => 'Segundo semestre',
-                                                                3 => 'Anual'),
+                                                                3 => 'Ambos',
+                                                                4 => 'Anual'),
                                               'required'  => true))
 
             ->add('ciclo','text',array('label'=>'Ciclo lectivo:'))

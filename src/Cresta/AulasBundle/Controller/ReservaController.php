@@ -652,10 +652,7 @@ class ReservaController extends Controller
         //$entities = $_SESSION['entities'];
         $nombrefiltro=$_SESSION['nombrefiltro'];
         if (isset($_SESSION['filtro'])){
-            $filtro=$_SESSION['filtro'];
-            if ($_SESSION['fecha1'] == $_SESSION['fecha2'])
-                $nombrefiltro = 'Hoy';
-            
+            $filtro=$_SESSION['filtro'];            
         }
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
         
@@ -666,25 +663,33 @@ class ReservaController extends Controller
                         ->where('r.fecha = :fecha')
                         ->setParameter('fecha', date('Y-m-d'))
                         ->getQuery();
-                $entities = $query->getResult();
+                $entities = $query->getResult(); 
+
+                $datosFiltro = 'Asignación de Aulas ( ' . date('d/m/Y') . ' )';
                 break;
             
             case 'DiaSiguiente':
-                $fechaHoy= date_create(date('Y-m-d'));
+                $fechaHoy= date_create(date('d-m-Y'));
+                $fechaManiana = $fechaHoy->modify('+1 day');
                 $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reserva->createQueryBuilder('r')
                         ->where('r.fecha = :fecha')
-                        ->setParameter('fecha', $fechaHoy->modify('+1 day'))
+                        ->setParameter('fecha', $fechaManiana)
                         ->getQuery();
                 $entities = $query->getResult();
+
+                $fechaManiana= $fechaManiana->format('d-m-Y');
+                $datosFiltro = 'Asignación de Aulas ( ' . $fechaManiana . ' )';
                 break;
 
             case 'Todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
+                $datosFiltro = 'TODAS las reservas del sistema';
                 break;
 
             case 'Docente':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByDocente($filtro);
+                $datosFiltro = null; 
                 break;
 
             case 'Fecha':
@@ -705,28 +710,40 @@ class ReservaController extends Controller
                 ->orderBy('r.fecha', 'ASC')
                 ->getQuery();
                 $entities = $query->getResult();
+                $fecha1 = new \DateTime($_SESSION['fecha1']);
+                $fecha1 = $fecha1 -> format('d/m/Y');
+
+                $fecha2 = new \DateTime($_SESSION['fecha2']);
+                $fecha2 = $fecha2 -> format('d/m/Y');
+
+                $datosFiltro = 'Reservas del ' . $fecha1 . ' al ' . $fecha2;
                 break;
 
             case 'Aula':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByAula($filtro);
+                $datosFiltro = null;
                 break;
 
             case 'Curso':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByCurso($filtro);
+                $datosFiltro = null;
                 break;
 
             case 'Actividad':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($filtro);
+                $datosFiltro = null;
                 break;
 
             case 'TodasActividades':
                 $actividad = $em->getRepository('CrestaAulasBundle:Actividad')->findAll();
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByActividad($actividad);
+                $datosFiltro = 'TODAS las Actividades';
                 break;
 
             case 'TodasMaterias':
                 $materia = $em->getRepository('CrestaAulasBundle:Curso')->findAll();
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findByCurso($materia);
+                $datosFiltro = 'TODAS las reservas de Materias';
                 break;
 
             case 'fechaMateria':
@@ -748,6 +765,7 @@ class ReservaController extends Controller
                     ->orderBy('r.horaDesde', 'ASC')
                     ->getQuery();
                 $entities = $query->getResult();
+                $datosFiltro = 'TODAS las reservas de materias entre ' . $_SESSION['fecha1'] . ' al ' . $_SESSION['fecha2'];
                 break;
             
             case 'fechaActividad':
@@ -769,12 +787,13 @@ class ReservaController extends Controller
                     ->orderBy('r.horaDesde', 'ASC')
                     ->getQuery();
                 $entities = $query->getResult();
+                $datosFiltro = 'TODAS las reservas de actividades entre ' . $_SESSION['fecha1'] . ' al ' . $_SESSION['fecha2'];
                 break;
         }
 
         $formato=$this->get('request')->get('_format');
         return $this->render(sprintf('CrestaAulasBundle:Reserva:imprimirlistado.pdf.twig', $formato ),  
-        array( 'entities'=>$entities) );   //'nombre'=>$nombre) );
+        array( 'entities'=>$entities, 'filtro' => $nombrefiltro, 'datosFiltro' => $datosFiltro) );   //'nombre'=>$nombre) );
     }
 
 
@@ -801,14 +820,8 @@ class ReservaController extends Controller
 
 
             case 'Fecha':
-                if ((!isset($_SESSION['fecha1'])) AND (isset($_POST['fecha1'])) ){
                     $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
                     $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir                    
-                }
-                else if ((!isset($_SESSION['fecha1'])) AND (!isset($_POST['fecha1']))){
-                    $_POST['fecha1'] = date('now');
-                    $_POST['fecha2'] = date('now');
-                }
 
                 $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reserva->createQueryBuilder('r')
@@ -823,6 +836,7 @@ class ReservaController extends Controller
                 ->getQuery();
                 $entities = $query->getResult();
                 $_SESSION['nombrefiltro']='Fecha';
+                if (($_SESSION['fecha1'] == date('now')) AND  ($_SESSION['fecha2'] == date('now'))) $_SESSION['nombrefiltro']='Hoy';
                 break;
 
             case 'Docente':
@@ -875,14 +889,8 @@ class ReservaController extends Controller
                 break;
 
             case 'fechaMateria':
-                if ((!isset($_SESSION['fecha1'])) AND (isset($_POST['fecha1'])) ){
                     $_SESSION['fecha1']=$_POST['fecha1'];//Para imprimir
                     $_SESSION['fecha2']=$_POST['fecha2'];//Para imprimir                    
-                }
-                else if ((!isset($_SESSION['fecha1'])) AND (!isset($_POST['fecha1']))){
-                    $_POST['fecha1'] = date('now');
-                    $_POST['fecha2'] = date('now');
-                }
 
                 $reservas = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reservas->createQueryBuilder('r')
