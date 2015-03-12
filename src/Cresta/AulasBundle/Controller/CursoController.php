@@ -25,7 +25,12 @@ class CursoController extends Controller
         $em = $this->getDoctrine()->getManager();
         $filtroActivo=0;
 
-        $entities = $em->getRepository('CrestaAulasBundle:Curso')->findAll();
+        //$entities = $em->getRepository('CrestaAulasBundle:Curso')->findAll();
+        $curso = $em->getRepository('CrestaAulasBundle:Curso');
+        $query = $curso ->createQueryBuilder('r')
+                        ->orderBy('r.nombre', 'ASC')
+                        ->getQuery();
+        $entities = $query->getResult();
 
         return $this->render('CrestaAulasBundle:Curso:index.html.twig', array(
             'entities' => $entities,
@@ -322,16 +327,10 @@ class CursoController extends Controller
             if (!$entities){
                 $entities=null;
             }
-
             $filtroActivo = 1;
-
-
-    
     return $this->render('CrestaAulasBundle:Curso:index.html.twig', array(
             'entities' => $entities,
             'filtroActivo' => $filtroActivo,
         ));
     }
-
-
 }

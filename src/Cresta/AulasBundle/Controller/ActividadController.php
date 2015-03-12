@@ -23,7 +23,12 @@ class ActividadController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $filtroActivo=0;
-        $entities = $em->getRepository('CrestaAulasBundle:Actividad')->findAll();
+        //$entities = $em->getRepository('CrestaAulasBundle:Actividad')->findAll();
+        $actividad = $em->getRepository('CrestaAulasBundle:Actividad');
+        $query = $actividad ->createQueryBuilder('r')
+                        ->orderBy('r.nombre', 'ASC')
+                        ->getQuery();
+        $entities = $query->getResult();
 
         if (!$entities){
             $entities=null;

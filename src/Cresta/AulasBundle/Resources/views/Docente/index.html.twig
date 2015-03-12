@@ -78,8 +78,9 @@
     <table class="records_list tabla">
         <thead>
             <tr>
-                <th>Nombre</th>
+                
                 <th>Apellido</th>
+                <th>Nombre</th>
                 <th>Email</th>
                 <th>Teléfono</th>
                 <th>Acción</th>
@@ -88,8 +89,9 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{{ entity.nombre }}</td>
+                
                 <td>{{ entity.apellido }}</td>
+                <td>{{ entity.nombre }}</td>
                 {% if entity.email == null %}
                     <td> N/A </td>
                 {% else %}

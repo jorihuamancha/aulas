@@ -20,7 +20,15 @@ class AulaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $filtroActivo=0;
-        $entities = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
+        //$entities = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
+        $aula = $em->getRepository('CrestaAulasBundle:Aula');
+        $query = $aula ->createQueryBuilder('r')
+                        ->orderBy('r.piso', 'ASC')
+                        ->addOrderBy('r.nombre', 'ASC')
+                        ->getQuery();
+        $entities = $query->getResult();
+
+
         if (!$entities){
             $entities=null;
         }
@@ -717,5 +725,21 @@ class AulaController extends Controller
 
     }
 
+    public function cargadorDeFechas($fecha){
+        $index = 0;
+        while ( $index < 6 ) {
+            $fecha->modify('+1 day');
+            $fechasArray[$index] = $fecha;
+            $index++;
+        }
+        return $fechasArray;
+    }
+
+    public function ocupacionAction(){
+        
+        $cargadorDeFechas = $this->cargadorDeFechas($fecha);
+        return $this->render('CrestaAulasBundle:Aula:ocupacion.html.twig', array('cargadorDeFechas' => $cargadorDeFechas));
+        
+    }
 
 }

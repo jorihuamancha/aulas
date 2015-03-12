@@ -23,7 +23,13 @@ class CarreraController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $filtroActivo=0;
-        $entities = $em->getRepository('CrestaAulasBundle:Carrera')->findAll();
+        //$entities = $em->getRepository('CrestaAulasBundle:Carrera')->findAll();
+        $Carrera = $em->getRepository('CrestaAulasBundle:Carrera');
+        $query = $Carrera ->createQueryBuilder('r')
+                        ->orderBy('r.nombre', 'ASC')
+                        //->addOrderBy('r.nombre', 'ASC')
+                        ->getQuery();
+        $entities = $query->getResult();
 
 
         if (!$entities){
