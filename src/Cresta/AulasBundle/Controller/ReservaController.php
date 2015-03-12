@@ -271,11 +271,14 @@ class ReservaController extends Controller
       
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
         if ($entity->getCurso() != null){
-            for ($i=0; $i <= count($listado) - 1; $i++) { 
-                if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
-                    return false;
-                }else{
-                    return true;    
+
+            for ($i=0; $i <= count($listado) - 1; $i++) {
+                 if ($listado[$i]->getCurso() != null){ 
+                    if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
+                        return false;
+                    }else{
+                        return true;    
+                    }
                 }
             }
         }else{
