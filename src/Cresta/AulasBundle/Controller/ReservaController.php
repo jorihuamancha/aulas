@@ -99,7 +99,7 @@ class ReservaController extends Controller
                     }elseif (!($entity->getHoraDesde() < $entity->getHoraHasta())) {
                         throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
                     }elseif (!$this::conprobarAlerta($entity->getFecha())){
-                        throw new Exception("Hay una alerta activa para el dia que desea agregar una reserva.");
+                        throw new Exception("Hay un feriado activo para el dia que desea agregar una reserva.");
                     }elseif (!($this->sePuede($entity))) {
                         throw new Exception("Hay reservas para esa aula con esas fecha y hora");
                     } 
@@ -208,6 +208,7 @@ class ReservaController extends Controller
     private function conprobarAlerta ($fecha){
         $em = $this->getDoctrine()->getManager();
         $fecha = $fecha ;
+        $fecha->setTime(00, 00, 00);
         $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:Alerta a WHERE a.fecha = :fecha')->setParameter('fecha',$fecha);
         $unaConsulta = $query->getResult();
         if(empty($unaConsulta)){
