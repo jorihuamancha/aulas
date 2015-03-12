@@ -163,8 +163,10 @@ class ReservaController extends Controller
         }else{
             $cancelaDomingo = false;
         }*/
-        $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> 'Existen reservas para esa misma carrera y año');
-        if($this->freeWilly($entityAux) ){
+        $rsu = false;
+        $rsu = $this->freeWilly($entityAux);
+        $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> '');
+        if($rsu){
             $reservasCargadas[$index]['pizaCarrera'] = 'N/A';
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=> $asd ,'pizaCarrera'=> 'N/A');
         }else{
@@ -260,7 +262,7 @@ class ReservaController extends Controller
     
         //trae la lista de reservas dentro del rango q el user quiere cargar.
         $query = $reserva->createQueryBuilder('r')
-
+                //No traigo actividades para no chocar cosas al pedo
                 ->where('
                 ((r.fecha= :fecha) AND (r.actividad is NULL)) AND
                 ((r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
@@ -283,7 +285,6 @@ class ReservaController extends Controller
 
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
         for ($i=0; $i <= count($listado) - 1; $i++) {
-           
             if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
                 return false;
             }else{
