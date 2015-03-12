@@ -163,7 +163,7 @@ class ReservaController extends Controller
         }else{
             $cancelaDomingo = false;
         }*/
-        $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> '');
+        $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> 'Existen reservas para esa misma carrera y año');
         if($this->freeWilly($entityAux) ){
             $reservasCargadas[$index]['pizaCarrera'] = 'N/A';
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=> $asd ,'pizaCarrera'=> 'N/A');
@@ -269,6 +269,53 @@ class ReservaController extends Controller
                 (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
                 ')
                 
+                ->setParameter('fecha', $fecha)
+                ->setParameter('horaDesde', $horaDesde)
+                ->setParameter('horaHasta', $horaHasta)
+                ->getQuery();
+
+        $listado = $query->getResult();
+       
+        // si no hay reservas cargadas no choca nada.
+        if(empty($listado)){
+            return true;
+        }
+
+        //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
+        for ($i=0; $i <= count($listado) - 1; $i++) {
+           
+            if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
+                return false;
+            }else{
+                return true;       
+            }
+                
+        }
+
+    }
+
+     //By Neg.-
+    private function freeWillyModoEdit($entity){
+        $em = $this->getDoctrine()->getManager();
+       
+        $fecha=$entity->getFecha();
+        $horaDesde=$entity->getHoraDesde();
+        $horaHasta=$entity->getHoraHasta();
+        $id = $entity->getId();
+        $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+      
+        //trae la lista de reservas dentro del rango q el user quiere cargar.
+        $query = $reserva->createQueryBuilder('r')
+
+                ->where('
+                ((r.fecha= :fecha) AND (r.actividad is NULL) AND (r.id <> :id)) AND
+                ((r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
+                (r.horaHasta > :horaDesde AND r.horaHasta <= :horaHasta ) OR
+                (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
+                (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
+                ')
+
+                ->setParameter('id',$id)
                 ->setParameter('fecha', $fecha)
                 ->setParameter('horaDesde', $horaDesde)
                 ->setParameter('horaHasta', $horaHasta)
@@ -521,22 +568,15 @@ class ReservaController extends Controller
                 throw new Exception("La hora desde es posterior a la hora hasta.");
             }
             //aca puedo preguntar si dejo fecha y hora igual y me salvo de mod al pobre williy
-            $entityAux = $em->getRepository('CrestaAulasBundle:Reserva')->find($entity->getId());
-            if(($entity->getHoraHasta() == $entityAux->getHoraHasta()) and ($entity->getHoraDesde()==$entityAux->getHoraDesde()) and ($entity->getFecha() == $entityAux->getFecha())){
-                $em->flush();
-                $motivo =true;
-                return $this->render('CrestaAulasBundle:Reserva:showOne.html.twig', array('entity' => $entity,'motivo'=>$motivo));
+            if($this->freeWillyModoEdit($entity)){
+                $motivo = true;
             }else{
-                if($this->freeWilly($entity)){
-                    $motivo = true;
-                }else{
-                    $motivo = false;
-                }    
-                $em->flush();
-            }
-           
-           
+                $motivo = false;
+            }    
+            $em->flush();
             return $this->render('CrestaAulasBundle:Reserva:showOne.html.twig', array('entity' => $entity,'motivo'=>$motivo));
+        
+            
         }
 
         return $this->render('CrestaAulasBundle:Reserva:edit.html.twig', array(
