@@ -117,6 +117,8 @@ class ReservaController extends Controller
                 }else{
                     if (($entity->getFecha() >= $entity->getrangoHasta())) {
                         throw new Exception("La fecha final de las reservas debe ser posterior a la fecha actual");  
+                    }elseif (!($entity->getHoraDesde() < $entity->getHoraHasta())) {
+                        throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
                     }
                     if ($entity->getRango() > 0) {
                     $fechaReservaActual = $entity->getFecha();
@@ -273,11 +275,14 @@ class ReservaController extends Controller
       
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
         if ($entity->getCurso() != null){
-            for ($i=0; $i <= count($listado) - 1; $i++) { 
-                if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
-                    return false;
-                }else{
-                    return true;    
+
+            for ($i=0; $i <= count($listado) - 1; $i++) {
+                 if ($listado[$i]->getCurso() != null){ 
+                    if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
+                        return false;
+                    }else{
+                        return true;    
+                    }
                 }
             }
         }else{
