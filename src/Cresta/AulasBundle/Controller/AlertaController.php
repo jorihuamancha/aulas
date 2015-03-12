@@ -40,34 +40,33 @@ class AlertaController extends Controller
      * Creates a new Alerta entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request){
         $entity = new Alerta();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if (!$this::hayReserva($entity)) {
             throw new Exception("Hay una reserva para ese día.");
         }
+        try{
+            if ($this::existeAlerta($entity)) {
+                if ($form->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $fecha=$entity->getFecha();
+                    $fecha->setTime(00, 00, 00);
+                    $entity->setFecha($fecha);
+                    $em->persist($entity);
+                    $em->flush();
 
-        if ($this::existeAlerta($entity)) {
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $fecha=$entity->getFecha();
-                $fecha->setTime(00, 00, 00);
-                $entity->setFecha($fecha);
-                $em->persist($entity);
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));
+                    return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));
+                }
             }
+        }catch(Exception $e){}
 
             return $this->render('CrestaAulasBundle:Alerta:new.html.twig', array(
                 'entity' => $entity,
                 'form'   => $form->createView(),
             ));
-        }else{
-            throw new Exception("Ya existe una Alerta con esa fecha.");
-        }
+        
     }
 
     /**
@@ -255,6 +254,7 @@ class AlertaController extends Controller
 
         $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:alerta a WHERE a.fecha = :fecha ')
                     ->setParameter('fecha',$fecha);
+
         $actividad = $query->getResult();
         
         if (empty($actividad)) {
