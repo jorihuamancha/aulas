@@ -163,7 +163,7 @@ class ReservaController extends Controller
         }else{
             $cancelaDomingo = false;
         }*/
-        $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> '');
+        $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> 'Existen reservas para esa misma carrera y año');
         if($this->freeWilly($entityAux) ){
             $reservasCargadas[$index]['pizaCarrera'] = 'N/A';
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=> $asd ,'pizaCarrera'=> 'N/A');
@@ -522,12 +522,15 @@ class ReservaController extends Controller
             }elseif ($entity->getHoraDesde() > $entity->getHoraHasta()) {
                 throw new Exception("La hora desde es posterior a la hora hasta.");
             }
+            if($this->freeWilly($entity)){
+                $motivo = true;
+            }else{
+                $motivo = false;
+            }    
       
-           
-
             $em->flush();
            
-            return $this->redirect($this->generateUrl('reserva_show', array('id' => $id)));
+            return $this->render('CrestaAulasBundle:Reserva:showOne.html.twig', array('entity' => $entity,'motivo'=>$motivo));
         }
 
         return $this->render('CrestaAulasBundle:Reserva:edit.html.twig', array(
