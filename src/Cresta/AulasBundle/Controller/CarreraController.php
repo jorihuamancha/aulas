@@ -22,11 +22,20 @@ class CarreraController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $filtroActivo=0;
         $entities = $em->getRepository('CrestaAulasBundle:Carrera')->findAll();
+
+
+        if (!$entities){
+            $entities=null;
+        }
+        else {
+            $_SESSION['entities']=$entities;
+        }
 
         return $this->render('CrestaAulasBundle:Carrera:index.html.twig', array(
             'entities' => $entities,
+            'filtroActivo' => $filtroActivo,
         ));
     }
     /**
@@ -264,5 +273,62 @@ class CarreraController extends Controller
         }else{
             return true;
         }
+    }
+
+
+    public function filtroAction(){
+        $filtro=$this->get('request')->get('filtro');
+        $em = $this->getDoctrine()->getManager();
+        switch ($filtro) {
+
+            case 'nombre':
+                $carrera = $em->getRepository('CrestaAulasBundle:Carrera');
+                $query = $carrera->createQueryBuilder('r')
+                ->where('r.nombre LIKE :nombre')
+                ->setParameter('nombre', '%'.$_POST['dato'].'%')
+                ->orderBy('r.nombre', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+            case 'universidad':
+                $carrera = $em->getRepository('CrestaAulasBundle:Carrera');
+                $query = $carrera->createQueryBuilder('r')
+                ->where('r.universidad LIKE :universidad')
+                ->setParameter('universidad', '%'.$_POST['dato'].'%')
+                ->orderBy('r.universidad', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+             case 'facultad':
+                $carrera = $em->getRepository('CrestaAulasBundle:Carrera');
+                $query = $carrera->createQueryBuilder('r')
+                ->where('r.facultad LIKE :facultad')
+                ->setParameter('facultad', '%'.$_POST['dato'].'%')
+                ->orderBy('r.universidad', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+            
+            case 'plan':
+                $carrera = $em->getRepository('CrestaAulasBundle:Carrera');
+                $query = $carrera->createQueryBuilder('r')
+                ->where('r.plan LIKE :plan')
+                ->setParameter('plan', '%'.$_POST['dato'].'%')
+                ->orderBy('r.universidad', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
+                break;
+
+        }
+        if (!$entities){
+            $entities=null;
+        }
+
+        $filtroActivo = 1;
+
+        return $this->render('CrestaAulasBundle:Carrera:index.html.twig', array('entities' => $entities,'filtroActivo' => $filtroActivo));
+
     }
 }

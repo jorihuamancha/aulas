@@ -29,3 +29,6 @@ aulas_carrera_delete:
     defaults: { _controller: "CrestaAulasBundle:Carrera:delete" }
 #    requirements: { _method: post|delete }
 
+aulas_carrera_filtro:
+    path:     /filtro/{filtro}
+    defaults: { _controller: "CrestaAulasBundle:Carrera:filtro" }

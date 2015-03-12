@@ -33,49 +33,316 @@
             {% for a in aulasMostrar %}
                 <option value="?mes={{seleccionadoMes}}&dia={{seleccionadoDia}}&aula={{a.id}}">{{a.nombre}}</option>
             {% endfor %}
-        </select>  
+        </select> 
+
+        {% set anioActual = "now"|date("Y") %}
+        {% set mesActuNum = "now"|date("m") %}
+        {% set diaActual = "now"|date("d") %}
+        {% if mesActuNum == '01' %}
+          {%set mesActuLetras = 'Enero'%}
+        {% elseif mesActuNum == '02' %}
+          {%set mesActuLetras = 'Febrero'%}
+        {% elseif mesActuNum == '03' %}
+          {%set mesActuLetras = 'Marzo'%}
+        {% elseif mesActuNum == '04' %}
+          {%set mesActuLetras = 'Abril'%}
+        {% elseif mesActuNum == '05' %}
+          {%set mesActuLetras = 'Mayo'%}
+        {% elseif mesActuNum == '06' %}
+          {%set mesActuLetras = 'Junio'%}
+        {% elseif mesActuNum == '07' %}
+          {%set mesActuLetras = 'Julio'%}
+        {% elseif mesActuNum == '08' %}
+          {%set mesActuLetras = 'Agosto'%}
+        {% elseif mesActuNum == '09' %}
+          {%set mesActuLetras = 'Septiembre'%}
+        {% elseif mesActuNum == '10' %}
+          {%set mesActuLetras = 'Octubre'%}
+        {% elseif mesActuNum == '11' %}
+          {%set mesActuLetras = 'Noviembre'%}
+        {% elseif mesActuNum == '12' %}
+          {%set mesActuLetras = 'Diciembre'%}
+        {% endif %}
         <a class="btn btn-default botonTabla" href = "disponibilidad">Quitar Filtros</a>
-                                              {# COntrolo los meses con 31  dias #}  
-        <a class="btn btn-default botonTabla" {% if ((seleccionadoMes == 'Enero') or (seleccionadoMes == 'Marzo') or    
-                                              (seleccionadoMes == 'Mayo') or (seleccionadoMes == 'Julio')
-                                              or (seleccionadoMes == 'Agosto') or (seleccionadoMes == 'Octubre') or 
-                                              (seleccionadoMes == 'Diciembre')) and (seleccionadoDia < 31) %}
-                                                href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia+1}}">Dia Siguente</a>
-                                              {# Cada uno de los meses y su siguente #}  
-                                              {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Enero'))) %}
-                                                href = "?mes=Febrero&dia=1">Dia Siguente</a>
-                                              {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Marzo'))) %}
-                                                href = "?mes=Abril&dia=1">Dia Siguente</a>
-                                              {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Mayo'))) %}
-                                                href = "?mes=Junio&dia=1">Dia Siguente</a>
-                                              {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Julio'))) %}
-                                                href = "?mes=Agosto&dia=1">Dia Siguente</a>
-                                              {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Agosto'))) %}
-                                                href = "?mes=Septiembre&dia=1">Dia Siguente</a>
-                                              {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Octubre'))) %}
-                                                href = "?mes=Noviembre&dia=1">Dia Siguente</a>
-                                              {% elseif (((seleccionadoMes == 'Abril') or (seleccionadoMes == 'Junio')
-                                              or (seleccionadoMes == 'Septiembre' or (seleccionadoMes == 'Noviembre'))) and (seleccionadoDia < 30)) %}
-                                                href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia+1}}">Dia Siguente</a>
-                                              {% elseif ((seleccionadoDia == 30) and ((seleccionadoMes == 'Abril'))) %}
-                                                href = "?mes=Mayo&dia=1">Dia Siguente</a>
-                                              {% elseif ((seleccionadoDia == 30) and ((seleccionadoMes == 'Junio'))) %}
-                                                href = "?mes=Julio&dia=1">Dia Siguente</a>
-                                              {% elseif ((seleccionadoDia == 30) and ((seleccionadoMes == 'Septiembre'))) %}
-                                                href = "?mes=Octubre&dia=1">Dia Siguente</a>
-                                              {% elseif ((seleccionadoDia == 30) and ((seleccionadoMes == 'Noviembre'))) %}
-                                                href = "?mes=Diciembre&dia=1">Dia Siguente</a>
-                                              {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Diciembre'))) %}
-                                                href = "?mes=Diciembre&dia=31">Dia Siguente</a>
-                                              {% else %}
-                                                href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia+1}}">Dia Siguente</a>
-                                              {%endif%}
-                                            
-        <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia-1}}">Dia Anterior</a>
-        <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia+7}}">Semana Siguente</a>
-        <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia-7}}">Semama ANterior</a>
-        <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes+1}}&dia={{seleccionadoDia}}">Mes Siguente</a>
-        <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes-1}}&dia={{seleccionadoDia}}">Mes Anterior</a>
+        
+        {#  Boton Sumar un dia #}
+        <a class="btn btn-default botonTabla" 
+
+        {# Cada uno de los meses y su siguente #}  
+        {# Controlo los meses con 31  dias #}  
+        {% if ((seleccionadoDia == 31) and ((seleccionadoMes == 'Enero'))) %}
+          href = "?mes=Febrero&dia=1">Dia Siguente</a>
+        {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Marzo'))) %}
+          href = "?mes=Abril&dia=1">Dia Siguente</a>
+        {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Mayo'))) %}
+          href = "?mes=Junio&dia=1">Dia Siguente</a>
+        {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Julio'))) %}
+          href = "?mes=Agosto&dia=1">Dia Siguente</a>
+        {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Agosto'))) %}
+          href = "?mes=Septiembre&dia=1">Dia Siguente</a>
+        {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Octubre'))) %}
+          href = "?mes=Noviembre&dia=1">Dia Siguente</a>
+
+        {# Controlo los meses con 30  dias #}  
+        {% elseif ((seleccionadoDia == 30) and ((seleccionadoMes == 'Abril'))) %}
+          href = "?mes=Mayo&dia=1">Dia Siguente</a>
+        {% elseif ((seleccionadoDia == 30) and ((seleccionadoMes == 'Junio'))) %}
+          href = "?mes=Julio&dia=1">Dia Siguente</a>
+        {% elseif ((seleccionadoDia == 30) and ((seleccionadoMes == 'Septiembre'))) %}
+          href = "?mes=Octubre&dia=1">Dia Siguente</a>
+        {% elseif ((seleccionadoDia == 30) and ((seleccionadoMes == 'Noviembre'))) %}
+          href = "?mes=Diciembre&dia=1">Dia Siguente</a>
+        {% elseif ((seleccionadoDia == 31) and ((seleccionadoMes == 'Diciembre'))) %}
+          href = "?mes=Diciembre&dia=31">Dia Siguente</a>
+
+        {# Febrero Biciesto #}
+        {% elseif (((anioActual % 4 == 0) and (anioActual % 100 != 0) or (anioActual % 400 == 0)) and ((seleccionadoMes == 'Febrero') and (seleccionadoDia == 29))) %}
+          href = "?mes=Marzo&dia=1">Dia Siguente</a>
+
+        {# Febrero tranquilo en tres arroyos #}
+        {% elseif ((seleccionadoDia == 28) and ((seleccionadoMes == 'Febrero'))) %}
+          href = "?mes=Marzo&dia=1">Dia Siguente</a>
+
+        {# Si no selecciono ninguna fecha y presiona siguente dia #}
+        {% elseif (seleccionadoMes == 'Mes') %}
+          href = "?mes={{mesActuLetras}}&dia={{diaActual}}">Dia Siguente</a>
+
+        {# Cualquier dia no especial #}
+        {% else %}
+          href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia+1}}">Dia Siguente</a> 
+        {% endif %}
+
+
+        {# Boton restar un dia #} 
+
+        <a class="btn btn-default botonTabla"
+
+        {# Cada uno de los meses y su anterior #}
+        {# Controlo los meses con 31  dias #}    
+        {% if ((seleccionadoDia == 1) and ((seleccionadoMes == 'Enero'))) %}
+          href = "?mes=Enero&dia=1">Dia Anterior</a>
+        {% elseif ((anioActual % 4 == 0) and (anioActual % 100 != 0) or (anioActual % 400 == 0)) and ((seleccionadoDia == 1) and ((seleccionadoMes == 'Marzo'))) %} 
+          href = "?mes=Febrero&dia=29">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Marzo'))) %}
+          href = "?mes=Febrero&dia=28">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Mayo'))) %}
+          href = "?mes=Abril&dia=30">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Julio'))) %}
+          href = "?mes=Junio&dia=30">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Agosto'))) %}
+          href = "?mes=Julio&dia=31">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Octubre'))) %}
+          href = "?mes=Septiembre&dia=30">Dia Siguente</a>
+
+        {# Controlo meses con 30 dias #}
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Abril'))) %}
+          href = "?mes=Marzo&dia=31">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Junio'))) %}
+          href = "?mes=Mayo&dia=31">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Septiembre'))) %}
+          href = "?mes=Agosto&dia=31">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Noviembre'))) %}
+          href = "?mes=Octubre&dia=31">Dia Anterior</a>
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Diciembre'))) %}
+          href = "?mes=Noviembre&dia=30">Dia Anterior</a>
+
+        {# Si no selecciono ninguna fecha y presiona Anterior dia #}
+        {% elseif (seleccionadoMes == 'Mes') %}
+          href = "?mes={{mesActuLetras}}&dia={{diaActual}}">Dia Anterior</a>
+
+        {# febrero controlado #}  
+        {% elseif ((seleccionadoDia == 1) and ((seleccionadoMes == 'Febrero'))) %}
+          href = "?mes=Enero&dia=31">Dia Anterior</a>
+
+        {% else %}
+          href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia-1}}">Dia Anterior</a>
+        {% endif %}
+
+
+        <a class="btn btn-default botonTabla" href =
+        {# semama siguente #} 
+        {# Controlando Abril y su ultima semana #}
+        {% if ((seleccionadoMes == 'Abril') and (seleccionadoDia == 24) ) %}
+            "?mes=Mayo&dia=1">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Abril') and (seleccionadoDia == 25) ) %}
+            "?mes=Mayo&dia=2">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Abril') and (seleccionadoDia == 26) ) %}
+            "?mes=Mayo&dia=3">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Abril') and (seleccionadoDia == 27) ) %}
+            "?mes=Mayo&dia=4">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Abril') and (seleccionadoDia == 28) ) %}
+            "?mes=Mayo&dia=5">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Abril') and (seleccionadoDia == 29) ) %}
+            "?mes=Mayo&dia=6">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Abril') and (seleccionadoDia == 30) ) %}
+            "?mes=Mayo&dia=7">Semana Siguente</a>
+
+        {# Controlando Junio y su ultima semana #}
+        {% elseif ((seleccionadoMes == 'Junio') and (seleccionadoDia == 24) ) %}
+            "?mes=Julio&dia=1">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Junio') and (seleccionadoDia == 25) ) %}
+            "?mes=Julio&dia=2">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Junio') and (seleccionadoDia == 26) ) %}
+            "?mes=Julio&dia=3">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Junio') and (seleccionadoDia == 27) ) %}
+            "?mes=Julio&dia=4">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Junio') and (seleccionadoDia == 28) ) %}
+            "?mes=Julio&dia=5">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Junio') and (seleccionadoDia == 29) ) %}
+            "?mes=Julio&dia=6">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Junio') and (seleccionadoDia == 30) ) %}
+            "?mes=Julio&dia=7">Semana Siguente</a>
+
+        {# Controlando Septiembre y su ultima semana #}
+        {% elseif ((seleccionadoMes == 'Septiembre') and (seleccionadoDia == 24) ) %}
+            "?mes=Octubre&dia=1">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Septiembre') and (seleccionadoDia == 25) ) %}
+            "?mes=Octubre&dia=2">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Septiembre') and (seleccionadoDia == 26) ) %}
+            "?mes=Octubre&dia=3">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Septiembre') and (seleccionadoDia == 27) ) %}
+            "?mes=Octubre&dia=4">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Septiembre') and (seleccionadoDia == 28) ) %}
+            "?mes=Octubre&dia=5">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Septiembre') and (seleccionadoDia == 29) ) %}
+            "?mes=Octubre&dia=6">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Septiembre') and (seleccionadoDia == 30) ) %}
+            "?mes=Octubre&dia=7">Semana Siguente</a>
+       
+
+        {# Controlando Noviembre y su ultima semana #}
+        {% elseif ((seleccionadoMes == 'Noviembre') and (seleccionadoDia == 24) ) %}
+            "?mes=Diciembre&dia=1">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Noviembre') and (seleccionadoDia == 25) ) %}
+            "?mes=Diciembre&dia=2">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Noviembre') and (seleccionadoDia == 26) ) %}
+            "?mes=Diciembre&dia=3">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Noviembre') and (seleccionadoDia == 27) ) %}
+            "?mes=Diciembre&dia=4">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Noviembre') and (seleccionadoDia == 28) ) %}
+            "?mes=Diciembre&dia=5">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Noviembre') and (seleccionadoDia == 29) ) %}
+            "?mes=Diciembre&dia=6">Semana Siguente</a>
+        {% elseif ((seleccionadoMes == 'Noviembre') and (seleccionadoDia == 30) ) %}
+            "?mes=Diciembre&dia=7">Semana Siguente</a>
+
+        {# Controlando Noviembre y su ultima semana #}
+        
+        {# Si el usuario no completo el mes. #}
+        {% elseif (seleccionadoMes == 'Mes') %}
+          "?mes={{mesActuLetras}}&dia={{diaActual}}">Semana Siguente</a>
+
+        {# En cualquier otro caso#}
+        {% else %}
+          "?mes={{seleccionadoMes}}&dia={{seleccionadoDia+7}}">Semana Siguente</a>
+        {% endif %}
+
+        <a class="btn btn-default botonTabla" href = "?mes={{seleccionadoMes}}&dia={{seleccionadoDia-7}}">Semama Anterior</a>
+        <a class="btn btn-default botonTabla" 
+
+        {# Mes siguente #}
+        {# si el mes termina en 31 y el siguente tiene menos dias. #}
+        {% if ((seleccionadoMes == 'Enero') and (seleccionadoDia == '31')) %}
+          href = "?mes=Febrero&dia=28">Mes Siguente</a>
+
+        {# Si es año biciesto #}
+        {% elseif ((anioActual % 4 == 0) and (anioActual % 100 != 0) or (anioActual % 400 == 0)) and ((seleccionadoDia == 1) and ((seleccionadoMes == 'Enero') and (seleccionadoDia == '31')))%}
+          href = "?mes=Febrero&dia=29">Mes Siguente</a>
+
+        {% elseif ((seleccionadoMes == 'Marzo') and (seleccionadoDia == '31')) %}
+          href = "?mes=Abril&dia=30">Mes Siguente</a>
+
+        {% elseif ((seleccionadoMes == 'Mayo') and (seleccionadoDia == '31')) %}
+          href = "?mes=Junio&dia=30">Mes Siguente</a>
+
+        {% elseif ((seleccionadoMes == 'Agosto') and (seleccionadoDia == '31')) %}
+          href = "?mes=Septiembre&dia=30">Mes Siguente</a>
+
+        {% elseif ((seleccionadoMes == 'Octubre') and (seleccionadoDia == '31')) %}
+          href = "?mes=Noviembre&dia=30">Mes Siguente</a>
+
+        {# Controlando todos los meses #}
+        {% elseif (seleccionadoMes == 'Enero') %}
+          href = "?mes=Febrero&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Febrero') %}
+          href = "?mes=Marzo&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Marzo') %}
+          href = "?mes=Abril&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Abril') %}
+          href = "?mes=Mayo&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Mayo') %}
+          href = "?mes=Junio&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Junio') %}
+          href = "?mes=Julio&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Julio') %}
+          href = "?mes=Agosto&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Agosto') %}
+          href = "?mes=Septiembre&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Septiembre') %}
+          href = "?mes=Octubre&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Octubre') %}
+          href = "?mes=Noviembre&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Noviembre') %}
+          href = "?mes=Diciembre&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% elseif (seleccionadoMes == 'Diciembre') %}
+          href = "?mes=Diciembre&dia={{seleccionadoDia}}">Mes Siguente</a>
+
+        {# Si no hay ningun mes en el selector #}
+        {% elseif (seleccionadoMes == 'Mes') %}
+          href = "?mes={{mesActuLetras}}&dia={{seleccionadoDia}}">Mes Siguente</a>
+        {% endif %}
+        <a class="btn btn-default botonTabla" 
+        {# Mes anterior #}
+        {% if ((seleccionadoMes == 'Diciembre') and (seleccionadoDia == '31')) %}
+          href = "?mes=Noviembre&dia=30">Mes Anterior</a>
+        {% elseif ((seleccionadoMes == 'Octubre') and (seleccionadoDia == '31')) %}
+          href = "?mes=Septiembre&dia=30">Mes Anterior</a>
+        {% elseif ((seleccionadoMes == 'Julio') and (seleccionadoDia == '31')) %}
+          href = "?mes=Junio&dia=30">Mes Anterior</a>
+        {% elseif ((seleccionadoMes == 'Mayo') and (seleccionadoDia == '31')) %}
+          href = "?mes=Abril&dia=30">Mes Anterior</a>
+        {% elseif ((seleccionadoMes == 'Julio') and (seleccionadoDia == '31')) %}
+          href = "?mes=Junio&dia=30">Mes anterior</a>
+
+        {# Si es biciesto #}
+        {% elseif ((anioActual % 4 == 0) and (anioActual % 100 != 0) or (anioActual % 400 == 0)) and ((seleccionadoDia == 1) and ((seleccionadoMes == 'Marzo') and (seleccionadoDia == '31')))%}
+          href = "?mes=Febrero&dia=29">Mes Anterior</a>
+
+        {# Febrero Normal #}
+        {% elseif ((seleccionadoMes == 'Marzo') and (seleccionadoDia == '31')) %}
+          href = "?mes=Febrero&dia=28">Mes Anterior</a>
+
+        {# Controlando todos los meses #}
+        {% elseif (seleccionadoMes == 'Diciembre') %}
+          href = "?mes=Noviembre&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% elseif (seleccionadoMes == 'Noviembre') %}
+          href = "?mes=Octubre&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% elseif (seleccionadoMes == 'Octubre') %}
+          href = "?mes=Septiembre&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% elseif (seleccionadoMes == 'Septiembre') %}
+          href = "?mes=Agosto&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% elseif (seleccionadoMes == 'Agosto') %}
+          href = "?mes=Julio&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% elseif (seleccionadoMes == 'Julio') %}
+          href = "?mes=Junio&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% elseif (seleccionadoMes == 'Junio') %}
+          href = "?mes=Mayo&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% elseif (seleccionadoMes == 'Mayo') %}
+          href = "?mes=Abril&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% elseif (seleccionadoMes == 'Abril') %}
+          href = "?mes=Marzo&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% elseif (seleccionadoMes == 'Marzo') %}
+          href = "?mes=Febrero&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {# Si no hay ningun mes en el selector #}
+        {% elseif (seleccionadoMes == 'Febrero') %}
+          href = "?mes=Enero&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% elseif (seleccionadoMes == 'Enero') %}
+          href = "?mes=Enero&dia={{seleccionadoDia}}">Mes Anterior</a>
+
+        {% elseif (seleccionadoMes == 'Mes') %}
+          href = "?mes={{mesActuLetras}}&dia={{seleccionadoDia}}">Mes Anterior</a>
+        {% endif %}
+
     </form>
    
      <table class="records_list tabla" >
