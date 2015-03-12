@@ -26,10 +26,10 @@ class DocenteController extends Controller
         $em = $this->getDoctrine()->getManager();
         $filtroActivo=0;
         //$entities = $em->getRepository('CrestaAulasBundle:Docente')->findAll();
-        $reserva = $em->getRepository('CrestaAulasBundle:Docente');
-        $query = $reserva->createQueryBuilder('r')
-        ->orderBy('r.apellido', 'ASC')
-        ->getQuery();
+        $docente = $em->getRepository('CrestaAulasBundle:Docente');
+        $query = $docente->createQueryBuilder('r')
+                        ->orderBy('r.apellido', 'ASC')
+                        ->getQuery();
         $entities = $query->getResult();
 
         if (!$entities){

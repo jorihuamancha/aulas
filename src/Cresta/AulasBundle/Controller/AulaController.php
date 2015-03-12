@@ -20,7 +20,15 @@ class AulaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $filtroActivo=0;
-        $entities = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
+        //$entities = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
+        $aula = $em->getRepository('CrestaAulasBundle:Aula');
+        $query = $aula ->createQueryBuilder('r')
+                        ->orderBy('r.piso', 'ASC')
+                        ->addOrderBy('r.nombre', 'ASC')
+                        ->getQuery();
+        $entities = $query->getResult();
+
+
         if (!$entities){
             $entities=null;
         }

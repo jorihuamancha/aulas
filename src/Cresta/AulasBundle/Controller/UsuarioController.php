@@ -27,7 +27,14 @@ class UsuarioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CrestaAulasBundle:Usuario')->findAll();
+        //$entities = $em->getRepository('CrestaAulasBundle:Usuario')->findAll();
+        
+        $Usuario = $em->getRepository('CrestaAulasBundle:Usuario');
+        $query = $Usuario ->createQueryBuilder('r')
+                        //->orderBy('r.nombre', 'ASC')
+                        //->addOrderBy('r.nombre', 'ASC')
+                        ->getQuery();
+        $entities = $query->getResult();
 
         return $this->render('CrestaAulasBundle:Usuario:index.html.twig', array(
             'entities' => $entities,

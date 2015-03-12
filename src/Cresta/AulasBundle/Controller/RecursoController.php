@@ -24,7 +24,14 @@ class RecursoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CrestaAulasBundle:Recurso')->findAll();
+        //$entities = $em->getRepository('CrestaAulasBundle:Recurso')->findAll();
+
+        $recurso = $em->getRepository('CrestaAulasBundle:Recurso');
+        $query = $recurso ->createQueryBuilder('r')
+                        ->orderBy('r.nombre', 'ASC')
+                        //->addOrderBy('r.nombre', 'ASC')
+                        ->getQuery();
+        $entities = $query->getResult();
 
         return $this->render('CrestaAulasBundle:Recurso:index.html.twig', array(
             'entities' => $entities,

@@ -38,7 +38,8 @@ class ReservaController extends Controller
         $query = $reserva->createQueryBuilder('r')
                 ->where('r.fecha = :fecha')
                 ->setParameter('fecha', date('Y-m-d'))
-                ->orderBy('r.horaDesde', 'ASC')
+                ->orderBy('r.fecha', 'ASC')
+                ->addOrderBy('r.horaDesde', 'ASC')
                 ->getQuery();
         $entities = $query->getResult();
 
