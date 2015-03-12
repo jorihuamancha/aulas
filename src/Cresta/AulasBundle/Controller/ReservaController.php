@@ -83,6 +83,8 @@ class ReservaController extends Controller
                 $entity->setHoraHasta($horaHasta);
                 //Fecha actual.
                 $fechaActual=new \DateTime('now');
+                //habria que darle formato d-m-y a la fecha para poder ordenarlas
+
                 $fechaActual->setTime(00, 00, 00);
                 //Rango final de las reservas.
                 $rangoHasta = $entity->getrangoHasta();
@@ -786,6 +788,15 @@ class ReservaController extends Controller
             case 'Todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
                 $_SESSION['nombrefiltro']='Todos';//Para imprimir
+                //agrego lo siguiente para que ordene cuando se abre el listado
+                //By Neg.-
+                /*$reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                $query = $reserva->createQueryBuilder('r')
+                                ->orderBy('r.horaDesde', 'ASC') //esta mal
+                                ->addOrderBy('r.fecha', 'ASC')
+                                ->getQuery();
+                $entities = $query->getResult();*/
+                //fin de agregados
                 break;
 
             case 'DiaSiguiente':

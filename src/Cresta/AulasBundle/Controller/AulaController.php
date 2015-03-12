@@ -661,13 +661,6 @@ class AulaController extends Controller
 
             case 'todos':
                 $entities = $em->getRepository('CrestaAulasBundle:Aula')->findAll();
-                //$reserva = $em->getRepository('CrestaAulasBundle:Aula');
-                //$query = $reserva->createQueryBuilder('r')
-                //->where('r.nombre = :nombre')
-                //->setParameter('nombre', $_POST['dato'])
-                //->orderBy('r.piso', 'ASC')
-                //->getQuery();
-                //$entities = $query->getResult();
                 break;
 
 
@@ -712,5 +705,21 @@ class AulaController extends Controller
 
     }
 
+    public function cargadorDeFechas($fecha){
+        $index = 0;
+        while ( $index < 6 ) {
+            $fecha->modify('+1 day');
+            $fechasArray[$index] = $fecha;
+            $index++;
+        }
+        return $fechasArray;
+    }
+
+    public function ocupacionAction(){
+        
+        $cargadorDeFechas = $this->cargadorDeFechas($fecha);
+        return $this->render('CrestaAulasBundle:Aula:ocupacion.html.twig', array('cargadorDeFechas' => $cargadorDeFechas));
+        
+    }
 
 }

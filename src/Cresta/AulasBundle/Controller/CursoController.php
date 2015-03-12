@@ -322,16 +322,10 @@ class CursoController extends Controller
             if (!$entities){
                 $entities=null;
             }
-
             $filtroActivo = 1;
-
-
-    
     return $this->render('CrestaAulasBundle:Curso:index.html.twig', array(
             'entities' => $entities,
             'filtroActivo' => $filtroActivo,
         ));
     }
-
-
 }
