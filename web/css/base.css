@@ -223,7 +223,7 @@ nav ul li a:hover{
 .formAutogenerado #NuevaAula div:nth-child(7),.formAutogenerado #NuevaAula div:nth-child(8),
 .formAutogenerado #NuevaAlerta div:nth-child(4),.formAutogenerado #NuevaAlerta div:nth-child(5),
 .formAutogenerado #NuevoDocente div:nth-child(5),.formAutogenerado #NuevoDocente div:nth-child(6),
-.formAutogenerado #cresta_aulasbundle_reserva div:nth-child(14), .formAutogenerado #cresta_aulasbundle_reserva div:nth-child(15), 
+.formAutogenerado #cresta_aulasbundle_reserva div:nth-child(15), .formAutogenerado #cresta_aulasbundle_reserva div:nth-child(16), 
 /*Editar*/
 .formAutogenerado #EditarCurso div:nth-child(6),.formAutogenerado #EditarCurso div:nth-child(7),
 .formAutogenerado #EditarCarrera div:nth-child(7),.formAutogenerado #EditarCarrera div:nth-child(8),
@@ -242,6 +242,10 @@ nav ul li a:hover{
 }
 .formAutogenerado #EditarUsuario div:nth-child(3){
 	visibility: hidden
+}
+
+.formAutogenerado #cresta_aulasbundle_reserva div:nth-child(14) label{
+	display:inline-block;
 }
 
 .formAutogenerado #NuevaAlerta div:nth-child(2),.formAutogenerado #EditarAlerta div:nth-child(2){ /* div de la fecha */

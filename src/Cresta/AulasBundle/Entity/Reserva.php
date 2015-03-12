@@ -113,6 +113,14 @@ class Reserva
     */
     private $recursos;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="suspendida", type="boolean", length=1, nullable=true)
+     */
+    private $suspendida;
+
+
     public function __construct(){
         $this->recursos = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -180,6 +188,30 @@ class Reserva
 
     public function setRecursos($recursos){
         $this->recursos []=$recursos;
+    }
+
+
+    /**
+     * Set suspendida
+     *
+     * @param string $suspendida
+     * @return Reserva
+     */
+    public function setSuspendida($suspendida)
+    {
+        $this->suspendida = $suspendida;
+
+        return $this;
+    }
+
+    /**
+     * Get suspendida
+     *
+     * @return string 
+     */
+    public function getSuspendida()
+    {
+        return $this->suspendida;
     }
 
      /**

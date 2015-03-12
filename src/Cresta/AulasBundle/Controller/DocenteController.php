@@ -25,7 +25,12 @@ class DocenteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $filtroActivo=0;
-        $entities = $em->getRepository('CrestaAulasBundle:Docente')->findAll();
+        //$entities = $em->getRepository('CrestaAulasBundle:Docente')->findAll();
+        $reserva = $em->getRepository('CrestaAulasBundle:Docente');
+        $query = $reserva->createQueryBuilder('r')
+        ->orderBy('r.apellido', 'ASC')
+        ->getQuery();
+        $entities = $query->getResult();
 
         if (!$entities){
             $entities=null;
@@ -259,7 +264,12 @@ class DocenteController extends Controller
         switch ($filtro) {
 
             case 'todos':
-                $entities = $em->getRepository('CrestaAulasBundle:Docente')->findAll();
+                //$entities = $em->getRepository('CrestaAulasBundle:Docente')->findAll();
+                $reserva = $em->getRepository('CrestaAulasBundle:Docente');
+                $query = $reserva->createQueryBuilder('r')
+                ->orderBy('r.apellido', 'ASC')
+                ->getQuery();
+                $entities = $query->getResult();
                 break;
 
 
@@ -269,7 +279,7 @@ class DocenteController extends Controller
                 ->where('r.apellido LIKE :apellido')
                 ->setParameter('apellido', '%'.$_POST['dato'].'%')
                 ->orderBy('r.apellido', 'ASC')
-                ->orderBy('r.nombre', 'ASC')
+                //->orderBy('r.nombre', 'ASC')
                 ->getQuery();
                 $entities = $query->getResult();
                 break;

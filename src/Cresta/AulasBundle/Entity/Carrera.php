@@ -52,7 +52,7 @@ class Carrera
     /**
      * @var string
      *
-     * @ORM\Column(name="plan", type="string", length=20)
+     * @ORM\Column(name="plan", type="string", length=20, nullable=true)
      */
     private $plan;
 
