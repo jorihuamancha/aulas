@@ -277,16 +277,8 @@ class ReservaController extends Controller
         if(empty($listado)){
             return true;
         }
-        $todasAct = false;
-        //si las reservas cargadas son solo actividades no choca nada.
-        for ($i=0; $i <= count($listado) - 1; $i++) {
-            if ($listado[$i]->getCurso() == null){
-                $todasAct = true;
-            }
-        }
-        if(!$todasAct){
-            return true;
-        }
+        
+       
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
         if ($entity->getCurso() != null){
             for ($i=0; $i <= count($listado) - 1; $i++) {
@@ -296,9 +288,7 @@ class ReservaController extends Controller
                     }else{
                         return true;       
                     }
-                }else{
-                    return true;    
-                }   
+                }
             }
         }else{
             return true; 
