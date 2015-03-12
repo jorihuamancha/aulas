@@ -257,6 +257,7 @@
                 <th>Materia/Actividad</th>
                 <th>Carrera</th>
                 <th>Aula</th>
+                <th>Recursos</th>
                 <th>Editor</th>
                 <th>Acciones</th>
             </tr>
@@ -264,7 +265,7 @@
         <tbody>
         {% if entities is null %}
             <tr>
-                <td colspan="8">
+                <td colspan="9">
                     No se encontraron reservas.
                 </td>
             </tr>
@@ -289,6 +290,17 @@
                     </td>
                     {% endif %}
                 <td>{{ entity.aula.nombre }}</td>
+                {% if entity.recursos == null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>
+                    <div class="ListaRecursos">
+                    {% for recurso in entity.recursos %}
+                        {{ recurso.nombre }} </br>
+                    {% endfor %}
+                    </div>
+                    </td>
+                {% endif %}
                 <td>{{ entity.diosReserva }}</td>
                 <td>
                 <ul>
