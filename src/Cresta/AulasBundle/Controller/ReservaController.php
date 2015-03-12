@@ -115,6 +115,8 @@ class ReservaController extends Controller
                 }else{
                     if (($entity->getFecha() >= $entity->getrangoHasta())) {
                         throw new Exception("La fecha final de las reservas debe ser posterior a la fecha actual");  
+                    }elseif (!($entity->getHoraDesde() < $entity->getHoraHasta())) {
+                        throw new Exception("La hora de comienzo coincide con la hora final de la reserva :(");
                     }
                     if ($entity->getRango() > 0) {
                     $fechaReservaActual = $entity->getFecha();
