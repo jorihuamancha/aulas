@@ -76,6 +76,10 @@ class ReservaType extends AbstractType
             ->add('horaRegistro', 'datetime', array(    'data'=>$horaActual, //new \DateTime("H:i:s"),
                                                         'attr'=>array('class'=>'oculto'),
                                                         'label'=>' ') )
+            ->add('suspendida', 'checkbox', array('label'=>'Suspendido: ',
+                                                  'data'=>false,
+                                                  'required'=>false,
+                                                  'attr'=>array('class'=>'inline-block')))
             //->add('usuario', 'text', array('attr'=>array('class'=>'oculto')))
             //->add('rangoDesde', 'datetime', array( 'label'=>'Reservar Desde: ','attr'=>array('required'=>true)))
             //->add('rangoHasta', 'datetime', array( 'label'=>'Fecha Hasta: ','attr'=>array('required'=>true)))

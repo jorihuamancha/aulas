@@ -5,6 +5,13 @@
 
     <table class="record_properties tabla">
         <tbody>
+            {% if entity.suspendida == true %}
+                <tr>
+                    <td colspan="2" style="background-color: #FF0000; color:#FFF">
+                         <p> <b> RESERVA SUSPENDIDA </b> </p>
+                    </td>
+                </tr>
+            {% endif %}
             <tr>
                 <th>Fecha de Reserva</th>
                 <td>{{ entity.fecha|date('d-m-Y') }}</td>

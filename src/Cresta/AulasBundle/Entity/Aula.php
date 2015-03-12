@@ -59,7 +59,7 @@ class Aula
     /**
      * @var string
      *
-     * @ORM\Column(name="recursosFijos", type="string", length=255)
+     * @ORM\Column(name="recursosFijos", type="string", length=255, nullable=true)
      */
     private $recursosFijos;
 
