@@ -161,7 +161,7 @@ class ReservaController extends Controller
             $cancelaDomingo = false;
         }*/
         $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> '');
-        if($this->freeWilly($entityAux) and ($record)){
+        if($this->freeWilly($entityAux) ){
             $reservasCargadas[$index]['pizaCarrera'] = 'N/A';
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=> $asd ,'pizaCarrera'=> 'N/A');
         }else{
@@ -270,18 +270,30 @@ class ReservaController extends Controller
 
         $listado = $query->getResult();
         
-      
+        // si no hay reservas cargadas no choca nada.
+        if(empty($listado)){
+            return true;
+        }
+        $todasAct = false;
+        //si las reservas cargadas son solo actividades no choca nada.
+        for ($i=0; $i <= count($listado) - 1; $i++) {
+            if ($listado[$i]->getCurso() == null){
+                $todasAct = true;
+            }
+        }
+        if(!$todasAct){
+            return true;
+        }
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
         if ($entity->getCurso() != null){
-
             for ($i=0; $i <= count($listado) - 1; $i++) {
-                 if ($listado[$i]->getCurso() != null){ 
+                if ($listado[$i]->getCurso() != null){
                     if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
                         return false;
                     }else{
-                        return true;    
+                        return true;       
                     }
-                }
+                }   
             }
         }else{
             return true; 
