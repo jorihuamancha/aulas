@@ -35,7 +35,14 @@ class MovimientoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CrestaAulasBundle:Movimiento')->findAll();
+        //$entities = $em->getRepository('CrestaAulasBundle:Movimiento')->findAll();
+
+        $Movimiento = $em->getRepository('CrestaAulasBundle:Movimiento');
+        $query = $Movimiento ->createQueryBuilder('r')
+                        ->orderBy('r.fecha', 'ASC')
+                        ->addOrderBy('r.reservaHoraDesde', 'ASC')
+                        ->getQuery();
+        $entities = $query->getResult();
 
         return $this->render('CrestaAulasBundle:Movimiento:index.html.twig', array(
             'entities' => $entities,
