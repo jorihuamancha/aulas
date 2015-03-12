@@ -24,7 +24,13 @@ class AlertaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CrestaAulasBundle:Alerta')->findAll();
+        //$entities = $em->getRepository('CrestaAulasBundle:Alerta')->findAll();
+        $Alerta = $em->getRepository('CrestaAulasBundle:Alerta');
+        $query = $Alerta ->createQueryBuilder('r')
+                        ->orderBy('r.fecha', 'ASC')
+                        //->addOrderBy('r.nombre', 'ASC')
+                        ->getQuery();
+        $entities = $query->getResult();
 
         return $this->render('CrestaAulasBundle:Alerta:index.html.twig', array(
             'entities' => $entities,
@@ -46,6 +52,9 @@ class AlertaController extends Controller
         if ($this::existeAlerta($entity)) {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+                $fecha=$entity->getFecha();
+                $fecha->setTime(00, 00, 00);
+                $entity->setFecha($fecha);
                 $em->persist($entity);
                 $em->flush();
 
