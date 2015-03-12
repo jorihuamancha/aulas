@@ -522,13 +522,21 @@ class ReservaController extends Controller
             }elseif ($entity->getHoraDesde() > $entity->getHoraHasta()) {
                 throw new Exception("La hora desde es posterior a la hora hasta.");
             }
-            if($this->freeWilly($entity)){
-                $motivo = true;
+            //aca puedo preguntar si dejo fecha y hora igual y me salvo de mod al pobre williy
+            $entityAux = $em->getRepository('CrestaAulasBundle:Reserva')->find($entity->getId());
+            if(($entity->getHoraHasta() == $entityAux->getHoraHasta()) and ($entity->getHoraDesde()==$entityAux->getHoraDesde()) and ($entity->getFecha() == $entityAux->getFecha())){
+                $em->flush();
+                $motivo =true;
+                return $this->render('CrestaAulasBundle:Reserva:showOne.html.twig', array('entity' => $entity,'motivo'=>$motivo));
             }else{
-                $motivo = false;
-            }    
-      
-            $em->flush();
+                if($this->freeWilly($entity)){
+                    $motivo = true;
+                }else{
+                    $motivo = false;
+                }    
+                $em->flush();
+            }
+           
            
             return $this->render('CrestaAulasBundle:Reserva:showOne.html.twig', array('entity' => $entity,'motivo'=>$motivo));
         }
