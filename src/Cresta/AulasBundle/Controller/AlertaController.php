@@ -258,16 +258,12 @@ class AlertaController extends Controller
         $actividad = $query->getResult();
         
         if (empty($actividad)) {
-            $compara = null;
-        }else{
-            $compara = $actividad[0]->getFecha();
-        }
-        
-        if ($compara != $entity->getFecha()){
             return true;
+
         }else{
-            return false;
+           return false;
         }
+    
      }
 
     private function hayReserva ($entity){
@@ -277,16 +273,11 @@ class AlertaController extends Controller
                     ->setParameter('fecha',$fecha);
         $reserva = $query->getResult();
         if (empty($reserva)) {
-            $compara = null;
-        }else{
-            $compara = $reserva[0]->getFecha();
-        }
-        
-        if ($compara != $entity->getFecha()){
             return true;
         }else{
             return false;
         }
+    
     }
 
 }
