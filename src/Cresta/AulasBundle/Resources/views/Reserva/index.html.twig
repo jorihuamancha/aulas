@@ -10,7 +10,10 @@
             $("#fechaMateria").css("display", "none");
             $("#fechaActividad").css("display", "none");
             
-        });
+
+            {# Esto es para que aparezcan y desaparezcan los recursos en la lista#}
+
+    });          
 
     function getval(sel) {
        switch (sel.value) {
@@ -290,15 +293,26 @@
                     </td>
                     {% endif %}
                 <td>{{ entity.aula.nombre }}</td>
-                {% if entity.recursos == null %}
-                    <td> N/A </td>
+                {% if entity.recursos is empty %}
+                    <td> n/a </td>
                 {% else %}
                     <td>
-                    <div class="ListaRecursos">
-                    {% for recurso in entity.recursos %}
-                        {{ recurso.nombre }} </br>
-                    {% endfor %}
-                    </div>
+                        <div>
+                        <a href='#' onclick="
+                            if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
+                               this.parentNode.getElementsByTagName('div')[0].style.display = '';this.innerHTML = '(Ocultar)';
+                            }
+                            else{
+                               this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.innerHTML = 'Ver recursos';
+                            }
+                            return false" type="button">Ver recursos</a>
+
+                            <div style="display: none;">
+                                {% for recurso in entity.recursos %}
+                                {{ recurso.nombre }} </br>
+                            {% endfor %}
+                            </div>
+                        </div>
                     </td>
                 {% endif %}
                 <td>{{ entity.diosReserva }}</td>
