@@ -43,7 +43,7 @@ class AlertaController extends Controller
             throw new Exception("Hay una reserva para ese día.");
         }
 
-        if (!$this::existeAlerta($entity)) {
+        if ($this::existeAlerta($entity)) {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
