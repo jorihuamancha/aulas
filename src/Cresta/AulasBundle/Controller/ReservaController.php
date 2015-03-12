@@ -163,7 +163,7 @@ class ReservaController extends Controller
         }else{
             $cancelaDomingo = false;
         }*/
-        $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> 'Existen reservas para esa misma carrera y año');
+        $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> '');
         if($this->freeWilly($entityAux) ){
             $reservasCargadas[$index]['pizaCarrera'] = 'N/A';
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=> $asd ,'pizaCarrera'=> 'N/A');
@@ -257,41 +257,39 @@ class ReservaController extends Controller
         $horaDesde=$entity->getHoraDesde();
         $horaHasta=$entity->getHoraHasta();
         $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+    
         //trae la lista de reservas dentro del rango q el user quiere cargar.
         $query = $reserva->createQueryBuilder('r')
+
                 ->where('
-                (r.fecha= :fecha) AND
+                ((r.fecha= :fecha) AND (r.actividad is NULL)) AND
                 ((r.horaDesde >= :horaDesde AND r.horaDesde < :horaHasta ) OR
                 (r.horaHasta > :horaDesde AND r.horaHasta <= :horaHasta ) OR
                 (r.horaDesde <= :horaDesde AND r.horaHasta >= :horaHasta ) OR
                 (r.horaDesde >= :horaDesde AND r.horaHasta <= :horaHasta ) )
                 ')
+                
                 ->setParameter('fecha', $fecha)
                 ->setParameter('horaDesde', $horaDesde)
                 ->setParameter('horaHasta', $horaHasta)
                 ->getQuery();
 
         $listado = $query->getResult();
-        
+       
         // si no hay reservas cargadas no choca nada.
         if(empty($listado)){
             return true;
         }
-        
-       
+
         //verifica que no etngo choque de otros cursos del mismo año y la misma carrera
-        if ($entity->getCurso() != null){
-            for ($i=0; $i <= count($listado) - 1; $i++) {
-                if ($listado[$i]->getCurso() != null){
-                    if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
-                        return false;
-                    }else{
-                        return true;       
-                    }
-                }
+        for ($i=0; $i <= count($listado) - 1; $i++) {
+           
+            if(($listado[$i]->getCurso()->getCarrera() == $entity->getCurso()->getCarrera()) and ($listado[$i]->getCurso()->getAnio() == $entity->getCurso()->getAnio())){
+                return false;
+            }else{
+                return true;       
             }
-        }else{
-            return true; 
+                
         }
 
     }
