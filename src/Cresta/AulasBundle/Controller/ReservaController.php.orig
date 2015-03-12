@@ -109,14 +109,13 @@ class ReservaController extends Controller
                         $em->persist($entity);
                         $em->flush();
 
-                        //return $this->redirect($this->generateUrl('reserva_show', array('id' => $entity->getId(),'motivo'=>$motivo)));
                         return $this->render('CrestaAulasBundle:Reserva:show.html.twig', array('id' => $entity->getId(),'motivo'=>$motivo));
-
                     }catch(Exception $e){}
-                    
                 }else{
                     if (($entity->getFecha() >= $entity->getrangoHasta())) {
                         throw new Exception("La fecha final de las reservas debe ser mayor a la fecha inicial");  
+                    }else{
+                        
                     }
                     if ($entity->getRango() > 0) {
                     $fechaReservaActual = $entity->getFecha();
@@ -140,6 +139,7 @@ class ReservaController extends Controller
                     }  
                    
                     }
+                    
                     return $this->render('CrestaAulasBundle:Reserva:showArray.html.twig', array('array' => $arrayReservasConcatenadas));
                 } 
             }    
@@ -189,9 +189,20 @@ class ReservaController extends Controller
             $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente'; 
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$asd ,'pizaCarrera'=>'N/A' );
         }
+
+       /* if (($entityAux->getHoraDesde() < $entityAux->getHoraHasta()) and ($record)){
+            $cancelarHoras = true;
+            $reservasCargadas[$index]['motivo'] = 'Las horas de inicio y fin coinciden o la hora final es menor a la hora inicial'; 
+            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha','fechaReserva'=>$asd ,'pizaCarrera'=>'');
+            $record = false;
+        }else{
+            $cancelarHoras = false;
+            $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente'; 
+            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$asd ,'pizaCarrera'=>'N/A' );
+        }*/
         
       
-        if  ((!$canceloPiso) and (!$cancelarAlerta) ){
+        if  ((!$canceloPiso) and (!$cancelarAlerta)){
             $em->merge($entityAux);
             $em->flush();
             $em->clear();
