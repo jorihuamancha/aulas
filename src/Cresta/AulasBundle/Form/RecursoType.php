@@ -16,6 +16,7 @@ class RecursoType extends AbstractType
     {
         $builder
             ->add('nombre','text',array('label'=>'Nombre:','pattern'=>"[a-zA-ZÑñá-úÁ-Ú ]+"))
+            ->add('observaciones', 'text', array('label'=>'Observaciones:'))
             
         ;
     }

@@ -83,6 +83,7 @@
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Teléfono</th>
+                <th>Observaciones</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -97,7 +98,11 @@
                 {% else %}
                     <td>{{ entity.email }}</td>
                 {% endif %}
-
+                {% if entity.observaciones == null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.observaciones }}</td>
+                {% endif %}
                 {% if entity.telefono == null %}
                     <td> N/A </td>
                 {% else %}

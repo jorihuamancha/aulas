@@ -42,31 +42,57 @@ class AlertaController extends Controller
      */
     public function createAction(Request $request){
         $entity = new Alerta();
+
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        if (!$this::hayReserva($entity)) {
+        $fecha=$entity->getFecha();
+        $fecha->setTime(00, 00, 00);
+        $entity->setFecha($fecha);
+
+        if (!$this->hayReserva($entity)) {
             throw new Exception("Hay una reserva para ese día.");
+        }elseif (!$this->existeAlerta($entity)){
+            throw new Exception("Ya cargaste una alerta este dia");
         }
+
         try{
-            if ($this::existeAlerta($entity)) {
-                if ($form->isValid()) {
-                    $em = $this->getDoctrine()->getManager();
-                    $fecha=$entity->getFecha();
-                    $fecha->setTime(00, 00, 00);
-                    $entity->setFecha($fecha);
-                    $em->persist($entity);
-                    $em->flush();
+            $em->persist($entity);
+            $em->flush();
+            return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));  
+       
+       }catch(Exception $e){}
 
-                    return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));
-                }
-            }
-        }catch(Exception $e){}
-
-            return $this->render('CrestaAulasBundle:Alerta:new.html.twig', array(
-                'entity' => $entity,
-                'form'   => $form->createView(),
-            ));
+    return $this->render('CrestaAulasBundle:Alerta:new.html.twig', array('entity'=>$entity,'form'=> $form->createView(),));
         
+    }
+
+    private function existeAlerta ($entity){
+        $em = $this->getDoctrine()->getManager();
+        $fecha = $entity->getFecha();
+        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:alerta a WHERE a.fecha = :fecha ')
+                    ->setParameter('fecha',$fecha);
+        $alertaOP = $query->getResult();
+        if (empty($alertaOP)){
+            return true;
+        }else{
+           return false;
+        }
+    
+     }
+
+    private function hayReserva ($entity){
+        $em = $this->getDoctrine()->getManager();
+        $fecha = $entity->getFecha();
+        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fecha = :fecha ')
+                    ->setParameter('fecha',$fecha);
+        $reserva = $query->getResult();
+        if (empty($reserva)) {
+            return true;
+        }else{
+            return false;
+        }
+    
     }
 
     /**
@@ -187,18 +213,23 @@ class AlertaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        
-        if ($editForm->isValid()) {
-             if (!$this::hayReserva($entity)) {
-                throw new Exception("No puede editar la alerta, hay una o más reservas ese día.");
-            }
-            $fecha=$entity->getFecha();
-            $fecha->setTime(00, 00, 00);
-            $entity->setFecha($fecha);
+        $fecha=$entity->getFecha();
+        $fecha->setTime(00, 00, 00);
+        $entity->setFecha($fecha);
+        if (!$this::hayReserva($entity)) {
+            throw new Exception("No puede editar la alerta, hay una o más reservas ese día.");
+        }elseif (!$this->existeAlertaEdit($entity)){
+            throw new Exception("Ya cargaste una alerta este dia");
+        }
+        try{
+
             $em->flush();
-             //return $this->redirect($this->generateUrl('aulas_alerta_edit', array('id' => $id)));
-             return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));
-          }
+
+        }catch(Exception $e){}
+        
+        
+        return $this->redirect($this->generateUrl('aulas_alerta_show', array('id' => $entity->getId())));
+          
 
 
     return $this->render('CrestaAulasBundle:Alerta:edit.html.twig', array(
@@ -207,6 +238,26 @@ class AlertaController extends Controller
                 'delete_form' => $deleteForm->createView(),
             ));
     }
+
+    private function existeAlertaEdit ($entity){
+        $em = $this->getDoctrine()->getManager();
+        $fecha = $entity->getFecha();
+        $id = $entity->getId();
+        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:alerta a WHERE (a.fecha = :fecha and a.id <> :id)')
+                    ->setParameter('fecha',$fecha)
+                    ->setParameter('id', $id);
+        $alertaOP = $query->getResult();
+        if (empty($alertaOP)){
+            return true;
+        }else{
+           return false;
+        }
+    
+     }
+
+   
+
+
     /**
      * Deletes a Alerta entity.
      *
@@ -248,36 +299,6 @@ class AlertaController extends Controller
         ;
     }
 
-    private function existeAlerta ($entity){
-        $em = $this->getDoctrine()->getManager();
-        $fecha = $entity->getFecha();
-
-        $query = $em->createQuery('SELECT a FROM CrestaAulasBundle:alerta a WHERE a.fecha = :fecha ')
-                    ->setParameter('fecha',$fecha);
-
-        $actividad = $query->getResult();
-        
-        if (empty($actividad)) {
-            return true;
-
-        }else{
-           return false;
-        }
     
-     }
-
-    private function hayReserva ($entity){
-        $em = $this->getDoctrine()->getManager();
-        $fecha = $entity->getFecha();
-        $query = $em->createQuery('SELECT r FROM CrestaAulasBundle:Reserva r WHERE r.fecha = :fecha ')
-                    ->setParameter('fecha',$fecha);
-        $reserva = $query->getResult();
-        if (empty($reserva)) {
-            return true;
-        }else{
-            return false;
-        }
-    
-    }
 
 }

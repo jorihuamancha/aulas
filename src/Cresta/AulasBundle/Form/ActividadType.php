@@ -18,6 +18,7 @@ class ActividadType extends AbstractType
             ->add('nombre','text',array('label'=>'Nombre: '))
             ->add('tipo','text',array('label'=>'Tipo: '))
             ->add('disertantes','text',array('label'=>'Disertantes: ', 'required'=>false))
+            ->add('observaciones','text',array('label'=>'Observaciones: ', 'required'=>false))
         ;
     }
     

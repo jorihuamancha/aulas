@@ -13,7 +13,7 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-               
+                <th>Observaciones</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -21,6 +21,7 @@
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.nombre }}</td>
+                <td>{{ entity.observaciones}}</td>
                
                 <td>
                 <ul>

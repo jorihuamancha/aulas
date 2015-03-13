@@ -16,7 +16,6 @@ class Docente extends Persona
     /**
      * @ORM\OneToOne(targetEntity="Persona", inversedBy="Docente")
     */
-
     private $personaDocente;
 
     /**

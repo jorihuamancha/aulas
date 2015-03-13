@@ -120,6 +120,7 @@
                 <th>Año</th>
                 <th>Semestre</th>
                 <th>Ciclo</th>
+                <th>Observaciones</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -143,6 +144,7 @@
                     <td>Anual</td>
                 {% endif %}
                 <td>{{ entity.ciclo }}</td>
+                <td>{{ entity.observaciones }}</td>
                 <td>
                 <ul>
                         <a href="{{ path('aulas_curso_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>

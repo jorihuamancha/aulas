@@ -216,22 +216,22 @@ nav ul li a:hover{
 	voy a poner un ID a cada uno (Los EDITS y NEWS de cada CRUD) */
 
 /*Nuevos*/
-.formAutogenerado #NuevoCurso div:nth-child(6),.formAutogenerado #NuevoCurso div:nth-child(7),
+.formAutogenerado #NuevoCurso div:nth-child(7),.formAutogenerado #NuevoCurso div:nth-child(8),
 .formAutogenerado #NuevaCarrera div:nth-child(7),.formAutogenerado #NuevaCarrera div:nth-child(8),
-.formAutogenerado #NuevoActividad div:nth-child(4), .formAutogenerado #NuevoActividad div:nth-child(5),
-.formAutogenerado #NuevoRecurso div:nth-child(2),.formAutogenerado #NuevoRecurso div:nth-child(3),
+.formAutogenerado #NuevoActividad div:nth-child(5), .formAutogenerado #NuevoActividad div:nth-child(6),
+.formAutogenerado #NuevoRecurso div:nth-child(3),.formAutogenerado #NuevoRecurso div:nth-child(4),
 .formAutogenerado #NuevaAula div:nth-child(7),.formAutogenerado #NuevaAula div:nth-child(8),
 .formAutogenerado #NuevaAlerta div:nth-child(4),.formAutogenerado #NuevaAlerta div:nth-child(5),
-.formAutogenerado #NuevoDocente div:nth-child(5),.formAutogenerado #NuevoDocente div:nth-child(6),
+.formAutogenerado #NuevoDocente div:nth-child(6),.formAutogenerado #NuevoDocente div:nth-child(7),
 .formAutogenerado #cresta_aulasbundle_reserva div:nth-child(15), .formAutogenerado #cresta_aulasbundle_reserva div:nth-child(16), 
 /*Editar*/
-.formAutogenerado #EditarCurso div:nth-child(6),.formAutogenerado #EditarCurso div:nth-child(7),
+.formAutogenerado #EditarCurso div:nth-child(7),.formAutogenerado #EditarCurso div:nth-child(8),
 .formAutogenerado #EditarCarrera div:nth-child(7),.formAutogenerado #EditarCarrera div:nth-child(8),
-.formAutogenerado #EditarActividad div:nth-child(4),.formAutogenerado #EditarActividad div:nth-child(5),
-.formAutogenerado #EditarRecurso div:nth-child(2),.formAutogenerado #EditarRecurso div:nth-child(3),
+.formAutogenerado #EditarActividad div:nth-child(5),.formAutogenerado #EditarActividad div:nth-child(6),
+.formAutogenerado #EditarRecurso div:nth-child(3),.formAutogenerado #EditarRecurso div:nth-child(4),
 .formAutogenerado #EditarAula div:nth-child(7),.formAutogenerado #EditarAula div:nth-child(8),
 .formAutogenerado #EditarAlerta div:nth-child(4),.formAutogenerado #EditarAlerta div:nth-child(5),
-.formAutogenerado #EditarDocente div:nth-child(5),.formAutogenerado #EditarDocente div:nth-child(6),
+.formAutogenerado #EditarDocente div:nth-child(6),.formAutogenerado #EditarDocente div:nth-child(7),
 .formAutogenerado #EditarUsuario div:nth-child(5),.formAutogenerado #EditarUsuario div:nth-child(6){
 
 

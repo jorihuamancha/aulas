@@ -22,6 +22,14 @@
                 {% endif %}
             </tr>
             <tr>
+                <th>Observaciones</th>
+                {% if entity.observaciones is null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.observaciones }}</td>
+                {% endif %}
+            </tr>
+            <tr>
                 <th>Teléfono</th>
                 {% if entity.telefono is null %}
                     <td> N/A </td>
