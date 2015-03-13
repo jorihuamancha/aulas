@@ -151,7 +151,6 @@ class ReservaController extends Controller
 
     //By Neg.-
     private function crearReservaOP($entity, $fechaReservaActual, $reservasCargadas,$index,$fechaActual){
-        $record = true;
         $entityAux = new Reserva();
         $em = $this->getDoctrine()->getManager();
         $entityAux = $entity;
@@ -163,37 +162,30 @@ class ReservaController extends Controller
         }else{
             $cancelaDomingo = false;
         }*/
-        $rsu = false;
-        $rsu = $this->freeWilly($entityAux);
+       
+       
         $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> '');
-        if($rsu){
-            $reservasCargadas[$index]['pizaCarrera'] = 'N/A';
-            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=> $asd ,'pizaCarrera'=> 'N/A');
+        if($this->freeWilly($entityAux)){
+            $reservasCargadas[$index]['pizaCarrera'] = 'Se agrego correctamente';
         }else{
             $reservasCargadas[$index]['pizaCarrera'] = 'Existen reservas para esa misma carrera y año';
-            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=> $asd ,'pizaCarrera'=> 'Existen reservas para esa misma carrera y año');
         }
-        
-        if($this->sePuede($entityAux) and ($record)){
-            $canceloPiso = false;
-            $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente';
-            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> ,'fechaReserva'=> $asd ,'pizaCarrera'=> '');
-        }else{ 
-            $canceloPiso = true;
-            $reservasCargadas[$index]['motivo'] = 'Ya hay una reserva para esa hora en ese dia.';
-            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.','fechaReserva'=> $asd ,'pizaCarrera'=> '');
-            $record = false;
-        }
-        if (!$this::conprobarAlerta($entityAux->getFecha()) and ($record)){
+        if (!$this::conprobarAlerta($entityAux->getFecha())){
             $cancelarAlerta = true;
-            $reservasCargadas[$index]['motivo'] = 'Hay un feriado en esta fecha'; 
-            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha','fechaReserva'=>$asd ,'pizaCarrera'=>'');
-            $record = false;
+            $reservasCargadas[$index]['motivo'] = 'Hay un FERIADO en esta fecha o una RESERVA'; 
         }else{
             $cancelarAlerta = false;
             $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente'; 
-            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$asd ,'pizaCarrera'=>'N/A' );
         }
+        
+        if($this->sePuede($entityAux)){
+            $canceloPiso = false;
+            $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente';
+        }else{ 
+            $canceloPiso = true;
+            $reservasCargadas[$index]['motivo'] = 'Hay un FERIADO en esta fecha o una RESERVA';
+        }
+        
         
         
         if  ((!$canceloPiso) and (!$cancelarAlerta) ){

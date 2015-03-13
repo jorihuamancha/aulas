@@ -11,18 +11,17 @@
                         {% for reserva in arrayreserva %}
                             <tr>
                                 <td>{{reserva.fechaReserva }}</td>
-                                {% if reserva.motivo == 'Ya hay una reserva para esa hora en ese dia.' %}
+                                {% if reserva.motivo == 'Hay un FERIADO en esta fecha o una RESERVA' %}
                                     <td class="bg-danger" style="color:red">{{reserva.motivo}}</td>
                                 {% elseif reserva.motivo == 'Se agrego correctamente' %}
                                     <td class="bg-success" style="color:green">{{reserva.motivo}}</td>
-                                {% elseif reserva.motivo == 'Hay un feriado en esta fecha' %}
-                                    <td class="bg-danger" style="color:red">{{reserva.motivo}}</td>
                                 {% endif %}
-                                {% if reserva.pizaCarrera == 'N/A' %}
+                                {% if reserva.pizaCarrera == 'Se agrego correctamente' %}
                                     <td class="bg-success" style="color:green">{{reserva.pizaCarrera}}</td>
                                 {% else %}
                                     <td class="bg-danger" style="color:red">{{reserva.pizaCarrera}}</td>
-                                {% endif %}    
+                                {% endif %}  
+                                 
                             </tr>
                         {% endfor %}
                     {% endfor %}                 
