@@ -669,7 +669,7 @@
           href = "?mes=Enero&dia={{seleccionadoDia}}"> << </a>
 
         {% elseif (seleccionadoMes == 'Mes') %}
-          href = "?mes={{mesActuLetras}}&dia={{seleccionadoDia}}"> << </a>
+          href = "?mes={{mesActuLetras}}&dia={{diaActual}}"> << </a>
         {% endif %}
         </li>
 
@@ -727,7 +727,7 @@
 
         {# Si no hay ningun mes en el selector #}
         {% elseif (seleccionadoMes == 'Mes') %}
-          href = "?mes={{mesActuLetras}}&dia={{seleccionadoDia}}"> >> </a>
+          href = "?mes={{mesActuLetras}}&dia={{diaActual}}"> >> </a>
         {% endif %}
         </li>
         </ul>

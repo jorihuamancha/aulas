@@ -173,16 +173,7 @@ class ReservaController extends Controller
             $reservasCargadas[$index]['pizaCarrera'] = 'Existen reservas para esa misma carrera y año';
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=> $asd ,'pizaCarrera'=> 'Existen reservas para esa misma carrera y año');
         }
-        if (!$this::conprobarAlerta($entityAux->getFecha()) and ($record)){
-            $cancelarAlerta = true;
-            $reservasCargadas[$index]['motivo'] = 'Hay un feriado en esta fecha'; 
-            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha','fechaReserva'=>$asd ,'pizaCarrera'=>'');
-            $record = false;
-        }else{
-            $cancelarAlerta = false;
-            $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente'; 
-            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$asd ,'pizaCarrera'=>'N/A' );
-        }
+        
         if($this->sePuede($entityAux) and ($record)){
             $canceloPiso = false;
             $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente';
@@ -192,6 +183,16 @@ class ReservaController extends Controller
             $reservasCargadas[$index]['motivo'] = 'Ya hay una reserva para esa hora en ese dia.';
             //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Ya hay una reserva para esa hora en ese dia.','fechaReserva'=> $asd ,'pizaCarrera'=> '');
             $record = false;
+        }
+        if (!$this::conprobarAlerta($entityAux->getFecha()) and ($record)){
+            $cancelarAlerta = true;
+            $reservasCargadas[$index]['motivo'] = 'Hay un feriado en esta fecha'; 
+            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Hay un feriado en esta fecha','fechaReserva'=>$asd ,'pizaCarrera'=>'');
+            $record = false;
+        }else{
+            $cancelarAlerta = false;
+            $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente'; 
+            //$reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> 'Se agrego correctamente','fechaReserva'=>$asd ,'pizaCarrera'=>'N/A' );
         }
         
         
