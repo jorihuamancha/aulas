@@ -163,7 +163,6 @@ class ReservaController extends Controller
             $cancelaDomingo = false;
         }*/
        
-       
         $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> '');
         if($this->freeWilly($entityAux)){
             $reservasCargadas[$index]['pizaCarrera'] = 'Se agrego correctamente';
