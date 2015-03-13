@@ -289,7 +289,7 @@ class ReservaController extends Controller
 
     }
 
-     //By Neg.-
+    //By Neg.-
     private function freeWillyModoEdit($entity){
         $em = $this->getDoctrine()->getManager();
        
@@ -862,13 +862,13 @@ class ReservaController extends Controller
                 $entities = $em->getRepository('CrestaAulasBundle:Reserva')->findAll();
                 $_SESSION['nombrefiltro']='Todos';//Para imprimir
                 //agrego lo siguiente para que ordene cuando se abre el listado
-                //By Neg.-
-                /*$reserva = $em->getRepository('CrestaAulasBundle:Reserva');
+                
+                $reserva = $em->getRepository('CrestaAulasBundle:Reserva');
                 $query = $reserva->createQueryBuilder('r')
-                                ->orderBy('r.horaDesde', 'ASC') //esta mal
-                                ->addOrderBy('r.fecha', 'ASC')
+                                ->orderBy('r.fecha', 'ASC') //esta mal
+                                ->addOrderBy('r.horaDesde', 'ASC')
                                 ->getQuery();
-                $entities = $query->getResult();*/
+                $entities = $query->getResult();
                 //fin de agregados
                 break;
 
