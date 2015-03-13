@@ -163,14 +163,13 @@ class ReservaController extends Controller
             $cancelaDomingo = false;
         }*/
        
-       
         $reservasCargadas[ $index ] = array('entidad'=>$entityAux,'motivo'=> '','fechaReserva'=>$asd  ,'pizaCarrera'=> '');
         if($this->freeWilly($entityAux)){
             $reservasCargadas[$index]['pizaCarrera'] = 'Se agrego correctamente';
         }else{
             $reservasCargadas[$index]['pizaCarrera'] = 'Existen reservas para esa misma carrera y año';
         }
-        if (!$this::conprobarAlerta($entityAux->getFecha())){
+        if ((!$this::conprobarAlerta($entityAux->getFecha())) or (!$this->sePuede($entityAux))){
             $cancelarAlerta = true;
             $reservasCargadas[$index]['motivo'] = 'Hay un FERIADO en esta fecha o una RESERVA'; 
         }else{
@@ -178,17 +177,17 @@ class ReservaController extends Controller
             $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente'; 
         }
         
-        if($this->sePuede($entityAux)){
+        /*  if($this->sePuede($entityAux)){
             $canceloPiso = false;
             $reservasCargadas[$index]['motivo'] = 'Se agrego correctamente';
         }else{ 
             $canceloPiso = true;
             $reservasCargadas[$index]['motivo'] = 'Hay un FERIADO en esta fecha o una RESERVA';
-        }
+        }*/
         
         
         
-        if  ((!$canceloPiso) and (!$cancelarAlerta) ){
+        if  ( (!$cancelarAlerta) ){
             $em->merge($entityAux);
             $em->flush();
             $em->clear();
