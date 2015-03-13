@@ -52,6 +52,13 @@ class Curso extends Tarea
     private $Semestre;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="observaciones", type="string", length=255)
+     */
+    private $observaciones;
+
+    /**
      * Set anio
      *
      * @param string $anio
@@ -167,4 +174,26 @@ class Curso extends Tarea
         return $cursoCarrera;
     }
 
+    /**
+     * Set observaciones
+     *
+     * @param string $observaciones
+     * @return Curso
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+    
+    /**
+     * Get observaciones
+     *
+     * @return string 
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
 }

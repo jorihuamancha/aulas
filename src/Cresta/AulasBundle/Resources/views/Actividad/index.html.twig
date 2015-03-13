@@ -78,6 +78,7 @@
                 <th>Nombre</th>
                 <th>Tipo</th>
                 <th>Disertantes</th>
+                <th>Observaciones</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -90,6 +91,11 @@
                     <td> N/A </td>
                 {% else %}
                     <td>{{ entity.disertantes }}</td>
+                {% endif %}
+                {% if entity.observaciones is null %}
+                    <td> N/A </td>
+                {% else %}
+                    <td>{{ entity.observaciones }}</td>
                 {% endif %}
                 <td>
                 <ul>

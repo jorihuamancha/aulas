@@ -28,6 +28,8 @@ class DocenteType extends AbstractType
             ->add('email','text',array('label'=>'Email: ',
                                         'pattern'=>"[a-zA-Z0-9@.- ]+",
                                         'required'=>false))
+            ->add('observaciones','text',array('label'=>'Observaciones: ',
+                                        'required'=>false))
            
         ;
     }

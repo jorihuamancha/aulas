@@ -36,6 +36,13 @@ class Actividad extends Tarea
      */
     private $disertantes;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
+     */
+    private $observaciones;
+
 
     /**
      * Set tipo
@@ -93,5 +100,29 @@ class Actividad extends Tarea
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set observaciones
+     *
+     * @param string $observaciones
+     * @return Actividad
+     */
+
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get observaciones
+     *
+     * @return string 
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
     }
 }

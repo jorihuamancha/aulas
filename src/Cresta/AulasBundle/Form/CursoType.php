@@ -33,6 +33,7 @@ class CursoType extends AbstractType
                                               'required'  => true))
 
             ->add('ciclo','text',array('label'=>'Ciclo lectivo:'))
+            ->add('observaciones','text',array('label'=>'Observaciones:'))
             ->add('carrera','entity',array( 'class'=>'CrestaAulasBundle:Carrera',
                                             'property'=>'nombre',
                                             'label'=>'Carrera:',
