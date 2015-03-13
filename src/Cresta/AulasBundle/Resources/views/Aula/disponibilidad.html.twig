@@ -849,7 +849,8 @@
                                             document.getElementById("{{horario}}{{nombreActual}}").innerHTML = 
                                                  "{{anio}}</br>" +
                                                  "{{nombreCursoAct}} </br> "+
-                                                 "{{disponible.4.docente.apellido}},{{disponible.4.docente.nombre}} ";
+                                                 "{{disponible.4.docente.apellido}},{{disponible.4.docente.nombre}}</br> "+
+                                                    "{% if disponible.4.suspendida %} <span style='color:#F00'>(SUSPENDIDA)</span> {% endif %}";
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.remove('HorarioDisponible');
                                             document.getElementById("{{horario}}{{nombreActual}}").classList.add('HorarioOcupado');
                                             document.getElementById("{{horario}}{{nombreActual}}").setAttribute('rowspan','{{valor}}');
