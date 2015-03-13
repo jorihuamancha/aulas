@@ -5,21 +5,21 @@
 
         <table class="record_properties tabla">
         <tbody>
+            <th>Fecha</th> <th> Resultado </th> <th> ¿Hay algún curso con esos datos? </th>
             <tr>
-                <th rowspan="{{array | length +1}}">Fechas de Reserva</th>
                     {% for arrayreserva in array %}
                         {% for reserva in arrayreserva %}
                             <tr>
                                 <td>{{reserva.fechaReserva }}</td>
                                 {% if reserva.motivo == 'Hay un FERIADO en esta fecha o una RESERVA' %}
-                                    <td class="bg-danger" style="color:red">{{reserva.motivo}}</td>
-                                {% elseif reserva.motivo == 'Se agrego correctamente' %}
+                                    <td class="bg-danger" style="color:red"> Hay una reserva o un feriado en esta fecha</td>
+                                {% else %}
                                     <td class="bg-success" style="color:green">{{reserva.motivo}}</td>
                                 {% endif %}
-                                {% if reserva.pizaCarrera == 'Se agrego correctamente' %}
-                                    <td class="bg-success" style="color:green">{{reserva.pizaCarrera}}</td>
+                                {% if reserva.pizaCarrera == 'Existen reservas para esa misma carrera y año' %}
+                                    <td class="bg-danger" style="color:red"> SI </td>    
                                 {% else %}
-                                    <td class="bg-danger" style="color:red">{{reserva.pizaCarrera}}</td>
+                                    <td class="bg-success" style="color:green"> NO </td>
                                 {% endif %}  
                                  
                             </tr>
