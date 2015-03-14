@@ -23,8 +23,12 @@
                 <th>Semestre</th>
                 {% if entity.semestre == 1 %}
                    <td> Primero </td>
-                {% else %}
+                {% elseif entity.semestre == 2  %}
                    <td> Segundo</td>
+                {% elseif entity.semestre == 3  %}
+                    <td> Ambos </td>
+                {% elseif entity.semestre == 4  %}
+                    <td> Anual </td>
                 {% endif %}
                 
             </tr>
