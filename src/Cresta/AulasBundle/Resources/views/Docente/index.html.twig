@@ -93,18 +93,18 @@
                 
                 <td>{{ entity.apellido }}</td>
                 <td>{{ entity.nombre }}</td>
-                {% if entity.email == null %}
-                    <td> N/A </td>
+                {% if entity.email is empty %}
+                    <td style="color:#AAA"> N/A </td>
                 {% else %}
                     <td>{{ entity.email }}</td>
                 {% endif %}
-                {% if entity.observaciones == null %}
-                    <td> N/A </td>
+                {% if entity.observaciones is empty %}
+                    <td style="color:#AAA"> N/A </td>
                 {% else %}
                     <td>{{ entity.observaciones }}</td>
                 {% endif %}
-                {% if entity.telefono == null %}
-                    <td> N/A </td>
+                {% if entity.telefono is empty %}
+                    <td style="color:#AAA"> N/A </td>
                 {% else %}
                     <td>{{ entity.telefono }}</td>
                 {% endif %}

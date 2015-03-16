@@ -22,8 +22,8 @@
                 <td>{% if entity.fecha %}{{ entity.fecha|date('d/m/Y') }}{% endif %}</td>
                 <td>{{ entity.descripcion }}</td>
 
-                {% if entity.observaciones is null %}
-                    <td>N/A</td>
+                {% if entity.observaciones is empty %}
+                    <td style="color:#AAA"> N/A </td>
                 {% else %}
                     <td>{{ entity.observaciones }}</td>
                 {% endif %}

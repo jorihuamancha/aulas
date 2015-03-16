@@ -102,8 +102,8 @@
                 <td>{{ entity.universidad }}</td>
                 <td>{{ entity.facultad }}</td>
                 <td>{{ entity.plan }}</td>
-                {% if entity.observaciones is null %}
-                    <td>N/A</td>
+                {% if entity.observaciones is empty %}
+                    <td style="color:#AAA"> N/A </td>
                 {% else %}
                     <td>{{ entity.observaciones }}</td>
                 {% endif %}

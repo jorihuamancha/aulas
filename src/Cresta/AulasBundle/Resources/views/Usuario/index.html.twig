@@ -17,9 +17,9 @@
             <tr>
                 <td><b>{{ entity.username }}</b></td>
 
-                {% if entity.administrador is null %}
-                    <td>N/A</td>
-                    <td>N/A</td>
+                {% if entity.administrador is empty %}
+                    <td style="color:#AAA"> N/A </td>
+                    <td style="color:#AAA"> N/A </td>
                 {% else %}
                     <td>{{entity.administrador.nombre}}</td>
                     <td>{{entity.administrador.apellido}}</td>

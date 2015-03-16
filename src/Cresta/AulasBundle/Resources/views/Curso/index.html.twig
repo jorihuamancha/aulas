@@ -128,8 +128,8 @@
         {% for entity in entities %}
             <tr>
 				<td>{{ entity.nombre }}</td>
-                {% if entity.Carrera == null %}
-                    <td> N/A </td>
+                {% if entity.Carrera is empty %}
+                    <td style="color:#AAA"> N/A </td>
                 {% else %}
                     <td style="Color:{{entity.Carrera.color}}">
                        <b> {{ entity.Carrera.nombre }} </b>
@@ -140,11 +140,19 @@
                     <td>Primero</td>
                 {% elseif entity.semestre == 2 %}
                     <td>Segundo</td>
+                {% elseif entity.semestre == 3 %}
+                    <td>Ambos</td>
                 {% else %}
                     <td>Anual</td>
                 {% endif %}
                 <td>{{ entity.ciclo }}</td>
-                <td>{{ entity.observaciones }}</td>
+                {% if entity.observaciones is empty %}
+                <td style="color:#AAA"> N/A </td>
+                {% else %}
+                <td>
+                    {{ entity.observaciones }}
+                </td>
+                {% endif %}
                 <td>
                 <ul>
                         <a href="{{ path('aulas_curso_show', { 'id': entity.id }) }}"><img src="{{ asset('img/iconos/ver.png') }}" class="icono" alt="Ver" /></a>

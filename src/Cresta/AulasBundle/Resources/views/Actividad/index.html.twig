@@ -87,13 +87,13 @@
             <tr>
                 <td>{{ entity.nombre }}</td>
                 <td>{{ entity.tipo }}</td>
-                {% if entity.disertantes is null %}
-                    <td> N/A </td>
+                {% if entity.disertantes is empty %}
+                    <td style="color:#AAA"> N/A </td>
                 {% else %}
                     <td>{{ entity.disertantes }}</td>
                 {% endif %}
-                {% if entity.observaciones is null %}
-                    <td> N/A </td>
+                {% if entity.observaciones is empty %} 
+                <td style="color:#AAA"> N/A </td>
                 {% else %}
                     <td>{{ entity.observaciones }}</td>
                 {% endif %}
